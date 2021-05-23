@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.GradeMapper;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
+import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
 
 @Service("examService")
@@ -19,28 +20,23 @@ public class ExamServiceImpl implements ExamService {
 		this.mapper = mapper;
 	}
 	
-	
 	@Override
 	public boolean registExam(ExamDTO exam) {
-
 		return mapper.insertExam(exam) > 0 ? true : false;
 	}
 
 	@Override
-	public List<ExamDTO> selectExamList(ExamSearchCriteriaDTO searchCriteria) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ExamFullInfoDTO> selectExamList(ExamSearchCriteriaDTO searchCriteria) {
+		return mapper.selectExamList(searchCriteria);
 	}
 
 	@Override
 	public boolean modifyExam(ExamDTO exam) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean removeExam(ExamDTO exam) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

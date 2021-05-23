@@ -5,7 +5,7 @@
    
 <mapper namespace="com.admin.firstedu.grade.model.dao.GradeMapper">
 
-	<resultMap id="examResultSet" type="ExamDTO">
+	<resultMap id="examResultMap" type="ExamDTO">
 		<id column="EXAM_NO" property="no"/>
 		<result column="CATEGORY_NO" property="categoryNo"/>
 		<result column="EXAM_NAME" property="name"/>
@@ -14,6 +14,27 @@
 		<result column="GRADE" property="grade"/>
 		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
+	
+	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
+		<id column="CATEGORY_NO" property="no"/>
+		<result column="EXAM_NAME" property="name"/>
+		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
+	</resultMap>
+	
+	<resultMap id="subjectCategoryResultMap" type="SubjectCategoryDTO">
+		<id column="CATEGORY_NO" property="no"/>
+		<result column="SUBJECT_NAME" property="name"/>
+	</resultMap>
+	
+	<resultMap id="examFullInfoResultMap" type="ExamFullInfoDTO">
+		<id column="EXAM_NO" property="no"/>
+		<result column="EXAM_NAME" property="name"/>
+		<result column="EXAM_DATE" property="examDate"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="GRADE" property="grade"/>
+		<association resultMap="examCategoryResultMap" property="category"/>
+		<association resultMap="subjectCategoryResultMap" property="subject"/>
+ 	</resultMap>
 
 	<insert id="insertExam" parameterType="ExamDTO">
 		INSERT
@@ -39,4 +60,39 @@
 		)
 	</insert>
 
+	<select id="selectExamList" parameterType="ExamSearchCriteriaDTO" resultMap="examFullInfoResultMap">
+		SELECT
+			   A.EXAM_NO
+			 , A.EXAM_NAME
+			 , A.EXAM_DATE
+			 , A.SCHOOL
+			 , A.GRADE
+			 , B.EXAM_NAME
+			 , B.REF_CATEGORY_NO
+			 , C.SUBJECT_NAME			 
+	      FROM TBL_EXAM A
+	      JOIN TBL_EXAM_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO)
+	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.CATEGORY_NO)
+	      <where>
+	      	<if test="refCategory != 0">
+	      		B.REF_CATEGORY_NO = #{ refCategory }
+	      	</if>
+	      	<if test="name != null">
+	      		AND A.EXAM_NAME LIKE '%' || #{ name } || '%'
+	      	</if>
+	      	<if test="beginDate != null">
+	      		AND A.EXAM_DATE >= #{ beginDate }
+	      	</if>
+	      	<if test="endDate != null">
+	      		AND #{ endDate } >= A.EXAM_DATE
+	      	</if>
+	      	<if test="grade != 0">
+	      		AND A.GRADE = #{ grade }
+	      	</if>
+	      	<if test="subject != 0">
+	      		AND C.CATEGORY_NO = #{ subject }
+	      	</if>
+	      </where>
+	</select>
+	
 </mapper>

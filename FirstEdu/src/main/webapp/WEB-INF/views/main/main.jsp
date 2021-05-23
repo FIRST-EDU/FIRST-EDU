@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1 align="center">FIRST EDU</h1>
+	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/grade/exam'">시험 일정 관리</button>
 </body>
 </html>

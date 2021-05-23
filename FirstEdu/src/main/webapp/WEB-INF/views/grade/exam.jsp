@@ -9,7 +9,8 @@
 <body>
 	<h1 align="center">시험 일정 관리</h1>
 	<form action="${ pageContext.servletContext.contextPath }/exam/regist" method="post">
-		<button>Test</button>
+		<button>Regist Test</button>
 	</form>
+	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/exam/list'">시험 목록 조회</button>
 </body>
 </html>

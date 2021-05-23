@@ -6,5 +6,9 @@
 <configuration>
 	<typeAliases>
  		<typeAlias alias="ExamDTO" type="com.admin.firstedu.grade.model.dto.ExamDTO"/>
+ 		<typeAlias alias="ExamCategoryDTO" type="com.admin.firstedu.grade.model.dto.ExamCategoryDTO"/>
+ 		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
+ 		<typeAlias alias="ExamFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamFullInfoDTO"/>
+ 		<typeAlias alias="ExamSearchCriteriaDTO" type="com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO"/>
  	</typeAliases>
 </configuration>
