@@ -12,6 +12,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder location="classpath:connection-info.properties"/>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
@@ -48,5 +49,7 @@
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
 			advice-ref="txAdvice" />
 	</aop:config>
+	
+	<mybatis-spring:scan base-package="com.admin.firstedu.grade.model.dao"/>
 	
 </beans>

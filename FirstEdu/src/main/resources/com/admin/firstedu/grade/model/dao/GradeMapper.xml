@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.grade.model.dao.GradeMapper">
+
+	<resultMap id="examResultSet" type="ExamDTO">
+		<id column="EXAM_NO" property="no"/>
+		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="EXAM_NAME" property="name"/>
+		<result column="EXAM_DATE" property="examDate"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="GRADE" property="grade"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+	</resultMap>
+
+	<insert id="insertExam" parameterType="ExamDTO">
+		INSERT
+		  INTO TBL_EXAM A
+		(
+		  A.EXAM_NO
+		, A.CATEGORY_NO
+		, A.EXAM_NAME
+		, A.EXAM_DATE
+		, A.SCHOOL
+		, A.GRADE
+		, A.SUBJECT_NO
+		)
+		VALUES
+		(
+		  SEQ_EXAM_NO.NEXTVAL
+		, #{ categoryNo }
+		, #{ name }
+		, #{ examDate }
+		, #{ school }
+		, #{ grade }
+		, #{ subjectNo }
+		)
+	</insert>
+
+</mapper>
