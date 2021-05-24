@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="PayMapper">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.PaylistDTO" id="payListResultMap">
+  		<id property="payNo" column="PAY_NO"/>
+  		<result property="classNo" column="CLASS_NO"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="payYn" column="PAY_YN"/>
+  		<result property="payOption" column="PAY_OPTION"/>
+  		<result property="payMonth" column="PAY_MONTH"/>
+  		<result property="discountNo" column="DISCOUNT_NO"/>
+  		<result property="payment" column="PAY_MENT"/>
+  		<result property="payDate" column="PAY_DATE"/>
+  	</resultMap>
+  	
+  	<select id="selectPayList" resultMap="payListResultMap">
+		SELECT 
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , E.SUBJECT_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.TUTION
+		     , F.DISCOUNT_RATE
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_SUBJECT_INFO D ON (B.SUBJECT_CODE = D.SUBJECT_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
+		  JOIN TBL_DISCOUNT F ON (A.DISCOUNT_NO = F.DISCOUNT_NO)
+  	</select>
+  </mapper>

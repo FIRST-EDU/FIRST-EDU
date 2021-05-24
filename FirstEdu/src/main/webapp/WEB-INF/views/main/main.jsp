@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1 align="center">FIRST EDU</h1>
+	<button onclick="location.href='test'">조회</button>
 </body>
 </html>
