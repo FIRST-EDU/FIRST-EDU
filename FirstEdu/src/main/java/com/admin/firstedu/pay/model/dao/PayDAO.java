@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.admin.firstedu.pay.model.dto.PayDTO;
+import com.admin.firstedu.pay.model.dto.PayListDTO;
 
 public interface PayDAO {
 
-	List<PayDTO> selectPayList(SqlSessionTemplate sqlSession);
+	List<PayListDTO> selectPayList(SqlSessionTemplate sqlSession);
+
+	int insertPay(SqlSessionTemplate sqlSession);
+
+	int deletePay(SqlSessionTemplate sqlSession);
 
 }

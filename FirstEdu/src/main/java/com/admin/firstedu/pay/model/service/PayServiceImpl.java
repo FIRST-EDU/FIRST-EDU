@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.pay.model.dao.PayDAO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
+import com.admin.firstedu.pay.model.dto.PayListDTO;
 
 @Service("payService")
 public class PayServiceImpl implements PayService{
@@ -23,9 +24,21 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<PayDTO> selectPayList() {
+	public List<PayListDTO> selectPayList() {
 		// TODO Auto-generated method stub
 		return payDAO.selectPayList(sqlSession);
+	}
+
+	@Override
+	public int insertPay(PayDTO pay) {
+		// TODO Auto-generated method stub
+		return payDAO.insertPay(sqlSession);
+	}
+
+	@Override
+	public int deletePay(PayDTO pay) {
+		// TODO Auto-generated method stub
+		return payDAO.deletePay(sqlSession);
 	}
 
 	

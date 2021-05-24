@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.admin.firstedu.pay.model.dto.PayDTO;
+import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.service.PayService;
 
 @Controller
@@ -30,10 +33,42 @@ public class PayController {
 		
 		response.setCharacterEncoding("UTF-8");
 		
-		List<PayDTO> payList = payService.selectPayList();
+		List<PayListDTO> payList = payService.selectPayList();
 		
 		model.addAttribute("payList", payList);
 		
 		return "payList";
+	}
+	
+	@PostMapping("insert")
+	public String insertPay(HttpServletResponse response, Model model, @ModelAttribute PayDTO pay) {
+		
+		response.setCharacterEncoding("UTF-8");
+		
+		int result = payService.insertPay(pay);
+		
+		if(result > 0) {
+			model.addAttribute("SuccessMessage", "수납입력에 성공하였습니다.");
+		}else {
+			model.addAttribute("FailedMessage", "수납입력에 실패하였습니다.");
+		}
+		
+		return "result";
+	}
+	
+	@PostMapping("delete")
+	public String updatePay(HttpServletResponse response, Model model, @ModelAttribute PayDTO pay) {
+		
+		response.setCharacterEncoding("UTF-8");
+		
+		int result = payService.deletePay(pay);
+		
+		if(result > 0) {
+			model.addAttribute("SuccessMessage", "수납입력에 성공하였습니다.");
+		}else {
+			model.addAttribute("FailedMessage", "수납입력에 실패하였습니다.");
+		}
+		
+		return "result";
 	}
 }

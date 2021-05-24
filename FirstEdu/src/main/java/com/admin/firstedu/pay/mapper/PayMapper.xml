@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="PayMapper">
-  	<resultMap type="com.admin.firstedu.pay.model.dto.PaylistDTO" id="payListResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.PayDTO" id="payResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="classNo" column="CLASS_NO"/>
   		<result property="studentNo" column="STUDENT_NO"/>
@@ -12,8 +12,40 @@
   		<result property="payOption" column="PAY_OPTION"/>
   		<result property="payMonth" column="PAY_MONTH"/>
   		<result property="discountNo" column="DISCOUNT_NO"/>
-  		<result property="payment" column="PAY_MENT"/>
+  		<result property="payment" column="PAYMENT"/>
   		<result property="payDate" column="PAY_DATE"/>
+  		<result property="payStatus" column="PAY_STATUS"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.pay.model.dto.payListDTO" id="payListResultMap">
+  		<id property="payNo" column="PAY_NO"/>
+  		<result property="payYn" column="PAY_YN"/>
+  		<result property="payOption" column="PAY_OPTION"/>
+  		<result property="payMonth" column="PAY_MONTH"/>
+  		<result property="payment" column="PAYMENT"/>
+  		<result property="payDate" column="PAY_DATE"/>
+  		<result property="payStatus" column="PAY_STATUS"/>  		
+  		<association property="classInfo" javaType="">
+  			<id property="classNo" column="CLASS_NO"/>
+  			<result property="beginDate" column="BEGIN_DATE"/>
+  			<association property="studentNo" javaType="">
+  				<id property="studentNo" column="STUDENT_NO"/>
+  				<result property="studentName" column="STUDENT_NAME"/>
+  			</association>
+  			<association property="subjectCode" javaType="">
+  				<id property="subjectNo" column="SUBJECT_NO"/>
+  				<result property="tution" column="TUTION"/>
+  				<association property="categoryNo" javaType="">
+  					<id property="categoryNo" column="CATEGORY_NO"/>
+  					<result property="subjectName" column="SUBJECT_NAME"/>
+  				</association>
+  			</association>
+  		</association>
+  		<association property="discount" javaType="com.admin.com.admin.firstedu.pay.model.dto.DiscountDTO">
+  			<id property="discountNo" column="DISCOUNT_NO"/>
+  			<result property="discountRate" column="DISCOUNT_RATE"/>
+  			<result property="discountReason" column="DISCOUNT_REASON"/>
+  		</association>
   	</resultMap>
   	
   	<select id="selectPayList" resultMap="payListResultMap">
@@ -34,5 +66,43 @@
 		  JOIN TBL_SUBJECT_INFO D ON (B.SUBJECT_CODE = D.SUBJECT_CODE)
 		  JOIN TBL_SUBJECT_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
 		  JOIN TBL_DISCOUNT F ON (A.DISCOUNT_NO = F.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
   	</select>
+  	
+  	<insert id="insertPay" parameterType="com.admin.firstedu.pay.model.dto.PayDTO">
+  		INSERT
+  		  INTO TBL_PAY A
+  		(
+  		  A.PAY_NO
+  		, A.CLASS_NO
+  		, A.STUDENT_NO
+  		, A.PAY_YN
+  		, A.PAY_OPTION
+  		, A.PAY_MONTH
+  		, A.DISCOUNT_NO
+  		, A.PAYMENT
+  		, A.PAY_DATE 
+  		, A.PAY_STATUS
+  		)
+  		VALUES
+  		(
+  		  SEQ_PAY_NO.NEXTVAL
+  		, #{classNo}
+  		, #{studentNo}
+  		, #{payYn}
+  		, #{payOption}
+  		, #{payMonth}
+  		, #{discountNo}
+  		, #{payment}
+  		, SYSDATE
+  		, 'Y'
+  		)
+  	</insert>
+  	
+  	<update id="deletePay" parameterType="string">
+  		UPDATE TBL_PAY A
+  		   SET A.PAY_STATUS = 'N'
+  	</update>
+  	
+  	
   </mapper>
