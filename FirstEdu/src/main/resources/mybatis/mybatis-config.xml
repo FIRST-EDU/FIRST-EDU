@@ -4,5 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
- 
+	<typeAliases>
+		<typeAlias alias="AttendanceDTO" type="com.admin.firstedu.attendance.model.dto.AttendanceDTO"/>
+	</typeAliases>
 </configuration>
