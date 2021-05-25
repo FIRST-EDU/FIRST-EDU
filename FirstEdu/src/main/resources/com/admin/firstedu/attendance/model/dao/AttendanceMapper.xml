@@ -39,23 +39,39 @@
 	<association resultMap="teacherDTO" property="teacher"/>
 	</resultMap>	
 	
-	<insert id="insertAttendance" parameterType="AttendanceDTO">
+	<insert id="insertStudent" parameterType="AttendanceDTO">
 		INSERT
 		  INTO TBL_ATTENDANCE A
 		(
-		  A.ATTENDANCE_NO, A.ATTENDANCE_TIME, A.CHECKOUT_TIME
-		, A.CATEGORY_NO, A.STUDENT_NO, A.TEACHER_NO
-		, A.MEMO, A.MONTH_TIME 
+		  A.ATTENDANCE_NO
+		, A.CATEGORY_NO, A.STUDENT_NO
+		, A.MEMO
 		 )
 		 VALUES
 		 (
-		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ attendanceTime }, #{ checkOutTime }, #{ categoryNo}
-		 ,  #{ studentNo }, #{ teacherNo }, #{ memo }, #{ monthTime }
+		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ attendanceTime }, #{ categoryNo }
+		 ,  #{ studentNo }, #{ memo }
 		 	)
 	</insert>
 	
+	<insert id="insertTeacher" parameterType="AttendanceDTO">
+		INSERT
+		  INTO TBL_ATTENDANCE A
+		(
+		  A.ATTENDANCE_NO
+		, A.TEACHER_NO
+		, A.CHECKOUT_TIME, A.ATTENDANCE_TIME
+		)
+		VALUES
+		(
+			SEQ_ATTENDANCE_NO.NEXTVAL, #{ teacherNo }, #{ checkOutTime } , #{ attendanceTime }
+		)
 	
-	<select id="selectStudnetAttendance" resultMap="attendanceResultSet" parameterType="AttendanceDTO">
+	</insert>
+	
+	
+	
+	<select id="selectStudnetAttendance" resultMap="attendanceResultSet">
 		SELECT
 		       A.ATTENDANCE_NO
 		     , A.MONTH_TIME
@@ -65,4 +81,17 @@
 		 FROM TBL_ATTENDANCE A
 		 JOIN TBL_ATTENDANCE_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO) 
 	</select>
+	
+	<update id="updateStudentAttendance" parameterType="AttendanceDTO" >
+		UPDATE
+			   TBL_ATTENDANCE A
+		<set>
+			<if test="categoryNo != null and categoryNo gt 0">
+		        A.CATEGORY_NO = #{ categoryNo }  
+			</if>
+			<if test="memo != null and memo !=''"></if>
+			  , A.MEMO = #{ memo }
+		</set>	   
+		   
+	</update>
 </mapper>
