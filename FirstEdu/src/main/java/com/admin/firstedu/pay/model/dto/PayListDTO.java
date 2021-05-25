@@ -11,15 +11,19 @@ public class PayListDTO {
 	private int payment;
 	private Date payDate;
 	private String payStatus;
-	private ClassInfoDTO classInfo; // 수강번호, 수강시작일 / 학생번호, 학생이름 / 과목코드, 수강료 / 과목카테고리번호, 과목이름
-	private DiscountDTO discount;
+	private SubjectCategoryDTO subjectCategory; // 과목카테고리번호, 과목이름
+	private SubjectInfoDTO subjectInfo; // 과목번호, 수강료
+	private DiscountDTO discount; // 할인번호, 할인율, 사유
+	private ClassInfoDTO classInfo; // 수강번호, 수강시작일 
+	private StudentDTO student; // 학생번호, 학생명
 
 	public PayListDTO() {
 		super();
 	}
 
 	public PayListDTO(int payNo, String payYn, String payOption, int payMonth, int payment, Date payDate,
-			String payStatus, ClassInfoDTO classInfo, DiscountDTO discount) {
+			String payStatus, SubjectCategoryDTO subjectCategory, SubjectInfoDTO subjectInfo, DiscountDTO discount,
+			ClassInfoDTO classInfo, StudentDTO student) {
 		super();
 		this.payNo = payNo;
 		this.payYn = payYn;
@@ -28,8 +32,11 @@ public class PayListDTO {
 		this.payment = payment;
 		this.payDate = payDate;
 		this.payStatus = payStatus;
-		this.classInfo = classInfo;
+		this.subjectCategory = subjectCategory;
+		this.subjectInfo = subjectInfo;
 		this.discount = discount;
+		this.classInfo = classInfo;
+		this.student = student;
 	}
 
 	public int getPayNo() {
@@ -88,12 +95,20 @@ public class PayListDTO {
 		this.payStatus = payStatus;
 	}
 
-	public ClassInfoDTO getClassInfo() {
-		return classInfo;
+	public SubjectCategoryDTO getSubjectCategory() {
+		return subjectCategory;
 	}
 
-	public void setClassInfo(ClassInfoDTO classInfo) {
-		this.classInfo = classInfo;
+	public void setSubjectCategory(SubjectCategoryDTO subjectCategory) {
+		this.subjectCategory = subjectCategory;
+	}
+
+	public SubjectInfoDTO getSubjectInfo() {
+		return subjectInfo;
+	}
+
+	public void setSubjectInfo(SubjectInfoDTO subjectInfo) {
+		this.subjectInfo = subjectInfo;
 	}
 
 	public DiscountDTO getDiscount() {
@@ -104,11 +119,31 @@ public class PayListDTO {
 		this.discount = discount;
 	}
 
+	public ClassInfoDTO getClassInfo() {
+		return classInfo;
+	}
+
+	public void setClassInfo(ClassInfoDTO classInfo) {
+		this.classInfo = classInfo;
+	}
+
+	public StudentDTO getStudent() {
+		return student;
+	}
+
+	public void setStudent(StudentDTO student) {
+		this.student = student;
+	}
+
 	@Override
 	public String toString() {
 		return "PayListDTO [payNo=" + payNo + ", payYn=" + payYn + ", payOption=" + payOption + ", payMonth=" + payMonth
-				+ ", payment=" + payment + ", payDate=" + payDate + ", payStatus=" + payStatus + ", discount="
-				+ discount + "]";
+				+ ", payment=" + payment + ", payDate=" + payDate + ", payStatus=" + payStatus + ", subjectCategory="
+				+ subjectCategory + ", subjectInfo=" + subjectInfo + ", discount=" + discount + ", classInfo="
+				+ classInfo + ", student=" + student + "]";
 	}
+
+	
+	
 
 }
