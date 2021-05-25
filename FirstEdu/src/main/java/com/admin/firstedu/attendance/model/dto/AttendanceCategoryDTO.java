@@ -2,19 +2,19 @@ package com.admin.firstedu.attendance.model.dto;
 
 import java.io.Serializable;
 
-public class CategoryDTO implements Serializable{
+public class AttendanceCategoryDTO implements Serializable{
 
 	private static final long serialVersionUID = 367824378342312874L;
 	
 	private int categoryNo;
 	private String attendanceCon;
 	
-	public CategoryDTO() {
+	public AttendanceCategoryDTO() {
 	}
 
 	
 	
-	public CategoryDTO(int categoryNo, String attendanceCon) {
+	public AttendanceCategoryDTO(int categoryNo, String attendanceCon) {
 		this.categoryNo = categoryNo;
 		this.attendanceCon = attendanceCon;
 	}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.spring.member.model.dao.MemberMapper">
+	
+	<resultMap type="AttendanceDTO" id="attendanceResultSet">
+		<id column="ATTENDANCE_NO" property="no"/>
+		<result column="ATTENDANCE_TIME" property="attendanceTime"/>
+		<result column="CHECKOUT_TIME" property="checkOutTime"/>
+		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="TEACHER_NO" property="teacherNo"/>
+		<result column="MEMO" property="memo"/>
+		<result column="MONTH_TIME" property="monthTime"/>
+	</resultMap>
+	
+	<resultMap type="AttendanceCategoryDTO" id="attendanceCategoryResultSet">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="ATTENDANCE_CON" property="attendanceCon"/>
+	</resultMap>
+	<resultMap type="AttendanceCategoryDTO" id="attendanceCategoryResultSet">
+		<id column="STUDENT_NO" property="studentNo"/>
+		<result column="ATTENDANCE_CON" property="attendanceCon"/>
+	</resultMap>
+	<resultMap type="AttendanceCategoryDTO" id="attendanceCategoryResultSet">
+		<id column="TEACHER_NO" property="teacherNo"/>
+		<result column="ATTENDANCE_CON" property="attendanceCon"/>
+	</resultMap>
+	
+	<resultMap type="AttendanceInfoDTO" id="attendanceInfoResultSet">
+		<id column="ATTENDANCE_NO" property="no"/>
+		<result column="ATTENDANCE_TIME" property="attendanceTime"/>
+		<result column="CHECKOUT_TIME" property="checkOutTime"/>
+		<result column="MEMO" property="memo"/>
+		<result column="MONTH_TIME" property="monthTime"/>
+	<association resultMap="attendanceCategoryDTO" property="category"/>
+	<association resultMap="studentDTO" property="student"/>
+	<association resultMap="teacherDTO" property="teacher"/>
+	</resultMap>	
+	
+	<insert id="insertAttendance" parameterType="AttendanceDTO">
+		INSERT
+		  INTO TBL_ATTENDANCE A
+		(
+		  A.ATTENDANCE_NO, A.ATTENDANCE_TIME, A.CHECKOUT_TIME
+		, A.CATEGORY_NO, A.STUDENT_NO, A.TEACHER_NO
+		, A.MEMO, A.MONTH_TIME 
+		 )
+		 VALUES
+		 (
+		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ attendanceTime }, #{ checkOutTime }, #{ categoryNo}
+		 ,  #{ studentNo }, #{ teacherNo }, #{ memo }, #{ monthTime }
+		 	)
+	</insert>
+	
+	
+	<select id="selectStudnetAttendance" resultMap="attendanceResultSet" parameterType="AttendanceDTO">
+		SELECT
+		       A.ATTENDANCE_NO
+		     , A.MONTH_TIME
+		     , B.CATEGORY_NO
+		     , B.ATTENDANCE_CON
+		     , C.STUDENT_NO
+		 FROM TBL_ATTENDANCE A
+		 JOIN TBL_ATTENDANCE_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO) 
+	</select>
+</mapper>
