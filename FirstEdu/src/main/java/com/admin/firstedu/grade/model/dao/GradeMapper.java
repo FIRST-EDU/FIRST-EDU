@@ -11,4 +11,6 @@ public interface GradeMapper {
 	int insertExam(ExamDTO exam);
 
 	List<ExamFullInfoDTO> selectExamList(ExamSearchCriteriaDTO searchCriteria);
+
+	int updateExam(ExamDTO exam);
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.admin.firstedu.common.exception.ExamRegistException;
+import com.admin.firstedu.common.exception.ExamUpdateException;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
@@ -53,6 +54,18 @@ public class ExamController {
 		
 		return "grade/exam";
 	}
+	
+	@PostMapping("/exam/modify")
+	public String updateExam(@ModelAttribute ExamDTO exam) throws ExamUpdateException {
+
+//		ExamDTO exam = new ExamDTO(1, 7, "test", new java.sql.Date(new java.util.Date().getTime()), "더신나는고등학교", 3, 2);
+		if(!examService.modifyExam(exam)) {
+			throw new ExamUpdateException("시험 일정 수정에 실패하셨습니다.");
+		}
+		
+		return "grade/exam";
+	}
+	
 	
 	
 }

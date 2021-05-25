@@ -95,4 +95,30 @@
 	      </where>
 	</select>
 	
+	<update id="updateExam" parameterType="ExamDTO">
+		UPDATE
+		       TBL_EXAM A
+		<set>
+			<if test="categoryNo != 0">
+			   A.CATEGORY_NO = #{ categoryNo }
+			</if>
+			<if test="name != null and name != ''">
+			 , A.EXAM_NAME = #{ name }
+			</if>
+			<if test="examDate != null">
+			 , A.EXAM_DATE = #{ examDate }
+			</if>
+			<if test="school != null and school != ''">
+	 		 , A.SCHOOL = #{ school }
+			</if>
+			<if test="grade != 0">
+			 , A.GRADE = #{ grade }
+			</if>
+			<if test="subjectNo != 0">
+			 , A.SUBJECT_NO	= #{ subjectNo }
+			</if>
+		</set>
+		 WHERE A.EXAM_NO = #{ no }
+	</update>
+	
 </mapper>

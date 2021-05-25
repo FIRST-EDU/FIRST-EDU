@@ -11,6 +11,9 @@
 	<form action="${ pageContext.servletContext.contextPath }/exam/regist" method="post">
 		<button>Regist Test</button>
 	</form>
-	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/exam/list'">시험 목록 조회</button>
+	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/exam/list'">Select Test</button>
+	<form action="${ pageContext.servletContext.contextPath }/exam/modify" method="post">
+		<button>Modify Test</button>
+	</form>
 </body>
 </html>

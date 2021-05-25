@@ -1,5 +1,7 @@
 package com.admin.firstedu.grade.model.dto;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,5 @@ public class ExamDTO implements java.io.Serializable {
 	private String school;
 	private int grade;
 	private int subjectNo;
+
 }

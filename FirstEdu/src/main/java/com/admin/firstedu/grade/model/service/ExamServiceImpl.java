@@ -32,7 +32,7 @@ public class ExamServiceImpl implements ExamService {
 
 	@Override
 	public boolean modifyExam(ExamDTO exam) {
-		return false;
+		return mapper.updateExam(exam) > 0 ? true : false;
 	}
 
 	@Override
