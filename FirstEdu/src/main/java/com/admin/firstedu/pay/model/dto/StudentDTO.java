@@ -6,30 +6,35 @@ public class StudentDTO {
 
 	private int no;
 	private int grade;
-	private String name;
-	private String phone;
+	private String studentName;
+	private String parentsName;
+	private String studentPhone;
 	private String parentsPhone;
 	private String gender;
+	private String birth;
 	private String school;
-	private String parentsName;
-	private Date registrationDate;
+	private String address;
+	private java.sql.Date registrationDate;
 	private String status;
-
+	
 	public StudentDTO() {
 		super();
 	}
 
-	public StudentDTO(int no, int grade, String name, String phone, String parentsPhone, String gender, String school,
-			String parentsName, Date registrationDate, String status) {
+	public StudentDTO(int no, int grade, String studentName, String parentsName, String studentPhone,
+			String parentsPhone, String gender, String birth, String school, String address, Date registrationDate,
+			String status) {
 		super();
 		this.no = no;
 		this.grade = grade;
-		this.name = name;
-		this.phone = phone;
+		this.studentName = studentName;
+		this.parentsName = parentsName;
+		this.studentPhone = studentPhone;
 		this.parentsPhone = parentsPhone;
 		this.gender = gender;
+		this.birth = birth;
 		this.school = school;
-		this.parentsName = parentsName;
+		this.address = address;
 		this.registrationDate = registrationDate;
 		this.status = status;
 	}
@@ -50,20 +55,28 @@ public class StudentDTO {
 		this.grade = grade;
 	}
 
-	public String getName() {
-		return name;
+	public String getStudentName() {
+		return studentName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getParentsName() {
+		return parentsName;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setParentsName(String parentsName) {
+		this.parentsName = parentsName;
+	}
+
+	public String getStudentPhone() {
+		return studentPhone;
+	}
+
+	public void setStudentPhone(String studentPhone) {
+		this.studentPhone = studentPhone;
 	}
 
 	public String getParentsPhone() {
@@ -82,6 +95,14 @@ public class StudentDTO {
 		this.gender = gender;
 	}
 
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
 	public String getSchool() {
 		return school;
 	}
@@ -90,19 +111,19 @@ public class StudentDTO {
 		this.school = school;
 	}
 
-	public String getParentsName() {
-		return parentsName;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setParentsName(String parentsName) {
-		this.parentsName = parentsName;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public Date getRegistrationDate() {
+	public java.sql.Date getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(java.sql.Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 
@@ -116,9 +137,16 @@ public class StudentDTO {
 
 	@Override
 	public String toString() {
-		return "StudentDTO [no=" + no + ", grade=" + grade + ", name=" + name + ", phone=" + phone + ", parentsPhone="
-				+ parentsPhone + ", gender=" + gender + ", school=" + school + ", parentsName=" + parentsName
-				+ ", registrationDate=" + registrationDate + ", status=" + status + "]";
+		return "StudentDTO [no=" + no + ", grade=" + grade + ", studentName=" + studentName + ", parentsName="
+				+ parentsName + ", studentPhone=" + studentPhone + ", parentsPhone=" + parentsPhone + ", gender="
+				+ gender + ", birth=" + birth + ", school=" + school + ", address=" + address + ", registrationDate="
+				+ registrationDate + ", status=" + status + "]";
 	}
 
+	
+
+	
+	
+	
+	
 }

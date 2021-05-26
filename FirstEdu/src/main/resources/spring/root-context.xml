@@ -15,10 +15,6 @@
 	
 	<context:property-placeholder location="classpath:config/connection-info.properties"/>
 	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSession"/>
-	</bean>
-	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
@@ -54,5 +50,7 @@
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
 			advice-ref="txAdvice" />
 	</aop:config>
+	
+	<mybatis-spring:scan base-package="com.admin.firstedu.pay.model.dao"/>
 	
 </beans>

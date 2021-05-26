@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="PayMapper">
-  	<resultMap type="com.admin.firstedu.pay.model.dto.PayDTO" id="payResultMap">
+  <mapper namespace="com.admin.firstedu.pay.model.dao.PayMapper">
+  	<resultMap type="PayDTO" id="payResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="classNo" column="CLASS_NO"/>
   		<result property="studentNo" column="STUDENT_NO"/>
@@ -17,7 +17,7 @@
   		<result property="payStatus" column="PAY_STATUS"/>
   	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.dto.ClassInfoDTO" id="classInfoResultMap">
+  	<resultMap type="ClassInfoDTO" id="classInfoResultMap">
   		<id property="no" column="CLASS_NO"/>
   		<result property="beginDate" column="BEGIN_DATE"/>
   		<result property="endDate" column="END_DATE"/>
@@ -25,67 +25,64 @@
   		<result property="subjectCode" column="SUBJECT_CODE"/>
   	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.dto.DiscountDTO" id="discountResultMap">
+  	<resultMap type="DiscountDTO" id="discountResultMap">
   		<id property="discountNo" column="DISCOUNT_NO"/>
   		<result property="discountRate" column="DISCOUNT_RATE"/>
   		<result property="discountReason" column="DISCOUNT_REASON"/>
   	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.dto.StudentDTO" id="studentResultMap">
+  	<resultMap type="StudentDTO" id="studentResultMap">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="grade" column="GRADE"/>
-  		<result property="name" column="STUDENT_NAME"/>
-  		<result property="phone" column="STUDENT_PHONE"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="parentsName" column="PARENTS_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
   		<result property="parentsPhone" column="PARENTS_PHONE"/>
   		<result property="gender" column="GENDER"/>
+  		<result property="birth" column="BIRTH"/>
   		<result property="school" column="SCHOOL"/>
-  		<result property="parentsName" column="PARENTS_NAME"/>
+  		<result property="address" column="ADDRESS"/>
   		<result property="registrationDate" column="REGISTRATION_DATE"/>
   		<result property="status" column="STATUS"/>
   	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.dto.SubjectCategoryDTO" id="subjectCategoryResultMap">
-  		<id property="categoryNo" column="CATEGORY_NO"/>
-  		<result property="subjectName" column="SUBJECT_NAME"/>
-  	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.dto.SubjectInfoDTO" id="classInfoResultMap">
-  		<id property="subjectCode" column="SUBJECT_CODE"/>
-  		<result property="categoryNo" column="CATEGORY_NO"/>
-  		<result property="grade" column="GRADE"/>
-  		<result property="tution" column="TUTION"/>
+  	<resultMap type="ClassDTO" id="classResultMap">
+  		<id property="classCode" column="CLASS_CODE"/>
+  		<result property="classRoom" column="CLASS_ROOM"/>
+  		<result property="className" column="CLASS_NAME"/>
+  		<result property="classDay" column="CLASS_DAY"/>
+  		<result property="classTime" column="CLASS_TIME"/>
+  		<result property="classBook" column="CLASS_BOOK"/>
+  		<result property="classPariticipants" column="CLASS_PARTICIPANTS"/>
+  		<result property="subjectNo" column="SUBJECT_NO"/>
   		<result property="teacherNo" column="TEACHER_NO"/>
-  		<result property="lectureStartTimes" column="LECTURE_START_TIMES"/>
   	</resultMap>
   	
-  	<resultMap type="com.admin.firstedu.pay.model.dto.payListDTO" id="payListResultMap">
+  	<resultMap type="payListDTO" id="payListResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="payYn" column="PAY_YN"/>
   		<result property="payOption" column="PAY_OPTION"/>
   		<result property="payMonth" column="PAY_MONTH"/>
-  		<result property="payment" column="PAYMENT"/>
   		<result property="payDate" column="PAY_DATE"/>
+  		<result property="payment" column="PAYMENT"/>
   		<result property="payStatus" column="PAY_STATUS"/>  		
-  		<association property="discount" javaType="com.admin.firstedu.pay.model.dto.SubjectCategoryDTO">
+  		<collection property="classInfo" ofType="ClassInfoDTO">
   			<id property="classNo" column="CLASS_NO"/>
   			<result property="beginDate" column="BEGIN_DATE"/>
-  		</association>
-  		<association property="subjectInfo" javaType="com.admin.firstedu.pay.model.dto.SubjectInfoDTO">
-  			<id property="classNo" column="CLASS_NO"/>
-  			<result property="beginDate" column="BEGIN_DATE"/>
-  		</association>
-  		<association property="subjectCategory" javaType="com.admin.firstedu.pay.model.dto.DiscountDTO">
-  			<id property="classNo" column="CLASS_NO"/>
-  			<result property="beginDate" column="BEGIN_DATE"/>
-  		</association>
-  		<association property="classInfo" javaType="com.admin.firstedu.pay.model.dto.ClassInfoDTO">
-  			<id property="classNo" column="CLASS_NO"/>
-  			<result property="beginDate" column="BEGIN_DATE"/>
-  		</association>
-  		<association property="student" javaType="com.admin.firstedu.pay.model.dto.StudentDTO">
-  			<id property="classNo" column="CLASS_NO"/>
-  			<result property="beginDate" column="BEGIN_DATE"/>
-  		</association>
+  		</collection>
+  		<collection property="classDTO" ofType="ClassDTO">
+  			<id property="classCode" column="CLASS_CODE"/>
+  			<result property="className" column="CLASS_NAME"/>
+  		</collection>
+  		<collection property="student" ofType="StudentDTO">
+  			<id property="no" column="STUDENT_NO"/>
+  			<result property="studentName" column="STUDENT_NAME"/>
+  		</collection>
+  		<collection property="discount" ofType="DiscountDTO">
+  			<id property="discountNo" column="DISCOUNT_NO"/>
+  			<result property="discountReason" column="DISCOUNT_REASON"/>
+  		</collection>
   	</resultMap>
   	
   	<select id="selectPayList" resultMap="payListResultMap">
@@ -93,23 +90,21 @@
 		       A.PAY_NO
 		     , B.BEGIN_DATE
 		     , C.STUDENT_NAME
-		     , E.SUBJECT_NAME
 		     , A.PAY_YN
 		     , A.PAY_OPTION
 		     , A.PAY_DATE
-		     , D.TUTION
-		     , F.DISCOUNT_RATE
+		     , D.CLASS_NAME
+		     , E.DISCOUNT_REASON
 		     , A.PAYMENT
 		  FROM TBL_PAY A
 		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
 		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
-		  JOIN TBL_SUBJECT_INFO D ON (B.SUBJECT_CODE = D.SUBJECT_CODE)
-		  JOIN TBL_SUBJECT_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
-		  JOIN TBL_DISCOUNT F ON (A.DISCOUNT_NO = F.DISCOUNT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
 		 WHERE A.PAY_STATUS = 'Y'
   	</select>
   	
-  	<select id="selectStudentList" resultType="studentResultMap">
+  	<select id="selectStudentList" resultMap="studentResultMap">
   		SELECT
   			   A.STUDENT_NO
   			 , A.STUDENT_NAME
@@ -119,7 +114,9 @@
   		 WHERE A.STATUS = 'Y'
   	</select>
   	
-  	<insert id="insertPay" parameterType="com.admin.firstedu.pay.model.dto.PayDTO">
+  	<!-- <select id="selectClassInfo" resultMap=""></select> -->
+  	
+  	<insert id="insertPay" parameterType="PayDTO">
   		INSERT
   		  INTO TBL_PAY A
   		(

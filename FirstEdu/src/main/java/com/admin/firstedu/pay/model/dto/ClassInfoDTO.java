@@ -8,19 +8,19 @@ public class ClassInfoDTO {
 	private Date beginDate;
 	private Date endDate;
 	private int studentNo;
-	private int subjectCode;
+	private String classCode;
 
 	public ClassInfoDTO() {
 		super();
 	}
 
-	public ClassInfoDTO(int no, Date beginDate, Date endDate, int studentNo, int subjectCode) {
+	public ClassInfoDTO(int no, Date beginDate, Date endDate, int studentNo, String classCode) {
 		super();
 		this.no = no;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
 		this.studentNo = studentNo;
-		this.subjectCode = subjectCode;
+		this.classCode = classCode;
 	}
 
 	public int getNo() {
@@ -55,18 +55,18 @@ public class ClassInfoDTO {
 		this.studentNo = studentNo;
 	}
 
-	public int getSubjectCode() {
-		return subjectCode;
+	public String getClassCode() {
+		return classCode;
 	}
 
-	public void setSubjectCode(int subjectCode) {
-		this.subjectCode = subjectCode;
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
 	}
 
 	@Override
 	public String toString() {
 		return "ClassInfoDTO [no=" + no + ", beginDate=" + beginDate + ", endDate=" + endDate + ", studentNo="
-				+ studentNo + ", subjectCode=" + subjectCode + "]";
+				+ studentNo + ", classCode=" + classCode + "]";
 	}
 
 }

@@ -39,7 +39,7 @@ public class PayController {
 		
 		model.addAttribute("payList", payList);
 		
-		return "payList";
+		return "pay/payList";
 	}
 	
 	@PostMapping("selectStudent")
@@ -51,7 +51,7 @@ public class PayController {
 		
 		model.addAttribute("studentName",studentName);
 		
-		return "payInsert";
+		return "pay/payInsert";
 	}
 	
 	@GetMapping("insertView")
@@ -63,7 +63,7 @@ public class PayController {
 		
 		model.addAttribute("studentList", studentList);
 		
-		return "payInsert";
+		return "pay/payInsert";
 		
 	}
 	

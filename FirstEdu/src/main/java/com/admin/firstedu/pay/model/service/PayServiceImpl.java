@@ -2,11 +2,10 @@ package com.admin.firstedu.pay.model.service;
 
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.admin.firstedu.pay.model.dao.PayDAO;
+import com.admin.firstedu.pay.model.dao.PayMapper;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.StudentDTO;
@@ -14,44 +13,42 @@ import com.admin.firstedu.pay.model.dto.StudentDTO;
 @Service("payService")
 public class PayServiceImpl implements PayService{
 
-	private final PayDAO payDAO;
-	private final SqlSessionTemplate sqlSession;
-	
+	private final PayMapper payMapper;	
+
 	@Autowired
-	public PayServiceImpl(PayDAO payDAO, SqlSessionTemplate sqlSession) {
+	public PayServiceImpl(PayMapper payMapper) {
 		super();
-		this.payDAO = payDAO;
-		this.sqlSession = sqlSession;
+		this.payMapper = payMapper;
 	}
 
 	@Override
 	public List<PayListDTO> selectPayList() {
 		// TODO Auto-generated method stub
-		return payDAO.selectPayList(sqlSession);
+		return payMapper.selectPayList();
 	}
 
 	@Override
 	public List<StudentDTO> selectStudentList() {
 		// TODO Auto-generated method stub
-		return payDAO.selectStudentList(sqlSession);
+		return payMapper.selectStudentList();
 	}
 	
 	@Override
 	public int insertPay(PayDTO pay) {
 		// TODO Auto-generated method stub
-		return payDAO.insertPay(sqlSession, pay);
+		return payMapper.insertPay(pay);
 	}
 
 	@Override
 	public int deletePay(PayDTO pay) {
 		// TODO Auto-generated method stub
-		return payDAO.deletePay(sqlSession, pay);
+		return payMapper.deletePay(pay);
 	}
 
 	@Override
 	public String selectStudent(int no) {
 		// TODO Auto-generated method stub
-		return payDAO.selectStudent(sqlSession, no);
+		return payMapper.selectStudent(no);
 	}
 
 

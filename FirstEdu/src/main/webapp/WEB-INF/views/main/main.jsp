@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1 align="center">FIRST EDU</h1>
-	<button onclick="location.href='test'">조회</button>
+	<button onclick="location.href='${pageContext.servletContext.contextPath}/pay/list'">수납조회</button>
 </body>
 </html>

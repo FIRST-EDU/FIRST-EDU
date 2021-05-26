@@ -4,5 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
- 
+ <typeAliases>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.PayDTO" alias="PayDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.ClassInfoDTO" alias="ClassInfoDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.DiscountDTO" alias="DiscountDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentDTO" alias="StudentDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.PayListDTO" alias="PayListDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.ClassDTO" alias="ClassDTO"/>
+ </typeAliases>
 </configuration>
