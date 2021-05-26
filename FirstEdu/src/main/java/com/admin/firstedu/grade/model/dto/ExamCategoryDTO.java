@@ -18,4 +18,5 @@ public class ExamCategoryDTO implements java.io.Serializable {
 	private int no;
 	private String name;
 	private int refCategoryNo;
+	private String status;
 }

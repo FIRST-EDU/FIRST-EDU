@@ -14,5 +14,5 @@ public interface ExamService {
 	
 	boolean modifyExam(ExamDTO exam);
 	
-	boolean removeExam(ExamDTO exam);
+	boolean removeExam(int examNo);
 }

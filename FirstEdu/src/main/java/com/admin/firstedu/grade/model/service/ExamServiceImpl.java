@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.admin.firstedu.grade.model.dao.GradeMapper;
+import com.admin.firstedu.grade.model.dao.ExamMapper;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
@@ -13,10 +13,10 @@ import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
 
-	private GradeMapper mapper;
+	private ExamMapper mapper;
 	
 	@Autowired
-	public ExamServiceImpl(GradeMapper mapper) {
+	public ExamServiceImpl(ExamMapper mapper) {
 		this.mapper = mapper;
 	}
 	
@@ -36,8 +36,8 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public boolean removeExam(ExamDTO exam) {
-		return false;
+	public boolean removeExam(int exam) {
+		return mapper.deleteExam(exam) > 0 ? true : false;
 	}
 
 }

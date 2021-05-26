@@ -19,4 +19,5 @@ public class ScoreDTO implements java.io.Serializable {
 	private int examNo;
 	private int studentNo;
 	private double score;
+	private String status;
 }

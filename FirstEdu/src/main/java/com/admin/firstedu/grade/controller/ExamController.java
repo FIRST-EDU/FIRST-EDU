@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.firstedu.common.exception.ExamRegistException;
+import com.admin.firstedu.common.exception.ExamRemoveException;
 import com.admin.firstedu.common.exception.ExamUpdateException;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
@@ -65,6 +67,19 @@ public class ExamController {
 		
 		return "grade/exam";
 	}
+
+	@PostMapping("/exam/remove")
+	public String removeExam(@RequestParam(required=false, defaultValue="0") int examNo) throws ExamRemoveException {
+		
+//		int examNo = 1;
+		if(!examService.removeExam(examNo)) {
+			throw new ExamRemoveException("시험 일정 삭제에 실패하셨습니다.");
+		}
+		
+		return "grade/exam";
+	}
+	
+	
 	
 	
 	

@@ -15,5 +15,8 @@
 	<form action="${ pageContext.servletContext.contextPath }/exam/modify" method="post">
 		<button>Modify Test</button>
 	</form>
+	<form action="${ pageContext.servletContext.contextPath }/exam/remove" method="post">
+		<button>Remove Test</button>
+	</form>
 </body>
 </html>

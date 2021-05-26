@@ -17,4 +17,5 @@ public class SubjectCategoryDTO implements java.io.Serializable {
 
 	private int no;
 	private String name;
+	private String status;
 }

@@ -24,5 +24,6 @@ public class ExamDTO implements java.io.Serializable {
 	private String school;
 	private int grade;
 	private int subjectNo;
+	private String status;
 
 }

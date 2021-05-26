@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-<mapper namespace="com.admin.firstedu.grade.model.dao.GradeMapper">
+<mapper namespace="com.admin.firstedu.grade.model.dao.ExamMapper">
 
 	<resultMap id="examResultMap" type="ExamDTO">
 		<id column="EXAM_NO" property="no"/>
@@ -73,26 +73,25 @@
 	      FROM TBL_EXAM A
 	      JOIN TBL_EXAM_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO)
 	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.CATEGORY_NO)
-	      <where>
-	      	<if test="refCategory != 0">
-	      		B.REF_CATEGORY_NO = #{ refCategory }
-	      	</if>
-	      	<if test="name != null">
-	      		AND A.EXAM_NAME LIKE '%' || #{ name } || '%'
-	      	</if>
-	      	<if test="beginDate != null">
-	      		AND A.EXAM_DATE >= #{ beginDate }
-	      	</if>
-	      	<if test="endDate != null">
-	      		AND #{ endDate } >= A.EXAM_DATE
-	      	</if>
-	      	<if test="grade != 0">
-	      		AND A.GRADE = #{ grade }
-	      	</if>
-	      	<if test="subject != 0">
-	      		AND C.CATEGORY_NO = #{ subject }
-	      	</if>
-	      </where>
+	     WHERE A.EXAM_STATUS = 'Y'
+	     <if test="refCategory != 0">
+	       AND B.REF_CATEGORY_NO = #{ refCategory }
+	     </if>
+	     <if test="name != null">
+	       AND A.EXAM_NAME LIKE '%' || #{ name } || '%'
+	     </if>
+	     <if test="beginDate != null">
+	       AND A.EXAM_DATE >= #{ beginDate }
+	     </if>
+	     <if test="endDate != null">
+	       AND #{ endDate } >= A.EXAM_DATE
+	     </if>
+	     <if test="grade != 0">
+	       AND A.GRADE = #{ grade }
+	     </if>
+	     <if test="subject != 0">
+	       AND C.CATEGORY_NO = #{ subject }
+	     </if>
 	</select>
 	
 	<update id="updateExam" parameterType="ExamDTO">
@@ -119,6 +118,13 @@
 			</if>
 		</set>
 		 WHERE A.EXAM_NO = #{ no }
+	</update>
+	
+	<update id="deleteExam" parameterType="_int">
+		UPDATE
+		       TBL_EXAM A
+		   SET A.EXAM_STATUS = 'N'
+		 WHERE A.EXAM_NO = #{ examNo }
 	</update>
 	
 </mapper>
