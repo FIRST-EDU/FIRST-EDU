@@ -22,7 +22,7 @@
 	</resultMap>
 	
 	<resultMap id="subjectCategoryResultMap" type="SubjectCategoryDTO">
-		<id column="CATEGORY_NO" property="no"/>
+		<id column="SUBJECT_NO" property="no"/>
 		<result column="SUBJECT_NAME" property="name"/>
 	</resultMap>
 	
@@ -72,7 +72,7 @@
 			 , C.SUBJECT_NAME			 
 	      FROM TBL_EXAM A
 	      JOIN TBL_EXAM_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO)
-	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.CATEGORY_NO)
+	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.SUBJECT_NO)
 	     WHERE A.EXAM_STATUS = 'Y'
 	     <if test="refCategory != 0">
 	       AND B.REF_CATEGORY_NO = #{ refCategory }

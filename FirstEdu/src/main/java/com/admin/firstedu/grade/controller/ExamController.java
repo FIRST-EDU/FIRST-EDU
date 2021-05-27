@@ -1,5 +1,9 @@
 package com.admin.firstedu.grade.controller;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +16,7 @@ import com.admin.firstedu.common.exception.ExamRegistException;
 import com.admin.firstedu.common.exception.ExamRemoveException;
 import com.admin.firstedu.common.exception.ExamUpdateException;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
+import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 
@@ -26,7 +31,22 @@ public class ExamController {
 	}
 	
 	@GetMapping("/grade/exam")
-	public void examSchedule() {}
+	public void examSchedule(@ModelAttribute ExamSearchCriteriaDTO searchCriteria, Model model) {
+		Calendar date = new GregorianCalendar(2021, 06, 01);
+		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
+		
+//		ExamSearchCriteriaDTO searchCriteria = new ExamSearchCriteriaDTO(2, "6월", new java.sql.Date(beginDate.getTime()), null, 0, 0);
+//		System.out.println("searchCriteria : " + searchCriteria);
+		List<ExamFullInfoDTO> examList = examService.selectExamList(searchCriteria);
+		for(ExamFullInfoDTO exam : examList) {
+			System.out.println(exam);
+		}
+		
+//		model.addAttribute("examList", examService.selectExamList(searchCriteria));
+		model.addAttribute("examList", examList);
+
+		
+	}
 
 	@PostMapping("/exam/regist")
 	public String registExam(@ModelAttribute ExamDTO exam) throws ExamRegistException {
@@ -42,18 +62,19 @@ public class ExamController {
 	@GetMapping("/exam/list")
 	public String selectExamList(@ModelAttribute ExamSearchCriteriaDTO searchCriteria, Model model) {
 		
-		model.addAttribute("examList", examService.selectExamList(searchCriteria));
+		Calendar date = new GregorianCalendar(2021, 06, 01);
+		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
 		
-//		Calendar date = new GregorianCalendar(2021, 06, 01);
-//		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
-//		
 //		ExamSearchCriteriaDTO searchCriteria = new ExamSearchCriteriaDTO(2, "6월", new java.sql.Date(beginDate.getTime()), null, 0, 0);
 //		System.out.println("searchCriteria : " + searchCriteria);
-//		List<ExamFullInfoDTO> examList = examService.selectExamList(searchCriteria);
-//		for(ExamFullInfoDTO exam : examList) {
-//			System.out.println(exam);
-//		}
+		List<ExamFullInfoDTO> examList = examService.selectExamList(searchCriteria);
+		for(ExamFullInfoDTO exam : examList) {
+			System.out.println(exam);
+		}
 		
+//		model.addAttribute("examList", examService.selectExamList(searchCriteria));
+		model.addAttribute("examList", examList);
+
 		return "grade/exam";
 	}
 	
@@ -78,9 +99,5 @@ public class ExamController {
 		
 		return "grade/exam";
 	}
-	
-	
-	
-	
 	
 }
