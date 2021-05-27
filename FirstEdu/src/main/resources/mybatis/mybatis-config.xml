@@ -2,9 +2,13 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-  
+ 
 <configuration>
 	<typeAliases>
 		<typeAlias alias="AttendanceDTO" type="com.admin.firstedu.attendance.model.dto.AttendanceDTO"/>
+		<typeAlias alias="AttendanceInfoDTO" type="com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO"/>
+		<typeAlias alias="AttendanceCategoryDTO" type="com.admin.firstedu.attendance.model.dto.AttendanceCategoryDTO"/>
+		<typeAlias alias="StudentDTO" type="com.admin.firstedu.attendance.model.dto.StudentDTO"/>
+		<typeAlias alias="TeacherDTO" type="com.admin.firstedu.attendance.model.dto.TeacherDTO"/>
 	</typeAliases>
 </configuration>

@@ -1,13 +1,25 @@
 package com.admin.firstedu.attendance.model.dao;
 
+import java.util.List;
+
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
+import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
 
 public interface AttendanceMapper {
 	
-	int insertAttendance(AttendanceDTO attendance);
+	int insertStudent(AttendanceDTO attendance);
+	
+	int insertTeacher(AttendanceDTO attendance);
+	
+	List<AttendanceInfoDTO> selectStudnetAttendance(AttendanceDTO attendance);
+	
+	List<AttendanceInfoDTO> selectTeacherAttendance(AttendanceDTO attendance);
+	
+	int updateStudentAttendance(AttendanceDTO attendance);
 	
 	
-	 
+	
+	  
 	
 
 	

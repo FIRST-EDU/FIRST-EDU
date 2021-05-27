@@ -52,5 +52,5 @@
    </aop:config>
    
    <mybatis-spring:scan 
-      base-package="com.admin.firstedu.member.model.dao"/>
+      base-package="com.admin.firstedu.attendance.model.dao"/>
 </beans>
