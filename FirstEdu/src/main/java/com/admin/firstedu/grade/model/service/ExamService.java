@@ -2,17 +2,26 @@ package com.admin.firstedu.grade.model.service;
 
 import java.util.List;
 
+import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
-import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
+import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 
 public interface ExamService {
 
-	boolean registExam(ExamDTO exam);
+	List<ExamFullInfoDTO> selectExamList(ExamSearchCriteria searchCriteria);
 	
-	List<ExamFullInfoDTO> selectExamList(ExamSearchCriteriaDTO searchCriteria);
+	List<ExamCategoryDTO> selectExamCategoryList();
+
+	boolean registExam(ExamDTO exam);
 	
 	boolean modifyExam(ExamDTO exam);
 	
 	boolean removeExam(int examNo);
+
+	boolean registExamCategory(ExamCategoryDTO examCategory);
+	
+	boolean modifyExamCategory(ExamCategoryDTO examCategory);
+	
+	boolean removeExamCategory(int examCategoryNo);
 }

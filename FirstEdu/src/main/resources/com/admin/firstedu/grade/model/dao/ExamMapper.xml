@@ -5,9 +5,10 @@
    
 <mapper namespace="com.admin.firstedu.grade.model.dao.ExamMapper">
 
+	<!-- 시험 테이블 DTO -->
 	<resultMap id="examResultMap" type="ExamDTO">
 		<id column="EXAM_NO" property="no"/>
-		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="EXAM_CATEGORY_NO" property="categoryNo"/>
 		<result column="EXAM_NAME" property="name"/>
 		<result column="EXAM_DATE" property="examDate"/>
 		<result column="SCHOOL" property="school"/>
@@ -15,17 +16,20 @@
 		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
 	
+	<!-- 시험 종류 테이블 DTO -->
 	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
-		<id column="CATEGORY_NO" property="no"/>
-		<result column="EXAM_NAME" property="name"/>
+		<id column="EXAM_CATEGORY_NO" property="no"/>
+		<result column="EXAM_CATEGORY_NAME" property="name"/>
 		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
 	</resultMap>
 	
+	<!-- 과목 테이블 DTO -->
 	<resultMap id="subjectCategoryResultMap" type="SubjectCategoryDTO">
 		<id column="SUBJECT_NO" property="no"/>
 		<result column="SUBJECT_NAME" property="name"/>
 	</resultMap>
 	
+	<!-- 시험 정보 조회 시 조인용 DTO -->
 	<resultMap id="examFullInfoResultMap" type="ExamFullInfoDTO">
 		<id column="EXAM_NO" property="no"/>
 		<result column="EXAM_NAME" property="name"/>
@@ -36,12 +40,56 @@
 		<association resultMap="subjectCategoryResultMap" property="subject"/>
  	</resultMap>
 
+
+	<!-- 시험 목록 조회 (검색 포함) -->
+	<select id="selectExamList" parameterType="ExamSearchCriteria" resultMap="examFullInfoResultMap">
+		SELECT
+			   A.EXAM_NO
+			 , A.EXAM_NAME
+			 , A.EXAM_DATE
+			 , A.SCHOOL
+			 , A.GRADE
+			 , B.EXAM_CATEGORY_NAME
+			 , B.REF_CATEGORY_NO
+			 , C.SUBJECT_NAME			 
+	      FROM TBL_EXAM A
+	      JOIN TBL_EXAM_CATEGORY B ON (A.EXAM_CATEGORY_NO = B.EXAM_CATEGORY_NO)
+	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.SUBJECT_NO)
+	     WHERE A.EXAM_STATUS = 'Y'
+	     <if test="schoolExam != 0">
+	       AND B.REF_CATEGORY_NO = #{ schoolExam }
+	     </if>
+	     <if test="hagwonExam != 0">
+	       AND B.REF_CATEGORY_NO = #{ hagwonExam }
+	     </if>
+	     <if test="categoryNo != 0">
+	       AND B.EXAM_CATEGORY_NO = #{ categoryNo }
+	     </if>
+	     <if test="grade != 0">
+	       AND A.GRADE = #{ grade }
+	     </if>
+	     <if test="subjectNo != 0">
+	       AND C.SUBJECT_NO = #{ subjectNo }
+	     </if>
+	</select>
+	
+	<!-- 시험 종류 카테고리 목록 조회 -->
+	<select id="selectExamCategoryList" resultMap="examCategoryResultMap">
+		SELECT
+		       A.EXAM_CATEGORY_NO
+		     , A.EXAM_CATEGORY_NAME
+		     , A.REF_CATEGORY_NO
+		  FROM TBL_EXAM_CATEGORY A
+		 WHERE A.EXAM_CATEGORY_STATUS = 'Y'
+	</select>
+	
+	<!-- 시험 일정 등록 -->
 	<insert id="insertExam" parameterType="ExamDTO">
 		INSERT
 		  INTO TBL_EXAM A
 		(
 		  A.EXAM_NO
-		, A.CATEGORY_NO
+		, A.EXAM_CATEGORY_NO
 		, A.EXAM_NAME
 		, A.EXAM_DATE
 		, A.SCHOOL
@@ -59,47 +107,14 @@
 		, #{ subjectNo }
 		)
 	</insert>
-
-	<select id="selectExamList" parameterType="ExamSearchCriteriaDTO" resultMap="examFullInfoResultMap">
-		SELECT
-			   A.EXAM_NO
-			 , A.EXAM_NAME
-			 , A.EXAM_DATE
-			 , A.SCHOOL
-			 , A.GRADE
-			 , B.EXAM_NAME
-			 , B.REF_CATEGORY_NO
-			 , C.SUBJECT_NAME			 
-	      FROM TBL_EXAM A
-	      JOIN TBL_EXAM_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO)
-	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.SUBJECT_NO)
-	     WHERE A.EXAM_STATUS = 'Y'
-	     <if test="refCategory != 0">
-	       AND B.REF_CATEGORY_NO = #{ refCategory }
-	     </if>
-	     <if test="name != null">
-	       AND A.EXAM_NAME LIKE '%' || #{ name } || '%'
-	     </if>
-	     <if test="beginDate != null">
-	       AND A.EXAM_DATE >= #{ beginDate }
-	     </if>
-	     <if test="endDate != null">
-	       AND #{ endDate } >= A.EXAM_DATE
-	     </if>
-	     <if test="grade != 0">
-	       AND A.GRADE = #{ grade }
-	     </if>
-	     <if test="subject != 0">
-	       AND C.CATEGORY_NO = #{ subject }
-	     </if>
-	</select>
 	
+	<!-- 시험 일정 수정 -->
 	<update id="updateExam" parameterType="ExamDTO">
 		UPDATE
 		       TBL_EXAM A
 		<set>
 			<if test="categoryNo != 0">
-			   A.CATEGORY_NO = #{ categoryNo }
+			   A.EXAM_CATEGORY_NO = #{ categoryNo }
 			</if>
 			<if test="name != null and name != ''">
 			 , A.EXAM_NAME = #{ name }
@@ -120,11 +135,29 @@
 		 WHERE A.EXAM_NO = #{ no }
 	</update>
 	
+	<!-- 시험 일정 삭제 -->
 	<update id="deleteExam" parameterType="_int">
 		UPDATE
 		       TBL_EXAM A
 		   SET A.EXAM_STATUS = 'N'
 		 WHERE A.EXAM_NO = #{ examNo }
 	</update>
+	
+	<!-- 시험 종류 카테고리 등록 -->
+	<insert id="insertExamCategory" parameterType="ExamCategoryDTO">
+		INSERT
+		  INTO TBL_EXAM_CATEGORY A
+		(
+		  A.EXAM_CATEGORY_NO
+		, A.EXAM_CATEGORY_NAME
+		, A.REF_CATEGORY_NO
+		)
+		VALUES
+		(
+		  SEQ_EXAM_CATEGORY_NO.NEXTVAL
+		, #{ name }
+		, #{ refCategoryNo }
+		)
+	</insert>
 	
 </mapper>

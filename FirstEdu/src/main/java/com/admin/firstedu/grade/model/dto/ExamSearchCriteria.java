@@ -11,14 +11,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ExamSearchCriteriaDTO implements java.io.Serializable {
+public class ExamSearchCriteria implements java.io.Serializable {
 
 	private static final long serialVersionUID = -2216788908845122216L;
 
-	private int refCategory;
-	private String name;
-	private java.sql.Date beginDate;
-	private java.sql.Date endDate;
+	private int schoolExam;
+	private int hagwonExam;
+	private int categoryNo;
 	private int grade;
-	private int subject;
+	private int subjectNo;
 }

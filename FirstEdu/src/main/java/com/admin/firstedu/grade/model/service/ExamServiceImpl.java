@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ExamMapper;
+import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
-import com.admin.firstedu.grade.model.dto.ExamSearchCriteriaDTO;
+import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
@@ -21,13 +22,18 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	@Override
-	public boolean registExam(ExamDTO exam) {
-		return mapper.insertExam(exam) > 0 ? true : false;
+	public List<ExamFullInfoDTO> selectExamList(ExamSearchCriteria searchCriteria) {
+		return mapper.selectExamList(searchCriteria);
 	}
 
 	@Override
-	public List<ExamFullInfoDTO> selectExamList(ExamSearchCriteriaDTO searchCriteria) {
-		return mapper.selectExamList(searchCriteria);
+	public List<ExamCategoryDTO> selectExamCategoryList() {
+		return mapper.selectExamCategoryList();
+	}
+
+	@Override
+	public boolean registExam(ExamDTO exam) {
+		return mapper.insertExam(exam) > 0 ? true : false;
 	}
 
 	@Override
@@ -36,8 +42,23 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public boolean removeExam(int exam) {
-		return mapper.deleteExam(exam) > 0 ? true : false;
+	public boolean removeExam(int examNo) {
+		return mapper.deleteExam(examNo) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean registExamCategory(ExamCategoryDTO examCategory) {
+		return mapper.insertExamCategory(examCategory) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean modifyExamCategory(ExamCategoryDTO examCategory) {
+		return mapper.updateExamCategory(examCategory) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean removeExamCategory(int examCategoryNo) {
+		return mapper.deleteExamCategory(examCategoryNo) > 0 ? true : false;
 	}
 
 }

@@ -31,14 +31,23 @@
 <body>
 	<h1 align="center">시험 일정 관리</h1>
 	<form action="${ pageContext.servletContext.contextPath }/exam/regist" method="post">
-		<button>Regist Test</button>
+		<button>Exam Regist Test</button>
 	</form>
 	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/exam/list'">Select Test</button>
 	<form action="${ pageContext.servletContext.contextPath }/exam/modify" method="post">
-		<button>Modify Test</button>
+		<button>Exam Modify Test</button>
 	</form>
 	<form action="${ pageContext.servletContext.contextPath }/exam/remove" method="post">
-		<button>Remove Test</button>
+		<button>Exam Remove Test</button>
+	</form>
+	<form action="${ pageContext.servletContext.contextPath }/exam/category/regist" method="post">
+		<button>Exam Category Regist Test</button>
+	</form>
+	<form action="${ pageContext.servletContext.contextPath }/exam/category/modify" method="post">
+		<button>Exam Category Modify Test</button>
+	</form>
+	<form action="${ pageContext.servletContext.contextPath }/exam/category/remove" method="post">
+		<button>Exam Category Remove Test</button>
 	</form>
 	
 	<div id='calendar'></div>
