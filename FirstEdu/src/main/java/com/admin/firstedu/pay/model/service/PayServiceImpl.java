@@ -4,16 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionManager;
 
 import com.admin.firstedu.pay.model.dao.PayMapper;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
-import com.admin.firstedu.pay.model.dto.StudentDTO;
+import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
+import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
 @Service("payService")
 public class PayServiceImpl implements PayService{
 
-	private final PayMapper payMapper;	
+	private final PayMapper payMapper;
 
 	@Autowired
 	public PayServiceImpl(PayMapper payMapper) {
@@ -28,7 +30,7 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<StudentDTO> selectStudentList() {
+	public List<StudentAndClassInfoDTO> selectStudentList() {
 		// TODO Auto-generated method stub
 		return payMapper.selectStudentList();
 	}
@@ -46,9 +48,9 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public String selectStudent(int no) {
+	public List<StudentAndClassDTO> selectClass(int stuNo) {
 		// TODO Auto-generated method stub
-		return payMapper.selectStudent(no);
+		return payMapper.selectClass(stuNo);
 	}
 
 

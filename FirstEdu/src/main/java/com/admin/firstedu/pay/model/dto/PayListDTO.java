@@ -1,7 +1,5 @@
 package com.admin.firstedu.pay.model.dto;
 
-import java.sql.Date;
-
 public class PayListDTO {
 
 	private int payNo;
@@ -9,19 +7,18 @@ public class PayListDTO {
 	private String payOption;
 	private int payMonth;
 	private int payment;
-	private Date payDate;
+	private String payDate;
 	private String payStatus;
 	private ClassDTO classDTO;
 	private DiscountDTO discount; // 할인번호, 할인율, 사유
 	private ClassInfoDTO classInfo; // 수강번호, 수강시작일
 	private StudentDTO student; // 학생번호, 학생명
-	
 
 	public PayListDTO() {
 		super();
 	}
 
-	public PayListDTO(int payNo, String payYn, String payOption, int payMonth, int payment, Date payDate,
+	public PayListDTO(int payNo, String payYn, String payOption, int payMonth, int payment, String payDate,
 			String payStatus, ClassDTO classDTO, DiscountDTO discount, ClassInfoDTO classInfo, StudentDTO student) {
 		super();
 		this.payNo = payNo;
@@ -77,11 +74,11 @@ public class PayListDTO {
 		this.payment = payment;
 	}
 
-	public Date getPayDate() {
+	public String getPayDate() {
 		return payDate;
 	}
 
-	public void setPayDate(Date payDate) {
+	public void setPayDate(String payDate) {
 		this.payDate = payDate;
 	}
 

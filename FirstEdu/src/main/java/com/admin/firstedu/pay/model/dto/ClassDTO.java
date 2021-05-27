@@ -8,7 +8,8 @@ public class ClassDTO {
 	private String classDay;
 	private String classTime;
 	private String classBook;
-	private int classPariticipants;
+	private int classParticipants;
+	private int classPayment;
 	private int subjectNo;
 	private int teacherNo;
 
@@ -17,7 +18,7 @@ public class ClassDTO {
 	}
 
 	public ClassDTO(String classCode, int classRoom, String className, String classDay, String classTime,
-			String classBook, int classPariticipants, int subjectNo, int teacherNo) {
+			String classBook, int classParticipants, int classPayment, int subjectNo, int teacherNo) {
 		super();
 		this.classCode = classCode;
 		this.classRoom = classRoom;
@@ -25,7 +26,8 @@ public class ClassDTO {
 		this.classDay = classDay;
 		this.classTime = classTime;
 		this.classBook = classBook;
-		this.classPariticipants = classPariticipants;
+		this.classParticipants = classParticipants;
+		this.classPayment = classPayment;
 		this.subjectNo = subjectNo;
 		this.teacherNo = teacherNo;
 	}
@@ -78,12 +80,20 @@ public class ClassDTO {
 		this.classBook = classBook;
 	}
 
-	public int getClassPariticipants() {
-		return classPariticipants;
+	public int getClassParticipants() {
+		return classParticipants;
 	}
 
-	public void setClassPariticipants(int classPariticipants) {
-		this.classPariticipants = classPariticipants;
+	public void setClassParticipants(int classParticipants) {
+		this.classParticipants = classParticipants;
+	}
+
+	public int getClassPayment() {
+		return classPayment;
+	}
+
+	public void setClassPayment(int classPayment) {
+		this.classPayment = classPayment;
 	}
 
 	public int getSubjectNo() {
@@ -106,8 +116,8 @@ public class ClassDTO {
 	public String toString() {
 		return "ClassDTO [classCode=" + classCode + ", classRoom=" + classRoom + ", className=" + className
 				+ ", classDay=" + classDay + ", classTime=" + classTime + ", classBook=" + classBook
-				+ ", classPariticipants=" + classPariticipants + ", subjectNo=" + subjectNo + ", teacherNo=" + teacherNo
-				+ "]";
+				+ ", classParticipants=" + classParticipants + ", classPayment=" + classPayment + ", subjectNo="
+				+ subjectNo + ", teacherNo=" + teacherNo + "]";
 	}
 
 }

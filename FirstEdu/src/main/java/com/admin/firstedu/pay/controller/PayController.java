@@ -1,5 +1,6 @@
 package com.admin.firstedu.pay.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
-import com.admin.firstedu.pay.model.dto.StudentDTO;
+import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
+import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
 
 @Controller
@@ -31,35 +33,39 @@ public class PayController {
 	}
 
 	@GetMapping("list")
-	public String selectPayList(HttpServletResponse response, Model model) {
+	public String selectPayList(Model model) {
 		
-		response.setCharacterEncoding("UTF-8");
+		List<PayListDTO> payList = new ArrayList<>();
 		
-		List<PayListDTO> payList = payService.selectPayList();
+		payList = payService.selectPayList();
 		
 		model.addAttribute("payList", payList);
+		
+		for(PayListDTO pay : payList) {
+			System.out.println(pay);
+		}
 		
 		return "pay/payList";
 	}
 	
-	@PostMapping("selectStudent")
-	public String selectStudent(HttpServletResponse response, Model model, @RequestParam int no) {
+	@GetMapping("selectClass")
+	public String selectClass(Model model, @RequestParam(value="stuNo") int stuNo) {
 		
-		response.setCharacterEncoding("UTF-8");
+		List<StudentAndClassDTO> classNameList = payService.selectClass(stuNo);
+				
+		for(StudentAndClassDTO className : classNameList) {
+			System.out.println(className);
+		}
 		
-		String studentName = payService.selectStudent(no);
-		
-		model.addAttribute("studentName",studentName);
+		model.addAttribute("classNameList",classNameList);
 		
 		return "pay/payInsert";
 	}
 	
 	@GetMapping("insertView")
-	public String selectStudentList(HttpServletResponse response, Model model) {
+	public String selectStudentList(Model model) {
 		
-		response.setCharacterEncoding("UTF-8");
-		
-		List<StudentDTO> studentList = payService.selectStudentList();
+		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList();
 		
 		model.addAttribute("studentList", studentList);
 		
@@ -68,19 +74,17 @@ public class PayController {
 	}
 	
 	@PostMapping("insert")
-	public String insertPay(HttpServletResponse response, Model model, @ModelAttribute PayDTO pay) {
-		
-		response.setCharacterEncoding("UTF-8");
+	public String insertPay(Model model, @ModelAttribute PayDTO pay) {
 		
 		int result = payService.insertPay(pay);
 		
 		if(result > 0) {
-			model.addAttribute("SuccessMessage", "수납입력에 성공하였습니다.");
+			model.addAttribute("message", "수납입력에 성공하였습니다.");
 		}else {
-			model.addAttribute("FailedMessage", "수납입력에 실패하였습니다.");
+			model.addAttribute("message", "수납입력에 실패하였습니다.");
 		}
 		
-		return "result";
+		return "main/result";
 	}
 	
 	@PostMapping("delete")
@@ -91,9 +95,9 @@ public class PayController {
 		int result = payService.deletePay(pay);
 		
 		if(result > 0) {
-			model.addAttribute("SuccessMessage", "수납목록 삭제에 성공하였습니다.");
+			model.addAttribute("successMessage", "수납목록 삭제에 성공하였습니다.");
 		}else {
-			model.addAttribute("FailedMessage", "수납목록 삭제에 실패하였습니다.");
+			model.addAttribute("failedMessage", "수납목록 삭제에 실패하였습니다.");
 		}
 		
 		return "result";

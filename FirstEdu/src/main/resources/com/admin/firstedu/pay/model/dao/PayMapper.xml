@@ -46,6 +46,15 @@
   		<result property="status" column="STATUS"/>
   	</resultMap>
   	
+  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="status" column="STATUS"/>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  	</resultMap>
+  	
   	
   	<resultMap type="ClassDTO" id="classResultMap">
   		<id property="classCode" column="CLASS_CODE"/>
@@ -55,11 +64,12 @@
   		<result property="classTime" column="CLASS_TIME"/>
   		<result property="classBook" column="CLASS_BOOK"/>
   		<result property="classPariticipants" column="CLASS_PARTICIPANTS"/>
+  		<result property="classPayment" column="CLASS_PAYMENT"/>
   		<result property="subjectNo" column="SUBJECT_NO"/>
   		<result property="teacherNo" column="TEACHER_NO"/>
   	</resultMap>
   	
-  	<resultMap type="payListDTO" id="payListResultMap">
+  	<resultMap type="PayListDTO" id="payListResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="payYn" column="PAY_YN"/>
   		<result property="payOption" column="PAY_OPTION"/>
@@ -67,33 +77,27 @@
   		<result property="payDate" column="PAY_DATE"/>
   		<result property="payment" column="PAYMENT"/>
   		<result property="payStatus" column="PAY_STATUS"/>  		
-  		<collection property="classInfo" ofType="ClassInfoDTO">
-  			<id property="classNo" column="CLASS_NO"/>
-  			<result property="beginDate" column="BEGIN_DATE"/>
-  		</collection>
-  		<collection property="classDTO" ofType="ClassDTO">
-  			<id property="classCode" column="CLASS_CODE"/>
-  			<result property="className" column="CLASS_NAME"/>
-  		</collection>
-  		<collection property="student" ofType="StudentDTO">
-  			<id property="no" column="STUDENT_NO"/>
-  			<result property="studentName" column="STUDENT_NAME"/>
-  		</collection>
-  		<collection property="discount" ofType="DiscountDTO">
-  			<id property="discountNo" column="DISCOUNT_NO"/>
-  			<result property="discountReason" column="DISCOUNT_REASON"/>
-  		</collection>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>
+  		<collection property="student" resultMap="studentResultMap"/>
+  		<collection property="discount" resultMap="discountResultMap"/>
   	</resultMap>
   	
-  	<select id="selectPayList" resultMap="payListResultMap">
+  	<resultMap type="StudentAndClassDTO" id="studentAndClassResultMap">
+  		<collection property="student" resultMap="studentResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>
+  	</resultMap>
+  	
+  	<select id="selectPayList" parameterType="PayListDTO" resultMap="payListResultMap">
 		SELECT 
 		       A.PAY_NO
 		     , B.BEGIN_DATE
 		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
 		     , A.PAY_YN
 		     , A.PAY_OPTION
 		     , A.PAY_DATE
-		     , D.CLASS_NAME
+		     , D.CLASS_PAYMENT
 		     , E.DISCOUNT_REASON
 		     , A.PAYMENT
 		  FROM TBL_PAY A
@@ -102,15 +106,18 @@
 		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
 		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
 		 WHERE A.PAY_STATUS = 'Y'
+		 ORDER BY A.PAY_NO DESC
   	</select>
   	
-  	<select id="selectStudentList" resultMap="studentResultMap">
+  	<select id="selectStudentList" resultMap="studentResultMap2">
   		SELECT
   			   A.STUDENT_NO
   			 , A.STUDENT_NAME
   			 , A.GRADE
   			 , A.STUDENT_PHONE
+  			 , B.CLASS_NO
   		  FROM TBL_STUDENT A
+  		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
   		 WHERE A.STATUS = 'Y'
   	</select>
   	
@@ -138,10 +145,10 @@
   		, #{studentNo}
   		, #{payYn}
   		, #{payOption}
-  		, #{payMonth}
+  		, 1
   		, #{discountNo}
   		, #{payment}
-  		, SYSDATE
+  		, TO_CHAR(#{payDate},'YYYY/MM/DD')
   		, 'Y'
   		)
   	</insert>
@@ -151,6 +158,15 @@
   		   SET A.PAY_STATUS = 'N'
   		 WHERE A.PAY_NO = #{payNo}
   	</update>
+  	
+  	<select id="selectClass" parameterType="_int" resultMap="studentAndClassResultMap">
+  		SELECT
+		       A.CLASS_NAME
+		  FROM TBL_CLASS A
+		  JOIN TBL_CLASS_INFO B ON(A.CLASS_CODE = B.SUBJECT_CODE)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		 WHERE C.STUDENT_NO = #{stuNo}
+  	</select>
   	
   	
   </mapper>
