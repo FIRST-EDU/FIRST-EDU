@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.grade.model.dao.ScoreMapper">
+
+	<!-- 성적 테이블 DTO -->
+	<resultMap id="scoreResultMap" type="ScoreDTO">
+		<id column="SCORE_NO" property="no"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="SCORE" property="score"/>
+	</resultMap>
+	
+	<!-- 학생 테이블 DTO -->
+     <resultMap type="StudentDTO" id="studentResultMap">
+        <id property="no" column="STUDENT_NO"/>
+        <result property="grade" column="GRADE"/>
+        <result property="studentName" column="STUDENT_NAME"/>
+        <result property="parentsName" column="PARENTS_NAME"/>
+        <result property="studentPhone" column="STUDENT_PHONE"/>
+        <result property="parentsPhone" column="PARENTS_PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="birth" column="BIRTH"/>
+        <result property="school" column="SCHOOL"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="registrationDate" column="REGISTRATION_DATE"/>
+        <result property="status" column="STATUS"/>
+     </resultMap>
+	
+	<!-- 성적 조회 시 조인용 DTO -->
+	<resultMap id="scoreFullInfoResultMap" type="ScoreFullInfoDTO" extends="scoreResultMap">
+		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.examResultMap" property="exam"/>
+		<association resultMap="studentResultMap" property="student"/>
+ 	</resultMap>
+
+
+	<!-- 성적 조회 (검색 포함) -->
+	<select id="selectScoreList" parameterType="ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
+
+	</select>
+	
+	<!-- 성적 등록 -->
+	<insert id="insertScore" parameterType="ScoreDTO">
+
+	</insert>
+	
+	<!-- 성적 수정 -->
+	<update id="updateScore" parameterType="ScoreDTO">
+
+	</update>
+	
+	<!-- 성적 삭제 -->
+	<update id="deleteScore" parameterType="_int">
+
+	</update>
+	
+</mapper>

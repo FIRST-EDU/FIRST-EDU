@@ -10,5 +10,9 @@
  		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
  		<typeAlias alias="ExamFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamFullInfoDTO"/>
  		<typeAlias alias="ExamSearchCriteria" type="com.admin.firstedu.grade.model.dto.ExamSearchCriteria"/>
+ 		<typeAlias alias="ScoreDTO" type="com.admin.firstedu.grade.model.dto.ScoreDTO"/>
+ 		<typeAlias alias="StudentDTO" type="com.admin.firstedu.grade.model.dto.StudentDTO"/>
+ 		<typeAlias alias="ScoreFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO"/>
+ 		<typeAlias alias="ScoreSearchCriteria" type="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria"/>
  	</typeAliases>
 </configuration>
