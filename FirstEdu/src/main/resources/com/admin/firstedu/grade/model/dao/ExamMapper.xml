@@ -169,5 +169,11 @@
 	</update>
 	
 	<!-- 시험 종류 카테고리 삭제 -->
+	<update id="deleteExamCategory" parameterType="_int">
+		UPDATE
+		       TBL_EXAM_CATEGORY A
+		   SET A.EXAM_CATEGORY_STATUS = 'N'
+		 WHERE A.EXAM_CATEGORY_NO = #{ examCategoryNo }
+	</update>
 	
 </mapper>

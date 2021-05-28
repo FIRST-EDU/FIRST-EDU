@@ -58,7 +58,7 @@ public class ExamController {
 									 throws ExamException {
 //		ExamDTO exam = new ExamDTO(0, 9, "test", new jaåva.sql.Date(new java.util.Date().getTime()), "더조은고등학교", 2, 1);
 		if(!examService.registExam(exam)) {
-			throw new ExamException("시험 일정 등록에 실패하셨습니다.");
+			throw new ExamException("시험 일정 등록에 실패하였습니다.");
 		}
 		
 		rttr.addFlashAttribute("message", "시험 일정이 등록되었습니다.");
@@ -73,7 +73,7 @@ public class ExamController {
 									 throws ExamException {
 //		ExamDTO exam = new ExamDTO(1, 7, "test", new java.sql.Date(new java.util.Date().getTime()), "더신나는고등학교", 3, 2);
 		if(!examService.modifyExam(exam)) {
-			throw new ExamException("시험 일정 수정에 실패하셨습니다.");
+			throw new ExamException("시험 일정 수정에 실패하였습니다.");
 		}
 		
 		rttr.addFlashAttribute("message", "시험 일정이 수정되었습니다.");
@@ -88,7 +88,7 @@ public class ExamController {
 									 throws ExamException {
 //		int examNo = 1;
 		if(!examService.removeExam(examNo)) {
-			throw new ExamException("시험 일정 삭제에 실패하셨습니다.");
+			throw new ExamException("시험 일정 삭제에 실패하였습니다.");
 		}
 		
 		rttr.addFlashAttribute("message", "시험 일정이 삭제되었습니다.");
@@ -104,7 +104,7 @@ public class ExamController {
 		examCategory.setName("RegistTest");
 		examCategory.setRefCategoryNo(1);
 		if(!examService.registExamCategory(examCategory)) {
-			throw new ExamException("시험 종류 카테고리 등록에 실패하셨습니다.");
+			throw new ExamException("시험 종류 카테고리 등록에 실패하였습니다.");
 		}
 		
 		rttr.addFlashAttribute("message", "시험 종류 카테고리가 추가되었습니다.");
@@ -120,7 +120,7 @@ public class ExamController {
 		examCategory.setNo(11);
 		examCategory.setName("ModifyTest");
 		if(!examService.modifyExamCategory(examCategory)) {
-			throw new ExamException("시험 종류 카테고리 수정에 실패하셨습니다.");
+			throw new ExamException("시험 종류 카테고리 수정에 실패하였습니다.");
 		}
 		
 		rttr.addFlashAttribute("message", "시험 종류 카테고리가 수정되었습니다.");
@@ -129,5 +129,18 @@ public class ExamController {
 	}
 	
 	/* 시험 종류 카테고리 삭제 */
+	@PostMapping("/exam/category/remove")
+	public String removeExamCategory(@RequestParam(required=false, defaultValue="0") int examCategoryNo,
+									 RedirectAttributes rttr)
+											 throws ExamException {
+		examCategoryNo = 11;
+		if(!examService.removeExamCategory(examCategoryNo)) {
+			throw new ExamException("시험 종류 카테고리 삭제에 실패하였습니다.");
+		}
+		
+		rttr.addFlashAttribute("message", "시험 종류 카테고리가 삭제되었습니다.");
+		
+		return "redirect:/grade/exam";
+	}
 	
 }
