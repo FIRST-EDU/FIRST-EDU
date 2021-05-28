@@ -2,25 +2,25 @@ package com.admin.firstedu.pay.model.dto;
 
 public class StudentAndClassDTO {
 
-	private StudentDTO student;
+	private int no;
 	private ClassDTO classDTO;
 
 	public StudentAndClassDTO() {
 		super();
 	}
 
-	public StudentAndClassDTO(StudentDTO student, ClassDTO classDTO) {
+	public StudentAndClassDTO(int no, ClassDTO classDTO) {
 		super();
-		this.student = student;
+		this.no = no;
 		this.classDTO = classDTO;
 	}
 
-	public StudentDTO getStudent() {
-		return student;
+	public int getNo() {
+		return no;
 	}
 
-	public void setStudent(StudentDTO student) {
-		this.student = student;
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public ClassDTO getClassDTO() {
@@ -33,7 +33,7 @@ public class StudentAndClassDTO {
 
 	@Override
 	public String toString() {
-		return "StudentAndClassDTO [student=" + student + ", classDTO=" + classDTO + "]";
+		return "StudentAndClassDTO [no=" + no + ", classDTO=" + classDTO + "]";
 	}
 
 }

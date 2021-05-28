@@ -1,6 +1,5 @@
 package com.admin.firstedu.pay.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,8 @@ import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/pay/*")
@@ -35,9 +36,7 @@ public class PayController {
 	@GetMapping("list")
 	public String selectPayList(Model model) {
 		
-		List<PayListDTO> payList = new ArrayList<>();
-		
-		payList = payService.selectPayList();
+		List<PayListDTO> payList = payService.selectPayList();
 		
 		model.addAttribute("payList", payList);
 		
@@ -49,15 +48,20 @@ public class PayController {
 	}
 	
 	@GetMapping("selectClass")
-	public String selectClass(Model model, @RequestParam(value="stuNo") int stuNo) {
+	public String selectClass(HttpServletResponse response, Model model, @RequestParam(value="stuNo") int stuNo) {
+		
+		response.setContentType("appication/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().create();
 		
 		List<StudentAndClassDTO> classNameList = payService.selectClass(stuNo);
 				
+		System.out.println(stuNo);
 		for(StudentAndClassDTO className : classNameList) {
 			System.out.println(className);
 		}
 		
-		model.addAttribute("classNameList",classNameList);
+		model.addAttribute("classNameList", gson.toJson(classNameList));
 		
 		return "pay/payInsert";
 	}

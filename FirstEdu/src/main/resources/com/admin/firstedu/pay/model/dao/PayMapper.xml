@@ -46,15 +46,6 @@
   		<result property="status" column="STATUS"/>
   	</resultMap>
   	
-  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
-  		<id property="no" column="STUDENT_NO"/>
-  		<result property="grade" column="GRADE"/>
-  		<result property="studentName" column="STUDENT_NAME"/>
-  		<result property="studentPhone" column="STUDENT_PHONE"/>
-  		<result property="status" column="STATUS"/>
-  		<collection property="classInfo" resultMap="classInfoResultMap"/>
-  	</resultMap>
-  	
   	
   	<resultMap type="ClassDTO" id="classResultMap">
   		<id property="classCode" column="CLASS_CODE"/>
@@ -69,6 +60,16 @@
   		<result property="teacherNo" column="TEACHER_NO"/>
   	</resultMap>
   	
+  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="grade" column="GRADE"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="status" column="STATUS"/>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>  		
+  	</resultMap>
+  	
   	<resultMap type="PayListDTO" id="payListResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="payYn" column="PAY_YN"/>
@@ -77,14 +78,14 @@
   		<result property="payDate" column="PAY_DATE"/>
   		<result property="payment" column="PAYMENT"/>
   		<result property="payStatus" column="PAY_STATUS"/>  		
-  		<collection property="classInfo" resultMap="classInfoResultMap"/>
-  		<collection property="classDTO" resultMap="classResultMap"/>
-  		<collection property="student" resultMap="studentResultMap"/>
-  		<collection property="discount" resultMap="discountResultMap"/>
+  		<association property="classInfo" resultMap="classInfoResultMap"/>
+  		<association property="classDTO" resultMap="classResultMap"/>
+  		<association property="student" resultMap="studentResultMap"/>
+  		<association property="discount" resultMap="discountResultMap"/>
   	</resultMap>
   	
   	<resultMap type="StudentAndClassDTO" id="studentAndClassResultMap">
-  		<collection property="student" resultMap="studentResultMap"/>
+  		<id property="no" column="STUDENT_NO"/>
   		<collection property="classDTO" resultMap="classResultMap"/>
   	</resultMap>
   	
@@ -116,8 +117,11 @@
   			 , A.GRADE
   			 , A.STUDENT_PHONE
   			 , B.CLASS_NO
+  			 , C.CLASS_NAME
+  			 , C.CLASS_PAYMENT
   		  FROM TBL_STUDENT A
   		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
+  		  JOIN TBL_CLASS C ON (B.SUBJECT_CODE = C.CLASS_CODE)
   		 WHERE A.STATUS = 'Y'
   	</select>
   	
@@ -162,6 +166,7 @@
   	<select id="selectClass" parameterType="_int" resultMap="studentAndClassResultMap">
   		SELECT
 		       A.CLASS_NAME
+		     , A.CLASS_PAYMENT
 		  FROM TBL_CLASS A
 		  JOIN TBL_CLASS_INFO B ON(A.CLASS_CODE = B.SUBJECT_CODE)
 		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)

@@ -49,5 +49,8 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<script>
+			
+		</script>
 </body>
 </html>
