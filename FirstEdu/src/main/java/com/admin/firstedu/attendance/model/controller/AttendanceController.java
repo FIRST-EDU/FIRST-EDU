@@ -67,7 +67,7 @@ public class AttendanceController {
 		if(!attendanceService.updateStudentAttendance(attendance)) {
 				
 			throw new AttendanceUpdateException("학생 출결 수정 실패");
-		}
+		} 
 		
 		return "attendance/result1";
 		

@@ -21,10 +21,32 @@
 	</resultMap>
 	<resultMap type="StudentDTO" id="studentResultSet">
 		<id column="STUDENT_NO" property="studentNo"/>
+		<result column="STUDENT_NO" property="no"/>
+		<result column="GRADE" property="grade"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="PARENTS_NAME" property="parentsName"/>
+		<result column="STUDENT_PHONE" property="studentPhone"/>
+		<result column="PARENTS_PHONE" property="parentsPhone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
+		<result column="STATUS" property="status"/>
 
 	</resultMap>
 	<resultMap type="TeacherDTO" id="teacherResultSet">
 		<id column="TEACHER_NO" property="teacherNo"/>
+		<result column="TEACHER_NO" property="no"/>
+		<result column="TEACHER_ID" property="id"/>
+		<result column="TEACHER_PWD" property="pwd"/>
+		<result column="TEACHER_NAME" property="name"/>
+		<result column="TEACHER_EMAIL" property="email"/>
+		<result column="TEACHER_GENDER" property="gender"/>
+		<result column="TEACHER_PHONE" property="phone"/>
+		<result column="TEACHER_ADDRESS" property="address"/>
+		<result column="TEACHER_ROLE" property="role"/>
+		<result column="HIRE_DATE" property="hireDate"/>
+		<result column="ENT_DATE" property="endDate"/>
+		<result column="TEACHER_STATUS" property="status"/>
 	</resultMap>
 	
 	<resultMap type="AttendanceInfoDTO" id="attendanceInfoResultSet">
@@ -43,13 +65,13 @@
 		  INTO TBL_ATTENDANCE A
 		(
 		  A.ATTENDANCE_NO
-		, A.CATEGORY_NO, A.STUDENT_NO, A.CHECKOUT_TIME
+		, A.CATEGORY_NO, A.STUDENT_NO, A.ATTENDANCE_TIME
 		, A.MEMO
 		 )
 		 VALUES
 		 (
-		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ attendanceTime }, #{ categoryNo }
-		 ,  #{ studentNo }, #{ checkOutTime }, #{ memo }
+		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ categoryNo }
+		 ,  #{ studentNo }, #{ attendanceTime }, #{ memo }
 		 	)
 	</insert>
 	
@@ -103,9 +125,6 @@
 			  , A.MEMO = #{ memo }
 			<if test="checkOutTime != null">
 			  ,	A.CHECKOUT_TIME = #{ checkOutTime }
-			</if>
-			<if test="">
-			  , A.STUDENT_NO = #{ studentNo }
 			</if>
 		</set>
 		 WHERE A.ATTENDANCE_NO = #{ attendaceNo } 
