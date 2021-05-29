@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
+<body  style="background:gray;">
 <button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/insertView'">수납입력</button>
 	<table class="payList" border="1">
 			<thead>
@@ -51,7 +51,20 @@
 			</tbody>
 		</table>
 		<script>
-			
+		if(document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for(var i = 0 ; i < $tds.length ; i++) {
+
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.cursor = "pointer";
+				}
+
+				$tds[i].onclick = function() {
+					const no = this.parentNode.children[0].innerText;
+					location.href = "${pageContext.servletContext.contextPath}/pay/detail?no=" + no;
+				}
+			}
+		}
 		</script>
 </body>
 </html>

@@ -14,9 +14,16 @@ public interface PayService {
 	List<StudentAndClassInfoDTO> selectStudentList();
 	
 	int insertPay(PayDTO pay);
+	
+	int updatePay(PayDTO pay);
 
-	int deletePay(PayDTO pay);
+	int deletePay(int no);
 
 	List<StudentAndClassDTO> selectClass(int stuNo);
+
+	PayListDTO selectPayDetail(int no);
+
+	PayListDTO selectUpdatePay(int no);
+
 
 }

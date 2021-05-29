@@ -15,8 +15,14 @@ public interface PayMapper {
 	
 	int insertPay(PayDTO pay);
 
-	int deletePay(PayDTO pay);
+	int deletePay(int no);
 
 	List<StudentAndClassDTO> selectClass(int stuNo);
+
+	PayListDTO selectPayDetail(int no);
+
+	PayListDTO selectPayUpdate(int no);
+
+	int updatePay(PayDTO pay);
 
 }

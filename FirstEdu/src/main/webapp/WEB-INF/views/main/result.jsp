@@ -10,5 +10,6 @@
 </head>
 <body>
 ${message }
+<button onclick="location.href='${pageContext.servletContext.contextPath}/main'">메인</button>
 </body>
 </html>

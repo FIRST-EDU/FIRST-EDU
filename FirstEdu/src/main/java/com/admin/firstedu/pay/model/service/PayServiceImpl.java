@@ -42,15 +42,33 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public int deletePay(PayDTO pay) {
+	public int deletePay(int no) {
 		// TODO Auto-generated method stub
-		return payMapper.deletePay(pay);
+		return payMapper.deletePay(no);
 	}
 
 	@Override
 	public List<StudentAndClassDTO> selectClass(int stuNo) {
 		// TODO Auto-generated method stub
 		return payMapper.selectClass(stuNo);
+	}
+
+	@Override
+	public PayListDTO selectPayDetail(int no) {
+		// TODO Auto-generated method stub
+		return payMapper.selectPayDetail(no);
+	}
+
+	@Override
+	public PayListDTO selectUpdatePay(int no) {
+		// TODO Auto-generated method stub
+		return payMapper.selectPayUpdate(no);
+	}
+
+	@Override
+	public int updatePay(PayDTO pay) {
+		// TODO Auto-generated method stub
+		return payMapper.updatePay(pay);
 	}
 
 

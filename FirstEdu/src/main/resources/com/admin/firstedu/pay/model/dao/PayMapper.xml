@@ -115,6 +115,50 @@
 		 ORDER BY A.PAY_NO DESC
   	</select>
   	
+  	<select id="selectPayDetail" parameterType="_int" resultMap="payListResultMap">
+  		SELECT 
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND A.PAY_NO = #{no}
+		 ORDER BY A.PAY_NO DESC
+  	</select>
+  	
+  	<select id="selectPayUpdate" parameterType="_int" resultMap="payListResultMap">
+  		SELECT 
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND A.PAY_NO = #{no}
+		 ORDER BY A.PAY_NO DESC
+  	</select>
+  	
   	<select id="selectStudentList" resultMap="studentResultMap2">
   		SELECT
   			   A.STUDENT_NO
@@ -163,10 +207,21 @@
   		)
   	</insert>
   	
+  	<update id="updatePay" parameterType="PayDTO">
+  		UPDATE 
+  			   TBL_PAY A
+  		   SET A.PAY_YN = #{payYn}
+  		     , A.DISCOUNT_NO = #{discountNo}
+  		     , A.PAYMENT = #{payment}
+  		     , A.PAY_OPTION = #{payOption}
+  		     , A.PAY_DATE = TO_CHAR(#{payDate},'YYYY/MM/DD')
+  		 WHERE A.PAY_NO = #{payNo}
+  	</update>
+  	
   	<update id="deletePay" parameterType="_int">
   		UPDATE TBL_PAY A
   		   SET A.PAY_STATUS = 'N'
-  		 WHERE A.PAY_NO = #{payNo}
+  		 WHERE A.PAY_NO = #{no}
   	</update>
   	
   	<select id="selectClass" parameterType="_int" resultMap="studentAndClassResultMap">

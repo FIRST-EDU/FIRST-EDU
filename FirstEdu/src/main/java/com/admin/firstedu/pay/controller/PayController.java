@@ -47,34 +47,14 @@ public class PayController {
 		return "pay/payList";
 	}
 	
-	@GetMapping("selectClass")
-	public String selectClass(HttpServletResponse response, Model model, @RequestParam(value="stuNo") int stuNo) {
+	@GetMapping("detail")
+	public String selectPayDetail(Model model, @RequestParam(value="no") int no) {
 		
-		response.setContentType("appication/json; charset=UTF-8");
+		PayListDTO payDetail = payService.selectPayDetail(no);
 		
-		Gson gson = new GsonBuilder().create();
+		model.addAttribute("payDetail", payDetail);
 		
-		List<StudentAndClassDTO> classNameList = payService.selectClass(stuNo);
-				
-		System.out.println(stuNo);
-		for(StudentAndClassDTO className : classNameList) {
-			System.out.println(className);
-		}
-		
-		model.addAttribute("classNameList", gson.toJson(classNameList));
-		
-		return "pay/payInsert";
-	}
-	
-	@GetMapping("insertView")
-	public String selectStudentList(Model model) {
-		
-		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList();
-		
-		model.addAttribute("studentList", studentList);
-		
-		return "pay/payInsert";
-		
+		return "pay/payDetail";
 	}
 	
 	@PostMapping("insert")
@@ -91,19 +71,73 @@ public class PayController {
 		return "main/result";
 	}
 	
-	@PostMapping("delete")
-	public String updatePay(HttpServletResponse response, Model model, @ModelAttribute PayDTO pay) {
+	@GetMapping("insertView")
+	public String selectStudentList(Model model) {
 		
-		response.setCharacterEncoding("UTF-8");
+		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList();
 		
-		int result = payService.deletePay(pay);
+		model.addAttribute("studentList", studentList);
+		
+		return "pay/payInsert";
+		
+	}
+	
+	@GetMapping("update")
+	public String selectUpdatePay(Model model, @RequestParam(value="no") int no) {
+		
+		PayListDTO payUpdate = payService.selectUpdatePay(no);
+		
+		model.addAttribute("payUpdate", payUpdate);
+				
+		return "pay/payUpdate";
+	}
+	
+	@PostMapping("update")
+	public String updatePay(Model model, @ModelAttribute PayDTO pay) {
+		
+		int result = payService.updatePay(pay);
 		
 		if(result > 0) {
-			model.addAttribute("successMessage", "수납목록 삭제에 성공하였습니다.");
+			model.addAttribute("message", "수납수정에 성공하였습니다.");
 		}else {
-			model.addAttribute("failedMessage", "수납목록 삭제에 실패하였습니다.");
+			model.addAttribute("message", "수납수정에 실패하였습니다.");
 		}
 		
-		return "result";
+		return "main/result";
+		
+	}
+	
+	@GetMapping("delete")
+	public String deletePay(Model model, @RequestParam(value="no") int no) {
+		
+		
+		int result = payService.deletePay(no);
+		
+		if(result > 0) {
+			model.addAttribute("message", "수납목록 삭제에 성공하였습니다.");
+		}else {
+			model.addAttribute("message", "수납목록 삭제에 실패하였습니다.");
+		}
+		
+		return "main/result";
+	}
+	
+	@GetMapping("selectClass")
+	public String selectClass(HttpServletResponse response, Model model, @RequestParam(value="stuNo") int stuNo) {
+		
+		response.setContentType("appication/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().create();
+		
+		List<StudentAndClassDTO> classNameList = payService.selectClass(stuNo);
+		
+		System.out.println(stuNo);
+		for(StudentAndClassDTO className : classNameList) {
+			System.out.println(className);
+		}
+		
+		model.addAttribute("classNameList", gson.toJson(classNameList));
+		
+		return "pay/payInsert";
 	}
 }

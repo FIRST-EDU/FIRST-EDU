@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
+<body style="background:gray;">
 	<table id="studentList" class="studentList" border="1">
 			<thead>
 				<tr>
@@ -124,6 +124,8 @@
 						flag = true;
 						$(paymentText).val('0');
 						$(payDateText).val('0001-01-01');
+					} else if(value == 'Y'){
+						flag = false;
 					}
 		
 				$("#option1").prop("selected",true);
