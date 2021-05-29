@@ -26,7 +26,7 @@
 						<td><c:out value="${ student.no }" /></td>
 						<td id="th5" style="display:none;"><c:out value="${ student.classInfo.no }"/></td>
 						<td><c:out value="${ student.studentName }" /></td>
-						<td><c:out value="${ student.grade }" /></td>
+						<td><c:out value="${ student.grade.gradeName }" /></td>
 						<td><c:out value="${ student.studentPhone }" /></td>
 						<td style="display:none;"><c:out value="${ student.classDTO.className }"/></td>
 						<td style="display:none;"><c:out value="${ student.classDTO.classPayment }"/></td>
@@ -36,24 +36,25 @@
 		</table>
 		<form action="${pageContext.servletContext.contextPath}/pay/insert" method="post">
 		<div id="payInsertForm">
-			학생번호 <input type="number" name="studentNo" id="studentNo" value=""><br>
+		    <input type="hidden" name="studentNo" id="studentNo" value=""><br>
 			<input type="hidden" name="classNo" id="classNo" value="">
 			학생명 <input type="text" name="studentName" id="studentName"  value=""><br>
 			강의명 <input type="text" name="classNameList" id="classNameList" value=""><br>
 			수강료 <input type="number" name="tution" id="tution" value=""><br>
+			납입현황  <select name="payYn">
+					 <option value="Y">납부</option>
+					 <option value="N">미납</option>
+				  </select><br>
 			할인수단 <input type="radio" name="discountNo" id="dis1" value="1">친구
 				  <input type="radio" name="discountNo" id="dis2" value="2">기간
 				  <input type="radio" name="discountNo" id="dis3" value="3">없음<br>
 			결제금액 <input type="number" name="payment" value=""><br>
 			결제수단 <select name="payOption">
+					 <option value="--" selected id="option1">--</option>
 					 <option value="카드">카드</option>
 					 <option value="카드">현금</option>
 				  </select><br>
-			납입현황  <select name="payYn">
-					 <option value="Y">납부</option>
-					 <option value="N">미납</option>
-				  </select><br>
-			납입일 <input type="date" name="payDate"><br>
+			납입일 <input type="date" name="payDate" value=""><br>
 		</div>
 		<button>등록</button>
 		</form>
@@ -110,7 +111,35 @@
 					$('input[name=payment]').attr('value',tution);
 				}
 			})
-		</script>
+			
+			$(function(){	
+				$(document).on("change", "select[name=payYn]", function(){
+				var value = $(this).find("option:selected").val();
+				var discountText = $("input[name=discountNo]");
+				var paymentText = $("input[name=payment]");
+				var payOptionText = $("input[name=payOption]");
+				var payDateText = $("input[name=payDate]");
+				var flag = false;
+					if (value == 'N') {
+						flag = true;
+						$(paymentText).val('0');
+						$(payDateText).val('0001-01-01');
+					}
 		
+				$("#option1").prop("selected",true);
+				$("#dis3").prop("checked", true);
+				$(paymentText).attr("disabled", flag);
+				$(payDateText).attr("disabled", flag);
+				});
+
+			})
+		 
+		 $("form").submit(function(){
+			 $("input[name=discountNo]").removeAttr('disabled'); 
+			 $("input[name=payment]").removeAttr('disabled'); 
+			 $("input[name=payDate]").removeAttr('disabled'); 
+			 
+		 })
+		</script>
 </body>
 </html>

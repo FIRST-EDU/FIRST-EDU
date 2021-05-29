@@ -31,9 +31,14 @@
   		<result property="discountReason" column="DISCOUNT_REASON"/>
   	</resultMap>
   	
+  	<resultMap type="GradeDTO" id="gradeResultMap">
+  		<id property="gradeCode" column="GRADE_CODE"/>
+  		<result property="gradeName" column="GRADE_NAME"/>
+  	</resultMap>
+  	
   	<resultMap type="StudentDTO" id="studentResultMap">
   		<id property="no" column="STUDENT_NO"/>
-  		<result property="grade" column="GRADE"/>
+  		<result property="grade" column="GRADE_CODE"/>
   		<result property="studentName" column="STUDENT_NAME"/>
   		<result property="parentsName" column="PARENTS_NAME"/>
   		<result property="studentPhone" column="STUDENT_PHONE"/>
@@ -62,12 +67,12 @@
   	
   	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
   		<id property="no" column="STUDENT_NO"/>
-  		<result property="grade" column="GRADE"/>
   		<result property="studentName" column="STUDENT_NAME"/>
   		<result property="studentPhone" column="STUDENT_PHONE"/>
   		<result property="status" column="STATUS"/>
   		<collection property="classInfo" resultMap="classInfoResultMap"/>
   		<collection property="classDTO" resultMap="classResultMap"/>  		
+  		<collection property="grade" resultMap="gradeResultMap"/>  		
   	</resultMap>
   	
   	<resultMap type="PayListDTO" id="payListResultMap">
@@ -114,7 +119,7 @@
   		SELECT
   			   A.STUDENT_NO
   			 , A.STUDENT_NAME
-  			 , A.GRADE
+  			 , D.GRADE_NAME
   			 , A.STUDENT_PHONE
   			 , B.CLASS_NO
   			 , C.CLASS_NAME
@@ -122,6 +127,7 @@
   		  FROM TBL_STUDENT A
   		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
   		  JOIN TBL_CLASS C ON (B.SUBJECT_CODE = C.CLASS_CODE)
+  		  JOIN TBL_GRADE D ON (A.GRADE_CODE = D.GRADE_CODE)
   		 WHERE A.STATUS = 'Y'
   	</select>
   	
@@ -152,7 +158,7 @@
   		, 1
   		, #{discountNo}
   		, #{payment}
-  		, TO_CHAR(#{payDate},'YYYY/MM/DD')
+		, TO_CHAR(#{payDate},'YYYY/MM/DD')
   		, 'Y'
   		)
   	</insert>

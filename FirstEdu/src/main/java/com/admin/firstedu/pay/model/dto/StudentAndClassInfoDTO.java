@@ -3,27 +3,27 @@ package com.admin.firstedu.pay.model.dto;
 public class StudentAndClassInfoDTO {
 
 	private int no;
-	private int grade;
 	private String studentName;
 	private String studentPhone;
 	private String status;
 	private ClassInfoDTO classInfo;
 	private ClassDTO classDTO;
+	private GradeDTO grade;
 
 	public StudentAndClassInfoDTO() {
 		super();
 	}
 
-	public StudentAndClassInfoDTO(int no, int grade, String studentName, String studentPhone, String status,
-			ClassInfoDTO classInfo, ClassDTO classDTO) {
+	public StudentAndClassInfoDTO(int no, String studentName, String studentPhone, String status,
+			ClassInfoDTO classInfo, ClassDTO classDTO, GradeDTO grade) {
 		super();
 		this.no = no;
-		this.grade = grade;
 		this.studentName = studentName;
 		this.studentPhone = studentPhone;
 		this.status = status;
 		this.classInfo = classInfo;
 		this.classDTO = classDTO;
+		this.grade = grade;
 	}
 
 	public int getNo() {
@@ -32,14 +32,6 @@ public class StudentAndClassInfoDTO {
 
 	public void setNo(int no) {
 		this.no = no;
-	}
-
-	public int getGrade() {
-		return grade;
-	}
-
-	public void setGrade(int grade) {
-		this.grade = grade;
 	}
 
 	public String getStudentName() {
@@ -82,11 +74,19 @@ public class StudentAndClassInfoDTO {
 		this.classDTO = classDTO;
 	}
 
+	public GradeDTO getGrade() {
+		return grade;
+	}
+
+	public void setGrade(GradeDTO grade) {
+		this.grade = grade;
+	}
+
 	@Override
 	public String toString() {
-		return "StudentAndClassInfoDTO [no=" + no + ", grade=" + grade + ", studentName=" + studentName
-				+ ", studentPhone=" + studentPhone + ", status=" + status + ", classInfo=" + classInfo + ", classDTO="
-				+ classDTO + "]";
+		return "StudentAndClassInfoDTO [no=" + no + ", studentName=" + studentName + ", studentPhone=" + studentPhone
+				+ ", status=" + status + ", classInfo=" + classInfo + ", classDTO=" + classDTO + ", grade=" + grade
+				+ "]";
 	}
 
 }

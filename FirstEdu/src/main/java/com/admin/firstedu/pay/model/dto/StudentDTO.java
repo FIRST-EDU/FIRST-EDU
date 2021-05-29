@@ -5,7 +5,7 @@ import java.sql.Date;
 public class StudentDTO {
 
 	private int no;
-	private int grade;
+	private String grade;
 	private String studentName;
 	private String parentsName;
 	private String studentPhone;
@@ -21,7 +21,7 @@ public class StudentDTO {
 		super();
 	}
 
-	public StudentDTO(int no, int grade, String studentName, String parentsName, String studentPhone,
+	public StudentDTO(int no, String grade, String studentName, String parentsName, String studentPhone,
 			String parentsPhone, String gender, String birth, String school, String address, Date registrationDate,
 			String status) {
 		super();
@@ -47,11 +47,11 @@ public class StudentDTO {
 		this.no = no;
 	}
 
-	public int getGrade() {
+	public String getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 

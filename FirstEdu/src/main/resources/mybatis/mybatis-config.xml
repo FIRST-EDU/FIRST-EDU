@@ -13,5 +13,6 @@
 	 <typeAlias type="com.admin.firstedu.pay.model.dto.ClassDTO" alias="ClassDTO"/>
 	 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO" alias="StudentAndClassInfoDTO"/>
 	 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentAndClassDTO" alias="StudentAndClassDTO"/>
+	 <typeAlias type="com.admin.firstedu.pay.model.dto.GradeDTO" alias="GradeDTO"/>
  </typeAliases>
 </configuration>
