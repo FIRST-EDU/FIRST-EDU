@@ -11,9 +11,9 @@ public interface AttendanceService {
 	
 	boolean insertTeacher(AttendanceDTO attendance);
 	
-	List<AttendanceInfoDTO> selectStudnetAttendance(AttendanceDTO attendance);
+	List<AttendanceInfoDTO> selectStudnetAttendance();
 	
-	List<AttendanceInfoDTO> selectTeacherAttendance(AttendanceDTO attendance);
+	List<AttendanceInfoDTO> selectTeacherAttendance();
 	
 	boolean updateStudentAttendance(AttendanceDTO attendance);
 

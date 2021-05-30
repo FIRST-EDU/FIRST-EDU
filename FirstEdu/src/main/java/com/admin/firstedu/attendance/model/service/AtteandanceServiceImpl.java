@@ -29,19 +29,23 @@ public class AtteandanceServiceImpl implements AttendanceService {
 		return mapper.insertTeacher(attendance) > 0 ? true : false;
 	}
 
-	@Override
-	public List<AttendanceInfoDTO> selectStudnetAttendance(AttendanceDTO attendance) {
-		return mapper.selectStudnetAttendance(attendance);
-	}
 
 	@Override
 	public boolean updateStudentAttendance(AttendanceDTO attendance) {
 		return mapper.updateStudentAttendance(attendance) > 0 ? true : false;
 	}
 
+
 	@Override
-	public List<AttendanceInfoDTO> selectTeacherAttendance(AttendanceDTO attendance) {
-		return mapper.selectTeacherAttendance(attendance);
+	public List<AttendanceInfoDTO> selectStudnetAttendance() {
+		// TODO Auto-generated method stub
+		return mapper.selectStudnetAttendance();
+	}
+
+	@Override
+	public List<AttendanceInfoDTO> selectTeacherAttendance() {
+		// TODO Auto-generated method stub
+		return mapper.selectTeacherAttendance();
 	}
 	
 }

@@ -10,5 +10,8 @@
 		<typeAlias alias="AttendanceCategoryDTO" type="com.admin.firstedu.attendance.model.dto.AttendanceCategoryDTO"/>
 		<typeAlias alias="StudentDTO" type="com.admin.firstedu.attendance.model.dto.StudentDTO"/>
 		<typeAlias alias="TeacherDTO" type="com.admin.firstedu.attendance.model.dto.TeacherDTO"/>
+		<typeAlias alias="ClassDTO" type="com.admin.firstedu.attendance.model.dto.ClassDTO"/>
+		<typeAlias alias="ClassInfoClassDTO" type="com.admin.firstedu.attendance.model.dto.ClassInfoClassDTO"/>
+		<typeAlias alias="ClassInfoDTO" type="com.admin.firstedu.attendance.model.dto.ClassInfoDTO"/>
 	</typeAliases>
 </configuration>

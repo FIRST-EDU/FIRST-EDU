@@ -1,5 +1,7 @@
 package com.admin.firstedu.attendance.model.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,14 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.attendance.common.exception.AttendanceInsertException;
 import com.admin.firstedu.attendance.common.exception.AttendanceUpdateException;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
+import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
 import com.admin.firstedu.attendance.model.service.AttendanceService;
 
 @Controller
-@RequestMapping("/attendance")
+@RequestMapping("/attendance/*")
 public class AttendanceController {
 	
 	private final AttendanceService attendanceService;
@@ -25,28 +29,41 @@ public class AttendanceController {
 	
 	}
 	
-	
-	@GetMapping("/list1")//파일 path
-	public String selectStudnetAttendance(@ModelAttribute AttendanceDTO attendance, Model model) {
-	
-		model.addAttribute("attendanceList", attendanceService.selectStudnetAttendance(attendance));
+	@GetMapping("/studentList")//파일 path
+	public String selectStudnetAttendance(Model model) {
 		
-		return "attendance/list1";//뷰페이지 이름
+		List<AttendanceInfoDTO> studentList = attendanceService.selectStudnetAttendance();
 		
+		model.addAttribute("studentList", studentList);
+		
+		for(AttendanceInfoDTO student : studentList) {
+	
+			System.out.println(student);
+		
+		}
+		
+		return "attendance/studentList";//뷰페이지 이름
+	
 	}
 	
 	@GetMapping("/list2")
-	public String selectTeacherAttendance(@ModelAttribute AttendanceDTO attendance, Model model) {
+	public String selectTeacherAttendance(Model model) {
 		
-		model.addAttribute("attendanceList", attendanceService.selectTeacherAttendance(attendance));
+		List<AttendanceInfoDTO> teacherList = attendanceService.selectTeacherAttendance();
+		
+		model.addAttribute("teacherList", teacherList);
+		
+		for(AttendanceInfoDTO teacher : teacherList) {
+			System.out.println(teacher);
+		}
 		
 		return "attendance/list2";
-		
+	
 	}
 	
 	
 	@PostMapping("/insertStudent")
-	public String insertStudent(@ModelAttribute AttendanceDTO attendance) throws AttendanceInsertException {
+	public String insertStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceInsertException {
 		
 		
 		if(!attendanceService.insertStudent(attendance)) {
@@ -54,7 +71,8 @@ public class AttendanceController {
 			throw new AttendanceInsertException("학생 출결 입력 실패");
 		}
 		
-		return "attendance/result1";
+		
+		return "attendance/insertStudent";
 		
 	}
 	
@@ -62,14 +80,14 @@ public class AttendanceController {
 	
 	
 	@PostMapping("/updateStudent")
-	public String updateStudentAttendance(@ModelAttribute AttendanceDTO attendance) throws AttendanceUpdateException {
+	public String updateStudentAttendance(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceUpdateException {
 		
 		if(!attendanceService.updateStudentAttendance(attendance)) {
 				
 			throw new AttendanceUpdateException("학생 출결 수정 실패");
 		} 
 		
-		return "attendance/result1";
+		return "attendance/updateStudent";
 		
 	}
 	

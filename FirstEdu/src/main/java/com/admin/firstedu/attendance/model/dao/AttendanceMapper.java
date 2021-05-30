@@ -11,9 +11,9 @@ public interface AttendanceMapper {
 	
 	int insertTeacher(AttendanceDTO attendance);
 	
-	List<AttendanceInfoDTO> selectStudnetAttendance(AttendanceDTO attendance);
+	List<AttendanceInfoDTO> selectStudnetAttendance();
 	
-	List<AttendanceInfoDTO> selectTeacherAttendance(AttendanceDTO attendance);
+	List<AttendanceInfoDTO> selectTeacherAttendance();
 	
 	int updateStudentAttendance(AttendanceDTO attendance);
 	

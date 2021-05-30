@@ -49,15 +49,28 @@
 		<result column="TEACHER_STATUS" property="status"/>
 	</resultMap>
 	
+	<resultMap type="ClassDTO" id="classResultSet">
+		<id column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NAME" property="className"/>
+	</resultMap>
+	
+	<resultMap type="ClassInfoDTO" id="classInfoResultSet">
+		<id column="CLASS_NO" property="no"/>
+		<result column="SUBJECT_CODE" property="subjectCode"/>
+	</resultMap>
+	
+	
 	<resultMap type="AttendanceInfoDTO" id="attendanceInfoResultSet">
 		<id column="ATTENDANCE_NO" property="no"/>
 		<result column="ATTENDANCE_TIME" property="attendanceTime"/>
 		<result column="CHECKOUT_TIME" property="checkOutTime"/>
 		<result column="MEMO" property="memo"/>
 		<result column="MONTH_TIME" property="monthTime"/>
-	<association resultMap="attendanceCategoryDTO" property="category"/>
-	<association resultMap="studentDTO" property="student"/>
-	<association resultMap="teacherDTO" property="teacher"/>
+	<association resultMap="AttendanceCategoryDTO" property="category"/>
+	<association resultMap="StudentDTO" property="student"/>
+	<association resultMap="TeacherDTO" property="teacher"/>
+	<association resultMap="ClassDTO" property="classDTO"/>
+	<association resultMap="ClassInfoDTO" property="classInfo"/>
 	</resultMap>	
 	
 	<insert id="insertStudent" parameterType="AttendanceDTO">
@@ -92,25 +105,34 @@
 	
 	
 	
-	<select id="selectStudnetAttendance" parameterType="AttendanceDTO" resultMap="attendanceInfoResultSet">
+	<select id="selectStudnetAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
 		SELECT
 		       A.ATTENDANCE_NO
 		     , B.CATEGORY_NO
-		     , B.ATTENDANCE_CON
 		     , C.STUDENT_NO
+		   	 , D.CLASS_CODE
+		   	 , E.CLASS_NO
 		 FROM TBL_ATTENDANCE A
 		 JOIN TBL_ATTENDANCE_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO) 
 		 JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+		 JOIN TBL_CLASS D ON (A.CLASS_CODE = D.CLASS_CODE)
+		 JOIN TBL_CLASS_INFO E ON (A.CLASS_NO = E.CLASS_NO)
+
 	</select>
 	
-	<select id="selectTeacherAttendance" parameterType="AttendanceDTO" resultMap="attendanceInfoResultSet">
+	<select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
 		SELECT
 			  A.ATTENDANCE_NO
 			, A.CHECKOUT_TIME
 			, A.ATTENDANCE_TIME
-			, D.TEACHER_NO 
+			, B.TEACHER_NO
+			, A.MONTH_TIME
+			, D.CLASS_CODE
+		   	, E.CLASS_NO
 		 FROM TBL_ATTENDANCE A
-		 JOIN TBL_TEACHER D ON (A.TEACHER_NO = D.TEACHER_NO)
+		 JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		 JOIN TBL_CLASS D ON (A.CLASS_CODE = D.CLASS_CODE)
+		 JOIN TBL_CLASS_INFO E ON (A.CLASS_NO = E.CLASS_NO)
 	</select>
 
 	
@@ -127,6 +149,5 @@
 			  ,	A.CHECKOUT_TIME = #{ checkOutTime }
 			</if>
 		</set>
-		 WHERE A.ATTENDANCE_NO = #{ attendaceNo } 
 	</update>
 </mapper>

@@ -1,9 +1,12 @@
 package com.admin.firstedu.attendance.model.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class StudentDTO {
+public class StudentDTO implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private int no;
 	private int grade;
 	private String studentName;

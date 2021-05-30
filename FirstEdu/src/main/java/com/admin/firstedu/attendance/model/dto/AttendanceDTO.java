@@ -8,13 +8,15 @@ public class AttendanceDTO implements Serializable{
 	private static final long serialVersionUID = 28734198473912847L;
 	
 	private int no;
-	private java.sql.Date attendanceTime;
-	private java.sql.Date checkOutTime;
-	private java.sql.Date monthTime;
+	private Date attendanceTime;
+	private Date checkOutTime;
+	private Date monthTime;
 	private int studentNo;
 	private int teacherNo;
 	private int categoryNo;
 	private String memo;
+	private int classCode;
+	private String classNo;
 	
 	
 	public AttendanceDTO() {
@@ -22,7 +24,7 @@ public class AttendanceDTO implements Serializable{
 
 
 	public AttendanceDTO(int no, Date attendanceTime, Date checkOutTime, Date monthTime, int studentNo, int teacherNo,
-			int categoryNo, String memo) {
+			int categoryNo, String memo, int classCode, String classNo) {
 		super();
 		this.no = no;
 		this.attendanceTime = attendanceTime;
@@ -32,9 +34,10 @@ public class AttendanceDTO implements Serializable{
 		this.teacherNo = teacherNo;
 		this.categoryNo = categoryNo;
 		this.memo = memo;
+		this.classCode = classCode;
+		this.classNo = classNo;
 	}
 
-	
 
 	public int getNo() {
 		return no;
@@ -46,32 +49,32 @@ public class AttendanceDTO implements Serializable{
 	}
 
 
-	public java.sql.Date getAttendanceTime() {
+	public Date getAttendanceTime() {
 		return attendanceTime;
 	}
 
 
-	public void setAttendanceTime(java.sql.Date attendanceTime) {
+	public void setAttendanceTime(Date attendanceTime) {
 		this.attendanceTime = attendanceTime;
 	}
 
 
-	public java.sql.Date getCheckOutTime() {
+	public Date getCheckOutTime() {
 		return checkOutTime;
 	}
 
 
-	public void setCheckOutTime(java.sql.Date checkOutTime) {
+	public void setCheckOutTime(Date checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 
 
-	public java.sql.Date getMonthTime() {
+	public Date getMonthTime() {
 		return monthTime;
 	}
 
 
-	public void setMonthTime(java.sql.Date monthTime) {
+	public void setMonthTime(Date monthTime) {
 		this.monthTime = monthTime;
 	}
 
@@ -116,6 +119,26 @@ public class AttendanceDTO implements Serializable{
 	}
 
 
+	public int getClassCode() {
+		return classCode;
+	}
+
+
+	public void setClassCode(int classCode) {
+		this.classCode = classCode;
+	}
+
+
+	public String getClassNo() {
+		return classNo;
+	}
+
+
+	public void setClassNo(String classNo) {
+		this.classNo = classNo;
+	}
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -125,14 +148,8 @@ public class AttendanceDTO implements Serializable{
 	public String toString() {
 		return "AttendanceDTO [no=" + no + ", attendanceTime=" + attendanceTime + ", checkOutTime=" + checkOutTime
 				+ ", monthTime=" + monthTime + ", studentNo=" + studentNo + ", teacherNo=" + teacherNo + ", categoryNo="
-				+ categoryNo + ", memo=" + memo + "]";
+				+ categoryNo + ", memo=" + memo + ", classCode=" + classCode + ", classNo=" + classNo + "]";
 	}
-	
-	
-	
-	
 
 
-
-	
 }
