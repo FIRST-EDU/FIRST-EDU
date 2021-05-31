@@ -22,7 +22,7 @@
 	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
 		<id column="EXAM_CATEGORY_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NAME" property="name"/>
-		<!-- <result column="REF_CATEGORY_NO" property="refCategoryNo"/> -->
+		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
 		<result column="COLOR_NO" property="colorNo"/>
 	</resultMap>
 	
@@ -37,8 +37,8 @@
 	<resultMap id="examCategoryFullInfoResultMap" type="ExamCategoryFullInfoDTO">
 		<id column="EXAM_CATEGORY_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NAME" property="name"/>
-		<association resultMap="colorResultMap" property="color"/>
 		<association resultMap="examCategoryResultMap" property="refCategory" columnPrefix="REF_"/>
+		<association resultMap="colorResultMap" property="color"/>
 	</resultMap>
 	
 	<!-- 학년 테이블 DTO -->
@@ -133,7 +133,19 @@
 	
 	<!-- 시험 종류 카테고리 목록 조회 -->
 	<select id="selectExamCategoryList" resultMap="examCategoryFullInfoResultMap">
-
+		SELECT
+		       A.EXAM_CATEGORY_NO
+		     , A.EXAM_CATEGORY_NAME
+		     , B.EXAM_CATEGORY_NO AS REF_EXAM_CATEGORY_NO
+		     , B.EXAM_CATEGORY_NAME AS REF_EXAM_CATEGORY_NAME
+		     , C.COLOR_NO
+		     , C.COLOR_NAME
+		     , C.COLOR_CODE_HEX
+		  FROM TBL_EXAM_CATEGORY A
+		  LEFT JOIN TBL_EXAM_CATEGORY B ON (A.REF_CATEGORY_NO = B.EXAM_CATEGORY_NO)
+		  LEFT JOIN TBL_COLOR C ON (A.COLOR_NO = C.COLOR_NO)
+		 WHERE A.EXAM_CATEGORY_STATUS = 'Y'
+		 ORDER BY A.EXAM_CATEGORY_NO
 	</select>
 	
 	<!-- 시험 일정 등록 -->

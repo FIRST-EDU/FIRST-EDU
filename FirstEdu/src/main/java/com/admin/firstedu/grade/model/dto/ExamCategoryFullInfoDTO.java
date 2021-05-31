@@ -17,6 +17,6 @@ public class ExamCategoryFullInfoDTO implements java.io.Serializable {
 
 	private int no;
 	private String name;
-	private ColorDTO color;
 	private ExamCategoryDTO refCategory;
+	private ColorDTO color;
 }

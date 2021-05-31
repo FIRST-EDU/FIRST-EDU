@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.ExamException;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
+import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
@@ -42,10 +43,10 @@ public class ExamController {
 		for(ExamFullInfoDTO exam : examList) {
 			System.out.println(exam);
 		}
-//		List<ExamCategoryDTO> examCategoryList = examService.selectExamCategoryList();
-//		for(ExamCategoryDTO examCategory : examCategoryList) {
-//			System.out.println(examCategory);
-//		}
+		List<ExamCategoryFullInfoDTO> examCategoryList = examService.selectExamCategoryList();
+		for(ExamCategoryFullInfoDTO examCategory : examCategoryList) {
+			System.out.println(examCategory);
+		}
 		
 //		model.addAttribute("examList", examService.selectExamList(searchCriteria));
 		model.addAttribute("examList", examList);
