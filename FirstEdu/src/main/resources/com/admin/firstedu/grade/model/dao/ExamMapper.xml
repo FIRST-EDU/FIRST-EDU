@@ -156,20 +156,24 @@
 		  A.EXAM_NO
 		, A.EXAM_CATEGORY_NO
 		, A.EXAM_NAME
-		, A.EXAM_DATE
+		, A.START_DATE
+		, A.END_DATE
 		, A.SCHOOL
-		, A.GRADE
-		, A.SUBJECT_NO
+		, A.GRADE_CODE
+		, A.CLASS_CODE
+		, A.DESCRIPTION
 		)
 		VALUES
 		(
 		  SEQ_EXAM_NO.NEXTVAL
 		, #{ categoryNo }
 		, #{ name }
-		, #{ examDate }
-		, #{ school }
-		, #{ grade }
-		, #{ subjectNo }
+		, #{ startDate, jdbcType=DATE }
+		, #{ endDate, jdbcType=DATE }
+		, #{ school, jdbcType=VARCHAR }
+		, #{ gradeCode, jdbcType=VARCHAR }
+		, #{ classCode, jdbcType=VARCHAR }
+		, #{ description, jdbcType=VARCHAR }
 		)
 	</insert>
 	

@@ -57,7 +57,10 @@ public class ExamController {
 	public String registExam(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-//		ExamDTO exam = new ExamDTO(0, 9, "test", new jaåva.sql.Date(new java.util.Date().getTime()), "더조은고등학교", 2, 1);
+		exam.setCategoryNo(1);
+		exam.setName("test");
+		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
+		exam.setSchool("더조은고등학교");
 		if(!examService.registExam(exam)) {
 			throw new ExamException("시험 일정 등록에 실패하였습니다.");
 		}
