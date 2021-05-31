@@ -75,7 +75,11 @@ public class ExamController {
 	public String updateExam(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-//		ExamDTO exam = new ExamDTO(1, 7, "test", new java.sql.Date(new java.util.Date().getTime()), "더신나는고등학교", 3, 2);
+		exam.setNo(42);
+//		exam.setName("modify test");
+		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
+		exam.setSchool("완전조은고등학교");
+		
 		if(!examService.modifyExam(exam)) {
 			throw new ExamException("시험 일정 수정에 실패하였습니다.");
 		}

@@ -26,6 +26,12 @@
     margin: 0 auto;
   }
 </style>
+<script>
+	const message = '${ requestScope.message }';
+	if(message != null && message !== '') {
+		alert(message);
+	}
+</script>
 </head>
 
 <body>

@@ -182,23 +182,26 @@
 		UPDATE
 		       TBL_EXAM A
 		<set>
-			<if test="categoryNo != 0">
-			   A.EXAM_CATEGORY_NO = #{ categoryNo }
-			</if>
 			<if test="name != null and name != ''">
-			 , A.EXAM_NAME = #{ name }
+			   A.EXAM_NAME = #{ name },
 			</if>
-			<if test="examDate != null">
-			 , A.EXAM_DATE = #{ examDate }
+			<if test="startDate != null">
+			   A.START_DATE = #{ startDate },
+			</if>
+			<if test="endDate != null">
+			   A.END_DATE = #{ endDate },
 			</if>
 			<if test="school != null and school != ''">
-	 		 , A.SCHOOL = #{ school }
+	 		   A.SCHOOL = #{ school },
 			</if>
-			<if test="grade != 0">
-			 , A.GRADE = #{ grade }
+			<if test="gradeCode != null and gradeCode != ''">
+			   A.GRADE_CODE = #{ gradeCode },
 			</if>
-			<if test="subjectNo != 0">
-			 , A.SUBJECT_NO	= #{ subjectNo }
+			<if test="classCode != null and classCode != ''">
+			   A.CLASS_CODE = #{ classCode },
+			</if>
+			<if test="description != null and description != ''">
+			   A.DESCRIPTION = #{ description }
 			</if>
 		</set>
 		 WHERE A.EXAM_NO = #{ no }
