@@ -119,13 +119,14 @@ public class ExamController {
 		return "redirect:/grade/exam";
 	}
 	
-	/* 학원 시험 카테고리 수정 */
+	/* 시험 카테고리 수정 */
 	@PostMapping("/exam/category/modify")
 	public String modifyExamCategory(@ModelAttribute ExamCategoryDTO examCategory,
 									 RedirectAttributes rttr)
 											 throws ExamException {
-		examCategory.setNo(11);
+		examCategory.setNo(2);
 		examCategory.setName("ModifyTest");
+		examCategory.setColorNo(3);
 		if(!examService.modifyExamCategory(examCategory)) {
 			throw new ExamException("시험 종류 카테고리 수정에 실패하였습니다.");
 		}
@@ -135,12 +136,12 @@ public class ExamController {
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 삭제 */
+	/* 학원 시험 카테고리 삭제 */
 	@PostMapping("/exam/category/remove")
 	public String removeExamCategory(@RequestParam(required=false, defaultValue="0") int examCategoryNo,
 									 RedirectAttributes rttr)
 											 throws ExamException {
-		examCategoryNo = 11;
+		examCategoryNo = 8;
 		if(!examService.removeExamCategory(examCategoryNo)) {
 			throw new ExamException("시험 종류 카테고리 삭제에 실패하였습니다.");
 		}

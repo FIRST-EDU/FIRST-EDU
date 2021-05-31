@@ -238,15 +238,22 @@
 		)
 	</insert>
 	
-	<!-- 학원 시험 카테고리 수정 -->
+	<!-- 시험 카테고리 수정 -->
 	<update id="updateExamCategory" parameterType="ExamCategoryDTO">
 		UPDATE
 		       TBL_EXAM_CATEGORY A
-		   SET A.EXAM_CATEGORY_NAME = #{ name }
+	    <set>
+			<if test="name != null and name != '' and no > 3">
+			   A.EXAM_CATEGORY_NAME = #{ name },
+			</if>
+			<if test="colorNo != 0 and no != 3">
+			   A.COLOR_NO = #{ colorNo }
+			</if> 
+		</set>     
 		 WHERE A.EXAM_CATEGORY_NO = #{ no }
 	</update>
 	
-	<!-- 시험 종류 카테고리 삭제 -->
+	<!-- 학원 시험 카테고리 삭제 -->
 	<update id="deleteExamCategory" parameterType="_int">
 		UPDATE
 		       TBL_EXAM_CATEGORY A
