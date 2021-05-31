@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
+<!-- 수납 정보 수정 form Start -->
 	<form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
 		<div id="payUpdateForm">
 		    <input type="hidden" name="payNo" id="payNo" value="${ payUpdate.payNo}"><br>
@@ -36,8 +37,10 @@
 		<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/delete?no=${ payUpdate.payNo }'">삭제</button>
 		<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/detail?no=${ payUpdate.payNo }'">취소</button>
 	</form>
-	
+<!-- 수납 정보 수정 form End -->
+
 	<script>
+/* 어떤 라디오 버튼을 클릭하느냐에 따라 할인율이 다르게 적용되어 결제금액 input태그에 입력됨 */
 	$("input:radio").click(function(){
 		var tution = document.getElementById('tution').value;
 		

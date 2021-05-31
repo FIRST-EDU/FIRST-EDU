@@ -25,14 +25,17 @@ import com.google.gson.GsonBuilder;
 @RequestMapping("/pay/*")
 public class PayController {
 	
+	/* 서비스로 작업을 요청하기 위해 전역변수 선언 */
 	private final PayService payService;
 	
+	/* final로 선언할 시 생성자 주입이 필요함. 의존성 주입을 위해 Autowired작성 */
 	@Autowired
 	public PayController(PayService payService) {
 		super();
 		this.payService = payService;
 	}
 
+	/* list라는 매핑명 & Get으로 요청 된 작업 수행. 수납의 목록을 select하는 기능. */
 	@GetMapping("list")
 	public String selectPayList(Model model) {
 		
@@ -47,6 +50,7 @@ public class PayController {
 		return "pay/payList";
 	}
 	
+	/* detail이라는 매핑명 & Get으로 요청된 작업 수행. 수납 상세 페이지를 조회해오는 기능 */
 	@GetMapping("detail")
 	public String selectPayDetail(Model model, @RequestParam(value="no") int no) {
 		
@@ -57,6 +61,7 @@ public class PayController {
 		return "pay/payDetail";
 	}
 	
+	/* insert라는 매핑명 & post방식으로 넘어온 작업 수행. 수납 입력 기능 */
 	@PostMapping("insert")
 	public String insertPay(Model model, @ModelAttribute PayDTO pay) {
 		
@@ -71,6 +76,7 @@ public class PayController {
 		return "main/result";
 	}
 	
+	/* insertView라는 매핑명 & Get으로 요청된 작업 수행. insert 시 학생목록을 출력해 주기 위한 학생목록조회 기능 */
 	@GetMapping("insertView")
 	public String selectStudentList(Model model) {
 		
@@ -82,6 +88,7 @@ public class PayController {
 		
 	}
 	
+	/* update라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 넘어온 no를  DB에 전달하여 조건에 맞는 데이터를 조회해 수납수정 페이지로 전달. */
 	@GetMapping("update")
 	public String selectUpdatePay(Model model, @RequestParam(value="no") int no) {
 		
@@ -92,6 +99,7 @@ public class PayController {
 		return "pay/payUpdate";
 	}
 	
+	/* update라는 매핑명 & post 방식으로 전달 받은 데이터를 DB에 전달. 수납정보수정 기능 */
 	@PostMapping("update")
 	public String updatePay(Model model, @ModelAttribute PayDTO pay) {
 		
@@ -107,6 +115,7 @@ public class PayController {
 		
 	}
 	
+	/* delete라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 전달받은 데이터를 DB에 전달. 수납정보 삭제 기능 (DELETE로 삭제해버리지 않고 UPDATE로 상태만 변경해 화면에 출력되지 않도록 한다.)*/
 	@GetMapping("delete")
 	public String deletePay(Model model, @RequestParam(value="no") int no) {
 		

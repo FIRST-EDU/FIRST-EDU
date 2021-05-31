@@ -95,7 +95,7 @@
   	</resultMap>
   	
   	<select id="selectPayList" parameterType="PayListDTO" resultMap="payListResultMap">
-		SELECT 
+		SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
 		       A.PAY_NO
 		     , B.BEGIN_DATE
 		     , C.STUDENT_NAME
@@ -116,7 +116,7 @@
   	</select>
   	
   	<select id="selectPayDetail" parameterType="_int" resultMap="payListResultMap">
-  		SELECT 
+  		SELECT /* com.admin.firstEdu.pay.controller.selectPayDetail*/
 		       A.PAY_NO
 		     , B.BEGIN_DATE
 		     , C.STUDENT_NAME
@@ -138,7 +138,7 @@
   	</select>
   	
   	<select id="selectPayUpdate" parameterType="_int" resultMap="payListResultMap">
-  		SELECT 
+  		SELECT /* com.admin.firstEdu.pay.controller.selectPayUpdate*/
 		       A.PAY_NO
 		     , B.BEGIN_DATE
 		     , C.STUDENT_NAME
@@ -160,7 +160,7 @@
   	</select>
   	
   	<select id="selectStudentList" resultMap="studentResultMap2">
-  		SELECT
+  		SELECT /* com.admin.firstEdu.pay.controller.selectStudentList*/
   			   A.STUDENT_NO
   			 , A.STUDENT_NAME
   			 , D.GRADE_NAME
@@ -178,7 +178,7 @@
   	<!-- <select id="selectClassInfo" resultMap=""></select> -->
   	
   	<insert id="insertPay" parameterType="PayDTO">
-  		INSERT
+  		INSERT /* com.admin.firstEdu.pay.controller.insertPay*/
   		  INTO TBL_PAY A
   		(
   		  A.PAY_NO
@@ -208,7 +208,7 @@
   	</insert>
   	
   	<update id="updatePay" parameterType="PayDTO">
-  		UPDATE 
+  		UPDATE /* com.admin.firstEdu.pay.controller.updatePay*/
   			   TBL_PAY A
   		   SET A.PAY_YN = #{payYn}
   		     , A.DISCOUNT_NO = #{discountNo}
@@ -219,13 +219,13 @@
   	</update>
   	
   	<update id="deletePay" parameterType="_int">
-  		UPDATE TBL_PAY A
+  		UPDATE TBL_PAY A /* com.admin.firstEdu.pay.controller.deletePay*/
   		   SET A.PAY_STATUS = 'N'
   		 WHERE A.PAY_NO = #{no}
   	</update>
   	
   	<select id="selectClass" parameterType="_int" resultMap="studentAndClassResultMap">
-  		SELECT
+  		SELECT /* com.admin.firstEdu.pay.controller.selectClass*/
 		       A.CLASS_NAME
 		     , A.CLASS_PAYMENT
 		  FROM TBL_CLASS A

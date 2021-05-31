@@ -10,6 +10,7 @@
 </head>
 <body  style="background:gray;">
 <button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/insertView'">수납입력</button>
+<!-- 수납 리스트 Start -->
 	<table class="payList" border="1">
 			<thead>
 				<tr>
@@ -39,7 +40,7 @@
 							<td><c:out value="${ pay.payOption }" /></td>
 							<td><c:out value="${ pay.payDate }" /></td>
 							<td><c:out value="${ pay.discount.discountReason }" /></td>
-							<td><c:out value="${ pay.payment }" /></td>
+							<td id="payment"><c:out value="${ pay.payment }" /></td>
 							</c:when>
 							<c:when test="${pay.payYn eq 'N'}">
 							<td><c:out value="미납"/></td>
@@ -50,7 +51,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<div id="paySum"></div>
+<!-- 수납 리스트 End -->
+
 		<script>
+/* td태그에 마우스 호버시 pointer 스타일로 변경  */
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
 			for(var i = 0 ; i < $tds.length ; i++) {
@@ -59,6 +64,7 @@
 					this.parentNode.style.cursor = "pointer";
 				}
 
+				/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
 				$tds[i].onclick = function() {
 					const no = this.parentNode.children[0].innerText;
 					location.href = "${pageContext.servletContext.contextPath}/pay/detail?no=" + no;
