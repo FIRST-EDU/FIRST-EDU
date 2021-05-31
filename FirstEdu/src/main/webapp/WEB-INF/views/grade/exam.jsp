@@ -55,7 +55,7 @@
 	<input type="hidden" id="count" value="${ fn:length(requestScope.examList) }" />
 	<c:forEach var="exam" items="${ requestScope.examList }">
 		<input type="hidden" class="exam-list" name="title-list" value="${ exam.name }"/>
-		<input type="hidden" class="exam-list" name="start-list" value="${ exam.examDate }"/>
+		<input type="hidden" class="exam-list" name="start-list" value="${ exam.startDate }"/>
 	</c:forEach>
 </body>
 

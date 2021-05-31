@@ -11,13 +11,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ExamCategoryDTO implements java.io.Serializable {
+public class ExamCategoryFullInfoDTO implements java.io.Serializable {
 
-	private static final long serialVersionUID = 3695683672554027609L;
+	private static final long serialVersionUID = 8400701050955495748L;
 
 	private int no;
 	private String name;
-	private int refCategoryNo;
-	private int colorNo;
-	private String status;
+	private ExamCategoryDTO refCategory;
+	private ColorDTO color;
 }

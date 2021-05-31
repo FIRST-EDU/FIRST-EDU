@@ -5,10 +5,15 @@
   
 <configuration>
 	<typeAliases>
- 		<typeAlias alias="ExamDTO" type="com.admin.firstedu.grade.model.dto.ExamDTO"/>
+ 		<typeAlias alias="ClassExamInfoDTO" type="com.admin.firstedu.grade.model.dto.ClassExamInfoDTO"/>
+ 		<typeAlias alias="ColorDTO" type="com.admin.firstedu.grade.model.dto.ColorDTO"/>
+ 		<typeAlias alias="ExamCategoryFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO"/>
  		<typeAlias alias="ExamCategoryDTO" type="com.admin.firstedu.grade.model.dto.ExamCategoryDTO"/>
- 		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
+ 		<typeAlias alias="ExamDTO" type="com.admin.firstedu.grade.model.dto.ExamDTO"/>
  		<typeAlias alias="ExamFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamFullInfoDTO"/>
  		<typeAlias alias="ExamSearchCriteria" type="com.admin.firstedu.grade.model.dto.ExamSearchCriteria"/>
+ 		<typeAlias alias="GradeDTO" type="com.admin.firstedu.grade.model.dto.GradeDTO"/>
+ 		<typeAlias alias="ScoreDTO" type="com.admin.firstedu.grade.model.dto.ScoreDTO"/>
+ 		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
  	</typeAliases>
 </configuration>

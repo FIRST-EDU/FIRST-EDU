@@ -10,17 +10,50 @@
 		<id column="EXAM_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NO" property="categoryNo"/>
 		<result column="EXAM_NAME" property="name"/>
-		<result column="EXAM_DATE" property="examDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
 		<result column="SCHOOL" property="school"/>
-		<result column="GRADE" property="grade"/>
-		<result column="SUBJECT_NO" property="subjectNo"/>
+		<result column="GRADE_CODE" property="gradeCode"/>
+		<result column="CLASS_CODE" property="classCode"/>
+		<result column="DESCRIPTION" property="description"/>
 	</resultMap>
 	
-	<!-- 시험 종류 테이블 DTO -->
+	<!-- 시험 카테고리 테이블 DTO -->
 	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
 		<id column="EXAM_CATEGORY_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NAME" property="name"/>
 		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
+		<result column="COLOR_NO" property="colorNo"/>
+	</resultMap>
+	
+	<!-- 색상 테이블 DTO -->
+	<resultMap id="colorResultMap" type="ColorDTO">
+		<id column="COLOR_NO" property="no"/>
+		<result column="COLOR_NAME" property="name"/>
+		<result column="COLOR_CODE_HEX" property="codeHex"/>
+	</resultMap>
+
+	<!-- 시험 카테고리 모든 정보 DTO -->
+	<resultMap id="examCategoryFullInfoResultMap" type="ExamCategoryFullInfoDTO">
+		<id column="EXAM_CATEGORY_NO" property="no"/>
+		<result column="EXAM_CATEGORY_NAME" property="name"/>
+		<association resultMap="examCategoryResultMap" property="refCategory"/>
+		<association resultMap="colorResultMap" property="color"/>
+	</resultMap>
+	
+	<!-- 학년 테이블 DTO -->
+	<resultMap id="gradeResultMap" type="GradeDTO">
+		<id column="GRADE_CODE" property="code"/>
+		<result column="GRADE_NAME" property="name"/>
+	</resultMap>
+	
+	<!-- 시험 대상 강의 정보 테이블 DTO -->
+	<resultMap id="classExamInfoResultMap" type="ClassExamInfoDTO">
+		<id column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NAME" property="className"/>
+		<result column="TEACHER_NO" property="teacherNo"/>
+		<association resultMap="subjectCategoryResultMap" property="subject"/>
+		<association resultMap="gradeResultMap" property="grade"/>
 	</resultMap>
 	
 	<!-- 과목 테이블 DTO -->
@@ -33,11 +66,13 @@
 	<resultMap id="examFullInfoResultMap" type="ExamFullInfoDTO">
 		<id column="EXAM_NO" property="no"/>
 		<result column="EXAM_NAME" property="name"/>
-		<result column="EXAM_DATE" property="examDate"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
 		<result column="SCHOOL" property="school"/>
-		<result column="GRADE" property="grade"/>
-		<association resultMap="examCategoryResultMap" property="category"/>
-		<association resultMap="subjectCategoryResultMap" property="subject"/>
+		<result column="DESCRIPTION" property="description"/>
+		<association resultMap="examCategoryFullInfoResultMap" property="categoryFullInfo"/>
+		<association resultMap="gradeResultMap" property="grade"/>
+		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
  	</resultMap>
 
 
@@ -46,18 +81,39 @@
 		SELECT
 			   A.EXAM_NO
 			 , A.EXAM_NAME
-			 , A.EXAM_DATE
+			 , A.START_DATE
+			 , A.END_DATE
 			 , A.SCHOOL
-			 , A.GRADE
+			 , B.EXAM_CATEGORY_NO
 			 , B.EXAM_CATEGORY_NAME
 			 , B.REF_CATEGORY_NO
-			 , C.SUBJECT_NAME			 
+			 , C.EXAM_CATEGORY_NAME
+			 , D.COLOR_NO
+			 , D.COLOR_NAME
+			 , D.COLOR_CODE_HEX
+			 , E.GRADE_CODE
+			 , E.GRADE_NAME
+			 , F.CLASS_CODE
+			 , F.CLASS_NAME
+			 , F.TEACHER_NO
+			 , G.SUBJECT_NO
+			 , G.SUBJECT_NAME
+			 , H.GRADE_CODE
+			 , H.GRADE_NAME			 
 	      FROM TBL_EXAM A
-	      JOIN TBL_EXAM_CATEGORY B ON (A.EXAM_CATEGORY_NO = B.EXAM_CATEGORY_NO)
-	      JOIN TBL_SUBJECT_CATEGORY C ON (A.SUBJECT_NO = C.SUBJECT_NO)
+	      LEFT JOIN TBL_EXAM_CATEGORY B ON (A.EXAM_CATEGORY_NO = B.EXAM_CATEGORY_NO)
+	      LEFT JOIN TBL_EXAM_CATEGORY C ON (B.REF_CATEGORY_NO = C.EXAM_CATEGORY_NO)
+	      LEFT JOIN TBL_COLOR D ON (B.COLOR_NO = D.COLOR_NO)
+	      LEFT JOIN TBL_GRADE E ON (A.GRADE_CODE = E.GRADE_CODE)
+	      LEFT JOIN TBL_CLASS F ON (A.CLASS_CODE = F.CLASS_CODE)
+	      LEFT JOIN TBL_SUBJECT_CATEGORY G ON (F.SUBJECT_NO = G.SUBJECT_NO)
+	      LEFT JOIN TBL_GRADE H ON (F.GRADE_CODE = H.GRADE_CODE)
 	     WHERE A.EXAM_STATUS = 'Y'
 	     <if test="schoolExam != 0">
-	       AND B.REF_CATEGORY_NO = #{ schoolExam }
+	       AND B.EXAM_CATEGORY_NO = #{ schoolExam }
+	     </if>
+	     <if test="mockExam != 0">
+	       AND B.EXAM_CATEGORY_NO = #{ mockExam }
 	     </if>
 	     <if test="hagwonExam != 0">
 	       AND B.REF_CATEGORY_NO = #{ hagwonExam }
@@ -65,12 +121,13 @@
 	     <if test="categoryNo != 0">
 	       AND B.EXAM_CATEGORY_NO = #{ categoryNo }
 	     </if>
-	     <if test="grade != 0">
-	       AND A.GRADE = #{ grade }
+	     <if test="gradeCode != null and gradeCode != ''">
+	       AND (A.GRADE_CODE = #{ gradeCode } OR H.GRADE_CODE = #{ gradeCode })
 	     </if>
 	     <if test="subjectNo != 0">
-	       AND C.SUBJECT_NO = #{ subjectNo }
+	       AND G.SUBJECT_NO = #{ subjectNo }
 	     </if>
+         ORDER BY START_DATE DESC
 	</select>
 	
 	<!-- 시험 종류 카테고리 목록 조회 -->
