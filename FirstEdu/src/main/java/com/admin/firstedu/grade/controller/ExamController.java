@@ -110,7 +110,6 @@ public class ExamController {
 									 RedirectAttributes rttr)
 											 throws ExamException {
 		examCategory.setName("RegistTest");
-		examCategory.setColorNo(6);
 		if(!examService.registExamCategory(examCategory)) {
 			throw new ExamException("시험 종류 추가에 실패하였습니다.");
 		}

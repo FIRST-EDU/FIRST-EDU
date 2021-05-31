@@ -223,18 +223,22 @@
 		  A.EXAM_CATEGORY_NO
 		, A.EXAM_CATEGORY_NAME
 		, A.REF_CATEGORY_NO
+		<if test="colorNo != 0">
 		, A.COLOR_NO
+		</if>
 		)
 		VALUES
 		(
 		  SEQ_EXAM_CATEGORY_NO.NEXTVAL
 		, #{ name }
 		, 3
+		<if test="colorNo != 0">
 		, #{ colorNo }
+		</if>
 		)
 	</insert>
 	
-	<!-- 시험 종류 카테고리 수정 -->
+	<!-- 학원 시험 카테고리 수정 -->
 	<update id="updateExamCategory" parameterType="ExamCategoryDTO">
 		UPDATE
 		       TBL_EXAM_CATEGORY A
