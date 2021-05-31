@@ -215,7 +215,7 @@
 		 WHERE A.EXAM_NO = #{ examNo }
 	</update>
 	
-	<!-- 시험 종류 카테고리 등록 -->
+	<!-- 학원 시험 카테고리 등록 -->
 	<insert id="insertExamCategory" parameterType="ExamCategoryDTO">
 		INSERT
 		  INTO TBL_EXAM_CATEGORY A
@@ -223,12 +223,14 @@
 		  A.EXAM_CATEGORY_NO
 		, A.EXAM_CATEGORY_NAME
 		, A.REF_CATEGORY_NO
+		, A.COLOR_NO
 		)
 		VALUES
 		(
 		  SEQ_EXAM_CATEGORY_NO.NEXTVAL
 		, #{ name }
-		, #{ refCategoryNo }
+		, 3
+		, #{ colorNo }
 		)
 	</insert>
 	

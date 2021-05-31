@@ -104,23 +104,23 @@ public class ExamController {
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 등록 */
+	/* 학원 시험 카테고리 등록 */
 	@PostMapping("/exam/category/regist")
 	public String registExamCategory(@ModelAttribute ExamCategoryDTO examCategory,
 									 RedirectAttributes rttr)
 											 throws ExamException {
 		examCategory.setName("RegistTest");
-		examCategory.setRefCategoryNo(1);
+		examCategory.setColorNo(6);
 		if(!examService.registExamCategory(examCategory)) {
-			throw new ExamException("시험 종류 카테고리 등록에 실패하였습니다.");
+			throw new ExamException("시험 종류 추가에 실패하였습니다.");
 		}
 		
-		rttr.addFlashAttribute("message", "시험 종류 카테고리가 추가되었습니다.");
+		rttr.addFlashAttribute("message", "시험 종류가 추가되었습니다.");
 		
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 수정 */
+	/* 학원 시험 카테고리 수정 */
 	@PostMapping("/exam/category/modify")
 	public String modifyExamCategory(@ModelAttribute ExamCategoryDTO examCategory,
 									 RedirectAttributes rttr)
