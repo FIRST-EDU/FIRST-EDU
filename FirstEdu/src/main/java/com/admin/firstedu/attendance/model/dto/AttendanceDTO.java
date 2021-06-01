@@ -8,34 +8,18 @@ public class AttendanceDTO implements Serializable{
 	private static final long serialVersionUID = 28734198473912847L;
 	
 	private int no;
-	private Date attendanceTime;
-	private Date checkOutTime;
-	private Date monthTime;
+	private java.sql.Date attendanceTime;
+	private java.sql.Date checkOutTime;
+	private java.sql.Date monthTime;
 	private int studentNo;
 	private int teacherNo;
 	private int categoryNo;
 	private String memo;
-	private int classCode;
-	private String classNo;
+	private String classCode;
+	private int classNo;
 	
 	
 	public AttendanceDTO() {
-	}
-
-
-	public AttendanceDTO(int no, Date attendanceTime, Date checkOutTime, Date monthTime, int studentNo, int teacherNo,
-			int categoryNo, String memo, int classCode, String classNo) {
-		super();
-		this.no = no;
-		this.attendanceTime = attendanceTime;
-		this.checkOutTime = checkOutTime;
-		this.monthTime = monthTime;
-		this.studentNo = studentNo;
-		this.teacherNo = teacherNo;
-		this.categoryNo = categoryNo;
-		this.memo = memo;
-		this.classCode = classCode;
-		this.classNo = classNo;
 	}
 
 
@@ -49,32 +33,32 @@ public class AttendanceDTO implements Serializable{
 	}
 
 
-	public Date getAttendanceTime() {
+	public java.sql.Date getAttendanceTime() {
 		return attendanceTime;
 	}
 
 
-	public void setAttendanceTime(Date attendanceTime) {
+	public void setAttendanceTime(java.sql.Date attendanceTime) {
 		this.attendanceTime = attendanceTime;
 	}
 
 
-	public Date getCheckOutTime() {
+	public java.sql.Date getCheckOutTime() {
 		return checkOutTime;
 	}
 
 
-	public void setCheckOutTime(Date checkOutTime) {
+	public void setCheckOutTime(java.sql.Date checkOutTime) {
 		this.checkOutTime = checkOutTime;
 	}
 
 
-	public Date getMonthTime() {
+	public java.sql.Date getMonthTime() {
 		return monthTime;
 	}
 
 
-	public void setMonthTime(Date monthTime) {
+	public void setMonthTime(java.sql.Date monthTime) {
 		this.monthTime = monthTime;
 	}
 
@@ -119,28 +103,44 @@ public class AttendanceDTO implements Serializable{
 	}
 
 
-	public int getClassCode() {
+	public String getClassCode() {
 		return classCode;
 	}
 
 
-	public void setClassCode(int classCode) {
+	public void setClassCode(String classCode) {
 		this.classCode = classCode;
 	}
 
 
-	public String getClassNo() {
+	public int getClassNo() {
 		return classNo;
 	}
 
 
-	public void setClassNo(String classNo) {
+	public void setClassNo(int classNo) {
 		this.classNo = classNo;
 	}
 
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+	public AttendanceDTO(int no, Date attendanceTime, Date checkOutTime, Date monthTime, int studentNo, int teacherNo,
+			int categoryNo, String memo, String classCode, int classNo) {
+		super();
+		this.no = no;
+		this.attendanceTime = attendanceTime;
+		this.checkOutTime = checkOutTime;
+		this.monthTime = monthTime;
+		this.studentNo = studentNo;
+		this.teacherNo = teacherNo;
+		this.categoryNo = categoryNo;
+		this.memo = memo;
+		this.classCode = classCode;
+		this.classNo = classNo;
 	}
 
 

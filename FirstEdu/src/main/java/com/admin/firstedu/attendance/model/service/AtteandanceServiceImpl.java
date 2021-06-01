@@ -37,15 +37,16 @@ public class AtteandanceServiceImpl implements AttendanceService {
 
 
 	@Override
-	public List<AttendanceInfoDTO> selectStudnetAttendance() {
-		// TODO Auto-generated method stub
-		return mapper.selectStudnetAttendance();
-	}
-
-	@Override
 	public List<AttendanceInfoDTO> selectTeacherAttendance() {
 		// TODO Auto-generated method stub
 		return mapper.selectTeacherAttendance();
 	}
-	
+
+	@Override
+	public List<AttendanceInfoDTO> selectStudentAttendance() {
+		// TODO Auto-generated method stub
+		return mapper.selectStudentAttendance();
+	}
+
+
 }

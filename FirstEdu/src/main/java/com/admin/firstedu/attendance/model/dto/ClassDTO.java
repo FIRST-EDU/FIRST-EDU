@@ -8,9 +8,9 @@ public class ClassDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String classCode;
-	private String calssName;
+	private String className;
 	private String classDay;
-	private String calssTime;
+	private String classTime;
 	private String classBook;
 	private int classParticipants;
 	private int classPayment;
@@ -21,21 +21,19 @@ public class ClassDTO implements Serializable {
 	}
 
 	
-	
-	public ClassDTO(String classCode, String calssName, String classDay, String calssTime, String classBook,
+	public ClassDTO(String classCode, String className, String classDay, String classTime, String classBook,
 			int classParticipants, int classPayment, int subjectNo, int teacherNo) {
 		super();
 		this.classCode = classCode;
-		this.calssName = calssName;
+		this.className = className;
 		this.classDay = classDay;
-		this.calssTime = calssTime;
+		this.classTime = classTime;
 		this.classBook = classBook;
 		this.classParticipants = classParticipants;
 		this.classPayment = classPayment;
 		this.subjectNo = subjectNo;
 		this.teacherNo = teacherNo;
 	}
-
 
 
 	public String getClassCode() {
@@ -43,23 +41,19 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setClassCode(String classCode) {
 		this.classCode = classCode;
 	}
 
 
-
-	public String getCalssName() {
-		return calssName;
+	public String getClassName() {
+		return className;
 	}
 
 
-
-	public void setCalssName(String calssName) {
-		this.calssName = calssName;
+	public void setClassName(String className) {
+		this.className = className;
 	}
-
 
 
 	public String getClassDay() {
@@ -67,23 +61,19 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setClassDay(String classDay) {
 		this.classDay = classDay;
 	}
 
 
-
-	public String getCalssTime() {
-		return calssTime;
+	public String getClassTime() {
+		return classTime;
 	}
 
 
-
-	public void setCalssTime(String calssTime) {
-		this.calssTime = calssTime;
+	public void setClassTime(String classTime) {
+		this.classTime = classTime;
 	}
-
 
 
 	public String getClassBook() {
@@ -91,11 +81,9 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setClassBook(String classBook) {
 		this.classBook = classBook;
 	}
-
 
 
 	public int getClassParticipants() {
@@ -103,11 +91,9 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setClassParticipants(int classParticipants) {
 		this.classParticipants = classParticipants;
 	}
-
 
 
 	public int getClassPayment() {
@@ -115,11 +101,9 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setClassPayment(int classPayment) {
 		this.classPayment = classPayment;
 	}
-
 
 
 	public int getSubjectNo() {
@@ -127,11 +111,9 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setSubjectNo(int subjectNo) {
 		this.subjectNo = subjectNo;
 	}
-
 
 
 	public int getTeacherNo() {
@@ -139,11 +121,9 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	public void setTeacherNo(int teacherNo) {
 		this.teacherNo = teacherNo;
 	}
-
 
 
 	public static long getSerialversionuid() {
@@ -151,11 +131,10 @@ public class ClassDTO implements Serializable {
 	}
 
 
-
 	@Override
 	public String toString() {
-		return "ClassDTO [classCode=" + classCode + ", calssName=" + calssName + ", classDay=" + classDay
-				+ ", calssTime=" + calssTime + ", classBook=" + classBook + ", classParticipants=" + classParticipants
+		return "ClassDTO [classCode=" + classCode + ", className=" + className + ", classDay=" + classDay
+				+ ", classTime=" + classTime + ", classBook=" + classBook + ", classParticipants=" + classParticipants
 				+ ", classPayment=" + classPayment + ", subjectNo=" + subjectNo + ", teacherNo=" + teacherNo + "]";
 	}
 

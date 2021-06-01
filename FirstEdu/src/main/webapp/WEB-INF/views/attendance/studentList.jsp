@@ -29,12 +29,13 @@
 			<c:forEach var="student" items="${studentList}">
 			<tr>
 				<td><c:out value="${ student.no }"></c:out></td>
-				<td><c:out value="${ student.classDTO.className  }"></c:out></td>
-				<td><c:out value="${ student.student.studentName  }"></c:out></td>
-				<td><c:out value="${ student.attendanceTime }"></c:out></td>
-				<td><c:out value="${ student.no }"></c:out></td>
-				<td><c:out value="${ student.no }"></c:out></td>
-				<td><c:out value="${ student.no }"></c:out></td>
+				<td><c:out value="${ student.classDTO.className }"></c:out></td>
+				<td><c:out value="${ student.studentDTO.studentName }"></c:out></td>
+				<td><c:out value="${ student.chulsuck }"></c:out></td>
+				<td><c:out value="${ student.jigack }"></c:out></td>
+				<td><c:out value="${ student.kyulsuck }"></c:out></td>
+				<td><c:out value="${ student.jotae }"></c:out></td>
+
 
 			</tr>
 			</c:forEach>

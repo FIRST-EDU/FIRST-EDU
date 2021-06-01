@@ -1,5 +1,6 @@
 package com.admin.firstedu.attendance.model.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class AttendanceController {
 	@GetMapping("/studentList")//파일 path
 	public String selectStudnetAttendance(Model model) {
 		
-		List<AttendanceInfoDTO> studentList = attendanceService.selectStudnetAttendance();
+		List<AttendanceInfoDTO> studentList = attendanceService.selectStudentAttendance();
 		
 		model.addAttribute("studentList", studentList);
 		
@@ -46,7 +47,7 @@ public class AttendanceController {
 	
 	}
 	
-	@GetMapping("/list2")
+	@GetMapping("/teacherList")
 	public String selectTeacherAttendance(Model model) {
 		
 		List<AttendanceInfoDTO> teacherList = attendanceService.selectTeacherAttendance();
@@ -57,10 +58,25 @@ public class AttendanceController {
 			System.out.println(teacher);
 		}
 		
-		return "attendance/list2";
+		return "attendance/teacherList";
 	
 	}
-	
+
+	@PostMapping("/insertTeacher")
+	public String insertTeacher(@ModelAttribute AttendanceDTO attendance) throws AttendanceInsertException {
+		
+		attendance.setAttendanceTime(new java.util.Date());
+		attendance.setCheckOutTime(checkOutTime);
+		
+		
+		if(!attendanceService.insertTeacher(attendance)) {
+			
+			throw new AttendanceInsertException("선생님 출결 입력 실패");
+		}
+		
+		return "attendance/teacherList";
+		
+	}
 	
 	@PostMapping("/insertStudent")
 	public String insertStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceInsertException {
@@ -92,17 +108,7 @@ public class AttendanceController {
 	}
 	
 	
-	@PostMapping("/insertTeacher")
-	public String insertTeacher(@ModelAttribute AttendanceDTO attendance) throws AttendanceInsertException {
-		
-		if(!attendanceService.insertTeacher(attendance)) {
-			
-			throw new AttendanceInsertException("선생님 출결 입력 실패");
-		}
-		
-		return "attendance/result2";
-		
-	}
+	
 	
 
 	

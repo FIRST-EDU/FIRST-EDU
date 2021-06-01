@@ -13,15 +13,17 @@
 		<result column="TEACHER_NO" property="teacherNo"/>
 		<result column="MEMO" property="memo"/>
 		<result column="MONTH_TIME" property="monthTime"/>
+		<result column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NO" property="classNo"/>
 	</resultMap>
 	
 	<resultMap type="AttendanceCategoryDTO" id="attendanceCategoryResultSet">
 		<id column="CATEGORY_NO" property="categoryNo"/>
 		<result column="ATTENDANCE_CON" property="attendanceCon"/>
 	</resultMap>
+	
 	<resultMap type="StudentDTO" id="studentResultSet">
-		<id column="STUDENT_NO" property="studentNo"/>
-		<result column="STUDENT_NO" property="no"/>
+		<id column="STUDENT_NO" property="no"/>
 		<result column="GRADE" property="grade"/>
 		<result column="STUDENT_NAME" property="studentName"/>
 		<result column="PARENTS_NAME" property="parentsName"/>
@@ -31,11 +33,10 @@
 		<result column="SCHOOL" property="school"/>
 		<result column="REGISTRATION_DATE" property="registrationDate"/>
 		<result column="STATUS" property="status"/>
-
 	</resultMap>
+	
 	<resultMap type="TeacherDTO" id="teacherResultSet">
 		<id column="TEACHER_NO" property="teacherNo"/>
-		<result column="TEACHER_NO" property="no"/>
 		<result column="TEACHER_ID" property="id"/>
 		<result column="TEACHER_PWD" property="pwd"/>
 		<result column="TEACHER_NAME" property="name"/>
@@ -66,74 +67,84 @@
 		<result column="CHECKOUT_TIME" property="checkOutTime"/>
 		<result column="MEMO" property="memo"/>
 		<result column="MONTH_TIME" property="monthTime"/>
-	<association resultMap="AttendanceCategoryDTO" property="category"/>
-	<association resultMap="StudentDTO" property="student"/>
-	<association resultMap="TeacherDTO" property="teacher"/>
-	<association resultMap="ClassDTO" property="classDTO"/>
-	<association resultMap="ClassInfoDTO" property="classInfo"/>
+		<result column="chulsuck" property="chulsuck"/>
+		<result column="jigack" property="jigack"/>
+		<result column="kyulsuck" property="kyulsuck"/>
+		<result column="jotae" property="jotae"/>
+	<association resultMap="attendanceCategoryResultSet" property="category"/>
+	<association resultMap="studentResultSet" property="studentDTO"/>
+	<association resultMap="teacherResultSet" property="teacher"/>
+	<association resultMap="classResultSet" property="classDTO"/>
+	<association resultMap="classInfoResultSet" property="classInfo"/>
 	</resultMap>	
 	
-	<insert id="insertStudent" parameterType="AttendanceDTO">
-		INSERT
-		  INTO TBL_ATTENDANCE A
-		(
-		  A.ATTENDANCE_NO
-		, A.CATEGORY_NO, A.STUDENT_NO, A.ATTENDANCE_TIME
-		, A.MEMO
-		 )
-		 VALUES
-		 (
-		 	SEQ_ATTENDANCE_NO.NEXTVAL, #{ categoryNo }
-		 ,  #{ studentNo }, #{ attendanceTime }, #{ memo }
-		 	)
-	</insert>
+	<select id="selectStudentAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+   SELECT 
+          A.ATTENDANCE_NO
+        , B.CLASS_NAME
+        , C.STUDENT_NAME
+        , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
+        , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae
+          FROM TBL_ATTENDANCE A
+          INNER JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+          INNER JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+          INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
+          GROUP BY A.ATTENDANCE_NO, B.CLASS_NAME , C.STUDENT_NAME , D.CATEGORY_NO
+          ORDER BY A.ATTENDANCE_NO
+
+	</select>
+	
+	<select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+	SELECT 
+	
+          A.ATTENDANCE_TIME
+        , A.CHECKOUT_TIME
+        , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
+        , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae      
+          FROM TBL_ATTENDANCE A
+          INNER JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+          INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
+          GROUP BY A.ATTENDANCE_TIME, A.CHECKOUT_TIME, D.CATEGORY_NO
+	</select>
 	
 	<insert id="insertTeacher" parameterType="AttendanceDTO">
 		INSERT
 		  INTO TBL_ATTENDANCE A
 		(
-		  A.ATTENDANCE_NO
-		, A.TEACHER_NO
-		, A.CHECKOUT_TIME, A.ATTENDANCE_TIME
+		 	A.CHECKOUT_TIME
+		  , A.ATTENDANCE_TIME
+		  , A.ATTENDANCE_NO
 		)
 		VALUES
 		(
-			SEQ_ATTENDANCE_NO.NEXTVAL, #{ teacherNo }, #{ checkOutTime } , #{ attendanceTime }
+		   TO_CHAR(#{ checkOutTime },'YYYY-MM-DD HH24:MI:SS') 
+		 , #{ attendanceTime }
+		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		)
 	
 	</insert>
 	
 	
+	<insert id="insertStudent" parameterType="AttendanceDTO">
+		INSERT
+		  INTO TBL_ATTENDANCE A
+		(
+		
+		 A.CATEGORY_NO,  A.ATTENDANCE_TIME
+		, A.MEMO
+		 )
+		 VALUES
+		 (
+		  #{ categoryNo }
+		 , #{ attendanceTime }, #{ memo }
+		 	)
+	</insert>
 	
-	<select id="selectStudnetAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-		SELECT
-		       A.ATTENDANCE_NO
-		     , B.CATEGORY_NO
-		     , C.STUDENT_NO
-		   	 , D.CLASS_CODE
-		   	 , E.CLASS_NO
-		 FROM TBL_ATTENDANCE A
-		 JOIN TBL_ATTENDANCE_CATEGORY B ON (A.CATEGORY_NO = B.CATEGORY_NO) 
-		 JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
-		 JOIN TBL_CLASS D ON (A.CLASS_CODE = D.CLASS_CODE)
-		 JOIN TBL_CLASS_INFO E ON (A.CLASS_NO = E.CLASS_NO)
-
-	</select>
 	
-	<select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-		SELECT
-			  A.ATTENDANCE_NO
-			, A.CHECKOUT_TIME
-			, A.ATTENDANCE_TIME
-			, B.TEACHER_NO
-			, A.MONTH_TIME
-			, D.CLASS_CODE
-		   	, E.CLASS_NO
-		 FROM TBL_ATTENDANCE A
-		 JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
-		 JOIN TBL_CLASS D ON (A.CLASS_CODE = D.CLASS_CODE)
-		 JOIN TBL_CLASS_INFO E ON (A.CLASS_NO = E.CLASS_NO)
-	</select>
 
 	
 	<update id="updateStudentAttendance" parameterType="AttendanceDTO" >
