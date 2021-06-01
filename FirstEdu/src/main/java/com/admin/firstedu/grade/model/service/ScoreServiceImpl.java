@@ -21,8 +21,8 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<ScoreFullInfoDTO> selectScoreList(ScoreSearchCriteria searchCriteria) {
-		return null;
+	public List<ScoreDTO> selectScoreList(ScoreSearchCriteria searchCriteria) {
+		return mapper.selectScoreList(searchCriteria);
 	}
 
 	@Override

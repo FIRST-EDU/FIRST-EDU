@@ -5,11 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/score.js"></script>
 </head>
 <body>
 	<h1 align="center">시험 점수 관리</h1>
 	
-	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/score/list'">Score Select Test</button>
+	<button type="button" onclick="return showScoreList()">Score Select Test</button>
 
 	<form action="${ pageContext.servletContext.contextPath }/score/regist" method="post">
 		<button>Score Regist Test</button>
