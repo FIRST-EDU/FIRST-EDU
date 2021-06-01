@@ -25,4 +25,6 @@ public interface PayMapper {
 
 	int updatePay(PayDTO pay);
 
+	int selectPaySum();
+
 }

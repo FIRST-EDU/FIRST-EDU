@@ -41,7 +41,11 @@ public class PayController {
 		
 		List<PayListDTO> payList = payService.selectPayList();
 		
+		int paySum = payService.selectPaySum();
+		System.out.println(paySum);
+		
 		model.addAttribute("payList", payList);
+		model.addAttribute("paySum", paySum);
 		
 		for(PayListDTO pay : payList) {
 			System.out.println(pay);

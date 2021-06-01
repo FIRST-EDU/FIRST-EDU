@@ -25,5 +25,7 @@ public interface PayService {
 
 	PayListDTO selectUpdatePay(int no);
 
+	int selectPaySum();
+
 
 }

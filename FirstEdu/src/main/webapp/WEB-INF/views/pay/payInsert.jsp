@@ -9,7 +9,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body style="background: gray;">
+<body>
 
 <!-- 학생 목록 Start -->
 <div style="height:400px; overflow:auto; float:left; margin:23px;">

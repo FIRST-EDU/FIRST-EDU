@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body  style="background:gray;">
+<body>
 <button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/insertView'">수납입력</button>
 <!-- 수납 리스트 Start -->
 	<table class="payList" border="1">
@@ -51,7 +51,8 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div id="paySum"></div>
+		총금액 : <input value="<c:out value="${paySum }원"/>" readonly style="border:none;">
+		
 <!-- 수납 리스트 End -->
 
 		<script>

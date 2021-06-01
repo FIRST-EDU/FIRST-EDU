@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body  style="background:gray;">
+<body>
 <!-- 수납 상세 정보 Start -->
 	<table border="1">
 		<tr>

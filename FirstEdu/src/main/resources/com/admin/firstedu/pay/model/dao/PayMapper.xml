@@ -234,5 +234,11 @@
 		 WHERE C.STUDENT_NO = #{stuNo}
   	</select>
   	
+  	<select id="selectPaySum" resultType="_int">
+  		SELECT 
+        	   SUM(A.PAYMENT) 
+          FROM TBL_PAY A 
+         WHERE A.PAY_STATUS = 'Y'
+  	</select>
   	
   </mapper>

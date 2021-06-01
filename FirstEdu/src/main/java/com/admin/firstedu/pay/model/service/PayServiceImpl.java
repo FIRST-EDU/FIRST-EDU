@@ -71,6 +71,12 @@ public class PayServiceImpl implements PayService{
 		return payMapper.updatePay(pay);
 	}
 
+	@Override
+	public int selectPaySum() {
+		// TODO Auto-generated method stub
+		return payMapper.selectPaySum();
+	}
+
 
 	
 }
