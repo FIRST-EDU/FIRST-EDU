@@ -16,8 +16,9 @@ public class ExamSearchCriteria implements java.io.Serializable {
 	private static final long serialVersionUID = -2216788908845122216L;
 
 	private int schoolExam;
+	private int mockExam;
 	private int hagwonExam;
 	private int categoryNo;
-	private int grade;
+	private String gradeCode;
 	private int subjectNo;
 }

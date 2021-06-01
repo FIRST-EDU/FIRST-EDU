@@ -20,10 +20,11 @@ public class ExamDTO implements java.io.Serializable {
 	private int no;
 	private int categoryNo;
 	private String name;
-	private java.sql.Date examDate;
+	private java.sql.Date startDate;
+	private java.sql.Date endDate;
 	private String school;
-	private int grade;
-	private int subjectNo;
+	private String gradeCode;
+	private String classCode;
+	private String description;
 	private String status;
-
 }

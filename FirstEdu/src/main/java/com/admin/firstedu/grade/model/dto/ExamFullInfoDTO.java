@@ -17,9 +17,11 @@ public class ExamFullInfoDTO implements java.io.Serializable {
 
 	private int no;
 	private String name;
-	private java.sql.Date examDate;
+	private java.sql.Date startDate;
+	private java.sql.Date endDate;
 	private String school;
-	private int grade;
-	private ExamCategoryDTO category;
-	private SubjectCategoryDTO subject;
+	private String description;
+	private ExamCategoryFullInfoDTO categoryFullInfo;
+	private GradeDTO grade;
+	private ClassExamInfoDTO classExamInfo;
 }

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.ExamException;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
+import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
@@ -42,8 +43,8 @@ public class ExamController {
 		for(ExamFullInfoDTO exam : examList) {
 			System.out.println(exam);
 		}
-		List<ExamCategoryDTO> examCategoryList = examService.selectExamCategoryList();
-		for(ExamCategoryDTO examCategory : examCategoryList) {
+		List<ExamCategoryFullInfoDTO> examCategoryList = examService.selectExamCategoryList();
+		for(ExamCategoryFullInfoDTO examCategory : examCategoryList) {
 			System.out.println(examCategory);
 		}
 		
@@ -56,7 +57,10 @@ public class ExamController {
 	public String registExam(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-//		ExamDTO exam = new ExamDTO(0, 9, "test", new jaåva.sql.Date(new java.util.Date().getTime()), "더조은고등학교", 2, 1);
+		exam.setCategoryNo(1);
+		exam.setName("test");
+		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
+		exam.setSchool("더조은고등학교");
 		if(!examService.registExam(exam)) {
 			throw new ExamException("시험 일정 등록에 실패하였습니다.");
 		}
@@ -71,7 +75,11 @@ public class ExamController {
 	public String updateExam(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-//		ExamDTO exam = new ExamDTO(1, 7, "test", new java.sql.Date(new java.util.Date().getTime()), "더신나는고등학교", 3, 2);
+		exam.setNo(42);
+//		exam.setName("modify test");
+		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
+		exam.setSchool("완전조은고등학교");
+		
 		if(!examService.modifyExam(exam)) {
 			throw new ExamException("시험 일정 수정에 실패하였습니다.");
 		}
@@ -96,29 +104,29 @@ public class ExamController {
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 등록 */
+	/* 학원 시험 카테고리 등록 */
 	@PostMapping("/exam/category/regist")
 	public String registExamCategory(@ModelAttribute ExamCategoryDTO examCategory,
 									 RedirectAttributes rttr)
 											 throws ExamException {
 		examCategory.setName("RegistTest");
-		examCategory.setRefCategoryNo(1);
 		if(!examService.registExamCategory(examCategory)) {
-			throw new ExamException("시험 종류 카테고리 등록에 실패하였습니다.");
+			throw new ExamException("시험 종류 추가에 실패하였습니다.");
 		}
 		
-		rttr.addFlashAttribute("message", "시험 종류 카테고리가 추가되었습니다.");
+		rttr.addFlashAttribute("message", "시험 종류가 추가되었습니다.");
 		
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 수정 */
+	/* 시험 카테고리 수정 */
 	@PostMapping("/exam/category/modify")
 	public String modifyExamCategory(@ModelAttribute ExamCategoryDTO examCategory,
 									 RedirectAttributes rttr)
 											 throws ExamException {
-		examCategory.setNo(11);
+		examCategory.setNo(2);
 		examCategory.setName("ModifyTest");
+		examCategory.setColorNo(3);
 		if(!examService.modifyExamCategory(examCategory)) {
 			throw new ExamException("시험 종류 카테고리 수정에 실패하였습니다.");
 		}
@@ -128,12 +136,12 @@ public class ExamController {
 		return "redirect:/grade/exam";
 	}
 	
-	/* 시험 종류 카테고리 삭제 */
+	/* 학원 시험 카테고리 삭제 */
 	@PostMapping("/exam/category/remove")
 	public String removeExamCategory(@RequestParam(required=false, defaultValue="0") int examCategoryNo,
 									 RedirectAttributes rttr)
 											 throws ExamException {
-		examCategoryNo = 11;
+		examCategoryNo = 8;
 		if(!examService.removeExamCategory(examCategoryNo)) {
 			throw new ExamException("시험 종류 카테고리 삭제에 실패하였습니다.");
 		}

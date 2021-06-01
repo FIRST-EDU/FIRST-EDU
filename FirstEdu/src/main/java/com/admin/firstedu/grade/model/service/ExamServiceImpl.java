@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ExamMapper;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
+import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
@@ -27,7 +28,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public List<ExamCategoryDTO> selectExamCategoryList() {
+	public List<ExamCategoryFullInfoDTO> selectExamCategoryList() {
 		return mapper.selectExamCategoryList();
 	}
 
