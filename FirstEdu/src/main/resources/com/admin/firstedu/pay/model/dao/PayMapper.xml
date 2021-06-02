@@ -224,8 +224,8 @@
   		 WHERE A.PAY_NO = #{no}
   	</update>
   	
-  	<select id="selectClass" parameterType="_int" resultMap="studentAndClassResultMap">
-  		SELECT /* com.admin.firstEdu.pay.controller.selectClass*/
+  	<select id="selectClassList" parameterType="_int" resultMap="studentAndClassResultMap">
+  		SELECT /* com.admin.firstEdu.pay.controller.selectClassList*/
 		       A.CLASS_NAME
 		     , A.CLASS_PAYMENT
 		  FROM TBL_CLASS A
@@ -239,6 +239,72 @@
         	   SUM(A.PAYMENT) 
           FROM TBL_PAY A 
          WHERE A.PAY_STATUS = 'Y'
+  	</select>
+  	
+  	<select id="searchStudentNoPayList" parameterType="_int" resultMap="payListResultMap">
+  		SELECT /* com.admin.firstEdu.pay.controller.searchPayList*/
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND C.STUDENT_NO = #{searchValue}
+		 ORDER BY A.PAY_NO DESC
+  	</select>
+  	
+  	<select id="searchStudentNamePayList" parameterType="StudentAndClassInfoDTO" resultMap="payListResultMap">
+  		SELECT /* com.admin.firstEdu.pay.controller.searchPayList*/
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND C.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+		 ORDER BY A.PAY_NO DESC
+  	</select>
+  	
+  	<select id="searchClassNamePayList" parameterType="StudentAndClassInfoDTO" resultMap="payListResultMap">
+  		SELECT /* com.admin.firstEdu.pay.controller.searchPayList*/
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.SUBJECT_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND D.CLASS_NAME LIKE '%' || #{searchValue} || '%'
+		 ORDER BY A.PAY_NO DESC
   	</select>
   	
   </mapper>

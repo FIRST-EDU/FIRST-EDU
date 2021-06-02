@@ -17,7 +17,6 @@ public interface PayMapper {
 
 	int deletePay(int no);
 
-	List<StudentAndClassDTO> selectClass(int stuNo);
 
 	PayListDTO selectPayDetail(int no);
 
@@ -26,5 +25,15 @@ public interface PayMapper {
 	int updatePay(PayDTO pay);
 
 	int selectPaySum();
+
+	List<StudentAndClassDTO> selectClassList(int stuNo);
+
+	List<StudentAndClassInfoDTO> searchPayList(String searchOption, String searchValue);
+
+	List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo);
+
+	List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue);
+
+	List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue);
 
 }

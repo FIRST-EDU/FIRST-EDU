@@ -1,32 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
 </head>
 <body>
-<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/insertView'">수납입력</button>
-<!-- 수납 리스트 Start -->
+	<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/insertView'">수납입력</button>
+	<form action="${pageContext.servletContext.contextPath }/pay/search" method="get">
+		<select name="searchOption" id="searchOption">
+			<option value="studentNo">학생번호</option>
+			<option value="studentName">학생이름</option>
+			<option value="className">강의명</option>
+		</select>
+		<input type="search" id="searchValue" name="searchValue" value="">
+		<button id="searchList">검색</button>
+	</form>
+	<div style="height:400px; overflow:auto;">
 	<table class="payList" border="1">
-			<thead>
-				<tr>
-					<th>No</th>
-					<th>수강일</th>
-					<th>학생명</th>
-					<th>강의명</th>
-					<th>수강료</th>
-					<th>현황</th>
-					<th>결제수단</th>
-					<th>결제일</th>
-					<th>할인</th>
-					<th>결제금액</th>
-				</tr>
-			</thead>
-			<tbody>
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>수강일</th>
+				<th>학생명</th>
+				<th>강의명</th>
+				<th>수강료</th>
+				<th>현황</th>
+				<th>결제수단</th>
+				<th>결제일</th>
+				<th>할인</th>
+				<th>결제금액</th>
+			</tr>
+		</thead>
+		<tbody>
 				<c:forEach var="pay" items="${payList}">
 					<tr>
 						<td><c:out value="${ pay.payNo }" /></td>
@@ -50,28 +62,45 @@
 					</tr>
 				</c:forEach>
 			</tbody>
-		</table>
-		총금액 : <input value="<c:out value="${paySum }원"/>" readonly style="border:none;">
+	</table>
+	<div class="totalPay" style="display:block;">총 금액 : <input value="<c:out value="${paySum }원"/>" style="border: none;"></div> 
+	</div>
+	<script>
+		$(document).ready(function () {
+			$('.payList').tablesorter();
+		});
 		
-<!-- 수납 리스트 End -->
-
-		<script>
-/* td태그에 마우스 호버시 pointer 스타일로 변경  */
+		/* td태그에 마우스 호버시 pointer 스타일로 변경  */
 		if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
 			for(var i = 0 ; i < $tds.length ; i++) {
-
 				$tds[i].onmouseenter = function() {
-					this.parentNode.style.cursor = "pointer";
-				}
-
-				/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
-				$tds[i].onclick = function() {
-					const no = this.parentNode.children[0].innerText;
-					location.href = "${pageContext.servletContext.contextPath}/pay/detail?no=" + no;
+				this.parentNode.style.cursor = "pointer";
+			}
+		/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
+			$tds[i].onclick = function() {
+				const no = this.parentNode.children[0].innerText;
+				location.href = "${pageContext.servletContext.contextPath}/pay/detail?no=" + no;
 				}
 			}
 		}
-		</script>
+		
+		/* $("#searchList").click(function(){
+			$(".totalPay").css('display') == 'none';
+		}) */
+		
+		/* <script type="text/javascript"> */
+ 
+       /*  function dis(){
+            if($('.totalPay').css('display') == 'block'){
+            	$('.totalPay').hide();
+        	}else{
+            	$('.totalPay').show();
+        	}
+        }  */
+            
+   
+	</script>
+
 </body>
 </html>

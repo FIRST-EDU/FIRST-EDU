@@ -2,8 +2,6 @@ package com.admin.firstedu.pay.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,6 @@ import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/pay/*")
@@ -42,14 +38,10 @@ public class PayController {
 		List<PayListDTO> payList = payService.selectPayList();
 		
 		int paySum = payService.selectPaySum();
-		System.out.println(paySum);
 		
 		model.addAttribute("payList", payList);
 		model.addAttribute("paySum", paySum);
 		
-		for(PayListDTO pay : payList) {
-			System.out.println(pay);
-		}
 		
 		return "pay/payList";
 	}
@@ -90,6 +82,20 @@ public class PayController {
 		
 		return "pay/payInsert";
 		
+	}
+	
+	@GetMapping("classList")
+	public String selectClassList(Model model, @RequestParam(value="stuNo") int stuNo) {
+		
+		List<StudentAndClassDTO> classList = payService.selectClassList(stuNo);
+		
+		for(StudentAndClassDTO classL : classList) {
+			System.out.println(classL);
+		}
+		
+		model.addAttribute("classList", classList);
+		
+		return "pay/payInsert";
 	}
 	
 	/* update라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 넘어온 no를  DB에 전달하여 조건에 맞는 데이터를 조회해 수납수정 페이지로 전달. */
@@ -135,22 +141,24 @@ public class PayController {
 		return "main/result";
 	}
 	
-	@GetMapping("selectClass")
-	public String selectClass(HttpServletResponse response, Model model, @RequestParam(value="stuNo") int stuNo) {
+	@GetMapping("search")
+	public String searchPayList(Model model, @RequestParam(value="searchOption") String searchOption, @RequestParam(value="searchValue") String searchValue) {
 		
-		response.setContentType("appication/json; charset=UTF-8");
-		
-		Gson gson = new GsonBuilder().create();
-		
-		List<StudentAndClassDTO> classNameList = payService.selectClass(stuNo);
-		
-		System.out.println(stuNo);
-		for(StudentAndClassDTO className : classNameList) {
-			System.out.println(className);
+		if(searchOption.equals("studentNo")) {
+			int searchValueNo = (Integer.valueOf(searchValue));
+			List<StudentAndClassInfoDTO> payList = payService.searchStudentNoPayList(searchValueNo);
+			model.addAttribute("payList",payList);
+		}else if(searchOption.equals("studentName")){
+			List<StudentAndClassInfoDTO> payList = payService.searchStudentNamePayList(searchValue);
+			model.addAttribute("payList",payList);
+			
+		}else if(searchOption.equals("className")) {
+			List<StudentAndClassInfoDTO> payList = payService.searchClassNamePayList(searchValue);
+			model.addAttribute("payList",payList);
+			
 		}
-		
-		model.addAttribute("classNameList", gson.toJson(classNameList));
-		
-		return "pay/payInsert";
+		 
+		return "pay/payList";
 	}
+	
 }

@@ -51,7 +51,13 @@
 			<input type="hidden" name="studentNo" id="studentNo" value=""><br>
 			<input type="hidden" name="classNo" id="classNo" value="">
 			학생명 <input type="text" name="studentName" id="studentName" value=""><br>
-			강의명 <input type="text" name="classNameList" id="classNameList" value=""><br> 
+			강의명 <input type="text" name="className" id="className" value=""><br>
+			
+				<!-- <select name="classNameList" id="classNameList">
+					<option value=""></option>
+				</select> -->
+			
+			
 			수강료 <input type="number" name="tution" id="tution" value=""><br> 
 			납입현황 <select name="payYn">
 					<option value="Y">납부</option>
@@ -92,22 +98,23 @@
 					var classPayment = td.eq(4).text();
 					
 					 
-					$('input[name=studentNo]').attr('value',stuNo);
-					$('input[name=classNo]').attr('value',classNo);
-					$('input[name=studentName]').attr('value',name);
-					$('input[name=classNameList]').attr('value',className);
-					$('input[name=tution]').attr('value',classPayment);
-					
-					$.ajax({
-						url:"selectClass",
+					 /* $.ajax({
+						url:"classList",
 						type:'GET',
 						data:{stuNo:stuNo},
 						success:function(data){
 							console.log(stuNo);
-							console.log(classNameList.value);
+							console.log(classList.value);
 							
 						}
-					}); 
+					});  */ 
+					
+					$('input[name=studentNo]').attr('value',stuNo);
+					$('input[name=classNo]').attr('value',classNo);
+					$('input[name=studentName]').attr('value',name);
+					$('input[name=className]').attr('value',className);
+					$('input[name=tution]').attr('value',classPayment);
+					
 					 
 
 			});
@@ -135,7 +142,7 @@
 				var value = $(this).find("option:selected").val();
 				var discountText = $("input[name=discountNo]");
 				var paymentText = $("input[name=payment]");
-				var payOptionText = $("input[name=payOption]");
+				var payOptionText = $("select[name=payOption]");
 				var payDateText = $("input[name=payDate]");
 				var flag = false;
 					if (value == 'N') {
@@ -143,20 +150,22 @@
 						$(paymentText).val('0');
 						$(payDateText).val('0001-01-01');
 					} 
-				$("#option1").prop("selected",true);
+				/* $("#option1").prop("selected",true); */
 				$("#dis3").prop("checked", true);
 				$(paymentText).attr("disabled", flag);
 				$(payDateText).attr("disabled", flag);
+				$(payOptionText).attr("disabled", flag);
 				});
 
 			});
 			
 /* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
-		 $("form").submit(function(){
-			 $("input[name=payment]").removeAttr('disabled'); 
-			 $("input[name=payDate]").removeAttr('disabled'); 
-			 
-		 })
+			 $("form").submit(function(){
+				 $("input[name=payment]").removeAttr('disabled'); 
+				 $("input[name=payDate]").removeAttr('disabled'); 
+				 $("select[name=payOption]").removeAttr('disabled'); 
+				 
+			 })
 
 /* td태그에 마우스 호버 시 pointer 스타일로 변경 Start */
 		 if(document.getElementsByTagName("td")) {
@@ -169,7 +178,6 @@
 
 			}
 		}
-
 		</script>
 </body>
 </html>

@@ -19,13 +19,20 @@ public interface PayService {
 
 	int deletePay(int no);
 
-	List<StudentAndClassDTO> selectClass(int stuNo);
 
 	PayListDTO selectPayDetail(int no);
 
 	PayListDTO selectUpdatePay(int no);
 
 	int selectPaySum();
+
+	List<StudentAndClassDTO> selectClassList(int stuNo);
+
+	List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo);
+
+	List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue);
+
+	List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue);
 
 
 }

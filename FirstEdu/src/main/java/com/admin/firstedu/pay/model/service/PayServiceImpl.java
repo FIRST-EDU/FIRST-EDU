@@ -48,12 +48,6 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<StudentAndClassDTO> selectClass(int stuNo) {
-		// TODO Auto-generated method stub
-		return payMapper.selectClass(stuNo);
-	}
-
-	@Override
 	public PayListDTO selectPayDetail(int no) {
 		// TODO Auto-generated method stub
 		return payMapper.selectPayDetail(no);
@@ -76,6 +70,32 @@ public class PayServiceImpl implements PayService{
 		// TODO Auto-generated method stub
 		return payMapper.selectPaySum();
 	}
+
+	@Override
+	public List<StudentAndClassDTO> selectClassList(int stuNo) {
+		// TODO Auto-generated method stub
+		return payMapper.selectClassList(stuNo);
+	}
+
+	@Override
+	public List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo) {
+		// TODO Auto-generated method stub
+		return payMapper.searchStudentNoPayList(searchValueNo);
+	}
+
+	@Override
+	public List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue) {
+		// TODO Auto-generated method stub
+		return payMapper.searchStudentNamePayList(searchValue);
+	}
+
+	@Override
+	public List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue) {
+		// TODO Auto-generated method stub
+		return payMapper.searchClassNamePayList(searchValue);
+	}
+
+	
 
 
 	
