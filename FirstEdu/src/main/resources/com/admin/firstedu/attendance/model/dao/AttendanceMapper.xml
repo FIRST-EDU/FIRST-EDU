@@ -96,7 +96,7 @@
 
 	</select>
 	
-	<select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+<!--  <select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
 	SELECT 
 	
           A.ATTENDANCE_TIME
@@ -109,20 +109,32 @@
           INNER JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
           INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
           GROUP BY A.ATTENDANCE_TIME, A.CHECKOUT_TIME, D.CATEGORY_NO
-	</select>
+	</select> -->
 	
 	<insert id="insertTeacher" parameterType="AttendanceDTO">
 		INSERT
 		  INTO TBL_ATTENDANCE A
 		(
-		 	A.CHECKOUT_TIME
-		  , A.ATTENDANCE_TIME
+	
+		  A.ATTENDANCE_TIME
 		  , A.ATTENDANCE_NO
 		)
 		VALUES
 		(
-		   TO_CHAR(#{ checkOutTime },'YYYY-MM-DD HH24:MI:SS') 
-		 , #{ attendanceTime }
+			SYSTIMESTAMP
+		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
+		)
+	
+	</insert>
+	<insert id="doneTeacher" parameterType="AttendanceDTO">
+		INSERT
+		  INTO TBL_ATTENDANCE A
+		  (	A.CHECKOUT_TIME
+		  , A.ATTENDANCE_NO
+		)
+		VALUES
+		(
+		   #{ checkOutTime } 
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		)
 	
@@ -139,7 +151,7 @@
 		 )
 		 VALUES
 		 (
-		  #{ categoryNo }
+		   #{ categoryNo }
 		 , #{ attendanceTime }, #{ memo }
 		 	)
 	</insert>

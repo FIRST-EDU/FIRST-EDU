@@ -208,6 +208,13 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.12.2</version>
 		</dependency>
+		
+	   <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib-ext-spring -->
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib-ext-spring</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
 
 	</dependencies>
     <build>

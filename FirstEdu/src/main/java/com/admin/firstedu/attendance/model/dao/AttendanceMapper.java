@@ -17,6 +17,7 @@ public interface AttendanceMapper {
 	
 	int updateStudentAttendance(AttendanceDTO attendance);
 
+	int doneTeacher(AttendanceDTO attendance);
 
 	
 }

@@ -1,6 +1,7 @@
 package com.admin.firstedu.attendance.model.dto;
 
 import java.io.Serializable;
+
 import java.sql.Date;
 
 
@@ -20,6 +21,22 @@ public class AttendanceDTO implements Serializable{
 	
 	
 	public AttendanceDTO() {
+	}
+
+
+	public AttendanceDTO(int no, Date attendanceTime, Date checkOutTime, Date monthTime, int studentNo, int teacherNo,
+			int categoryNo, String memo, String classCode, int classNo) {
+		super();
+		this.no = no;
+		this.attendanceTime = attendanceTime;
+		this.checkOutTime = checkOutTime;
+		this.monthTime = monthTime;
+		this.studentNo = studentNo;
+		this.teacherNo = teacherNo;
+		this.categoryNo = categoryNo;
+		this.memo = memo;
+		this.classCode = classCode;
+		this.classNo = classNo;
 	}
 
 
@@ -128,22 +145,6 @@ public class AttendanceDTO implements Serializable{
 	}
 
 
-	public AttendanceDTO(int no, Date attendanceTime, Date checkOutTime, Date monthTime, int studentNo, int teacherNo,
-			int categoryNo, String memo, String classCode, int classNo) {
-		super();
-		this.no = no;
-		this.attendanceTime = attendanceTime;
-		this.checkOutTime = checkOutTime;
-		this.monthTime = monthTime;
-		this.studentNo = studentNo;
-		this.teacherNo = teacherNo;
-		this.categoryNo = categoryNo;
-		this.memo = memo;
-		this.classCode = classCode;
-		this.classNo = classNo;
-	}
-
-
 	@Override
 	public String toString() {
 		return "AttendanceDTO [no=" + no + ", attendanceTime=" + attendanceTime + ", checkOutTime=" + checkOutTime
@@ -151,5 +152,7 @@ public class AttendanceDTO implements Serializable{
 				+ categoryNo + ", memo=" + memo + ", classCode=" + classCode + ", classNo=" + classNo + "]";
 	}
 
+
+	
 
 }

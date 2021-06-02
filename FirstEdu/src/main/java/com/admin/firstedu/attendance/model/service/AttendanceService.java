@@ -13,9 +13,11 @@ public interface AttendanceService {
 	
 	List<AttendanceInfoDTO> selectStudentAttendance();
 	
-	List<AttendanceInfoDTO> selectTeacherAttendance();
+//	List<AttendanceInfoDTO> selectTeacherAttendance();
 	
 	boolean updateStudentAttendance(AttendanceDTO attendance);
+
+	boolean doneTeacher(AttendanceDTO attendance);
 
 
 

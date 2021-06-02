@@ -29,6 +29,10 @@ public class AtteandanceServiceImpl implements AttendanceService {
 		return mapper.insertTeacher(attendance) > 0 ? true : false;
 	}
 
+	@Override
+	public boolean doneTeacher(AttendanceDTO attendance) {
+		return mapper.doneTeacher(attendance) > 0 ? true : false;
+	}
 
 	@Override
 	public boolean updateStudentAttendance(AttendanceDTO attendance) {
@@ -36,11 +40,11 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 
-	@Override
-	public List<AttendanceInfoDTO> selectTeacherAttendance() {
-		// TODO Auto-generated method stub
-		return mapper.selectTeacherAttendance();
-	}
+//	@Override
+//	public List<AttendanceInfoDTO> selectTeacherAttendance() {
+//		// TODO Auto-generated method stub
+//		return mapper.selectTeacherAttendance();
+//	}
 
 	@Override
 	public List<AttendanceInfoDTO> selectStudentAttendance() {
