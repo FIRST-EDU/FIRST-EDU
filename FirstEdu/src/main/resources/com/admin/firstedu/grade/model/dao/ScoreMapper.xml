@@ -14,6 +14,7 @@
 		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
 		<result column="TARGET_SCORE" property="targetScore"/>
 		<result column="SCORE" property="score"/>
+		<result column="SCORE_GRADE" property="scoreGrade"/>
 		<result column="CLASS_RANK" property="classRank"/>
 		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
 		<result column="OVERALL_RANK" property="overallRank"/>
@@ -73,8 +74,42 @@
 	</select>
 	
 	<!-- 성적 등록 -->
-	<insert id="insertScore" parameterType="ScoreDTO">
-
+	<insert id="insertScore" parameterType="ScoreListDTO">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.STUDENT_NO
+		, A.EXAM_NO
+		, A.SUBJECT_NO
+		, A.SUBJECT_DETAIL
+		, A.TARGET_SCORE
+		, A.SCORE
+		, A.SCORE_GRADE
+		, A.CLASS_RANK
+		, A.CLASS_PERSONNEL
+		, A.OVERALL_RANK
+		, A.TOTAL_PERSONNEL
+		, A.TEACHER_COMMENT
+		)
+		<foreach collection="scoreList" item="score" separator="UNION ALL">
+		  SELECT GET_SCORE_NO
+		       , #{ score.studentNo, jdbcType=INTEGER }
+		       , #{ score.examNo, jdbcType=INTEGER }
+		       , #{ score.subjectNo, jdbcType=INTEGER }
+		       , #{ score.subjectDetail, jdbcType=VARCHAR }
+		       , #{ score.targetScore, jdbcType=DOUBLE }
+		       , #{ score.score, jdbcType=DOUBLE }
+		       , #{ score.scoreGrade, jdbcType=INTEGER }
+		       , #{ score.classRank, jdbcType=INTEGER }
+		       , #{ score.classPersonnel, jdbcType=INTEGER }
+		       , #{ score.overallRank, jdbcType=INTEGER }
+		       , #{ score.totalPersonnel, jdbcType=INTEGER }
+		       , #{ score.teacherComment, jdbcType=VARCHAR }
+		    FROM DUAL
+		</foreach>
+		
+		
 	</insert>
 	
 	<!-- 성적 수정 -->

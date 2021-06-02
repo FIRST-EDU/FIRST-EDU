@@ -1,16 +1,21 @@
 package com.admin.firstedu.grade.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
+import com.admin.firstedu.grade.model.dto.ScoreListDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
 import com.admin.firstedu.grade.model.service.ScoreService;
 import com.google.gson.Gson;
@@ -21,7 +26,7 @@ import com.google.gson.GsonBuilder;
 public class ScoreController {
 
 	private final ScoreService scoreService;
-
+	
 	@Autowired
 	public ScoreController(ScoreService scoreService) {
 		this.scoreService = scoreService;
@@ -58,6 +63,24 @@ public class ScoreController {
 	
 	
 	/* 성적 입력 */
+	@PostMapping("/score/regist")
+	public void registScore(@ModelAttribute ScoreListDTO scoreList,
+			                HttpServletResponse response)
+			                		throws IOException {
+		ScoreDTO score = new ScoreDTO();
+		score.setStudentNo(1);
+		score.setExamNo(1);
+		score.setSubjectNo(1);
+		score.setScore(90);
+		score.setTeacherComment("test");
+		List<ScoreDTO> scoreListTest = new ArrayList<>();
+		scoreListTest.add(score);
+		scoreListTest.add(score);
+		scoreList.setScoreList(scoreListTest);
+		String result = scoreService.registScore(scoreList);
+		
+		response.getWriter().write(result);
+	}
 	
 	
 	/* 성적 수정 */

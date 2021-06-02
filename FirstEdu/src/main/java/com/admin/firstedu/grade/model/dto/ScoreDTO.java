@@ -22,6 +22,7 @@ public class ScoreDTO implements java.io.Serializable {
 	private String subjectDetail;
 	private double targetScore;
 	private double score;
+	private int scoreGrade;
 	private int classRank;
 	private int classPersonnel;
 	private int overallRank;

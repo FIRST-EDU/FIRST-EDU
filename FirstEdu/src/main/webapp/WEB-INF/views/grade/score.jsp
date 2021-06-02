@@ -13,7 +13,7 @@
 	
 	<button type="button" onclick="return showScoreList()">Score Select Test</button>
 
-	<form action="${ pageContext.servletContext.contextPath }/score/regist" method="post">
+	<form action="${ pageContext.servletContext.contextPath }/grade/score/regist" method="post">
 		<button>Score Regist Test</button>
 	</form>
 	

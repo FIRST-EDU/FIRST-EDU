@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ScoreMapper;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
-import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ScoreListDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
 
 @Service
@@ -26,8 +26,8 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public boolean registScore(ScoreDTO score) {
-		return false;
+	public String registScore(ScoreListDTO scoreList) {
+		return mapper.insertScore(scoreList) > 0 ? "true" : "false";
 	}
 
 	@Override
