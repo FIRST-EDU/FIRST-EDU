@@ -16,8 +16,16 @@ public class ScoreFullInfoDTO implements java.io.Serializable {
 	private static final long serialVersionUID = 2950445852771543932L;
 
 	private int no;
+	private String subjectDetail;
+	private double targetScore;
 	private double score;
-	private String status;
+	private int scoreGrade;
+	private int classRank;
+	private int classPersonnel;
+	private int overallRank;
+	private int totalPersonnel;
+	private String teacherComment;
+	private StudentAndGradeDTO student;
 	private ExamDTO exam;
-	private StudentDTO student;
+	private SubjectCategoryDTO subject;
 }

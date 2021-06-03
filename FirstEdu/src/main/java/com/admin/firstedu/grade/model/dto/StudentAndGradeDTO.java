@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StudentDTO {
+public class StudentAndGradeDTO {
 
 	private int no;
 	private String studentName;
@@ -24,5 +24,5 @@ public class StudentDTO {
 	private String address;
 	private java.sql.Date registrationDate;
 	private String status;
-	private String gradeCode;
+	private GradeDTO grade;
 }

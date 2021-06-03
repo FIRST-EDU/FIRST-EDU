@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ScoreMapper;
 import com.admin.firstedu.grade.model.dto.ModifiedScoreDTO;
-import com.admin.firstedu.grade.model.dto.ScoreDTO;
+import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ScoreListDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
 
@@ -22,7 +22,7 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<ScoreDTO> selectScoreList(ScoreSearchCriteria searchCriteria) {
+	public List<ScoreFullInfoDTO> selectScoreList(ScoreSearchCriteria searchCriteria) {
 		return mapper.selectScoreList(searchCriteria);
 	}
 

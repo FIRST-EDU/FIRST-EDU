@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.firstedu.grade.model.dto.ModifiedScoreDTO;
-import com.admin.firstedu.grade.model.dto.ScoreDTO;
+import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
 import com.admin.firstedu.grade.model.service.ScoreService;
 import com.google.gson.Gson;
@@ -53,8 +53,8 @@ public class ScoreController {
 //		subjectNoList.add(1);
 //		subjectNoList.add(2);
 		searchCriteria.setSubjectNoList(subjectNoList);
-		List<ScoreDTO> scoreList = scoreService.selectScoreList(searchCriteria);
-		for(ScoreDTO score : scoreList) {
+		List<ScoreFullInfoDTO> scoreList = scoreService.selectScoreList(searchCriteria);
+		for(ScoreFullInfoDTO score : scoreList) {
 			System.out.println(score);
 		}
 		

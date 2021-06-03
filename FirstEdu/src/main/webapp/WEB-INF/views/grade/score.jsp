@@ -12,7 +12,7 @@
 <body>
 	<h1 align="center">시험 점수 관리</h1>
 	
-	<button type="button" onclick="return showScoreList()">Score Select Test</button>
+	<button type="button" onclick="return showHagwonExamScoreList()">Score Select Test</button>
 
 	<form action="${ pageContext.servletContext.contextPath }/grade/score/regist" method="post">
 		<button>Score Regist Test</button>
@@ -36,6 +36,7 @@
 				<th>점수</th>
 				<th>반 석차</th>
 				<th>선생님 의견</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>

@@ -25,7 +25,7 @@
 	<!-- 학생 테이블 DTO -->
      <resultMap type="StudentDTO" id="studentResultMap">
         <id property="no" column="STUDENT_NO"/>
-        <result property="grade" column="GRADE"/>
+        <result property="gradeCode" column="GRADE_CODE"/>
         <result property="studentName" column="STUDENT_NAME"/>
         <result property="parentsName" column="PARENTS_NAME"/>
         <result property="studentPhone" column="STUDENT_PHONE"/>
@@ -38,14 +38,44 @@
         <result property="status" column="STATUS"/>
      </resultMap>
 
+	<!-- 학생, 학년 join DTO -->
+	<resultMap type="StudentAndGradeDTO" id="studentAndGradeResultMap">
+        <id property="no" column="STUDENT_NO"/>
+        <result property="studentName" column="STUDENT_NAME"/>
+        <result property="parentsName" column="PARENTS_NAME"/>
+        <result property="studentPhone" column="STUDENT_PHONE"/>
+        <result property="parentsPhone" column="PARENTS_PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="birth" column="BIRTH"/>
+        <result property="school" column="SCHOOL"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="registrationDate" column="REGISTRATION_DATE"/>
+        <result property="status" column="STATUS"/>
+        <association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.gradeResultMap" property="grade"/>
+    </resultMap>
+
+	<!-- 성적 모든 정보 조회용 DTO -->
+	<resultMap id="scoreFullInfoResultMap" type="ScoreFullInfoDTO">
+		<id column="SCORE_NO" property="no"/>
+		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
+		<result column="TARGET_SCORE" property="targetScore"/>
+		<result column="SCORE" property="score"/>
+		<result column="SCORE_GRADE" property="scoreGrade"/>
+		<result column="CLASS_RANK" property="classRank"/>
+		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+		<result column="OVERALL_RANK" property="overallRank"/>
+		<result column="TOTAL_PERSONNEL" property="totalPersonnel"/>
+		<result column="TEACHER_COMMENT" property="teacherComment"/>
+		<association resultMap="studentAndGradeResultMap" property="student"/>
+		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.examResultMap" property="exam"/>
+		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.subjectCategoryResultMap" property="subject"/>
+	</resultMap>
+
 
 	<!-- 성적 조회 (검색 포함) -->
-	<select id="selectScoreList" parameterType="ScoreSearchCriteria" resultMap="scoreResultMap">
+	<select id="selectScoreList" parameterType="ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
 		SELECT
 		       A.SCORE_NO
-		     , A.STUDENT_NO
-		     , A.EXAM_NO
-		     , A.SUBJECT_NO
 		     , A.SUBJECT_DETAIL
 		     , A.TARGET_SCORE
 		     , A.SCORE
@@ -54,9 +84,20 @@
 		     , A.OVERALL_RANK
 		     , A.TOTAL_PERSONNEL
 		     , A.TEACHER_COMMENT
+		     , B.STUDENT_NO
+		     , B.STUDENT_NAME
+		     , C.GRADE_NAME
+		     , D.EXAM_NO
+		     , D.EXAM_NAME
+		     , E.SUBJECT_NO
+		     , E.SUBJECT_NAME
 		  FROM TBL_EXAM_SCORE A
-		  JOIN TBL_EXAM B ON (A.EXAM_NO = B.EXAM_NO)
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_GRADE C ON (B.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_EXAM D ON (A.EXAM_NO = D.EXAM_NO)
+		  JOIN TBL_SUBJECT_CATEGORY E ON (A.SUBJECT_NO = E.SUBJECT_NO)
 		 WHERE A.SCORE_STATUS = 'Y'
+		   AND D.EXAM_STATUS = 'Y'
 		 <if test="studentNo != 0">
 		   AND A.STUDENT_NO = #{ studentNo }
 		 </if>
