@@ -13,6 +13,8 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+	<context:property-placeholder location="classpath:config/connection-info.properties"/>
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
@@ -48,5 +50,7 @@
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
 			advice-ref="txAdvice" />
 	</aop:config>
+	
+	<mybatis-spring:scan base-package="com.admin.firstedu.consult.model.dao"/>
 	
 </beans>

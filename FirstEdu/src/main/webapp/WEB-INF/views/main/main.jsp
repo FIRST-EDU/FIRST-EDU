@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1 align="center">FIRST EDU</h1>
+	<button onclick="location.href='${pageContext.servletContext.contextPath}/consult/list'">상담목록</button>
 </body>
 </html>
