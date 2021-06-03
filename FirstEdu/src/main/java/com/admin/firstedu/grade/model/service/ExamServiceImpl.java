@@ -11,6 +11,9 @@ import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
+import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
+import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
+import com.admin.firstedu.grade.model.dto.StudentDTO;
 
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
@@ -33,8 +36,30 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	@Override
-	public boolean registExam(ExamDTO exam) {
-		return mapper.insertExam(exam) > 0 ? true : false;
+	public boolean registExamAndScoreBasicInfo(ExamDTO exam) {
+		
+		/* 시험 등록 */
+		int result1 = mapper.insertExam(exam);
+		
+		/* 등록한 시험 번호 조회 */
+		int examNo = mapper.selectRegisteredExamNo();
+		
+		/* 시험 대상 학생 목록 조회 */
+		List<StudentDTO> studentList = null;
+		int result2 = 0;
+		if(exam.getCategoryNo() == 1) {
+			studentList = mapper.selectSchoolExamStudentList(examNo);
+		} else if(exam.getCategoryNo() == 2) {
+			studentList = mapper.selectMockExamStudentList(examNo);
+		} else {
+			List<HagwonExamScoreBasicInfoDTO> hagwonExamScoreBasicInfoList = mapper.selectHagwonExamScoreBasicInfoList(examNo);
+			System.out.println(hagwonExamScoreBasicInfoList);
+			result2 = mapper.insertHagwonExamScoreBasicInfo(new HagwonExamScoreBasicInfoListDTO(hagwonExamScoreBasicInfoList));
+		}
+		
+		/* 성적 기본 정보 등록 */
+		
+		return result1 > 0 && result2 > 0 ? true : false;
 	}
 
 	@Override

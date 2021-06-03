@@ -14,7 +14,7 @@ public interface ExamService {
 	
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
 
-	boolean registExam(ExamDTO exam);
+	boolean registExamAndScoreBasicInfo(ExamDTO exam);
 	
 	boolean modifyExam(ExamDTO exam);
 	

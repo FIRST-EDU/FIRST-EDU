@@ -7,6 +7,9 @@ import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
+import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
+import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
+import com.admin.firstedu.grade.model.dto.StudentDTO;
 
 public interface ExamMapper {
 
@@ -15,6 +18,15 @@ public interface ExamMapper {
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
 
 	int insertExam(ExamDTO exam);
+
+	int selectRegisteredExamNo();
+
+	List<StudentDTO> selectSchoolExamStudentList(int examNo);
+	
+	List<StudentDTO> selectMockExamStudentList(int examNo);
+
+	List<HagwonExamScoreBasicInfoDTO> selectHagwonExamScoreBasicInfoList(int examNo);
+	int insertHagwonExamScoreBasicInfo(HagwonExamScoreBasicInfoListDTO hagwonExamScoreBasicInfoList);
 
 	int updateExam(ExamDTO exam);
 
@@ -25,5 +37,10 @@ public interface ExamMapper {
 	int updateExamCategory(ExamCategoryDTO examCategory);
 
 	int deleteExamCategory(int examCategoryNo);
+
+
+
+
+
 
 }

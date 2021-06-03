@@ -43,15 +43,15 @@ public class ScoreController {
 		System.out.println("test");
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
-		searchCriteria.setStudentNo(2);
+//		searchCriteria.setStudentNo(2);
 		List<Integer> examNoList = new ArrayList<>();
-		examNoList.add(1);
-		examNoList.add(6);
-		examNoList.add(20);
+//		examNoList.add(1);
+//		examNoList.add(6);
+		examNoList.add(26);
 		searchCriteria.setExamNoList(examNoList);
 		List<Integer> subjectNoList = new ArrayList<>();
-		subjectNoList.add(1);
-		subjectNoList.add(2);
+//		subjectNoList.add(1);
+//		subjectNoList.add(2);
 		searchCriteria.setSubjectNoList(subjectNoList);
 		List<ScoreDTO> scoreList = scoreService.selectScoreList(searchCriteria);
 		for(ScoreDTO score : scoreList) {

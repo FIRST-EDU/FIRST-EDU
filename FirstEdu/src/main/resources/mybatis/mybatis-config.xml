@@ -13,6 +13,8 @@
  		<typeAlias alias="ExamFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamFullInfoDTO"/>
  		<typeAlias alias="ExamSearchCriteria" type="com.admin.firstedu.grade.model.dto.ExamSearchCriteria"/>
  		<typeAlias alias="GradeDTO" type="com.admin.firstedu.grade.model.dto.GradeDTO"/>
+ 		<typeAlias alias="HagwonExamScoreBasicInfoDTO" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO"/>
+ 		<typeAlias alias="HagwonExamScoreBasicInfoListDTO" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO"/>
  		<typeAlias alias="ScoreDTO" type="com.admin.firstedu.grade.model.dto.ScoreDTO"/>
  		<typeAlias alias="ScoreFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO"/>
  		<typeAlias alias="ScoreListDTO" type="com.admin.firstedu.grade.model.dto.ScoreListDTO"/>

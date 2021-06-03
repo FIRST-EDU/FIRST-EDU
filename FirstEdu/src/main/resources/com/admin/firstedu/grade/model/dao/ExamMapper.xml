@@ -74,7 +74,14 @@
 		<association resultMap="gradeResultMap" property="grade"/>
 		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
  	</resultMap>
-
+ 	
+ 	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO -->
+	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="HagwonExamScoreBasicInfoDTO">
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+	</resultMap>
 
 	<!-- 시험 목록 조회 (검색 포함) -->
 	<select id="selectExamList" parameterType="ExamSearchCriteria" resultMap="examFullInfoResultMap">
@@ -175,6 +182,72 @@
 		, #{ classCode, jdbcType=VARCHAR }
 		, #{ description, jdbcType=VARCHAR }
 		)
+	</insert>
+	
+	<!-- 등록한 시험 번호 조회 -->
+	<select id="selectRegisteredExamNo" resultType="_int">
+		SELECT
+		       SEQ_EXAM_NO.CURRVAL
+		  FROM DUAL
+	</select>
+	
+	<!-- 학교 내신 시험 대상 학생 조회 
+	<select id="selectSchoolExamStudentList" resultMap=com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap>
+		SELECT
+		       A.STUDENT_NO
+		     , A.STUDENT_NAME
+		     
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select>
+	
+	 모의고사 대상 학생 조회
+	<select id="selectMockExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
+		SELECT
+		       A.STUDENT_NO
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select> -->
+	
+	<!-- 학원 시험 대상 기본 정보 조회 -->
+	<select id="selectHagwonExamScoreBasicInfoList" parameterType="_int" resultMap="hagwonExamScoreBasicInfoResultMap">
+		SELECT
+		       A.EXAM_NO
+		     , B.SUBJECT_NO
+		     , GET_CLASS_PERSONNEL(#{ examNo }) AS CLASS_PERSONNEL
+		     , C.STUDENT_NO
+		  FROM TBL_EXAM A
+		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+		  JOIN TBL_CLASS_INFO C ON (B.CLASS_CODE = C.CLASS_CODE)
+		 WHERE A.EXAM_NO = #{ examNo }
+	</select>
+	
+	<!-- 시험 등록 시 성적 기본 정보도 등록 -->
+	<insert id="insertHagwonExamScoreBasicInfo" parameterType="HagwonExamScoreBasicInfoListDTO">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.STUDENT_NO
+		, A.EXAM_NO
+		, A.SUBJECT_NO
+		, A.CLASS_PERSONNEL
+		)
+		<foreach collection="hagwonExamScoreBasicInfoList" item="hagwonExamScoreBasicInfo" separator="UNION ALL">
+		  SELECT GET_SCORE_NO
+		       , #{ hagwonExamScoreBasicInfo.studentNo }
+		       , #{ hagwonExamScoreBasicInfo.examNo }
+		       , #{ hagwonExamScoreBasicInfo.subjectNo }
+		       , #{ hagwonExamScoreBasicInfo.classPersonnel }
+		    FROM DUAL
+		</foreach>
+	
 	</insert>
 	
 	<!-- 시험 일정 수정 -->

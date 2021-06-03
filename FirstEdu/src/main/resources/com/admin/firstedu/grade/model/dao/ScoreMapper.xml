@@ -67,10 +67,12 @@
 		   <foreach collection="examNoList" item="examNo" open="(" separator="," close=")">
 		   	   #{ examNo }
 		   </foreach>
+		 <if test="subjectNoList.size() > 0">
 		   AND A.SUBJECT_NO IN
 		   <foreach collection="subjectNoList" item="subjectNo" open="(" separator="," close=")">
 		   	   #{ subjectNo }
 		   </foreach>
+		 </if>
 	</select>
 	
 	<!-- 성적 등록 -->
@@ -108,8 +110,6 @@
 		       , #{ score.teacherComment, jdbcType=VARCHAR }
 		    FROM DUAL
 		</foreach>
-		
-		
 	</insert>
 	
 	<!-- 성적 수정 -->
