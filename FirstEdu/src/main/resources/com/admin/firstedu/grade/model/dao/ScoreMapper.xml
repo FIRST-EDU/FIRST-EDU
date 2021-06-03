@@ -113,8 +113,11 @@
 	</insert>
 	
 	<!-- 성적 수정 -->
-	<update id="updateScore" parameterType="ScoreDTO">
-
+	<update id="updateScore" parameterType="ModifiedScoreDTO">
+		UPDATE
+		       TBL_EXAM_SCORE A
+		   SET A.${ modifiedColumn } = #{ modifiedValue }
+		 WHERE A.SCORE_NO = #{ scoreNo }
 	</update>
 	
 	<!-- 성적 삭제 -->

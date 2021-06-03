@@ -13,7 +13,6 @@ import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
-import com.admin.firstedu.grade.model.dto.StudentDTO;
 
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
@@ -44,20 +43,19 @@ public class ExamServiceImpl implements ExamService {
 		/* 등록한 시험 번호 조회 */
 		int examNo = mapper.selectRegisteredExamNo();
 		
-		/* 시험 대상 학생 목록 조회 */
-		List<StudentDTO> studentList = null;
 		int result2 = 0;
 		if(exam.getCategoryNo() == 1) {
-			studentList = mapper.selectSchoolExamStudentList(examNo);
+			mapper.selectSchoolExamStudentList(examNo);
+			
 		} else if(exam.getCategoryNo() == 2) {
-			studentList = mapper.selectMockExamStudentList(examNo);
+			mapper.selectMockExamStudentList(examNo);
+		
+		/* 학원 시험 기본 정보 등록 */
 		} else {
 			List<HagwonExamScoreBasicInfoDTO> hagwonExamScoreBasicInfoList = mapper.selectHagwonExamScoreBasicInfoList(examNo);
 			System.out.println(hagwonExamScoreBasicInfoList);
 			result2 = mapper.insertHagwonExamScoreBasicInfo(new HagwonExamScoreBasicInfoListDTO(hagwonExamScoreBasicInfoList));
 		}
-		
-		/* 성적 기본 정보 등록 */
 		
 		return result1 > 0 && result2 > 0 ? true : false;
 	}

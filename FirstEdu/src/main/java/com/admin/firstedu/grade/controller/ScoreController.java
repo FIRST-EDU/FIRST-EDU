@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.admin.firstedu.grade.model.dto.ModifiedScoreDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
-import com.admin.firstedu.grade.model.dto.ScoreListDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
 import com.admin.firstedu.grade.model.service.ScoreService;
 import com.google.gson.Gson;
@@ -62,29 +62,37 @@ public class ScoreController {
 	}
 	
 	
-	/* 성적 입력 */
-	@PostMapping("/score/regist")
-	public void registScore(@ModelAttribute ScoreListDTO scoreList,
-			                HttpServletResponse response)
-			                		throws IOException {
-		ScoreDTO score = new ScoreDTO();
-		score.setStudentNo(1);
-		score.setExamNo(1);
-		score.setSubjectNo(1);
-		score.setScore(90);
-		score.setTeacherComment("test");
-		List<ScoreDTO> scoreListTest = new ArrayList<>();
-		scoreListTest.add(score);
-		scoreListTest.add(score);
-		scoreList.setScoreList(scoreListTest);
-		String result = scoreService.registScore(scoreList);
-		
-		response.getWriter().write(result);
-	}
+	/* 성적 입력 -> 시험 등록 시 함께 등록 */
+//	@PostMapping("/score/regist")
+//	public void registScore(@ModelAttribute ScoreListDTO scoreList,
+//			                HttpServletResponse response)
+//			                		throws IOException {
+//		ScoreDTO score = new ScoreDTO();
+//		score.setStudentNo(1);
+//		score.setExamNo(1);
+//		score.setSubjectNo(1);
+//		score.setScore(90);
+//		score.setTeacherComment("test");
+//		List<ScoreDTO> scoreListTest = new ArrayList<>();
+//		scoreListTest.add(score);
+//		scoreListTest.add(score);
+//		scoreList.setScoreList(scoreListTest);
+//		String result = scoreService.registScore(scoreList);
+//		
+//		response.getWriter().write(result);
+//	}
 	
 	
 	/* 성적 수정 */
-	
+	@PostMapping("/score/modify")
+	public void modifyScore(@ModelAttribute ModifiedScoreDTO modifiedScore,
+							HttpServletResponse response)
+								throws IOException {
+		System.out.println(modifiedScore);
+		String result = scoreService.modifyScore(modifiedScore);
+		
+		response.getWriter().write(result);
+	}
 	
 	/* 성적 삭제 */
 

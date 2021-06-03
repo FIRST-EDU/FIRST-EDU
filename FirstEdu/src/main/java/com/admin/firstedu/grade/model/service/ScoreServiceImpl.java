@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ScoreMapper;
+import com.admin.firstedu.grade.model.dto.ModifiedScoreDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.grade.model.dto.ScoreListDTO;
 import com.admin.firstedu.grade.model.dto.ScoreSearchCriteria;
@@ -29,10 +30,10 @@ public class ScoreServiceImpl implements ScoreService {
 	public String registScore(ScoreListDTO scoreList) {
 		return mapper.insertScore(scoreList) > 0 ? "true" : "false";
 	}
-
+	
 	@Override
-	public boolean modifyScore(ScoreDTO score) {
-		return false;
+	public String modifyScore(ModifiedScoreDTO modifiedScore) {
+		return mapper.updateScore(modifiedScore) > 0 ? "true" : "false";
 	}
 
 	@Override
