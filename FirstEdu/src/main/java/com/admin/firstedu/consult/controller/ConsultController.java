@@ -122,4 +122,8 @@ public class ConsultController {
 		return "main/result";
 	}
 	
+	@GetMapping("reserve")
+	public String consultCalendar() {
+		return "consult/consultCalendar";
+	}
 }
