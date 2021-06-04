@@ -4,5 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
- 
+ 	<typeAliases>
+ 		<typeAlias alias="TeacherDTO" type="com.admin.firstedu.work.model.dto.TeacherDTO"/>
+ 		<typeAlias alias="WorkBoardDTO" type="com.admin.firstedu.work.model.dto.WorkBoardDTO"/>
+ 		<typeAlias alias="WorkBoardFullInfoDTO" type="com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO"/>
+ 		<typeAlias alias="WorkBoardMemberDTO" type="com.admin.firstedu.work.model.dto.WorkBoardMemberDTO"/>
+ 		<typeAlias alias="WorkBoardMemberFullInfoDTO" type="com.admin.firstedu.work.model.dto.WorkBoardMemberFullInfoDTO"/>
+ 	</typeAliases>
 </configuration>

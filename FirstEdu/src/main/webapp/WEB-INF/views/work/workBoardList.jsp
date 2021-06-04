@@ -5,9 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.favorite-board-list {
+		display: flex;
+	}
+</style>
 </head>
+
 <body>
-	<h1 align="center">FIRST EDU</h1>
-	<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/work/list'">업무 관리</button>
+	업무 관리 화면
 </body>
 </html>
