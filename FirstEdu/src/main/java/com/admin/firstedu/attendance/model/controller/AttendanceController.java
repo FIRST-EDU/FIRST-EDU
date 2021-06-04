@@ -1,5 +1,6 @@
 package com.admin.firstedu.attendance.model.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.admin.firstedu.attendance.common.exception.AttendanceUpdateException;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
 import com.admin.firstedu.attendance.model.service.AttendanceService;
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
 @Controller
 @RequestMapping("/attendance/*")
@@ -62,7 +64,7 @@ public class AttendanceController {
 //	
 //	}
 	@GetMapping("/teacherList")
-	public String insertTeacher1() {
+	public String insertTeacher() {
 		return  "attendance/teacherList";
 		
 	}
@@ -76,6 +78,7 @@ public class AttendanceController {
 		attendanceDTO.setAttendanceTime(currnetTime);
 		attendanceDTO.setNo(4);
 		
+		
 		if(!attendanceService.insertTeacher(attendanceDTO)) {
 			
 			throw new AttendanceInsertException("실패");
@@ -86,18 +89,24 @@ public class AttendanceController {
 		System.out.println(currnetTime);
 		
 		
-		return "redirect:/teacherList";		
+		return currnetTime.toGMTString();		
 	}
 //	currnetTime.toGMTString()
+	
+	@GetMapping("/doneTeacher")
+	public String doneTeahcer() {
+		return "attendance/doneTeacher";
+		
+	}
 
-	@PostMapping(value = "/doneList" , produces = "application/json; charset=UTF-8")
+	@PostMapping(value = "/doneTeacher" , produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String doneTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
 		
 		
 		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
 		attendanceDTO.setCheckOutTime(currnetTime);
-		attendanceDTO.setNo(4);
+		attendanceDTO.setNo(51);
 		
 		if(!attendanceService.insertTeacher(attendanceDTO)) {
 			
@@ -109,27 +118,37 @@ public class AttendanceController {
 		System.out.println(currnetTime);
 		
 		
-		return "redirect:/teacherList";		
+		return currnetTime.toGMTString();		
 	}
 	
+	
+	@GetMapping("/insertStudent")
+	public String InsertStudent() {
+		return "attendance/insertStudent";
+	}
 	
 	
 	@PostMapping("/insertStudent")
 	public String insertStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceInsertException {
 		
-		
+				
 		if(!attendanceService.insertStudent(attendance)) {
 			
 			throw new AttendanceInsertException("학생 출결 입력 실패");
 		}
 		
+		rttr.addFlashAttribute("message", "성공");
 		
 		return "attendance/insertStudent";
 		
 	}
 	
-		
 	
+	@GetMapping("/updateStudent")
+	public String updateStudentAttendance() {
+		return "attendance/updateStudent";
+	}
+		
 	
 	@PostMapping("/updateStudent")
 	public String updateStudentAttendance(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceUpdateException {

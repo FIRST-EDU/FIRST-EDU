@@ -9,9 +9,9 @@ public class AttendanceDTO implements Serializable{
 	private static final long serialVersionUID = 28734198473912847L;
 	
 	private int no;
-	private java.sql.Date attendanceTime;
-	private java.sql.Date checkOutTime;
-	private java.sql.Date monthTime;
+	private Date attendanceTime;
+	private Date checkOutTime;
+	private Date monthTime;
 	private int studentNo;
 	private int teacherNo;
 	private int categoryNo;

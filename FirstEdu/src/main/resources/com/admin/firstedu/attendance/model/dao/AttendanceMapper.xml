@@ -129,12 +129,14 @@
 	<insert id="doneTeacher" parameterType="AttendanceDTO">
 		INSERT
 		  INTO TBL_ATTENDANCE A
-		  (	A.CHECKOUT_TIME
+		  (	
+		  
+		  A.CHECKOUT_TIME
 		  , A.ATTENDANCE_NO
 		)
 		VALUES
 		(
-		   #{ checkOutTime } 
+		   	SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		)
 	
@@ -146,13 +148,18 @@
 		  INTO TBL_ATTENDANCE A
 		(
 		
-		 A.CATEGORY_NO,  A.ATTENDANCE_TIME
+		 A.CATEGORY_NO,  
+		 A.ATTENDANCE_TIME
 		, A.MEMO
+		, STUDENT_NO
+		, A.ATTENDANCE_NO
 		 )
 		 VALUES
 		 (
-		   #{ categoryNo }
-		 , #{ attendanceTime }, #{ memo }
+		   #{ categoryNo } 
+		 , SYSDATE , #{ memo }
+		 , #{ studentNo }
+		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 	)
 	</insert>
 	
@@ -171,6 +178,7 @@
 			<if test="checkOutTime != null">
 			  ,	A.CHECKOUT_TIME = #{ checkOutTime }
 			</if>
+			
 		</set>
 	</update>
 </mapper>

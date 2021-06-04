@@ -9,29 +9,25 @@
 </head>
 <body>
 <h1 align="center">근태 출결</h1>
-<div id="form1">
-<form action="${pageContext.servletContext.contextPath}attendance/teacherList/" method="post">
-<table>
-<input type="hidden" name="" id=""> 
-<input id="btn1" type="button" value="출근">
-<span id="result1"></span>
 
-<button id="btn2">퇴근</button>
-<div id="result2"></div>
+<input id="btn1" type="button" value="출근"><div id="result1"/>
 
-</div>
-</table>
-</form>
+<br><br>
+
+<input id="btn2" type="button" value="퇴근">
+<div id="result2"/>
+
+
 
 <script>
 $('#btn1').click (function(){
 	
-	
 	$.ajax({
 		url: "/firstedu/attendance/teacherList/",
 		method: 'POST',
+		dataType: 'html',
 		success: function(data){
-			console.log(data);
+			$("#result1").html(data);
 		},
 		error: function(error){
 			console.log(error);
@@ -39,9 +35,24 @@ $('#btn1').click (function(){
 	});
 });
 
+</script>
+<script>
+$('#btn2').click (function(){
+	
+	$.ajax({
+		url: "/firstedu/attendance/doneTeacher/",
+		method: 'POST',
+		dataType: 'html',
+		success: function(data){
+			$("#result2").html(data);
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+});
 
 </script>
-
 
 </body>
 </html>
