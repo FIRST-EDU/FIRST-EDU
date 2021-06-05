@@ -18,5 +18,6 @@ public class WorkBoardFullInfoDTO {
 	private int boardNo;
 	private String title;
 	private int creator;
+	private String isFavorite;
 	private List<WorkBoardMemberFullInfoDTO> memberList;
 }

@@ -41,23 +41,33 @@
 		<id column="BOARD_NO" property="boardNo"/>
 		<result column="TITLE" property="title"/>
 		<result column="CREATOR" property="creator"/>
+		<result column="IS_FAVORITE" property="isFavorite"/>
 		<collection resultMap="WorkBoardMemberFullInfoResultMap" property="memberList"/>
 	</resultMap>
 	
 	
 	<!-- 쿼리문 -->
 	<!-- 업무 보드 리스트 조회 -->
-	<select id="selectWorkBoardList" resultMap="workBoardFullInfoResultMap">
+	<select id="selectWorkBoardList" parameterType="TeacherDTO" resultMap="workBoardFullInfoResultMap">
 		SELECT
 		       A.BOARD_NO
 		     , A.TITLE
 		     , A.CREATOR
+		     , (SELECT D.FAVORITE_YN
+		         FROM TBL_WORK_BOARD_MEMBER D
+		        WHERE D.BOARD_NO = A.BOARD_NO
+		          AND D.TEACHER_NO = #{ no }
+		       ) AS IS_FAVORITE
 		     , B.TEACHER_NO
-		     , B.FAVORITE_YN
 		     , C.TEACHER_NAME
 		  FROM TBL_WORK_BOARD A
 		  JOIN TBL_WORK_BOARD_MEMBER B ON (A.BOARD_NO = B.BOARD_NO)
 		  JOIN TBL_TEACHER C ON (B.TEACHER_NO = C.TEACHER_NO)
+         WHERE A.BOARD_NO IN (SELECT A.BOARD_NO
+                                FROM TBL_WORK_BOARD_MEMBER A
+                               WHERE A.TEACHER_NO = #{ no }
+                             )
+         ORDER BY A.BOARD_NO
 	</select>
 
 
