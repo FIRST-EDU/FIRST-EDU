@@ -346,7 +346,7 @@ input[type='checkbox'] + label {
   transition: all 250ms ease-in-out;
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02); }
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 1px 0 rgba(0, 0, 0, 0.02); }
   input[type='checkbox'] + label:hover {
     background-color: #e9ecef;
     cursor: pointer; }
@@ -663,14 +663,34 @@ ol {
   width: 30px;
   height: 30px;
   font-size: 10px;
-  color: #212529;
-  background-color: #f4f5f7;
+  color: #8898aa;
+  border: 1px solid #8898aa;
   border-radius: 50%;
   transition: 200ms all ease-in-out; }
   .edit-btn:hover {
-    background-color: #dee2e6; }
+    color: #525f7f;
+    border: 1px solid #525f7f; }
   .edit-btn:active {
-    background-color: #b7babd; }
+    color: #000;
+    border: 1px solid #000; }
+
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  color: #ff7089;
+  border: 1px solid #ff7089;
+  border-radius: 50%;
+  transition: 200ms all ease-in-out; }
+  .delete-btn:hover {
+    color: #f5365c;
+    border: 1px solid #f5365c; }
+  .delete-btn:active {
+    color: #b03;
+    border: 1px solid #b03; }
 
 .form-select,
 .form-input,
@@ -752,7 +772,7 @@ ol {
   .non-member-input-group .form-input-non-member {
     padding-left: 45px;
     border: 0;
-    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02); }
+    box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 1px 0 rgba(0, 0, 0, 0.02); }
   .non-member-input-group i {
     position: absolute;
     top: 50%;
@@ -1136,8 +1156,7 @@ ol {
 
 @media screen and (min-width: 768px) {
   .common-table-card {
-    margin-bottom: 30px;
-    overflow-y: hidden; } }
+    margin-bottom: 30px; } }
 
 /*
 * MOBILE (< 768px) ---------------------------
@@ -1372,9 +1391,6 @@ ol {
       display: block;
       width: auto;
       height: 35px; }
-
-::-webkit-scrollbar {
-  display: none; }
 
 .overlay {
   position: fixed;
@@ -1901,9 +1917,10 @@ ol {
     margin: 0 0 16px 6px; }
   .storage-list-form-content .storage-form-content {
     margin-bottom: 16px; }
-  .storage-list-form-content .storage-search-form .form-input {
-    width: 200px;
-    padding-left: 45px; }
+
+.form-input {
+  width: 200px;
+  padding-left: 45px; }
 
 .storage-table-card {
   height: 350px; }
@@ -1914,10 +1931,13 @@ ol {
   .storage-table-card tr {
     transition: all 150ms ease-in-out; }
     .storage-table-card tr:hover {
-      cursor: pointer;
       background-color: #f6f9fc; }
-    .storage-table-card tr:not(:disabled):active {
-      background-color: #f4f5f7; }
+  .storage-table-card .edit-remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .storage-table-card .edit-remove-btn button:first-child {
+      margin-right: 15px; }
 
 .tag-sort {
   font-size: 14px;
@@ -1953,9 +1973,100 @@ ol {
       justify-content: center;
       padding-top: 2px; }
   .storage-table-card {
-    height: 830px;
-    overflow-y: hidden; }
+    height: auto; }
     .storage-table-card th {
       position: static; } }
+
+.score-analysis-card .form-wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap; }
+  .score-analysis-card .form-wrap .checkbox-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .score-analysis-card .form-wrap span {
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    margin: 0 10px;
+    color: #212529; }
+  .score-analysis-card .form-wrap label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #dee2e6; }
+    .score-analysis-card .form-wrap label i {
+      font-size: 1px;
+      color: #fff; }
+  .score-analysis-card .form-wrap hr {
+    width: 100%;
+    margin: 16px 0;
+    border: 1px solid #e9ecef; }
+  .score-analysis-card .form-wrap .select-exam-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    white-space: nowrap; }
+    .score-analysis-card .form-wrap .select-exam-wrap .exam-type {
+      margin: 0 13px 0 0; }
+    .score-analysis-card .form-wrap .select-exam-wrap .select-btn {
+      margin-left: 13px; }
+  .score-analysis-card .form-wrap .select-class-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 16px; }
+    .score-analysis-card .form-wrap .select-class-wrap .class-name {
+      margin: 0 13px 0 0; }
+  .score-analysis-card .form-wrap .search-exam-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .score-analysis-card .form-wrap .search-exam-wrap .material-icons {
+      margin: 0;
+      font-size: 20px;
+      color: #8898aa; }
+
+@media screen and (min-width: 1200px) {
+  .score-analysis-card .form-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row; }
+    .score-analysis-card .form-wrap span {
+      margin: 0 10px 0 8px; }
+    .score-analysis-card .form-wrap label {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #dee2e6; }
+      .score-analysis-card .form-wrap label i {
+        font-size: 1px;
+        color: #fff; }
+    .score-analysis-card .form-wrap hr {
+      width: 0;
+      height: 20px; }
+    .score-analysis-card .form-wrap .select-exam-wrap {
+      flex-wrap: nowrap;
+      margin: 0;
+      white-space: nowrap; }
+      .score-analysis-card .form-wrap .select-exam-wrap .exam-type {
+        margin: 0 8px 0 10px; }
+      .score-analysis-card .form-wrap .select-exam-wrap .select-btn {
+        margin-left: 8px; }
+    .score-analysis-card .form-wrap .select-class-wrap {
+      margin: 0; }
+      .score-analysis-card .form-wrap .select-class-wrap .class-name {
+        margin: 0 8px 0 10px; }
+  .score-analysis-card .search-exam-wrap .exam-name {
+    margin: 0 8px 0 10px; } }
 
 /*# sourceMappingURL=style.css.map */
