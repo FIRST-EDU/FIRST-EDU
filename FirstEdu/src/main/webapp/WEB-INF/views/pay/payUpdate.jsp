@@ -56,6 +56,36 @@
 			$('input[name=payment]').attr('value',tution);
 		}
 	})
+	
+	$(function(){	
+				$(document).on("change", "select[name=payYn]", function(){
+				var value = $(this).find("option:selected").val();
+				var discountText = $("input[name=discountNo]");
+				var paymentText = $("input[name=payment]");
+				var payOptionText = $("select[name=payOption]");
+				var payDateText = $("input[name=payDate]");
+				var flag = false;
+					if (value == 'N') {
+						flag = true;
+						$(paymentText).val('0');
+						$(payDateText).val('0001-01-01');
+					} 
+				/* $("#option1").prop("selected",true); */
+				$("#dis3").prop("checked", true);
+				$(paymentText).attr("disabled", flag);
+				$(payDateText).attr("disabled", flag);
+				$(payOptionText).attr("disabled", flag);
+				});
+
+			});
+			
+/* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
+			 $("form").submit(function(){
+				 $("input[name=payment]").removeAttr('disabled'); 
+				 $("input[name=payDate]").removeAttr('disabled'); 
+				 $("select[name=payOption]").removeAttr('disabled'); 
+				 
+			 })
 	</script>
 </body>
 </html>
