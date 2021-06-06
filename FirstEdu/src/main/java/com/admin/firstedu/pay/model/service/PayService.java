@@ -1,15 +1,17 @@
 package com.admin.firstedu.pay.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
+import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
 public interface PayService {
 
-	List<PayListDTO> selectPayList();
+	List<PayListDTO> selectPayList(PayPageInfoDTO pageInfo);
 
 	List<StudentAndClassInfoDTO> selectStudentList();
 	
@@ -27,12 +29,15 @@ public interface PayService {
 	int selectPaySum();
 
 	List<StudentAndClassDTO> selectClassList(int stuNo);
+	
+	List<PayListDTO> searchPayYnPayList(Map<String, Object> map);
 
-	List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo);
+	List<PayListDTO> searchStudentNamePayList(Map<String, Object> map);
 
-	List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue);
+	List<PayListDTO> searchClassNamePayList(Map<String, Object> map);
 
-	List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue);
+	int selectTotalCount();
+
 
 
 }

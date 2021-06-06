@@ -1,22 +1,23 @@
 package com.admin.firstedu.pay.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
+import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
 public interface PayMapper {
 
-	List<PayListDTO> selectPayList();
+	List<PayListDTO> selectPayList(PayPageInfoDTO pageInfo);
 
 	List<StudentAndClassInfoDTO> selectStudentList();
-	
+
 	int insertPay(PayDTO pay);
 
 	int deletePay(int no);
-
 
 	PayListDTO selectPayDetail(int no);
 
@@ -30,10 +31,12 @@ public interface PayMapper {
 
 	List<StudentAndClassInfoDTO> searchPayList(String searchOption, String searchValue);
 
-	List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo);
+	List<PayListDTO> searchPayYnPayList(Map<String, Object> map);
 
-	List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue);
+	List<PayListDTO> searchStudentNamePayList(Map<String, Object> map);
 
-	List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue);
+	List<PayListDTO> searchClassNamePayList(Map<String, Object> map);
+
+	int selectTotalCount();
 
 }

@@ -60,8 +60,8 @@
 			
 			수강료 <input type="number" name="tution" id="tution" value=""><br> 
 			납입현황 <select name="payYn">
-					<option value="Y">납부</option>
-					<option value="N">미납</option>
+					<option value="납부">납부</option>
+					<option value="미납">미납</option>
 				  </select><br> 
 			할인수단 <input type="radio" name="discountNo" id="dis1" value="1">친구 
 			 	  <input type="radio" name="discountNo" id="dis2" value="2">기간 
@@ -145,7 +145,7 @@
 				var payOptionText = $("select[name=payOption]");
 				var payDateText = $("input[name=payDate]");
 				var flag = false;
-					if (value == 'N') {
+					if (value == '미납') {
 						flag = true;
 						$(paymentText).val('0');
 						$(payDateText).val('0001-01-01');

@@ -1,6 +1,13 @@
 package com.admin.firstedu.pay.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
+import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
+import com.admin.firstedu.pay.paging.PayPagenation;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/pay/*")
@@ -33,13 +44,34 @@ public class PayController {
 
 	/* list라는 매핑명 & Get으로 요청 된 작업 수행. 수납의 목록을 select하는 기능. */
 	@GetMapping("list")
-	public String selectPayList(Model model) {
+	public String selectPayList(Model model, HttpServletRequest request) {
 		
-		List<PayListDTO> payList = payService.selectPayList();
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = payService.selectTotalCount();
+		
+		int limit = 14;
+		
+		int buttonAmount = 5;
+		
+		PayPageInfoDTO pageInfo = PayPagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<PayListDTO> payList = payService.selectPayList(pageInfo);
 		
 		int paySum = payService.selectPaySum();
 		
 		model.addAttribute("payList", payList);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("paySum", paySum);
 		
 		
@@ -100,13 +132,22 @@ public class PayController {
 	
 	/* update라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 넘어온 no를  DB에 전달하여 조건에 맞는 데이터를 조회해 수납수정 페이지로 전달. */
 	@GetMapping("update")
-	public String selectUpdatePay(Model model, @RequestParam(value="no") int no) {
+	public String selectUpdatePay(Model model, @RequestParam(value="no") int no, HttpServletResponse response) throws IOException {
 		
 		PayListDTO payUpdate = payService.selectUpdatePay(no);
 		
-		model.addAttribute("payUpdate", payUpdate);
-				
-		return "pay/payUpdate";
+		response.setContentType("application/json; charset=UTF-8");
+		
+		Gson gson = new GsonBuilder().create();
+		
+		PrintWriter out = response.getWriter();
+		out.print(gson.toJson(payUpdate));
+		
+		out.flush();
+		out.close();
+			
+		System.out.println(payUpdate);
+		return "pay/payList";
 	}
 	
 	/* update라는 매핑명 & post 방식으로 전달 받은 데이터를 DB에 전달. 수납정보수정 기능 */
@@ -142,19 +183,66 @@ public class PayController {
 	}
 	
 	@GetMapping("search")
-	public String searchPayList(Model model, @RequestParam(value="searchOption") String searchOption, @RequestParam(value="searchValue") String searchValue) {
+	public String searchPayList(Model model, HttpServletRequest request, @RequestParam(value="searchOption") String searchOption, @RequestParam(value="searchValue") String searchValue) {
 		
-		if(searchOption.equals("studentNo")) {
-			int searchValueNo = (Integer.valueOf(searchValue));
-			List<StudentAndClassInfoDTO> payList = payService.searchStudentNoPayList(searchValueNo);
+		String currentPage = request.getParameter("currentPage");
+			
+		int pageNo = 1;
+		
+		if(currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			
+			if(pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+		
+		int totalCount = payService.selectTotalCount();
+		
+		int limit = 14;
+		
+		int buttonAmount = 5;
+		
+		PayPageInfoDTO pageInfo = PayPagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		if(searchOption.equals("payYn")) {
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("searchValue", searchValue);
+			map.put("startRow", pageInfo.getStartRow());
+			map.put("endRow", pageInfo.getEndRow());
+			
+			List<PayListDTO> payList = payService.searchPayYnPayList(map);
 			model.addAttribute("payList",payList);
+			model.addAttribute("pageInfo",pageInfo);
+			model.addAttribute("searchOption", searchOption);
+			model.addAttribute("searchValue", searchValue);
+			
 		}else if(searchOption.equals("studentName")){
-			List<StudentAndClassInfoDTO> payList = payService.searchStudentNamePayList(searchValue);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("searchValue", searchValue);
+			map.put("startRow", pageInfo.getStartRow());
+			map.put("endRow", pageInfo.getEndRow());
+			
+			List<PayListDTO> payList = payService.searchStudentNamePayList(map);
 			model.addAttribute("payList",payList);
+			model.addAttribute("pageInfo",pageInfo);
+			model.addAttribute("searchOption", searchOption);
+			model.addAttribute("searchValue", searchValue);
 			
 		}else if(searchOption.equals("className")) {
-			List<StudentAndClassInfoDTO> payList = payService.searchClassNamePayList(searchValue);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("searchValue", searchValue);
+			map.put("startRow", pageInfo.getStartRow());
+			map.put("endRow", pageInfo.getEndRow());
+			
+			List<PayListDTO> payList = payService.searchClassNamePayList(map);
 			model.addAttribute("payList",payList);
+			model.addAttribute("pageInfo",pageInfo);
+			model.addAttribute("searchOption", searchOption);
+			model.addAttribute("searchValue", searchValue);
 			
 		}
 		 

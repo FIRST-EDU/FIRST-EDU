@@ -1,16 +1,18 @@
 package com.admin.firstedu.pay.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionManager;
 
 import com.admin.firstedu.pay.model.dao.PayMapper;
+import com.admin.firstedu.pay.model.dto.PageInfoAndSearchValueDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
+import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
-import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
+import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO; 
 
 @Service("payService")
 public class PayServiceImpl implements PayService{
@@ -24,9 +26,9 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<PayListDTO> selectPayList() {
+	public List<PayListDTO> selectPayList(PayPageInfoDTO pagaInfo) {
 		// TODO Auto-generated method stub
-		return payMapper.selectPayList();
+		return payMapper.selectPayList(pagaInfo);
 	}
 
 	@Override
@@ -78,21 +80,27 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<StudentAndClassInfoDTO> searchStudentNoPayList(int searchValueNo) {
+	public int selectTotalCount() {
 		// TODO Auto-generated method stub
-		return payMapper.searchStudentNoPayList(searchValueNo);
+		return payMapper.selectTotalCount();
 	}
 
 	@Override
-	public List<StudentAndClassInfoDTO> searchStudentNamePayList(String searchValue) {
+	public List<PayListDTO> searchPayYnPayList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return payMapper.searchStudentNamePayList(searchValue);
+		return payMapper.searchPayYnPayList(map);
 	}
 
 	@Override
-	public List<StudentAndClassInfoDTO> searchClassNamePayList(String searchValue) {
+	public List<PayListDTO> searchStudentNamePayList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return payMapper.searchClassNamePayList(searchValue);
+		return payMapper.searchStudentNamePayList(map);
+	}
+
+	@Override
+	public List<PayListDTO> searchClassNamePayList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return payMapper.searchClassNamePayList(map);
 	}
 
 	
