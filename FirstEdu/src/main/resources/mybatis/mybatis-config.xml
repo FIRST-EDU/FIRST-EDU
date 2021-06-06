@@ -6,6 +6,7 @@
 <configuration>
  	<typeAliases>
  		<typeAlias alias="TeacherDTO" type="com.admin.firstedu.work.model.dto.TeacherDTO"/>
+ 		<typeAlias alias="WorkBoardAndTeacherDTO" type="com.admin.firstedu.work.model.dto.WorkBoardAndTeacherDTO"/>
  		<typeAlias alias="WorkBoardDTO" type="com.admin.firstedu.work.model.dto.WorkBoardDTO"/>
  		<typeAlias alias="WorkBoardFullInfoDTO" type="com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO"/>
  		<typeAlias alias="WorkBoardMemberDTO" type="com.admin.firstedu.work.model.dto.WorkBoardMemberDTO"/>

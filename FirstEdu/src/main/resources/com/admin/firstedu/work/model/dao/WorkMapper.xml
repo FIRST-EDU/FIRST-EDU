@@ -45,6 +45,14 @@
 		<collection resultMap="WorkBoardMemberFullInfoResultMap" property="memberList"/>
 	</resultMap>
 	
+	<!-- 업무 보드 생성 시 정보 조회용 -->
+	<resultMap id="workBoardAndTeacherResultMap" type="WorkBoardAndTeacherDTO">
+		<id column="BOARD_NO" property="boardNo"/>
+		<result column="TITLE" property="title"/>
+		<association resultMap="teacherResultMap" property="creator"/>
+	</resultMap>
+	
+	
 	
 	<!-- 쿼리문 -->
 	<!-- 업무 보드 리스트 조회 -->
@@ -70,5 +78,33 @@
          ORDER BY A.BOARD_NO
 	</select>
 
-
+	<!-- 업무 보드 등록 -->
+	<insert id="insertWorkBoard" parameterType="WorkBoardDTO">
+		INSERT
+		  INTO TBL_WORK_BOARD A
+		(
+		  A.BOARD_NO
+		, A.TITLE
+		, A.CREATOR
+		)
+		VALUES
+		(
+		  SEQ_BOARD_NO.NEXTVAL
+		, #{ title }
+		, #{ creator }
+		)
+	</insert>
+	
+	<!-- 등록한 업무 보드 정보 조회 -->
+	<select id="selectWorkBoard" resultMap="workBoardAndTeacherResultMap">
+		SELECT
+		       A.BOARD_NO
+		     , A.TITLE
+		     , A.CREATOR
+		     , B.TEACHER_NAME
+		  FROM TBL_WORK_BOARD A
+		  JOIN TBL_TEACHER B ON (A.CREATOR = B.TEACHER_NO)
+         WHERE A.BOARD_NO = GET_CURR_BOARD_NO
+	</select>
+	
 </mapper>

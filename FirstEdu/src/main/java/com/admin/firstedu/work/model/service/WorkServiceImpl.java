@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.work.model.dao.WorkMapper;
 import com.admin.firstedu.work.model.dto.TeacherDTO;
+import com.admin.firstedu.work.model.dto.WorkBoardAndTeacherDTO;
+import com.admin.firstedu.work.model.dto.WorkBoardDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO;
 
 @Service("workService")
@@ -22,6 +24,11 @@ public class WorkServiceImpl implements WorkService {
 	@Override
 	public List<WorkBoardFullInfoDTO> selectWorkBoardList(TeacherDTO teacher) {
 		return mapper.selectWorkBoardList(teacher);
+	}
+
+	@Override
+	public WorkBoardAndTeacherDTO registWorkBoard(WorkBoardDTO workBoard) {
+		return mapper.insertWorkBoard(workBoard) > 0 ? mapper.selectWorkBoard() : null;
 	}
 
 	
