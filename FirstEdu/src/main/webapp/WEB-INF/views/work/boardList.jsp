@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/work/boardList.js"></script>
 <style>
 	ul {
 		padding: 0;
@@ -73,7 +74,7 @@
         	<ul class="board-list">
 				<c:forEach var="board" items="${ requestScope.boardList }">
 	        		<c:if test="${ board.isFavorite eq 'Y' }">
-						<li class="board">
+						<li class="board" onclick="goDetail(this)">
 							<input type="hidden" value="${ board.boardNo }">
 				            <div class="board-content">
 				                <div class="title-and-star">
@@ -99,8 +100,8 @@
         	<ul class="board-list">
 				<c:forEach var="board" items="${ requestScope.boardList }">
 	        		<c:if test="${ board.isFavorite ne 'Y' }">
-	        			<li class="board">
-	        				<input type="hidden" value="${ board.boardNo }">
+	        			<li class="board" onclick="goDetail(this)">
+	        				<input type="hidden" name="boardNo" value="${ board.boardNo }">
 				            <div class="board-content">
 				                <div class="title-and-star">
 				                    <span class="title"><c:out value="${ board.title }"/></span>
@@ -123,85 +124,5 @@
             </ul>
         </article>
 	</section>
-	<script>
-		let $newBoard = $('#newBoard');
-		/* $addBoardBtn */
-		function addBoard() {
-		    $newBoard.html("");
-		    
-		    $contentDiv = $('<div class="board-content">');
-		    
-		    $titleInput = '<input type="text" id="title" name="title" placeholder="이름을 입력하세요.">';
-		    
-		    $btnsDiv = $('<div class="btns">');
-		    $confirmBtn = $('<button id="confirmBtn" onclick="registBoard()">').text('확인');
-			$cancelBtn = $('<button id="cancelBtn" onclick="createAddBoardBtn()">').text('취소');
-			$btnsDiv.append($confirmBtn);
-			$btnsDiv.append($cancelBtn);
-			
-		    $contentDiv.append($titleInput);
-		    $contentDiv.append($btnsDiv);
-		    
-		    $newBoard.append($contentDiv);
-		    
-		    $('#title').focus();
-		}
-		
-		function registBoard() {
-		    const title = $('#title').val();
-		    $.ajax({
-				url: "/firstedu/work/board/regist",
-				type: "post",
-				data: { title : title },
-				success: function(data) {
-				    console.log(data);
-				    
-				    /* 추가한 보드 생성 */
-				    $li = $('<li class="board">');
-				    
-				    $boardNoInput = '<input type="hidden" value="' + data.boardNo + '">';
-				    $boardContentDiv = $('<div class="board-content">');
-				    
-				    $titleAndStarDiv = $('<div class="title-and-star">');
-				    $titleSpan = $('<span class="title">').text(data.title);
-					$starSpan = $('<span class="star">').text('☆');
-					$titleAndStarDiv.append($titleSpan);
-					$titleAndStarDiv.append($starSpan);
-					
-					$membersDiv = $('<div class="members">');
-					$memberSpan = $('<span>').text(data.creator.name);
-					$membersDiv.append($memberSpan);
-					
-					$boardContentDiv.append($titleAndStarDiv);
-					$boardContentDiv.append($membersDiv);
-	        		
-					$li.append($boardNoInput);
-					$li.append($boardContentDiv);
-					
-					$newBoard.before($li);
-					
-					/* 보드 추가 버튼 재생성 */
-				    createAddBoardBtn();
-				},
-			    error: function(error) {
-					console.log(error);
-					alert('업무 보드 생성에 실패하였습니다. 잠시 후 다시 시도해주세요.');
-					createAddBoardBtn();
-			    }
-		    });
-		    
-		}
-		
-		function createAddBoardBtn() {
-		    $newBoard.html("");
-		    
-		    $addBoardBtnDiv = $('<div id="addBoardBtn" class="add-board-btn" onclick="addBoard()">');
-		    $addSpan = $('<span>').text('➕');
-		    
-		    $addBoardBtnDiv.append($addSpan);
-		    $newBoard.append($addBoardBtnDiv);
-		}
-		
-	</script>
 </body>
 </html>

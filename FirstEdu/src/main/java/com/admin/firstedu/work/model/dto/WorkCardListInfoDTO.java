@@ -13,13 +13,14 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WorkBoardFullInfoDTO implements java.io.Serializable {
+public class WorkCardListInfoDTO implements java.io.Serializable {
 
-	private static final long serialVersionUID = 7763407432531553019L;
-	
+	private static final long serialVersionUID = -3438591701651200399L;
+
+	private int listNo;
+	private String listType;
 	private int boardNo;
-	private String title;
-	private int creator;
-	private String isFavorite;
-	private List<WorkBoardMemberFullInfoDTO> memberList;
+	private int orderNo;
+	private String listName;
+	private List<WorkCardSummaryInfoDTO> workCardList;
 }

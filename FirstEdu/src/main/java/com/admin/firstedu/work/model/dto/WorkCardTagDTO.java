@@ -11,11 +11,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WorkBoardMemberFullInfoDTO implements java.io.Serializable {
+public class WorkCardTagDTO implements java.io.Serializable {
+	
+	private static final long serialVersionUID = -7402937419537763707L;
 
-	private static final long serialVersionUID = -7584589745206635289L;
-
-	private String favoriteYn;
-	private WorkBoardDTO board;
-	private TeacherDTO teacher;
+	private int tagNo;
+	private String tagName;
+	private int cardNo;
+	private int colorNo;
 }

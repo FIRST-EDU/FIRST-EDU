@@ -1,13 +1,16 @@
 package com.admin.firstedu.work.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +21,7 @@ import com.admin.firstedu.work.model.dto.TeacherDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardAndTeacherDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO;
+import com.admin.firstedu.work.model.dto.WorkCardListInfoDTO;
 import com.admin.firstedu.work.model.service.WorkService;
 import com.google.gson.Gson;
 
@@ -43,7 +47,7 @@ public class WorkController {
 			System.out.println(board);
 		}
 		
-		return "work/workBoardList";
+		return "work/boardList";
 	}
 	
 	@PostMapping(value="/board/regist", produces="application/json; charset=UTF-8")
@@ -64,4 +68,23 @@ public class WorkController {
 		return gson.toJson(workBoardAndTeacher);
 	}
 	
+	@GetMapping("/board/{boardNo}")
+	public String workBoardDetail(@PathVariable("boardNo") int boardNo,
+								  @ModelAttribute("loginMember") TeacherDTO teacher,
+								  Model model) {
+		Map<String, Integer> searchCriteriaMap = new HashMap<>();
+		searchCriteriaMap.put("boardNo", boardNo);
+		searchCriteriaMap.put("teacherNo", teacher.getNo());
+		
+		model.addAttribute("board", workService.selectWorkBoard(searchCriteriaMap));
+		model.addAttribute("cardList", workService.selectWorkCardList(boardNo));
+		
+		System.out.println("workBaord" + workService.selectWorkBoard(searchCriteriaMap));
+		List<WorkCardListInfoDTO> list = workService.selectWorkCardList(boardNo);
+		for(WorkCardListInfoDTO workCardListInfo : list) {
+			System.out.println(workCardListInfo);
+		}
+		
+		return "work/boardDetail";
+	}
 }

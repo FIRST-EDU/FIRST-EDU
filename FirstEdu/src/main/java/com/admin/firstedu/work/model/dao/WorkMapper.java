@@ -1,11 +1,13 @@
 package com.admin.firstedu.work.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admin.firstedu.work.model.dto.TeacherDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardAndTeacherDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardDTO;
 import com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO;
+import com.admin.firstedu.work.model.dto.WorkCardListInfoDTO;
 
 public interface WorkMapper {
 
@@ -13,7 +15,11 @@ public interface WorkMapper {
 
 	int insertWorkBoard(WorkBoardDTO workBoard);
 
-	WorkBoardAndTeacherDTO selectWorkBoard();
+	WorkBoardAndTeacherDTO selectRegisteredWorkBoard();
+
+	WorkBoardFullInfoDTO selectWorkBoard(Map<String, Integer> searchCriteriaMap);
+
+	List<WorkCardListInfoDTO> selectWorkCardList(int boardNo);
 
 
 }

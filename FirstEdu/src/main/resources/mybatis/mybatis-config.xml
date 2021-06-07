@@ -5,11 +5,24 @@
   
 <configuration>
  	<typeAliases>
+ 		<typeAlias alias="ColorDTO" type="com.admin.firstedu.work.model.dto.ColorDTO"/>
  		<typeAlias alias="TeacherDTO" type="com.admin.firstedu.work.model.dto.TeacherDTO"/>
  		<typeAlias alias="WorkBoardAndTeacherDTO" type="com.admin.firstedu.work.model.dto.WorkBoardAndTeacherDTO"/>
  		<typeAlias alias="WorkBoardDTO" type="com.admin.firstedu.work.model.dto.WorkBoardDTO"/>
  		<typeAlias alias="WorkBoardFullInfoDTO" type="com.admin.firstedu.work.model.dto.WorkBoardFullInfoDTO"/>
+ 		<typeAlias alias="WorkBoardListDTO" type="com.admin.firstedu.work.model.dto.WorkBoardListDTO"/>
  		<typeAlias alias="WorkBoardMemberDTO" type="com.admin.firstedu.work.model.dto.WorkBoardMemberDTO"/>
  		<typeAlias alias="WorkBoardMemberFullInfoDTO" type="com.admin.firstedu.work.model.dto.WorkBoardMemberFullInfoDTO"/>
+ 		<typeAlias alias="WorkBoardNoticeDTO" type="com.admin.firstedu.work.model.dto.WorkBoardNoticeDTO"/>
+ 		<typeAlias alias="WorkCardCommentDTO" type="com.admin.firstedu.work.model.dto.WorkCardCommentDTO"/>
+ 		<typeAlias alias="WorkCardDTO" type="com.admin.firstedu.work.model.dto.WorkCardDTO"/>
+ 		<typeAlias alias="WorkCardListInfoDTO" type="com.admin.firstedu.work.model.dto.WorkCardListInfoDTO"/>
+ 		<typeAlias alias="WorkCardMemberAndTeacherDTO" type="com.admin.firstedu.work.model.dto.WorkCardMemberAndTeacherDTO"/>
+ 		<typeAlias alias="WorkCardMemberDTO" type="com.admin.firstedu.work.model.dto.WorkCardMemberDTO"/>
+ 		<typeAlias alias="WorkCardSummaryInfoDTO" type="com.admin.firstedu.work.model.dto.WorkCardSummaryInfoDTO"/>
+ 		<typeAlias alias="WorkCardTagAndColorDTO" type="com.admin.firstedu.work.model.dto.WorkCardTagAndColorDTO"/>
+ 		<typeAlias alias="WorkCardTagDTO" type="com.admin.firstedu.work.model.dto.WorkCardTagDTO"/>
+ 		<typeAlias alias="WorkCardTaskChecklistDTO" type="com.admin.firstedu.work.model.dto.WorkCardTaskChecklistDTO"/>
+ 		<typeAlias alias="WorkCardTaskDTO" type="com.admin.firstedu.work.model.dto.WorkCardTaskDTO"/>
  	</typeAliases>
 </configuration>
