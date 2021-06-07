@@ -228,7 +228,7 @@ public class PayController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("searchValue", searchCriteria.getSearchValue());
 			map.put("startRow", pageInfo.getStartRow());
-			map.put("endRow", pageInfo.getEndRow());
+			map.put("endRow", pageInfo.getEndRow()); 
 			
 			List<PayListDTO> payList = payService.searchStudentNamePayList(map);
 			model.addAttribute("payList",payList);
