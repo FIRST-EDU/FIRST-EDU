@@ -11,6 +11,7 @@ import com.admin.firstedu.pay.model.dto.PageInfoAndSearchValueDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
+import com.admin.firstedu.pay.model.dto.SearchCriteria;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO; 
 
@@ -102,6 +103,14 @@ public class PayServiceImpl implements PayService{
 		// TODO Auto-generated method stub
 		return payMapper.searchClassNamePayList(map);
 	}
+
+	@Override
+	public int searchTotalCount(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return payMapper.searchTotalCount(searchCriteria);
+	}
+
+	
 
 	
 

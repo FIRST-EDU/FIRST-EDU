@@ -6,6 +6,7 @@ import java.util.Map;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
+import com.admin.firstedu.pay.model.dto.SearchCriteria;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
@@ -37,6 +38,8 @@ public interface PayService {
 	List<PayListDTO> searchClassNamePayList(Map<String, Object> map);
 
 	int selectTotalCount();
+	
+	int searchTotalCount(SearchCriteria searchCriteria);
 
 
 

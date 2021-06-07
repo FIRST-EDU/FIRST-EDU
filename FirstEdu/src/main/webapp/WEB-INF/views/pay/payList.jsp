@@ -349,20 +349,7 @@
 			location.href = searchLink + "?currentPage=" + text + "&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 		}
 
-		/* if(document.getElementById("searchStartPage")){
-			const $searchStartPage = document.getElementById("searchStartPage");
-			$searchStartPage.onclick = function(){
-				location.href = searchLink + "?currentPage=1&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
-			}
-		} */
-
-		/* if(document.getElementById("searchMaxPage")){
-			const $searchMaxPage = document.getElementById("searchMaxPage");
-			$searchMaxPage.onclick = function(){
-				location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
-			}
-		} */
-
+		
 		if(document.getElementById("searchPrevPage")){
 			const $searchPrevPage = document.getElementById("searchPrevPage");
 			$searchPrevPage.onclick = function(){
@@ -377,19 +364,6 @@
 			}
 		}
 
-		/* if(document.getElementById("startPage")){
-			const $startPage = document.getElementById("startPage");
-			$startPage.onclick = function(){
-				location.href = link + "?currentPage=1";
-			}
-		} */
-
-		/* if(document.getElementById("maxPage")){
-			const $maxPage = document.getElementById("maxPage");
-			$maxPage.onclick = function(){
-				location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
-			}
-		} */
 
 		if(document.getElementById("prevPage")){
 			const $prevPage = document.getElementById("prevPage");
@@ -405,9 +379,6 @@
 			}
 		}
 		
-		function pageButtonAction(text) {
-	  		  location.href = link + "?currentPage=" + text;
-	  	 }
 	
 		 $(".edit-btn").click(function() {
 			 if(document.getElementsByTagName("td")) {
@@ -422,6 +393,18 @@
 							 type:"GET",
 							 data:{no:no},
 							 success:function(data){
+								 var payNo = data.payNo;
+								 var payYn = data.payYn;
+								 var payOption = data.payOption;
+								 var payment = data.payment;
+								 var payDate = data.payDate;
+								 var className = data.classDTO.className;
+								 var classPayment = data.payNo;
+								 var payNo = data.payNo;
+								 var payNo = data.payNo;
+								 var payNo = data.payNo;
+								 var payNo = data.payNo;
+								 
 								 $('#myModal').show();
 								 
 								 

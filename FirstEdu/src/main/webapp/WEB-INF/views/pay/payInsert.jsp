@@ -147,7 +147,6 @@
 				var flag = false;
 					if (value == '미납') {
 						flag = true;
-						$(paymentText).val('0');
 						$(payDateText).val('0001-01-01');
 					} 
 				/* $("#option1").prop("selected",true); */

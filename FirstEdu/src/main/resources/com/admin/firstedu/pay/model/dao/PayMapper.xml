@@ -94,16 +94,29 @@
   		<collection property="classDTO" resultMap="classResultMap"/>
   	</resultMap>
   	
-  	
-  	
   	<select id="selectTotalCount" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_PAY A
   		 WHERE A.PAY_STATUS = 'Y'
   	</select>
   	
+  	<select id="searchTotalCount" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_PAY A
+  		 WHERE A.PAY_STATUS = 'Y'
+  		 <if test="searchOption == 'studentName'">
+  		   AND A.STUDNET_NAME = #{searchValue}
+  		 </if>
+  		 <if test="searchOption == 'className'">
+  		   AND A.CLASS_NAME = #{searchValue}
+  		 </if>
+  		 <if test="searchOption == 'payYn'">
+  		   AND A.PAY_YN = #{searchValue}
+  		 </if>
+  	</select>
+  	
   	<select id="selectPayList" parameterType="PayPageInfoDTO" resultMap="payListResultMap">
-		SELECT  
+		SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
 		       A.RNUM
 		     , A.PAY_NO
 		     , A.BEGIN_DATE
@@ -126,7 +139,7 @@
 		           , B.CLASS_PAYMENT
 		           , B.DISCOUNT_REASON
 		           , B.PAYMENT
-		       FROM (SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
+		       FROM (SELECT 
 		                   C.PAY_NO
 		                 , D.BEGIN_DATE
 		                 , E.STUDENT_NAME
@@ -324,7 +337,7 @@
   	</select>
   	
   	<select id="searchStudentNamePayList" parameterType="PayListDTO" resultMap="payListResultMap">
-  		SELECT  
+  		SELECT /* com.admin.firstEdu.pay.controller.searchStudentNamePayList*/
 		       A.RNUM
 		     , A.PAY_NO
 		     , A.BEGIN_DATE
@@ -347,7 +360,7 @@
 		           , B.CLASS_PAYMENT
 		           , B.DISCOUNT_REASON
 		           , B.PAYMENT
-		       FROM (SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
+		       FROM (SELECT 
 		                   C.PAY_NO
 		                 , D.BEGIN_DATE
 		                 , E.STUDENT_NAME
@@ -372,7 +385,7 @@
   	</select>
   	
   	<select id="searchClassNamePayList" parameterType="PayListDTO" resultMap="payListResultMap">
-  		SELECT  
+  		SELECT /* com.admin.firstEdu.pay.controller.searchClassNamePayList*/
 		       A.RNUM
 		     , A.PAY_NO
 		     , A.BEGIN_DATE
@@ -395,7 +408,7 @@
 		           , B.CLASS_PAYMENT
 		           , B.DISCOUNT_REASON
 		           , B.PAYMENT
-		       FROM (SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
+		       FROM (SELECT 
 		                   C.PAY_NO
 		                 , D.BEGIN_DATE
 		                 , E.STUDENT_NAME

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
+import com.admin.firstedu.pay.model.dto.SearchCriteria;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
@@ -183,7 +184,7 @@ public class PayController {
 	}
 	
 	@GetMapping("search")
-	public String searchPayList(Model model, HttpServletRequest request, @RequestParam(value="searchOption") String searchOption, @RequestParam(value="searchValue") String searchValue) {
+	public String searchPayList(Model model, HttpServletRequest request, @ModelAttribute SearchCriteria searchCriteria) {
 		
 		String currentPage = request.getParameter("currentPage");
 			
@@ -197,7 +198,7 @@ public class PayController {
 			}
 		}
 		
-		int totalCount = payService.selectTotalCount();
+		int totalCount = payService.searchTotalCount(searchCriteria);
 		
 		int limit = 14;
 		
@@ -205,44 +206,44 @@ public class PayController {
 		
 		PayPageInfoDTO pageInfo = PayPagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
-		if(searchOption.equals("payYn")) {
+		if(searchCriteria.getSearchOption().equals("payYn")) {
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("searchValue", searchValue);
+			map.put("searchValue", searchCriteria.getSearchValue());
 			map.put("startRow", pageInfo.getStartRow());
 			map.put("endRow", pageInfo.getEndRow());
 			
 			List<PayListDTO> payList = payService.searchPayYnPayList(map);
 			model.addAttribute("payList",payList);
 			model.addAttribute("pageInfo",pageInfo);
-			model.addAttribute("searchOption", searchOption);
-			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("searchOption", searchCriteria.getSearchOption());
+			model.addAttribute("searchValue", searchCriteria.getSearchValue());
 			
-		}else if(searchOption.equals("studentName")){
+		}else if(searchCriteria.getSearchOption().equals("studentName")){
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("searchValue", searchValue);
+			map.put("searchValue", searchCriteria.getSearchValue());
 			map.put("startRow", pageInfo.getStartRow());
 			map.put("endRow", pageInfo.getEndRow());
 			
 			List<PayListDTO> payList = payService.searchStudentNamePayList(map);
 			model.addAttribute("payList",payList);
 			model.addAttribute("pageInfo",pageInfo);
-			model.addAttribute("searchOption", searchOption);
-			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("searchOption", searchCriteria.getSearchOption());
+			model.addAttribute("searchValue", searchCriteria.getSearchValue());
 			
-		}else if(searchOption.equals("className")) {
+		}else if(searchCriteria.getSearchOption().equals("studentName")) {
 			
 			Map<String, Object> map = new HashMap<>();
-			map.put("searchValue", searchValue);
+			map.put("searchValue", searchCriteria.getSearchValue());
 			map.put("startRow", pageInfo.getStartRow());
 			map.put("endRow", pageInfo.getEndRow());
 			
 			List<PayListDTO> payList = payService.searchClassNamePayList(map);
 			model.addAttribute("payList",payList);
 			model.addAttribute("pageInfo",pageInfo);
-			model.addAttribute("searchOption", searchOption);
-			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("searchOption", searchCriteria.getSearchOption());
+			model.addAttribute("searchValue", searchCriteria.getSearchValue());
 			
 		}
 		 
