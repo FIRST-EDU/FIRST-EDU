@@ -1,6 +1,5 @@
 package com.admin.firstedu.attendance.model.controller;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ import com.admin.firstedu.attendance.common.exception.AttendanceInsertException;
 import com.admin.firstedu.attendance.common.exception.AttendanceUpdateException;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
+import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
 import com.admin.firstedu.attendance.model.service.AttendanceService;
-import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
 @Controller
 @RequestMapping("/attendance/*")
@@ -139,10 +138,33 @@ public class AttendanceController {
 		
 		rttr.addFlashAttribute("message", "성공");
 		
-		return "attendance/insertStudent";
+		return "attendance/selectStudent";
 		
 	}
 	
+	@GetMapping("/selectStudent")
+	public String selectStudnet(Model model) {
+		List<AttendanceInfoDTO>cateogryList = attendanceService.selectStudent();
+		List<ClassInfoStudentDTO>studentList = attendanceService.selectCategory();
+		
+		model.addAttribute("cateogryList", cateogryList);
+		model.addAttribute("studentList", studentList);
+		
+		
+		for(AttendanceInfoDTO cateogry : cateogryList) {
+	
+			System.out.println(cateogry);
+		}
+		
+		for(ClassInfoStudentDTO student : studentList) {
+			
+			System.out.println(student);
+		}
+		
+		
+		return "attendance/selectStudent";
+		
+	}
 	
 	@GetMapping("/updateStudent")
 	public String updateStudentAttendance() {
@@ -158,7 +180,9 @@ public class AttendanceController {
 			throw new AttendanceUpdateException("학생 출결 수정 실패");
 		} 
 		
-		return "attendance/updateStudent";
+		rttr.addFlashAttribute("message", "성공");
+		
+		return "attendance/selectStudent";
 		
 	}
 	

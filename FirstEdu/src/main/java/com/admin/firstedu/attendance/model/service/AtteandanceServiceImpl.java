@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.admin.firstedu.attendance.model.dao.AttendanceMapper;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
+import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
 
 @Service("attendanceService")
 public class AtteandanceServiceImpl implements AttendanceService {
@@ -50,6 +51,18 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	public List<AttendanceInfoDTO> selectStudentAttendance() {
 		// TODO Auto-generated method stub
 		return mapper.selectStudentAttendance();
+	}
+
+	@Override
+	public List<AttendanceInfoDTO> selectStudent() {
+		// TODO Auto-generated method stub
+		return mapper.selectStudent();
+	}
+
+	@Override
+	public List<ClassInfoStudentDTO> selectCategory() {
+		// TODO Auto-generated method stub
+		return mapper.selectCategory();
 	}
 
 

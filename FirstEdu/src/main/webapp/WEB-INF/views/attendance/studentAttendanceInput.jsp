@@ -124,12 +124,13 @@
 	                  <tr>
 	                    <td>1</td>
 	                    <td>1학년 초급 수학</td>
-	                    <td>이지은</td>
+	                    <td>이지은 <input type="hidden" name="studentNo" id="studentNo" value="1">
+	                    </td>
 	                    <td>
-	                      <button type="button" class="btn-outlined-gray btn-check btn-size">출석</button>
-	                      <button type="button" class="btn-outlined-gray btn-check btn-size">조퇴</button>
-	                      <button type="button" class="btn-outlined-gray btn-check btn-size">결석</button>
-	                      <button type="button" class="btn-outlined-gray btn-check btn-size">지각</button>
+	                      <button type="button" class="btn-outlined-gray btn-check btn-size" name="categoryNo" value="1">출석</button>
+	                      <button type="button" class="btn-outlined-gray btn-check btn-size" name="categoryNo" value="4">조퇴</button>
+	                      <button type="button" class="btn-outlined-gray btn-check btn-size" name="categoryNo" value="2">결석</button>
+	                      <button type="button" class="btn-outlined-gray btn-check btn-size" name="categoryNo" value="3">지각</button>
 	                    </td>
 	                    <td>
 	                      <div class="attendance-memo">

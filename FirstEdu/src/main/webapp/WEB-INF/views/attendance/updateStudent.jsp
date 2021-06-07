@@ -10,10 +10,8 @@
 
 	<form action="${ pageContext.servletContext.contextPath }/attendance/insertStudent " method="post">
 	<button>ְתְו</button>
-	
-	
-	
 	</form>
+	
 	
 
 	

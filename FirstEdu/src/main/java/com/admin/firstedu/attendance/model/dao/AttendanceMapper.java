@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
+import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
 
 public interface AttendanceMapper {
 	
@@ -19,5 +20,8 @@ public interface AttendanceMapper {
 
 	int doneTeacher(AttendanceDTO attendance);
 
+	List<AttendanceInfoDTO> selectStudent();
+	
+	List<ClassInfoStudentDTO> selectCategory();
 	
 }

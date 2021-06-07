@@ -57,7 +57,10 @@
 	
 	<resultMap type="ClassInfoDTO" id="classInfoResultSet">
 		<id column="CLASS_NO" property="no"/>
-		<result column="SUBJECT_CODE" property="subjectCode"/>
+		<result column="BEGIN_DATE" property="beginDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="CLASS_CODE" property="subjectCode"/>	
+		<result column="STUDENT_NO" property="studentNo"/>
 	</resultMap>
 	
 	
@@ -76,7 +79,16 @@
 	<association resultMap="teacherResultSet" property="teacher"/>
 	<association resultMap="classResultSet" property="classDTO"/>
 	<association resultMap="classInfoResultSet" property="classInfo"/>
-	</resultMap>	
+	</resultMap>
+	
+	<resultMap type="ClassInfoStudentDTO" id="classInfoStudentResultSet">
+		<id column="CLASS_NO" property="no"/>
+		<result column="BEGIN_DATE" property="beginDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<association resultMap="studentResultSet" property="studentDTO"/>
+		<association resultMap="classInfoResultSet" property="classInfo"/>
+	</resultMap>
+		
 	
 	<select id="selectStudentAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
    SELECT 
@@ -163,22 +175,48 @@
 		 	)
 	</insert>
 	
+	<select id="selectStudent" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+        SELECT
+		A.ATTENDANCE_NO
+		, A.MEMO
+		, B.STUDENT_NAME
+        , C.CLASS_NAME
+		, D.CATEGORY_NO
+        , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
+        , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
+        , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae
+        FROM TBL_ATTENDANCE A
+        INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
+        INNER JOIN TBL_CLASS C ON (A.CLASS_CODE = C.CLASS_CODE)
+		INNER JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)         
+        GROUP BY A.ATTENDANCE_NO, A.MEMO, B.STUDENT_NAME , C.CLASS_NAME , D.CATEGORY_NO
+    </select>
 	
+	<select id="selectCategory" parameterType="ClassInfoStudentDTO" resultMap="classInfoStudentResultSet">
+	 SELECT
+        B.STUDENT_NAME
+        FROM TBL_STUDENT B
+        JOIN TBL_CLASS_INFO C ON (B.STUDENT_NO = C.STUDENT_NO) 
+        WHERE C.CLASS_CODE = 'TTE1'
+	</select>
 
-	
 	<update id="updateStudentAttendance" parameterType="AttendanceDTO" >
 		UPDATE
 			   TBL_ATTENDANCE A
 		<set>
 			<if test="categoryNo != null and categoryNo gt 0">
-		        A.CATEGORY_NO = #{ categoryNo }  
+		        A.CATEGORY_NO = #{ categoryNo }
 			</if>
 			<if test="memo != null and memo !=''"/>
 			  , A.MEMO = #{ memo }
 			<if test="checkOutTime != null">
-			  ,	A.CHECKOUT_TIME = #{ checkOutTime }
+			  ,	A.CHECKOUT_TIME = SYSDATE
 			</if>
-			
+			<if test="studentNo != null and studentNo gt 0">
+				STUDENT_NO = {studentNo}
+			</if>
 		</set>
+			WHERE = #{no}
 	</update>
 </mapper>

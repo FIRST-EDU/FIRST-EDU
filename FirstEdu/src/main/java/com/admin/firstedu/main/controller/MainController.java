@@ -11,6 +11,6 @@ public class MainController {
 	@GetMapping(value={"/", "main"})
 	public String main() {
 		
-		return "member/login";
+		return "attendance/studentAttendanceInput";
 	}
 }
