@@ -35,8 +35,6 @@
 				<td><c:out value="${ student.jigack }"></c:out></td>
 				<td><c:out value="${ student.kyulsuck }"></c:out></td>
 				<td><c:out value="${ student.jotae }"></c:out></td>
-
-
 			</tr>
 			</c:forEach>
 		</tbody>

@@ -8,7 +8,7 @@ import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
 
 public interface AttendanceService {
 	
-	boolean insertStudent(AttendanceDTO attendance);
+	int insertStudent(AttendanceDTO attendance);
 	
 	boolean insertTeacher(AttendanceDTO attendance);
 	
@@ -16,13 +16,14 @@ public interface AttendanceService {
 	
 //	List<AttendanceInfoDTO> selectTeacherAttendance();
 	
-	boolean updateStudentAttendance(AttendanceDTO attendance);
 
 	boolean doneTeacher(AttendanceDTO attendance);
 	
 	List<AttendanceInfoDTO> selectStudent();
 
 	List<ClassInfoStudentDTO> selectCategory();
+
+	int updateStudent(AttendanceDTO attendance);
 
 
 

@@ -21,8 +21,8 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public boolean insertStudent(AttendanceDTO attendance) {
-		return mapper.insertStudent(attendance) > 0 ? true : false;
+	public int insertStudent(AttendanceDTO attendance) {
+		return mapper.insertStudent(attendance);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public boolean updateStudentAttendance(AttendanceDTO attendance) {
+	public boolean updateStudent(AttendanceDTO attendance) {
 		return mapper.updateStudentAttendance(attendance) > 0 ? true : false;
 	}
 

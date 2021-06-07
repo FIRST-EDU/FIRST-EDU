@@ -198,20 +198,20 @@
         B.STUDENT_NAME
         FROM TBL_STUDENT B
         JOIN TBL_CLASS_INFO C ON (B.STUDENT_NO = C.STUDENT_NO) 
-        WHERE C.CLASS_CODE = 'TTE1'
+        WHERE C.CLASS_CODE = #{classCode}
 	</select>
 
-	<update id="updateStudentAttendance" parameterType="AttendanceDTO" >
+	<update id="updateStudent" parameterType="AttendanceDTO" >
 		UPDATE
 			   TBL_ATTENDANCE A
 		<set>
 			<if test="categoryNo != null and categoryNo gt 0">
-		        A.CATEGORY_NO = #{ categoryNo }
+		        A.CATEGORY_NO = #{categoryNo}
 			</if>
 			<if test="memo != null and memo !=''"/>
 			  , A.MEMO = #{ memo }
 			<if test="checkOutTime != null">
-			  ,	A.CHECKOUT_TIME = SYSDATE
+			  ,	A.CHECKOUT_TIME = #{checkOutTime}
 			</if>
 			<if test="studentNo != null and studentNo gt 0">
 				STUDENT_NO = {studentNo}

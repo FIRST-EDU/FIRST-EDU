@@ -1,5 +1,6 @@
 package com.admin.firstedu.attendance.model.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,10 +129,22 @@ public class AttendanceController {
 	
 	
 	@PostMapping("/insertStudent")
-	public String insertStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceInsertException {
-		
-				
-		if(!attendanceService.insertStudent(attendance)) {
+	public String insertStudent(@ModelAttribute AttendanceDTO attendance,String[] categoryNo1 ,RedirectAttributes rttr) throws AttendanceInsertException {
+		int result = 0;
+		for(String arr : categoryNo1) {
+			AttendanceDTO newAtt = new AttendanceDTO();
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setClassNo(attendance.getClassNo());
+			newAtt.setCategoryNo(Integer.valueOf(arr));
+				System.out.println(arr);
+					
+			result += attendanceService.insertStudent(newAtt);
+		}
+		if(!(result == categoryNo1.length)) {
 			
 			throw new AttendanceInsertException("학생 출결 입력 실패");
 		}
@@ -173,9 +186,9 @@ public class AttendanceController {
 		
 	
 	@PostMapping("/updateStudent")
-	public String updateStudentAttendance(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceUpdateException {
+	public String updateStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceUpdateException {
 		
-		if(!attendanceService.updateStudentAttendance(attendance)) {
+		if(!attendanceService.updateStudent(attendance)) {
 				
 			throw new AttendanceUpdateException("학생 출결 수정 실패");
 		} 
