@@ -31,8 +31,8 @@
 </head>
 <body class="non-member-page-background">
 	<jsp:include page="../common/commonNonMember.jsp"/>
-    
-	<section class="non-member-box">
+
+	 <main class="non-member-box">
       <div class="container">
         <div class="row">
           <div class="col-sm-4">
@@ -43,54 +43,54 @@
                   학원 관리 프로그램 FIRST EDU 입니다.
                 </p>
               </div>
-             </article>
-           </div>
-         </div>
-          
-          <div class="row">
-            <div class="col-sm-4">
-              <article class="non-member-card">
-                <form action="#">
-                  <div class="non-member-input-group">
-                    <i class="fas fa-user-circle"></i>
-                    <input
+            </article>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <article class="non-member-card">
+              <form action="#">
+                <div class="non-member-input-group">
+                  <i class="fas fa-user-circle"></i>
+                  <input
                     class="form-input-non-member"
                     type="text"
                     placeholder="아이디"
                     autocomplete="new-password"
-                    />
-                  </div>
-                  <div class="non-member-input-group">
-                    <i class="fas fa-unlock-alt"></i>
-                    <input
+                  />
+                </div>
+                <div class="non-member-input-group">
+                  <i class="fas fa-unlock-alt"></i>
+                  <input
                     class="form-input-non-member"
                     type="password"
                     placeholder="비밀번호"
                     autocomplete="new-password"
-                    />
-                  </div>
-                  <div class="check-wrap">
-                    <input
+                  />
+                </div>
+                <div class="check-wrap">
+                  <input
                     type="checkbox"
                     class="save-id-input"
-                    id="check-save-id"
-                    />
-                    <label for="check-save-id" class="check-save-id"> </label>
-                    <span class="save-id">아이디 저장</span>
-                  </div>
-                  <div class="btn-center">
-                    <button type="submit" class="btn-fill-primary btn-long">
-                      로그인
-                    </button>
-                  </div>
-                </form>
-              </article><!-- non-member-card end -->
-            </div>
-          </div><!-- row end -->
-          
-          <div class="row">
-            <div class="col-sm-4">
-              <article class="forgot-page">
+                    id="checkSaveId"
+                  />
+                  <label for="checkSaveId" class="check-save-id"> </label>
+                  <label for="checkSaveId" class="save-id">아이디 저장</label>
+                </div>
+                <div class="btn-center">
+                  <button type="submit" class="btn-fill-primary btn-long">
+                    로그인
+                  </button>
+                </div>
+              </form>
+            </article>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <article class="forgot-page">
               <a href="/" class="forgot-id">
                 <span>아이디를 잊으셨나요?</span>
               </a>
@@ -100,7 +100,7 @@
             </article>
           </div>
         </div>
-      </div><!-- container end -->
-    </section>
+      </div>
+    </main>
 </body>
 </html>

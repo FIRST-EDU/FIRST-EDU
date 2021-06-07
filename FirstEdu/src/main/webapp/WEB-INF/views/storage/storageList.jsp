@@ -431,5 +431,6 @@
   </main>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 </body>
 </html>

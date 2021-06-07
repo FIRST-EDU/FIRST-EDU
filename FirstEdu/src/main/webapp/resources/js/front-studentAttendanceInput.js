@@ -1,7 +1,21 @@
-const firstBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(1)')
-const secondBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(2)')
-const thirdBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(3)')
-const fourthBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(4)')
+const allAttendanceBtn = document.querySelector('.all-attendance')
+const firstBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(2)')
+const secondBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(4)')
+const thirdBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(6)')
+const fourthBtns = document.querySelectorAll('.btn-outlined-gray:nth-child(8)')
+const classBtns = document.querySelector('.btn-setting')
+
+allAttendanceBtn.addEventListener('click', () => {
+  firstBtns.forEach((btn) => {
+    btn.classList.toggle('btn-fill-blue')
+  })
+
+  if (allAttendanceBtn.innerText == '전체 출석') {
+    allAttendanceBtn.innerText = '전체 해제'
+  } else {
+    allAttendanceBtn.innerText = '전체 출석'
+  }
+})
 
 for (const btn of firstBtns) {
   btn.addEventListener('mouseover', () => {
@@ -51,17 +65,14 @@ for (const btn of fourthBtns) {
   })
 }
 
-window.onload = function () {
-  console.log('test')
-  let parent = document.querySelector('.primary-background')
+function setButton(selectedBtn) {
+  const btns = document.querySelectorAll('.btn-setting')
 
-  while (parent) {
-    console.log('test2')
-    const hasOverflow = getComputedStyle(parent).overflow
-    console.log(hasOverflow)
-    if (hasOverflow !== 'visible') {
-      console.log(hasOverflow, parent)
+  selectedBtn.classList.add('is-active')
+
+  btns.forEach((btn) => {
+    if (btn != selectedBtn) {
+      btn.classList.remove('is-active')
     }
-    parent = parent.parentElement
-  }
+  })
 }
