@@ -68,7 +68,7 @@
               <div class="attendance-number-type">
                 <p>결근</p>
                 <strong>0</strong>
-              </div> 
+              </div>
               <hr class="borderline">
               <div class="attendance-number-type">
                 <p>지각</p>
@@ -78,13 +78,14 @@
           </section>
         </div>
       </div>
-      
+
       <div class="row">
         <div class="col-sm-4">
-          <section class="common-card teacher-attendance-check-card">
+          <form class="common-card teacher-attendance-check-card">
             <h1 class="teacher-attendance-title">근태 입력</h1>
             <article class="teacher-attendance-check-btn">
-              <button type="button" class="btn-circle btn-fill-seconary btn-circle-size">출근</button>
+              <input type="radio" id="workStart" name="attendance"></input>
+              <label for="workStart" class="btn-circle btn-fill-seconary btn-circle-size">출근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 출근한 시간</p>
                 <strong>08 &ratio; 00</strong>
@@ -92,13 +93,14 @@
             </article>
             <hr class="borderline">
             <article class="teacher-attendance-check-btn">
-              <button type="button" class="btn-circle btn-fill-seconary btn-circle-size">퇴근</button>
+              <input type="radio" id="workEnd" name="attendance"></input>
+              <label for="workEnd" class="btn-circle btn-fill-seconary btn-circle-size">퇴근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 퇴근한 시간</p>
                 <strong>00 &ratio; 00</strong>
               </div>
             </article>
-          </section>
+          </form>
         </div>
       </div>
 
@@ -111,9 +113,10 @@
       </div>
     </div>
   </main>
-  
+
   <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+  <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
-  <script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-attendance-list.js"></script>
+  <script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-teacherAttendance.js"></script>
 </body>
 </html>

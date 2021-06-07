@@ -31,7 +31,7 @@
   </head>
   <body>
     <!-- Note: After Login -->
-    <header class="global-header">
+<header class="global-header">
       <div class="gnb">
         <div class="container">
           <div class="row">
@@ -49,14 +49,14 @@
                   </button>
 
                   <div class="global-header-search sm-hidden">
-                    <form class="input-group sm-hidden">
+                    <div class="input-group sm-hidden">
                       <span class="material-icons"> search </span>
                       <input
                       class="form-input-search"
                       type="search"
                       placeholder="학생명을 입력하세요."
                       />
-                    </form>
+                    </div>
                     <section class="search-history">
                       <header class="search-history-header">
                         <h2 class="title">최근 검색어</h2>
@@ -100,7 +100,6 @@
                     </div>
                   </div>
                 </div>
-                    </section>
 
                 <div class="global-header-right">
                   <div class="button-group">
@@ -197,7 +196,7 @@
       </h1>
     </header>
 
-  <nav class="drawer-menu-all">
+    <nav class="drawer-menu-all">
     <h2 class="visually-hidden">메뉴</h2>
 
     <strong class="drawer-menu-category">학생</strong>
@@ -215,7 +214,7 @@
       </a>
     </div>
 
-    <div class="drawer-menu">
+    <div class="drawer-menu is-grade">
       <button class="drawer-menu-button" type="button">
         <i class="fas fa-edit" aria-hidden="true"></i>
         성적 관리
@@ -224,9 +223,9 @@
 
       <div class="drawer-menu-content">
         <ul class="drawer-menu-list">
-          <li class="drawer-menu-item is-active">
+          <li class="drawer-menu-item">
             <a href="/">
-              시험 일정
+              시험 관리
             </a>
           </li>
           <li class="drawer-menu-item">
@@ -267,29 +266,13 @@
       </div>
 
       <div class="drawer-menu">
-        <button class="drawer-menu-button" type="button">
+        <a class="drawer-menu-link" href="/">
           <i class="fas fa-chalkboard" aria-hidden="true"></i>
           수업 관리
-          <span class="material-icons" aria-hidden="true">chevron_right</span>
-        </button>
-
-        <div class="drawer-menu-content">
-          <ul class="drawer-menu-list">
-            <li class="drawer-menu-item">
-              <a href="/">
-                시간표 관리
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
-                과목 관리
-              </a>
-            </li>
-          </ul>
-        </div>
+        </a>
       </div>
 
-      <div class="drawer-menu">
+      <div class="drawer-menu is-sms">
         <button class="drawer-menu-button" type="button">
           <i class="fas fa-sms" aria-hidden="true"></i>
           문자 관리
@@ -313,31 +296,14 @@
       </div>
 
       <div class="drawer-menu">
-        <button class="drawer-menu-button" type="button">
+        <a class="drawer-menu-link" href="/">
           <i class="fas fa-clipboard" aria-hidden="true"></i>
-          게시판
-          <span class="material-icons" aria-hidden="true">chevron_right</span>
-        </button>
-
-        <div class="drawer-menu-content">
-          <ul class="drawer-menu-list">
-            <li class="drawer-menu-item">
-              <a href="/">
-                공지사항
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
-                자료실
-              </a>
-            </li>
-          </ul>
-        </div>
+          자료실
+        </a>
       </div>
 
-
       <!-- Note: Login boss  -->
-      <div class="drawer-menu boss is-active is-open is-boss">
+      <div class="drawer-menu boss is-boss">
         <button class="drawer-menu-button" type="button">
           <i class="fas fa-sitemap"></i>
           조직 관리
@@ -346,24 +312,14 @@
 
         <div class="drawer-menu-content">
           <ul class="drawer-menu-list">
-            <li class="drawer-menu-item is-active">
+            <li class="drawer-menu-item">
               <a href="/">
                 회사 정보
               </a>
             </li>
             <li class="drawer-menu-item">
               <a href="/">
-                운영 권한 관리
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
                 직원 목록
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
-                직원 등록
               </a>
             </li>
           </ul>
@@ -380,7 +336,7 @@
             <h1 class="visually-hidden">Search</h1>
 
             <div class="search-modal-form">
-              <div class="input-group is-active">
+              <div class="input-group">
                 <span class="material-icons" aria-hidden="true"> search </span>
                 <input
                 class="form-input-search"
@@ -447,6 +403,7 @@
   </aside>
 
   <div class="overlay" aria-hidden="true"></div>
+
 
   <script src="${ pageContext.servletContext.contextPath }/resources/js/myMenu.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/searchHistory.js"></script>

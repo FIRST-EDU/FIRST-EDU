@@ -31,33 +31,33 @@
 </head>
 <body>
 	<jsp:include page="../common/commonNonMember.jsp"/>
-	
-	<section class="non-member-box">
+
+	<main class="non-member-box">
       <div class="container">
         <div class="row">
           <div class="col-sm-4">
-            <article class="non-member-content">
-              <div class="project-text">
+            <section class="non-member-content">
+              <article class="project-text">
                 <h2 class="welcome">아이디 찾기</h2>
                 <p class="introduce-project">
-                  등록되어 있는 휴대폰 번호를 입력해 주세요.
+                  등록되어 있는 이메일 주소를 입력해 주세요.
                 </p>
-              </div>
-            </article>
+              </article>
+            </section>
           </div>
         </div>
 
         <div class="row">
           <div class="col-sm-4">
-            <article class="non-member-card">
+            <section class="non-member-card">
               <form action="#">
                 <div class="send-number-btn">
                   <div class="non-member-input-group">
-                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas fa-at"></i>
                     <input
                       class="form-input-non-member"
-                      type="text"
-                      placeholder="휴대폰번호"
+                      type="email"
+                      placeholder="이메일"
                     />
                   </div>
                   <button type="button" class="btn-outlined-primary btn-basic">
@@ -83,7 +83,7 @@
                   </button>
                 </div>
               </form>
-            </article>
+            </section>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
           </div>
         </div>
       </div>
-    </section>
-	
+    </main>
+
 </body>
 </html>

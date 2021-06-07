@@ -32,7 +32,7 @@
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
-	
+
 	<main class="common-background">
     <div class="container">
       <div class="row">
@@ -137,8 +137,9 @@
       </div>
     </div>
   </main>
-	
+
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-attendance-list.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
 </body>
