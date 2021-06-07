@@ -216,7 +216,7 @@ public class PayController {
 			map.put("endRow", pageInfo.getEndRow());
 			
 			List<PayListDTO> payList = payService.searchPayYnPayList(map);
-			model.addAttribute("payList",payList);
+			model.addAttribute("payList",payList); 
 			model.addAttribute("pageInfo",pageInfo);
 			model.addAttribute("searchOption", searchCriteria.getSearchOption());
 			model.addAttribute("searchValue", searchCriteria.getSearchValue());
