@@ -135,7 +135,7 @@
                       type="button"
                       aria-label="마이메뉴 열기 버튼"
                       >
-                        <img src="./resources/assets/svg/undraw_profile.svg" alt="profile"/>
+                        <img src="${ pageContext.servletContext.contextPath }/resources/assets/svg/undraw_profile.svg" alt="profile"/>
                         <strong class="user-name lg-only">강용승 선생님</strong>
                       </button>
 
@@ -192,7 +192,7 @@
     <header class="side-gnb-header">
       <h1 class="logo">
         <a href="/">
-          <img src="./resources/assets/png/Basic Logo.png" alt="FIRST EDU" />
+          <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/Basic Logo.png" alt="FIRST EDU" />
         </a>
       </h1>
     </header>

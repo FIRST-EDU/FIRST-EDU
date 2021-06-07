@@ -206,6 +206,8 @@ public class PayController {
 		
 		PayPageInfoDTO pageInfo = PayPagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
+		int paySum = payService.searchPaySum(searchCriteria);
+		
 		if(searchCriteria.getSearchOption().equals("payYn")) {
 			
 			Map<String, Object> map = new HashMap<>();
@@ -218,6 +220,8 @@ public class PayController {
 			model.addAttribute("pageInfo",pageInfo);
 			model.addAttribute("searchOption", searchCriteria.getSearchOption());
 			model.addAttribute("searchValue", searchCriteria.getSearchValue());
+			model.addAttribute("paySum", paySum);
+			
 			
 		}else if(searchCriteria.getSearchOption().equals("studentName")){
 			
@@ -231,8 +235,9 @@ public class PayController {
 			model.addAttribute("pageInfo",pageInfo);
 			model.addAttribute("searchOption", searchCriteria.getSearchOption());
 			model.addAttribute("searchValue", searchCriteria.getSearchValue());
+			model.addAttribute("paySum", paySum);
 			
-		}else if(searchCriteria.getSearchOption().equals("studentName")) {
+		}else if(searchCriteria.getSearchOption().equals("className")) {
 			
 			Map<String, Object> map = new HashMap<>();
 			map.put("searchValue", searchCriteria.getSearchValue());
@@ -244,6 +249,7 @@ public class PayController {
 			model.addAttribute("pageInfo",pageInfo);
 			model.addAttribute("searchOption", searchCriteria.getSearchOption());
 			model.addAttribute("searchValue", searchCriteria.getSearchValue());
+			model.addAttribute("paySum", paySum);
 			
 		}
 		 

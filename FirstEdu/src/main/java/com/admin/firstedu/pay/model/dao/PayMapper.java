@@ -42,4 +42,6 @@ public interface PayMapper {
 
 	int searchTotalCount(SearchCriteria searchCriteria);
 
+	int searchPaySum(SearchCriteria searchCriteria);
+
 }

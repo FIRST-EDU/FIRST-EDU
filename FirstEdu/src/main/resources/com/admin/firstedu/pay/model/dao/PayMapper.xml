@@ -103,15 +103,20 @@
   	<select id="searchTotalCount" parameterType="SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_PAY A
-  		 WHERE A.PAY_STATUS = 'Y'
   		 <if test="searchOption == 'studentName'">
-  		   AND A.STUDNET_NAME = #{searchValue}
+  		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+  		 WHERE A.PAY_STATUS = 'Y'
+  		   AND C.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 <if test="searchOption == 'className'">
-  		   AND A.CLASS_NAME = #{searchValue}
+  		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
+  		 WHERE A.PAY_STATUS = 'Y'
+  		   AND C.CLASS_NAME LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 <if test="searchOption == 'payYn'">
-  		   AND A.PAY_YN = #{searchValue}
+  		  WHERE A.PAY_YN LIKE '%' || #{searchValue} || '%'
   		 </if>
   	</select>
   	
@@ -286,6 +291,28 @@
         	   SUM(A.PAYMENT) 
           FROM TBL_PAY A 
          WHERE A.PAY_STATUS = 'Y'
+         
+  	</select>
+  	
+  	<select id="searchPaySum" parameterType="SearchCriteria" resultType="_int">
+  		SELECT SUM(A.PAYMENT)
+  		  FROM TBL_PAY A
+  		 <if test="searchOption == 'studentName'">
+  		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+  		 WHERE A.PAY_STATUS = 'Y'
+  		   AND C.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'className'">
+  		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
+  		 WHERE A.PAY_STATUS = 'Y'
+  		   AND C.CLASS_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'payYn'">
+  		  WHERE A.PAY_YN LIKE '%' || #{searchValue} || '%'
+  		    AND A.PAY_STATUS = 'Y'
+  		 </if>
   	</select>
   	
   	<select id="searchPayYnPayList" parameterType="map" resultMap="payListResultMap">

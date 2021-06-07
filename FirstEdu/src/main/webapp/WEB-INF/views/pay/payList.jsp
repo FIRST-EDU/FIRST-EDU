@@ -10,8 +10,8 @@
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-    <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="${ pageContext.servletContext.contextPath }/favicon-32x32.png" />
+    <link rel="shortcut icon" type="image/png" sizes="16x16" href="${ pageContext.servletContext.contextPath }/favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
 	<title> 수납 관리 &gt; 수납 목록 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
@@ -33,7 +33,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
-</head>
+    
+    </head>
 <style>
 	.modal {
             display: none; /* Hidden by default */
@@ -292,10 +293,8 @@
                 <form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
 					
 					    <input type="hidden" name="payNo" id="payNo" value=""><br>
-					    <input type="hidden" name="studentNo" id="studentNo" value=""><br>
-						<input type="hidden" name="classNo" id="classNo" value="">
 						학생명 <input type="text" name="studentName" id="studentName"  value="" readonly><br>
-						강의명 <input type="text" name="classNameList" id="classNameList" value="" readonly><br>
+						강의명 <input type="text" name="className" id="className" value="" readonly><br>
 						수강료 <input type="number" name="tution" id="tution" value="" readonly><br>
 						납입현황  <select name="payYn">
 								 <option value="납부">납부</option>
@@ -312,17 +311,13 @@
 							  </select><br>
 						납입일 <input type="date" name="payDate" value=""><br>
 					
-					<button type="submit">수정</button>
-					<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/pay/detail?no=${ payUpdate.payNo }'">취소</button>
+					<button type="submit" class="btn-fill-primary btn-basic storage-input-btn">수정</button>
+					<button type="button" class="btn-fill-primary btn-basic storage-input-btn" onClick="close_pop();">취소</button>
 			</form>
                 
             
                 <p><br /></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;" >
-                     닫기
-                </span>
-            </div>
+           
       </div>
  
     </div>
@@ -394,16 +389,16 @@
 							 data:{no:no},
 							 success:function(data){
 								 var payNo = data.payNo;
-								 var payYn = data.payYn;
-								 var payOption = data.payOption;
-								 var payment = data.payment;
-								 var payDate = data.payDate;
+								 $("#payNo").attr("value",payNo);
+								 
 								 var className = data.classDTO.className;
-								 var classPayment = data.payNo;
-								 var payNo = data.payNo;
-								 var payNo = data.payNo;
-								 var payNo = data.payNo;
-								 var payNo = data.payNo;
+								 $("#className").attr("value",className);
+								 
+								 var classPayment = data.classDTO.classPayment;
+								 $("#tution").attr("value",classPayment);
+								 
+								 var studentName = data.student.studentName;
+								 $("#studentName").attr("value",studentName);
 								 
 								 $('#myModal').show();
 								 
@@ -423,9 +418,55 @@
 	          $('#myModal').hide();
 	     };
 
-		
+	     $("input:radio").click(function(){
+				var tution = document.getElementById('tution').value;
+				
+				if($('input:radio[id=dis1]').is(':checked') == true){
+					var disTution1 = tution - (tution * 0.1);
+					$('input[name=payment]').attr('value',disTution1);
+				}
+				if($('input:radio[id=dis2]').is(':checked') == true){
+					var disTution2 = tution - (tution * 0.05);
+					$('input[name=payment]').attr('value',disTution2);
+				}
+				if($('input:radio[id=dis3]').is(':checked') == true){
+					$('input[name=payment]').attr('value',tution);
+				}
+			})
+
+/* 미납옵션 선택 시 하위의 옵션들을 선택할 수 없게 막아놓는 JS Start */
+			$(function(){	
+				$(document).on("change", "select[name=payYn]", function(){
+				var value = $(this).find("option:selected").val();
+				var discountText = $("input[name=discountNo]");
+				var paymentText = $("input[name=payment]");
+				var payOptionText = $("select[name=payOption]");
+				var payDateText = $("input[name=payDate]");
+				var flag = false;
+					if (value == '미납') {
+						flag = true;
+						$(paymentText).val('0');
+						$(payDateText).val('0001-01-01');
+					} 
+				/* $("#option1").prop("selected",true); */
+				$("#dis3").prop("checked", true);
+				$(paymentText).attr("disabled", flag);
+				$(payDateText).attr("disabled", flag);
+				$(payOptionText).attr("disabled", flag);
+				});
+
+			});
+			
+/* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
+			 $("form").submit(function(){
+				 $("input[name=payment]").removeAttr('disabled'); 
+				 $("input[name=payDate]").removeAttr('disabled'); 
+				 $("select[name=payOption]").removeAttr('disabled'); 
+				 
+			 })
    
 	</script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+
 </body>
 </html>

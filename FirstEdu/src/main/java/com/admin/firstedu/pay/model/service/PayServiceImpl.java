@@ -110,6 +110,12 @@ public class PayServiceImpl implements PayService{
 		return payMapper.searchTotalCount(searchCriteria);
 	}
 
+	@Override
+	public int searchPaySum(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return payMapper.searchPaySum(searchCriteria);
+	}
+
 	
 
 	
