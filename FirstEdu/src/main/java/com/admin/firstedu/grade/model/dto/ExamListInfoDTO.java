@@ -11,16 +11,20 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ExamFullInfoDTO implements java.io.Serializable {
+public class ExamListInfoDTO implements java.io.Serializable {
 
-	private static final long serialVersionUID = 5779472333951232950L;
+	private static final long serialVersionUID = -1059365502961447827L;
 
+	private int examCategoryNo;
+	private String examCategoryName;
+	private int refCategoryNo;
 	private int examNo;
 	private String examName;
 	private java.sql.Date startDate;
 	private java.sql.Date endDate;
 	private String school;
 	private String description;
+	private ColorDTO color;
 	private GradeDTO mockExamGrade;
-	private ClassExamInfoDTO classExamInfo;
+	private ClassExamInfoDTO classExamInfo;	
 }

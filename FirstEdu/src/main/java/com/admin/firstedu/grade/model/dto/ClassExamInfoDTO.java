@@ -19,5 +19,5 @@ public class ClassExamInfoDTO implements java.io.Serializable {
 	private String className;
 	private int teacherNo;
 	private SubjectCategoryDTO subject;
-	private GradeDTO grade;
+	private GradeDTO hagwonExamGrade;
 }

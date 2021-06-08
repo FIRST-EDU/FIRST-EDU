@@ -19,6 +19,6 @@ public class ExamSearchCriteria implements java.io.Serializable {
 	private int mockExam;
 	private int hagwonExam;
 	private int categoryNo;
-	private String gradeCode;
-	private int subjectNo;
+	private String classCode;
+	private String examName;
 }

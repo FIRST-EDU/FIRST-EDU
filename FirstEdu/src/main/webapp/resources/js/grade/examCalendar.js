@@ -1,7 +1,15 @@
 let calendar;
 
+/* 처음 달력 생성 및 이벤트 추가 */
+$(function() {
+	setTimeout(function(){
+		createCalendar();
+		addEvent();
+	}, 150);
+});
+
 /* 처음 달력 생성 */
-document.addEventListener("DOMContentLoaded", function () {
+function createCalendar () {
     let calendarEl = document.getElementById("calendar");
 
     calendar = new FullCalendar.Calendar(calendarEl, {
@@ -10,14 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
         headerToolbar: {
             left: "prev,next today",
             center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+            right: "dayGridMonth,timeGridWeek",
         },
         buttonText: {
             today: "오늘",
-            month: "월",
-            week: "주",
-            day: "일",
-            list: "목록",
+            month: "월별",
+            week: "주별",
         },
         navLinks: true, // can click day/week names to navigate views
         nowIndicator: true,
@@ -46,29 +52,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     calendar.render();
-});
+}
 
-$(function(){
-	addEvent($('#count').val(), $("input[name='title-list']"), $("input[name='start-list']"));
-});
+
 
 /* 이벤트 추가 */
-function addEvent(count, titleList, startList) {
-
+function addEvent() {
+	let titleList = $('input[name="title-list"]');
+	let startList = $('input[name="start-list"]');
+	let endList = $('input[name="end-list"]');
+	let colorList = $('input[name="color-list"]');
+	
 	let titleArray = [];
 	let startArray = [];
+	let endArray = [];
+	let colorArray = [];
 
-    for (let i = 0 ; i < count ; i++) {
+    for (let i = 0 ; i < titleList.length ; i++) {
     	titleArray.push({
     		'titleList' : titleList.eq(i).val()
     	});
     	startArray.push({
     		'startList' : startList.eq(i).val()
     	});
+    	let endDate = new Date(endList.eq(i).val());
+    	endDate.setDate(endDate.getDate() + 1);
+    	let month = endDate.getMonth() + 1
+    	let day = endDate.getDate()
+    	let formatEndDate = endDate.getFullYear() + '-' + (month >= 10 ? month : '0'+month) + '-' + (day >= 10 ? day : '0'+day);
+    	endArray.push({
+    		'endList' : formatEndDate
+    	});
+    	colorArray.push({
+    		'colorList' : colorList.eq(i).val()
+    	});
     	
         calendar.addEvent({
             title: titleArray[i].titleList,
-            start: startArray[i].startList
+            start: startArray[i].startList,
+            end: endArray[i].endList,
+            color: colorArray[i].colorList
         });
     }
 }

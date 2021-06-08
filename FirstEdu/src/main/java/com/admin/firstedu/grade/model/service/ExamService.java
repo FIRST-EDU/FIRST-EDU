@@ -2,17 +2,22 @@ package com.admin.firstedu.grade.model.service;
 
 import java.util.List;
 
+import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
-import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 
 public interface ExamService {
 
-	List<ExamFullInfoDTO> selectExamList(ExamSearchCriteria searchCriteria);
+	List<ExamListInfoDTO> selectExamList();
 	
+	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
+
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
+
+	List<ClassExamInfoDTO> selectClassList();
 
 	boolean registExam(ExamDTO exam);
 	
@@ -25,4 +30,5 @@ public interface ExamService {
 	boolean modifyExamCategory(ExamCategoryDTO examCategory);
 	
 	boolean removeExamCategory(int examCategoryNo);
+
 }

@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ExamMapper;
+import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
-import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 
 @Service("examService")
@@ -23,13 +24,23 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	@Override
-	public List<ExamFullInfoDTO> selectExamList(ExamSearchCriteria searchCriteria) {
-		return mapper.selectExamList(searchCriteria);
+	public List<ExamListInfoDTO> selectExamList() {
+		return mapper.selectExamList();
+	}
+
+	@Override
+	public List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria) {
+		return mapper.searchExamList(searchCriteria);
 	}
 
 	@Override
 	public List<ExamCategoryFullInfoDTO> selectExamCategoryList() {
 		return mapper.selectExamCategoryList();
+	}
+
+	@Override
+	public List<ClassExamInfoDTO> selectClassList() {
+		return mapper.selectClassList();
 	}
 
 	@Override

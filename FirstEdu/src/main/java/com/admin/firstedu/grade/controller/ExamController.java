@@ -1,7 +1,5 @@
 package com.admin.firstedu.grade.controller;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.ExamException;
+import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
-import com.admin.firstedu.grade.model.dto.ExamFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.service.ExamService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 public class ExamController {
@@ -32,24 +34,45 @@ public class ExamController {
 	}
 	
 	/* 시험 목록 조회 */
-	@GetMapping("/grade/exam")
-	public void selectExamList(@ModelAttribute ExamSearchCriteria searchCriteria, Model model) {
-		Calendar date = new GregorianCalendar(2021, 06, 01);
-		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
+	@GetMapping("/grade/exam/list")
+	public String selectExamList(Model model) {
+//		Calendar date = new GregorianCalendar(2021, 06, 01);
+//		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
 		
-//		ExamSearchCriteriaDTO searchCriteria = new ExamSearchCriteriaDTO(2, "6월", new java.sql.Date(beginDate.getTime()), null, 0, 0);
+//		ExamSearchCriteria searchCriteria = new ExamSearchCriteria();
 //		System.out.println("searchCriteria : " + searchCriteria);
-		List<ExamFullInfoDTO> examList = examService.selectExamList(searchCriteria);
-		for(ExamFullInfoDTO exam : examList) {
+		List<ExamListInfoDTO> examList = examService.selectExamList();
+		
+		for(ExamListInfoDTO exam : examList) {
 			System.out.println(exam);
 		}
+		
 		List<ExamCategoryFullInfoDTO> examCategoryList = examService.selectExamCategoryList();
 		for(ExamCategoryFullInfoDTO examCategory : examCategoryList) {
 			System.out.println(examCategory);
 		}
 		
-//		model.addAttribute("examList", examService.selectExamList(searchCriteria));
+		List<ClassExamInfoDTO> classList = examService.selectClassList();
+		
 		model.addAttribute("examList", examList);
+		model.addAttribute("examCategoryList", examCategoryList);
+		model.addAttribute("classList", classList);
+		
+		return "grade/examList";
+	}
+	
+	/* 시험 목록 검색 */
+	@GetMapping(value="/grade/exam/search", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria) {
+		System.out.println(searchCriteria);
+		List<ExamListInfoDTO> examList = examService.searchExamList(searchCriteria);
+		Gson gson = new GsonBuilder()
+						.setDateFormat("yyyy-MM-dd")
+						.setPrettyPrinting()
+						.create();
+		
+		return gson.toJson(examList);
 	}
 
 	/* 시험 일정 등록 */

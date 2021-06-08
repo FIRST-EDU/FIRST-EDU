@@ -16,6 +16,7 @@ public class ColorDTO implements java.io.Serializable {
 	private static final long serialVersionUID = 9189376949059610077L;
 	
 	private int no;
-	String name;
-	String codeHex;
+	private String name;
+	private String tagClassName;
+	private String codeHex;
 }
