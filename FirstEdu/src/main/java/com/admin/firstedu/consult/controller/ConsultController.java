@@ -122,6 +122,14 @@ public class ConsultController {
 		return "main/result";
 	}
 	
+	@GetMapping("studentConsult/{no}")
+	public String selectStudentConsult(Model model, @PathVariable("no") int no) {
+		
+		List<ConsultListDTO>  studentConsult = consultService.selectStudentConsult(no);
+		
+		return "";
+	}
+	
 	@GetMapping("reserve")
 	public String consultCalendar() {
 		return "consult/consultCalendar";

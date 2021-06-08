@@ -71,4 +71,11 @@ public class ConsultServiceImpl implements ConsultService{
 		return consultMapper.deleteConsult(no);
 	}
 
+
+	@Override
+	public List<ConsultListDTO> selectStudentConsult(int no) {
+		// TODO Auto-generated method stub
+		return consultMapper.selectStudentConsult(no);
+	}
+
 }

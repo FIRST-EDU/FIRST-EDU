@@ -12,7 +12,6 @@ public interface ConsultService {
 	List<ConsultListDTO> selectConsultList();
 
 	List<ConsultInfoDTO> selectStudentList();
-
 	
 	List<ConsultListDTO> searchConsultList(SearchCriteria searchCriteria);
 
@@ -23,6 +22,9 @@ public interface ConsultService {
 	int updateConsult(ConsultDTO consult);
 	
 	int deleteConsult(int no);
+
+	List<ConsultListDTO> selectStudentConsult(int no);
+
 
 
 

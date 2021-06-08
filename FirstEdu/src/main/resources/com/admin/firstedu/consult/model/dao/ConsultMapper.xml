@@ -103,14 +103,14 @@
   		  JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
   		  JOIN TBL_TEACHER D ON (A.TEACHER_NO = D.TEACHER_NO)
   		 WHERE A.CONSULT_YN = 'Y'
-  		 <if test="searchOption == 'consultNo'">
-  		   AND A.CONSULT_NO = #{searchValue}
+  		 <if test="searchOption == 'consultOption'">
+  		   AND A.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 <if test="searchOption == 'studentName'">
   		   AND C.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
   		 </if>
-  		 <if test="searchOption == 'teacherName'">
-  		   AND D.TEACHER_NAME LIKE '%' || #{searchValue} || '%'
+  		 <if test="searchOption == 'consultContent'">
+  		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 ORDER BY A.CONSULT_NO DESC
   	</select>
@@ -143,6 +143,24 @@
   		 WHERE A.CONSULT_YN = 'Y'
   		   AND A.CONSULT_NO = #{no}
   		 ORDER BY A.CONSULT_NO DESC
+  	</select>
+  	
+  	<select id="selectStudentConsult" parameterType="_int" resultMap="consultListResultMap">
+  		SELECT
+		       D.CONSULT_DATE
+		     , D.CONSULT_OPTION
+		     , D.CONSULT_CONTENT
+		  FROM (SELECT A.CONSULT_DATE
+		             , B.CONSULT_OPTION
+		             , A.CONSULT_CONTENT
+		           FROM TBL_CONSULT A
+		           JOIN TBL_TC_CATEGORY B ON (A.TC_CATEGORY_NO = B.TC_CATEGORY_NO)
+		           JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+		          WHERE C.STUDENT_NO  = #{no}
+		          ORDER BY A.CONSULT_DATE DESC) D
+		  <![CDATA[
+		  WHERE ROWNUM <= 5
+		  ]]>
   	</select>
   	
   	<insert id="insertConsult" parameterType="ConsultDTO">

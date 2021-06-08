@@ -22,5 +22,7 @@ public interface ConsultMapper {
 	int updateConsult(ConsultDTO consult);
 
 	int deleteConsult(int no);
+
+	List<ConsultListDTO> selectStudentConsult(int no);
 		
 }

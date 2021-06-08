@@ -16,9 +16,9 @@
 <button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담입력</button>
 	<form action="${pageContext.servletContext.contextPath }/consult/search" method="get">
 		<select name="searchOption" id="searchOption">
-			<option value="consultNo">상담번호</option>
 			<option value="studentName">학생이름</option>
-			<option value="teacherName">담당자</option>
+			<option value="consultOption">상담방법</option>
+			<option value="consultContent">상담내용</option>
 		</select>
 		<input type="search" id="searchValue" name="searchValue" value="">
 		<button id="searchList">검색</button>
