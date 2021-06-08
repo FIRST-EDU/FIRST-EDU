@@ -254,7 +254,7 @@
   		, 1
   		, #{discountNo}
   		, #{payment}
-		, TO_CHAR(#{payDate},'YYYY/MM/DD')
+		, #{payDate, jdbcType=VARCHAR }
   		, 'Y'
   		)
   	</insert>

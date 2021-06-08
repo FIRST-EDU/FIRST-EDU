@@ -57,6 +57,9 @@
             border: 1px solid #888;
             width: 30%; /* Could be more or less, depending on screen size */                          
         }
+        #dis1,#dis2,#dis3 {
+        	display:block; !important
+        }
 
 
 </style>
@@ -287,8 +290,6 @@
  
       <!-- Modal content -->
       <div class="modal-content">
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;"></span></b></span></p>
-                <p style="text-align: center; line-height: 1.5;"><br />
                 
                 <form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
 					
@@ -314,9 +315,6 @@
 					<button type="submit" class="btn-fill-primary btn-basic storage-input-btn">수정</button>
 					<button type="button" class="btn-fill-primary btn-basic storage-input-btn" onClick="close_pop();">취소</button>
 			</form>
-                
-            
-                <p><br /></p>
            
       </div>
  
@@ -467,6 +465,7 @@
    
 	</script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 
 </body>
 </html>

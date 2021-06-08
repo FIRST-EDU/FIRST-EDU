@@ -66,13 +66,13 @@
 			할인수단 <input type="radio" name="discountNo" id="dis1" value="1">친구 
 			 	  <input type="radio" name="discountNo" id="dis2" value="2">기간 
 			 	  <input type="radio" name="discountNo" id="dis3" value="3">없음<br> 
-			 결제금액 <input type="number" name="payment" value=""><br> 
+			 결제금액 <input type="text" name="payment"><br> 
 			 결제수단 <select name="payOption">
 					<option value="--" selected id="option1">--</option>
 					<option value="카드">카드</option>
 					<option value="현금">현금</option>
 				  </select><br> 
-			 납입일 <input type="date" name="payDate" value=""><br>
+			 납입일 <input type="date" name="payDate"><br>
 		<button onclick="location.href='${pageContext.servletContext.contextPath}/pay/list'">목록</button>
 		<button>등록</button>
 	</form>
@@ -147,8 +147,8 @@
 				var flag = false;
 					if (value == '미납') {
 						flag = true;
-						$(paymentText).val('0');
-						$(payDateText).val('0001-01-01');
+						 $(paymentText).val('0');
+						/*$(payDateText).val('0001-01-01'); */
 					} 
 				/* $("#option1").prop("selected",true); */
 				$("#dis3").prop("checked", true);

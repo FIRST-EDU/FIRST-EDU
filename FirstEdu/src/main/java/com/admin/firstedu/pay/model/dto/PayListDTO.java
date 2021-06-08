@@ -7,7 +7,7 @@ public class PayListDTO {
 	private String payOption;
 	private int payMonth;
 	private int payment;
-	private String payDate;
+	private java.sql.Date payDate;
 	private String payStatus;
 	private ClassDTO classDTO;
 	private DiscountDTO discount; // 할인번호, 할인율, 사유
@@ -18,7 +18,7 @@ public class PayListDTO {
 		super();
 	}
 
-	public PayListDTO(int payNo, String payYn, String payOption, int payMonth, int payment, String payDate,
+	public PayListDTO(int payNo, String payYn, String payOption, int payMonth, int payment, java.sql.Date payDate,
 			String payStatus, ClassDTO classDTO, DiscountDTO discount, ClassInfoDTO classInfo, StudentDTO student) {
 		super();
 		this.payNo = payNo;
@@ -74,11 +74,11 @@ public class PayListDTO {
 		this.payment = payment;
 	}
 
-	public String getPayDate() {
+	public java.sql.Date getPayDate() {
 		return payDate;
 	}
 
-	public void setPayDate(String payDate) {
+	public void setPayDate(java.sql.Date payDate) {
 		this.payDate = payDate;
 	}
 
