@@ -1,75 +1,286 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+    <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
+	<title> 상담 관리 &gt; 상담 목록 | FIRST EDU</title>
+    <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/11694e3acf.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 <body>
-<button type="button" onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담입력</button>
-	<form action="${pageContext.servletContext.contextPath }/consult/search" method="get">
-		<select name="searchOption" id="searchOption">
-			<option value="studentName">학생이름</option>
-			<option value="consultOption">상담방법</option>
-			<option value="consultContent">상담내용</option>
-		</select>
-		<input type="search" id="searchValue" name="searchValue" value="">
-		<button id="searchList">검색</button>
-	</form>
-<div style="height:400px; overflow:auto;">
-	<table class="consultList" border="1">
-		<thead>
-			<tr>
-				<th>No</th>
-				<th>상담일</th>
-				<th>학생명</th>
-				<th>담당자</th>
-				<th>상담방법</th>
-				<th>상담내용</th>
-			</tr>
-		</thead>
-		<tbody>
-				<c:forEach var="consult" items="${consultList}">
-				<fmt:formatDate var="consultDate" value="${consult.consultDate}" pattern="yyyy/MM/dd"/>
-					<tr>
-						<td><c:out value="${ consult.consultNo }" /></td>
-						<td><c:out value="${ consultDate }"/></td>
-						<td><c:out value="${ consult.student.studentName }" /></td>
-						<td><c:out value="${ consult.teacher.name }" /></td>
-						<td><c:out value="${ consult.category.consultOption }" /></td>
-						<td><c:out value="${ consult.consultContent }" /></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-	</table>
-	</div>
-	<script>
-		$(document).ready(function () {
-			$('.consultList').tablesorter();
-		});
-		
-		/* td태그에 마우스 호버시 pointer 스타일로 변경  */
-		if(document.getElementsByTagName("td")) {
-			const $tds = document.getElementsByTagName("td");
-			for(var i = 0 ; i < $tds.length ; i++) {
-				$tds[i].onmouseenter = function() {
-				this.parentNode.style.cursor = "pointer";
-			} 
-		/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
-			$tds[i].onclick = function() {
-				const no = this.parentNode.children[0].innerText;
-				location.href = "${pageContext.servletContext.contextPath}/consult/detail/" + no;
-				}
-			}
-		}
+	<jsp:include page="../common/commonMember.jsp"/>
 
-	</script>
+	<main class="common-background">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <section class="common-card consult-list-form-content">
+              <section class="consult-form-content">
+                <div class="tag-lb-dark btn-check today-consult-list">금일 상담 내역 : 건</div>
+                <form class="consult-search-form">
+                  <div class="select-group">
+                    <select class="form-select">
+                      <option value="1">번호</option>
+                      <option value="2">학생명</option>
+                      <option value="3">담당자</option>
+                    </select>
+                    <i class="fas fa-caret-down" aria-hidden></i>
+                    </div>
+                    <div class="input-group">
+                      <span class="material-icons"> search </span>
+                      <input
+                        class="form-input"
+                        type="search"
+                        placeholder="검색어를 입력하세요."
+                      />
+                    </div>
+                </form>
+            </section>
+              <button type="button" class="btn-fill-primary btn-basic consult-input-btn"
+              onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담 입력</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <section class="common-table-card consult-table-card">
+                <table class="common-table consult-table ">
+                  <thead>
+                    <tr>
+                      <th scope="col">번호</th>
+                      <th scope="col">상담일</th>
+                      <th scope="col">학생명</th>
+                      <th scope="col">상담자</th>
+                      <th scope="col">상담방법</th>
+                      <th scope="col">상담내용</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-violet">
+                          비대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-violet">
+                          비대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-violet">
+                          비대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-light-blue">
+                          대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-r-light">
+                          학부모 동참
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-violet">
+                          비대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-violet">
+                          비대면
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-r-light">
+                          학부모 동참
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>2021/04/07</td>
+                      <td>정유미</td>
+                      <td>강용승</td>
+                      <td>
+                        <span class="tag-r-light">
+                          학부모 동참
+                        </span>
+                      </td>
+                      <td class="consult-text-overflow">진로에 대한 많은 고민이 있음. 방향을 잡는 것이 최우선.</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="pagenation">
+                  <button class="page-control page-prev" type="button">
+                    <span class="material-icons"> chevron_left </span>
+                  </button>
+                  <ol class="page-list">
+                    <li class="page-item">
+                      <a href="/">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a href="/">2</a>
+                    </li>
+                    <li class="page-item is-active">
+                      <a href="/">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a href="/">4</a>
+                    </li>
+                    <li class="page-item">
+                      <a href="/">5</a>
+                    </li>
+                  </ol>
+                  <button class="page-control page-next" type="button">
+                    <span class="material-icons"> chevron_right </span>
+                  </button>
+                </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 </body>
 </html>

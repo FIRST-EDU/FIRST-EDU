@@ -1,6 +1,7 @@
 package com.admin.firstedu.consult.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
 import com.admin.firstedu.consult.model.dto.ConsultInfoDTO;
@@ -9,12 +10,10 @@ import com.admin.firstedu.consult.model.dto.SearchCriteria;
 
 public interface ConsultService {
 
-	List<ConsultListDTO> selectConsultList();
+	List<ConsultListDTO> selectConsultList(Map<String, Object> map);
 
-	List<ConsultInfoDTO> selectStudentList();
+	List<ConsultInfoDTO> selectStudentList(Map<String, Object> map);
 	
-	List<ConsultListDTO> searchConsultList(SearchCriteria searchCriteria);
-
 	ConsultListDTO selectConsultDetail(int no);
 	
 	int insertConsult(ConsultDTO consult);
@@ -24,6 +23,10 @@ public interface ConsultService {
 	int deleteConsult(int no);
 
 	List<ConsultListDTO> selectStudentConsult(int no);
+
+	int searchTotalCount(SearchCriteria searchCriteria);
+
+	int selectTodayTotal();
 
 
 

@@ -1,6 +1,7 @@
 package com.admin.firstedu.consult.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +25,16 @@ public class ConsultServiceImpl implements ConsultService{
 
 
 	@Override
-	public List<ConsultListDTO> selectConsultList() {
+	public List<ConsultListDTO> selectConsultList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return consultMapper.selectConsultList();
+		return consultMapper.selectConsultList(map);
 	}
 
 
 	@Override
-	public List<ConsultInfoDTO> selectStudentList() {
+	public List<ConsultInfoDTO> selectStudentList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return consultMapper.selectStudentList();
+		return consultMapper.selectStudentList(map);
 	}
 
 
@@ -41,13 +42,6 @@ public class ConsultServiceImpl implements ConsultService{
 	public int insertConsult(ConsultDTO consult) {
 		// TODO Auto-generated method stub
 		return consultMapper.insertConsult(consult);
-	}
-
-
-	@Override
-	public List<ConsultListDTO> searchConsultList(SearchCriteria searchCriteria) {
-		// TODO Auto-generated method stub
-		return consultMapper.searchConsultList(searchCriteria);
 	}
 
 
@@ -76,6 +70,22 @@ public class ConsultServiceImpl implements ConsultService{
 	public List<ConsultListDTO> selectStudentConsult(int no) {
 		// TODO Auto-generated method stub
 		return consultMapper.selectStudentConsult(no);
+	}
+
+
+
+
+	@Override
+	public int searchTotalCount(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return consultMapper.searchTotalCount(searchCriteria);
+	}
+
+
+	@Override
+	public int selectTodayTotal() {
+		// TODO Auto-generated method stub
+		return consultMapper.selectTodayTotal();
 	}
 
 }

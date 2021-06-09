@@ -1,6 +1,10 @@
 package com.admin.firstedu.consult.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
 import com.admin.firstedu.consult.model.dto.ConsultInfoDTO;
 import com.admin.firstedu.consult.model.dto.ConsultListDTO;
+import com.admin.firstedu.consult.model.dto.PageInfoDTO;
 import com.admin.firstedu.consult.model.dto.SearchCriteria;
 import com.admin.firstedu.consult.model.service.ConsultService;
+import com.admin.firstedu.paging.Pagenation;
 
 @Controller
 @RequestMapping("/consult/*")
@@ -30,23 +36,42 @@ public class ConsultController {
 	}
 	
 	@GetMapping("list")
-	public String selectConsultList(Model model) {
+	public String selectConsultList(Model model, HttpServletRequest request, @ModelAttribute SearchCriteria searchCriteria) {
 		
-		List<ConsultListDTO> consultList = consultService.selectConsultList();
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+
+		int totalCount = consultService.searchTotalCount(searchCriteria);
+
+		int limit = 12;
+
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchCriteria",searchCriteria);
+		map.put("pageInfo", pageInfo);
+		
+		List<ConsultListDTO> consultList = consultService.selectConsultList(map);
+		
+		int consultTodayTotal = consultService.selectTodayTotal();
 		
 		model.addAttribute("consultList", consultList);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("searchOption", searchCriteria.getSearchOption());
+		model.addAttribute("searchValue", searchCriteria.getSearchValue());
+		model.addAttribute("consultTodayTotal", consultTodayTotal);
 		
-		return "consult/consultList";
-	}
-	
-	@GetMapping("search")
-	public String searchConsultList(Model model, @ModelAttribute SearchCriteria searchCriteria) {
-		
-		List<ConsultListDTO> consultList = consultService.searchConsultList(searchCriteria);
-		
-		model.addAttribute("consultList", consultList);
-		
-		return "consult/consultList";
+		return "consulting/consultList";
 	}
 	
 	@GetMapping("detail/{no}")
@@ -56,17 +81,45 @@ public class ConsultController {
 		
 		model.addAttribute("consultDetail", consultDetail);
 		
-		return "consult/consultDetail";
+		return "consulting/consultDetail";
 	}
 	
 	@GetMapping("insertView")
-	public String selectStudentList(Model model) {
+	public String selectStudentList(Model model, HttpServletRequest request,
+			@ModelAttribute SearchCriteria searchCriteria) {
 		
-		List<ConsultInfoDTO> studentList = consultService.selectStudentList();
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+
+		int totalCount = consultService.searchTotalCount(searchCriteria);
+
+		int limit = 12;
+
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchCriteria",searchCriteria);
+		map.put("pageInfo", pageInfo);
+		
+		List<ConsultInfoDTO> studentList = consultService.selectStudentList(map);
 		
 		model.addAttribute("studentList", studentList);
+		model.addAttribute("pageInfo", pageInfo);
+//		model.addAttribute("studentTotal", studentTotal);
+		model.addAttribute("searchOption", searchCriteria.getSearchOption());
+		model.addAttribute("searchValue", searchCriteria.getSearchValue());
 		
-		return "consult/consultInsert";
+		return "consulting/consultInsert";
 	}
 	
 	@PostMapping("insert")
@@ -90,7 +143,7 @@ public class ConsultController {
 		
 		model.addAttribute("consultUpdateView", consultUpdateView);
 		
-		return "consult/consultUpdate";
+		return "consulting/consultUpdate";
 	}
 	
 	@PostMapping("update")
@@ -122,6 +175,7 @@ public class ConsultController {
 		return "main/result";
 	}
 	
+	/* 학생 홈 화면에 띄워줄거임 */
 	@GetMapping("studentConsult/{no}")
 	public String selectStudentConsult(Model model, @PathVariable("no") int no) {
 		
@@ -132,6 +186,6 @@ public class ConsultController {
 	
 	@GetMapping("reserve")
 	public String consultCalendar() {
-		return "consult/consultCalendar";
+		return "consulting/consultCalendar";
 	}
 }

@@ -74,23 +74,146 @@
   		<collection property="grade" resultMap="gradeResultMap"/>
   	</resultMap>
   	
-  	<select id="selectConsultList" parameterType="ConsultListDTO" resultMap="consultListResultMap">
-  		SELECT
-               A.CONSULT_NO
-             , A.CONSULT_DATE
-             , C.STUDENT_NAME
-             , D.TEACHER_NAME
-             , B.CONSULT_OPTION
-             , A.CONSULT_CONTENT
+  	<resultMap type="ClassDTO" id="classResultMap">
+  		<id property="classCode" column="CLASS_CODE"/>
+  		<result property="classRoom" column="CLASS_ROOM"/>
+  		<result property="className" column="CLASS_NAME"/>
+  		<result property="classDay" column="CLASS_DAY"/>
+  		<result property="classTime" column="CLASS_TIME"/>
+  		<result property="classBook" column="CLASS_BOOK"/>
+  		<result property="classPariticipants" column="CLASS_PARTICIPANTS"/>
+  		<result property="classPayment" column="CLASS_PAYMENT"/>
+  		<result property="subjectNo" column="SUBJECT_NO"/>
+  		<result property="teacherNo" column="TEACHER_NO"/>
+  	</resultMap>
+  	
+  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="school" column="SCHOOL"/>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>  		
+  		<collection property="grade" resultMap="gradeResultMap"/>  		
+  	</resultMap>
+  	
+  	<select id="searchTotalCount" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
   		  FROM TBL_CONSULT A
-  		  JOIN TBL_TC_CATEGORY B ON (A.TC_CATEGORY_NO = B.TC_CATEGORY_NO)
-  		  JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
-  		  JOIN TBL_TEACHER D ON (A.TEACHER_NO = D.TEACHER_NO)
-  		 WHERE A.CONSULT_YN = 'Y'
-  		 ORDER BY A.CONSULT_NO DESC
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  <where>
+		  <if test="searchOption == null">
+  		  	A.CONSULT_YN = 'Y'
+  		 </if>
+  		 <if test="searchOption == 'studentName'">
+  		   AND B.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'consultOption'">
+  		   AND A.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'consultContent'">
+  		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'
+  		 </if>
+		  </where>
   	</select>
   	
-  	<select id="searchConsultList" parameterType="searchCriteria" resultMap="consultListResultMap">
+  	<select id="selectTodayTotal" resultType="_int">
+  	SELECT COUNT(*)
+	  FROM TBL_CONSULT A
+	 WHERE TO_CHAR(A.CONSULT_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+	   AND A.CONSULT_YN = 'Y'
+  	</select>
+  	
+  	<select id="selectConsultList" parameterType="hashmap" resultMap="consultListResultMap">
+  		SELECT A.RNUM
+               A.CONSULT_NO
+             , A.CONSULT_DATE
+             , A.STUDENT_NAME
+             , A.TEACHER_NAME
+             , A.CONSULT_OPTION
+             , A.CONSULT_CONTENT
+          FROM(SELECT ROWNUM RNUM
+	                , B.CONSULT_NO
+	                , B.CONSULT_DATE
+	                , B.STUDENT_NAME
+	                , B.TEACHER_NAME
+	                , B.CONSULT_OPTION
+	                , B.CONSULT_CONTENT
+	            FROM (SELECT C.CONSULT_NO
+		                   , C.CONSULT_DATE
+		                   , E.STUDENT_NAME
+		                   , F.TEACHER_NAME
+		                   , D.CONSULT_OPTION
+		                   , C.CONSULT_CONTENT
+		                FROM TBL_CONSULT C
+			  		    JOIN TBL_TC_CATEGORY D ON (C.TC_CATEGORY_NO = D.TC_CATEGORY_NO)
+			  		    JOIN TBL_STUDENT E ON (C.STUDENT_NO = E.STUDENT_NO)
+			  		    JOIN TBL_TEACHER F ON (C.TEACHER_NO = F.TEACHER_NO)
+			  		   WHERE C.CONSULT_YN = 'Y'
+			  		   ORDER BY C.CONSULT_NO DESC
+		             ) B
+             ) A
+         WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+         <if test="searchCriteria.searchOption == null">
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'studentName'">
+  		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'consultContent'">
+  		 AND A.CONSULT_CONTENT LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  		  <if test="searchCriteria.searchOption == 'consultOption'">
+  		 AND A.CONSULT_OPTION LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+
+  	</select>
+  	
+  	<select id="selectStudentList" parameterType="hashmap" resultMap="studentResultMap2">
+  	SELECT  A.RNUM
+		  , A.STUDENT_NO
+		  , A.STUDENT_NAME
+		  , A.GRADE_NAME
+		  , A.STUDENT_PHONE
+		  , A.CLASS_NO
+		  , A.CLASS_NAME
+		  , A.CLASS_PAYMENT
+		 FROM(SELECT ROWNUM RNUM
+		            , B.STUDENT_NO
+			  		, B.STUDENT_NAME
+			  		, B.GRADE_NAME
+			  		, B.STUDENT_PHONE
+			  	    , B.CLASS_NO
+			  	    , B.CLASS_NAME
+			  	    , B.CLASS_PAYMENT
+		       FROM (SELECT 
+		                   C.STUDENT_NO
+			  			 , C.STUDENT_NAME
+			  			 , F.GRADE_NAME
+			  			 , C.STUDENT_PHONE
+			  			 , D.CLASS_NO
+			  			 , E.CLASS_NAME
+			  			 , E.CLASS_PAYMENT
+		              FROM TBL_STUDENT C
+			  		  JOIN TBL_CLASS_INFO D ON (C.STUDENT_NO = D.STUDENT_NO)
+			  		  JOIN TBL_CLASS E ON (D.CLASS_CODE = E.CLASS_CODE)
+			  		  JOIN TBL_GRADE F ON (C.GRADE_CODE = F.GRADE_CODE)
+			  		 WHERE C.STATUS = 'Y'
+		             ORDER BY C.STUDENT_NO DESC
+		             ) B
+		      ) A
+		WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+  		  <if test="searchCriteria.searchOption == null">
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'className'">
+  		 AND A.CLASS_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'studentName'">
+  		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  	</select>
+  	
+  	<!-- <select id="searchConsultList" parameterType="searchCriteria" resultMap="consultListResultMap">
   		SELECT
                A.CONSULT_NO
              , A.CONSULT_DATE
@@ -113,7 +236,7 @@
   		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 ORDER BY A.CONSULT_NO DESC
-  	</select>
+  	</select> -->
   	
   	<select id="selectStudentList" parameterType="ConsultInfoDTO" resultMap="consultInfoResultMap">
   		SELECT
