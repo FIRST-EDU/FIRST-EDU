@@ -17,4 +17,5 @@ listBtn.addEventListener('click', () => {
   calendarBtn.classList.remove('is-active')
   scoreTableCard.style.display = 'block'
   calendarCard.style.display = 'none'
+  searchExam(1);
 })

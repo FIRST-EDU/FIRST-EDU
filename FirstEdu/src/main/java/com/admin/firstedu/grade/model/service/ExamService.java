@@ -13,6 +13,8 @@ public interface ExamService {
 
 	List<ExamListInfoDTO> selectExamList();
 	
+	int selectTotalCount(ExamSearchCriteria searchCriteria);
+
 	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
 
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
@@ -30,5 +32,6 @@ public interface ExamService {
 	boolean modifyExamCategory(ExamCategoryDTO examCategory);
 	
 	boolean removeExamCategory(int examCategoryNo);
+
 
 }

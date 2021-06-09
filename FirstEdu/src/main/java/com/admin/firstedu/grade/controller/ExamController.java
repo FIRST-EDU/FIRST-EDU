@@ -7,18 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.ExamException;
+import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
+import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
+import com.admin.firstedu.grade.model.dto.PageInfoDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,11 +40,7 @@ public class ExamController {
 	/* 시험 목록 조회 */
 	@GetMapping("/grade/exam/list")
 	public String selectExamList(Model model) {
-//		Calendar date = new GregorianCalendar(2021, 06, 01);
-//		java.util.Date beginDate = new java.util.Date(date.getTimeInMillis());
 		
-//		ExamSearchCriteria searchCriteria = new ExamSearchCriteria();
-//		System.out.println("searchCriteria : " + searchCriteria);
 		List<ExamListInfoDTO> examList = examService.selectExamList();
 		
 		for(ExamListInfoDTO exam : examList) {
@@ -73,6 +73,35 @@ public class ExamController {
 						.create();
 		
 		return gson.toJson(examList);
+	}
+
+	/* 시험 목록 검색(페이징 처리) */
+	@GetMapping(value="/grade/exam/search/{pageNo}", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria,
+								 @PathVariable("pageNo") int pageNo) {
+		System.out.println("pageNo : " + pageNo);
+		
+		/* 전체 게시물 개수 */
+		int totalCount = examService.selectTotalCount(searchCriteria);
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		System.out.println("totalCount ; " + totalCount);
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		searchCriteria.setPageInfo(pageInfo);
+		
+		List<ExamListInfoDTO> examList = examService.searchExamList(searchCriteria);
+		
+		ExamSearchResultDTO searchResult = new ExamSearchResultDTO(examList, pageInfo);
+		
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd")
+				.setPrettyPrinting()
+				.create();
+		
+		return gson.toJson(searchResult);
 	}
 
 	/* 시험 일정 등록 */

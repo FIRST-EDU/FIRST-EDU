@@ -13,12 +13,13 @@ public interface ExamMapper {
 
 	List<ExamListInfoDTO> selectExamList();
 
+	int selectTotalCount(ExamSearchCriteria searchCriteria);
+
 	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
 
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
 
 	List<ClassExamInfoDTO> selectClassList();
-
 
 	int insertExam(ExamDTO exam);
 
@@ -31,6 +32,7 @@ public interface ExamMapper {
 	int updateExamCategory(ExamCategoryDTO examCategory);
 
 	int deleteExamCategory(int examCategoryNo);
+
 
 
 }

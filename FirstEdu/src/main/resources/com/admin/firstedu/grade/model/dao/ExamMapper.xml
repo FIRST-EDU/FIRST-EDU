@@ -128,58 +128,103 @@
          ORDER BY C.START_DATE DESC
 	</select>
 	
-	<!-- 시험 목록 검색 -->
-	<select id="searchExamList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+	<!-- 검색 결과 시험 개수 조회 -->
+	<select id="selectTotalCount" parameterType="ExamSearchCriteria" resultType="_int">
 		SELECT
-		       A.EXAM_CATEGORY_NO
+		       COUNT(V.EXAM_NO)
+		  FROM V_EXAM_LIST V
+		<where>
+	      <if test="schoolExam == 0">
+	           V.EXAM_CATEGORY_NO != 1
+	      </if>
+	      <if test="mockExam == 0">
+	       AND V.EXAM_CATEGORY_NO != 2
+	      </if>
+	      <if test="hagwonExam == 0">
+	       AND V.REF_CATEGORY_NO IS NULL
+	      </if>
+	      <if test="categoryNo != 0">
+	       AND V.EXAM_CATEGORY_NO = #{ categoryNo }
+	      </if>
+	      <if test="classCode != null and classCode != 'null' and classCode != ''">
+	       AND V.CLASS_CODE = #{ classCode }
+	      </if>
+	      <if test="examName != null and examName != 'null' and examName != ''">
+	       AND V.EXAM_NAME LIKE '%' || #{ examName } || '%'
+	      </if>
+	    </where>
+	</select>
+	
+	<!-- 시험 목록 검색(페이징 처리) -->
+	<select id="searchExamList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+    	SELECT
+    	       A.RNUM
+    	     , A.EXAM_CATEGORY_NO
 		     , A.EXAM_CATEGORY_NAME
 		     , A.REF_CATEGORY_NO
 		     , A.COLOR_NO
-		     , B.COLOR_NAME
-		     , B.TAG_CLASS_NAME
-		     , B.COLOR_CODE_HEX
-		     , C.EXAM_NO
-		     , C.EXAM_NAME
-		     , C.START_DATE
-		     , C.END_DATE
-		     , C.SCHOOL
-		     , C.DESCRIPTION
-		     , C.CLASS_CODE
-		     , D.GRADE_NAME AS MOCK_EXAM_GRADE_NAME
-		     , E.CLASS_NAME
-		     , E.SUBJECT_NO
-		     , E.GRADE_CODE
-		     , E.TEACHER_NO
-		     , F.SUBJECT_NAME
-		     , G.GRADE_NAME AS HAGWON_EXAM_GRADE_NAME
-		  FROM TBL_EXAM_CATEGORY A
-		  JOIN TBL_COLOR B ON (A.COLOR_NO = B.COLOR_NO)
-		  JOIN TBL_EXAM C ON (A.EXAM_CATEGORY_NO = C.EXAM_CATEGORY_NO)
-		  LEFT JOIN TBL_GRADE D ON (C.GRADE_CODE = D.GRADE_CODE)
-		  LEFT JOIN TBL_CLASS E ON (C.CLASS_CODE = E.CLASS_CODE)
-		  LEFT JOIN TBL_SUBJECT_CATEGORY F ON (E.SUBJECT_NO = F.SUBJECT_NO)
-		  LEFT JOIN TBL_GRADE G ON (E.GRADE_CODE = G.GRADE_CODE)
-		 WHERE A.EXAM_CATEGORY_STATUS = 'Y'
-		   AND C.EXAM_STATUS = 'Y'
-	     <if test="schoolExam == 0">
-	       AND A.EXAM_CATEGORY_NO != 1
-	     </if>
-	     <if test="mockExam == 0">
-	       AND A.EXAM_CATEGORY_NO != 2
-	     </if>
-	     <if test="hagwonExam == 0">
-	       AND A.REF_CATEGORY_NO IS NULL
-	     </if>
-	     <if test="categoryNo != 0">
-	       AND A.EXAM_CATEGORY_NO = #{ categoryNo }
-	     </if>
-	     <if test="classCode != null and classCode != 'null' and classCode != ''">
-	       AND C.CLASS_CODE = #{ classCode }
-	     </if>
-	     <if test="examName != null and examName != 'null' and examName != ''">
-	       AND C.EXAM_NAME LIKE '%' || #{ examName } || '%'
-	     </if>
-         ORDER BY C.START_DATE DESC
+		     , A.COLOR_NAME
+		     , A.TAG_CLASS_NAME
+		     , A.COLOR_CODE_HEX
+		     , A.EXAM_NO
+		     , A.EXAM_NAME
+		     , A.START_DATE
+		     , A.END_DATE
+		     , A.SCHOOL
+		     , A.DESCRIPTION
+		     , A.CLASS_CODE
+		     , A.MOCK_EXAM_GRADE_NAME
+		     , A.CLASS_NAME
+		     , A.SUBJECT_NO
+		     , A.GRADE_CODE
+		     , A.TEACHER_NO
+		     , A.SUBJECT_NAME
+		     , A.HAGWON_EXAM_GRADE_NAME
+		  FROM (SELECT ROWNUM RNUM
+		    	     , V.EXAM_CATEGORY_NO
+				     , V.EXAM_CATEGORY_NAME
+				     , V.REF_CATEGORY_NO
+				     , V.COLOR_NO
+				     , V.COLOR_NAME
+				     , V.TAG_CLASS_NAME
+				     , V.COLOR_CODE_HEX
+				     , V.EXAM_NO
+				     , V.EXAM_NAME
+				     , V.START_DATE
+				     , V.END_DATE
+				     , V.SCHOOL
+				     , V.DESCRIPTION
+				     , V.CLASS_CODE
+				     , V.MOCK_EXAM_GRADE_NAME
+				     , V.CLASS_NAME
+				     , V.SUBJECT_NO
+				     , V.GRADE_CODE
+				     , V.TEACHER_NO
+				     , V.SUBJECT_NAME
+				     , V.HAGWON_EXAM_GRADE_NAME
+		          FROM V_EXAM_LIST V
+				<where>
+			      <if test="schoolExam == 0">
+			           V.EXAM_CATEGORY_NO != 1
+			      </if>
+			      <if test="mockExam == 0">
+			       AND V.EXAM_CATEGORY_NO != 2
+			      </if>
+			      <if test="hagwonExam == 0">
+			       AND V.REF_CATEGORY_NO IS NULL
+			      </if>
+			      <if test="categoryNo != 0">
+			       AND V.EXAM_CATEGORY_NO = #{ categoryNo }
+			      </if>
+			      <if test="classCode != null and classCode != 'null' and classCode != ''">
+			       AND V.CLASS_CODE = #{ classCode }
+			      </if>
+			      <if test="examName != null and examName != 'null' and examName != ''">
+			       AND V.EXAM_NAME LIKE '%' || #{ examName } || '%'
+			      </if>
+			    </where>
+		  	   ) A
+		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
 	</select>
 	
 	<!-- 시험 종류 카테고리 목록 조회 -->

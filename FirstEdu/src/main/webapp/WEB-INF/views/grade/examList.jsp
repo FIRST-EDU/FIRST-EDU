@@ -137,6 +137,13 @@
 
       <div class="row">
         <div class="col-sm-4">
+	      <c:forEach var="exam" items="${ requestScope.examList }" varStatus="status">
+	        <input type="hidden" name="no-list" value="${ exam.examNo }"/>
+	        <input type="hidden" name="title-list" value="${ exam.examName }"/>
+		    <input type="hidden" name="start-list" value="${ exam.startDate }"/>
+	  	    <input type="hidden" name="end-list" value="${ exam.endDate }"/>
+			<input type="hidden" name="color-list" value="${ exam.color.codeHex }"/>
+		  </c:forEach>
           <!-- calendar -->
           <section class="common-card calendar-card">
             <div id='calendar' class="calendar-table"></div>
@@ -156,58 +163,13 @@
                 </tr>
               </thead>
               <tbody>
-                <c:forEach var="exam" items="${ requestScope.examList }" varStatus="status">
-                  <input type="hidden" name="no-list" value="${ exam.examNo }"/>
-                  <input type="hidden" name="title-list" value="${ exam.examName }"/>
-				  <input type="hidden" name="start-list" value="${ exam.startDate }"/>
-				  <input type="hidden" name="end-list" value="${ exam.endDate }"/>
-				  <input type="hidden" name="color-list" value="${ exam.color.codeHex }"/>
-                  <tr>
-                    <td>${ status.count }</td>
-                    <td class="custom-tag">
-                        <span class="${ exam.color.tagClassName }">${ exam.examCategoryName }</span>
-                    </td>
-                    <td>${ exam.examName }</td>
-                    <c:if test="${ exam.examCategoryNo eq 1 }">
-                      <td>${ exam.school }</td>
-                    </c:if>
-                    <c:if test="${ exam.examCategoryNo eq 2 }">
-                      <td>${ exam.mockExamGrade.name }</td>
-                    </c:if>
-                    <c:if test="${ exam.refCategoryNo eq 3 }">
-                      <td>${ exam.classExamInfo.className }</td>
-                    </c:if>
-                    <td>${ exam.startDate }</td>
-                    <td>${ exam.endDate }</td>
-                    <td>${ exam.description }</td>
-                  </tr>
-			    </c:forEach>
-                </tbody>
+              
+              </tbody>
             </table>
+            
+            <!-- 페이징 처리 -->
             <div class="pagenation">
-              <button class="page-control page-prev" type="button">
-                <span class="material-icons"> chevron_left </span>
-              </button>
-              <ol class="page-list">
-                <li class="page-item">
-                  <a href="/">1</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">2</a>
-                </li>
-                <li class="page-item is-active">
-                  <a href="/">3</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">4</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">5</a>
-                </li>
-              </ol>
-              <button class="page-control page-next" type="button">
-                <span class="material-icons"> chevron_right </span>
-              </button>
+
             </div>
           </section>
         </div>

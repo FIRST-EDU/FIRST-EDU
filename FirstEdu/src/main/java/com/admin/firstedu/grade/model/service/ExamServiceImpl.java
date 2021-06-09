@@ -27,6 +27,11 @@ public class ExamServiceImpl implements ExamService {
 	public List<ExamListInfoDTO> selectExamList() {
 		return mapper.selectExamList();
 	}
+	
+	@Override
+	public int selectTotalCount(ExamSearchCriteria searchCriteria) {
+		return mapper.selectTotalCount(searchCriteria);
+	}
 
 	@Override
 	public List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria) {
