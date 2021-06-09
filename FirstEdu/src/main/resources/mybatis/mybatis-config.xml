@@ -15,5 +15,6 @@
 	 <typeAlias type="com.admin.firstedu.consult.model.dto.SearchCriteria" alias="SearchCriteria"/>
 	  <typeAlias type="com.admin.firstedu.consult.model.dto.ClassInfoDTO" alias="ClassInfoDTO"/>
 	  <typeAlias type="com.admin.firstedu.consult.model.dto.ClassDTO" alias="ClassDTO"/>
+	  <typeAlias type="com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO" alias="StudentAndClassInfoDTO"/>
  </typeAliases>
 </configuration>

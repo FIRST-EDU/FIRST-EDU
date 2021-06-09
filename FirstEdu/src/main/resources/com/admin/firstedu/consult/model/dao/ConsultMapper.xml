@@ -87,6 +87,14 @@
   		<result property="teacherNo" column="TEACHER_NO"/>
   	</resultMap>
   	
+  	<resultMap type="ClassInfoDTO" id="classInfoResultMap">
+  		<id property="no" column="CLASS_NO"/>
+  		<result property="beginDate" column="BEGIN_DATE"/>
+  		<result property="endDate" column="END_DATE"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="subjectCode" column="CLASS_CODE"/>
+  	</resultMap>
+  	
   	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="studentName" column="STUDENT_NAME"/>
@@ -125,9 +133,28 @@
 	   AND A.CONSULT_YN = 'Y'
   	</select>
   	
+  	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_STUDENT A
+  		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
+  		  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
+  		 <where>
+  		  <if test="searchOption == null">
+  		 	 A.STATUS = 'Y'
+  		  </if>
+  		 <if test="searchOption == 'school'">
+  		 	AND A.SCHOOL LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 <if test="searchOption == 'studentName'">
+  		 	AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 </where>
+
+  	</select>
+  	
   	<select id="selectConsultList" parameterType="hashmap" resultMap="consultListResultMap">
   		SELECT A.RNUM
-               A.CONSULT_NO
+             , A.CONSULT_NO
              , A.CONSULT_DATE
              , A.STUDENT_NAME
              , A.TEACHER_NAME
@@ -178,6 +205,7 @@
 		  , A.CLASS_NO
 		  , A.CLASS_NAME
 		  , A.CLASS_PAYMENT
+		  , A.SCHOOL
 		 FROM(SELECT ROWNUM RNUM
 		            , B.STUDENT_NO
 			  		, B.STUDENT_NAME
@@ -186,6 +214,7 @@
 			  	    , B.CLASS_NO
 			  	    , B.CLASS_NAME
 			  	    , B.CLASS_PAYMENT
+			  	    , B.SCHOOL
 		       FROM (SELECT 
 		                   C.STUDENT_NO
 			  			 , C.STUDENT_NAME
@@ -194,6 +223,7 @@
 			  			 , D.CLASS_NO
 			  			 , E.CLASS_NAME
 			  			 , E.CLASS_PAYMENT
+			  			 , C.SCHOOL
 		              FROM TBL_STUDENT C
 			  		  JOIN TBL_CLASS_INFO D ON (C.STUDENT_NO = D.STUDENT_NO)
 			  		  JOIN TBL_CLASS E ON (D.CLASS_CODE = E.CLASS_CODE)
@@ -205,8 +235,8 @@
 		WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
   		  <if test="searchCriteria.searchOption == null">
   		  </if>
-  		 <if test="searchCriteria.searchOption == 'className'">
-  		 AND A.CLASS_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		 <if test="searchCriteria.searchOption == 'school'">
+  		 AND A.SCHOOL LIKE '%' || #{searchCriteria.searchValue} || '%'
   		  </if>
   		 <if test="searchCriteria.searchOption == 'studentName'">
   		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
@@ -237,18 +267,7 @@
   		 </if>
   		 ORDER BY A.CONSULT_NO DESC
   	</select> -->
-  	
-  	<select id="selectStudentList" parameterType="ConsultInfoDTO" resultMap="consultInfoResultMap">
-  		SELECT
-  			   A.STUDENT_NO
-  			 , A.STUDENT_NAME
-  			 , B.GRADE_NAME
-  			 , A.SCHOOL
-  			 , A.STUDENT_PHONE
-  		  FROM TBL_STUDENT A
-  		  JOIN TBL_GRADE B ON (A.GRADE_CODE = B.GRADE_CODE)
-  		 WHERE A.STATUS = 'Y'
-  	</select>
+
   	
   	<select id="selectConsultDetail" parameterType="_int" resultMap="consultListResultMap">
   		SELECT

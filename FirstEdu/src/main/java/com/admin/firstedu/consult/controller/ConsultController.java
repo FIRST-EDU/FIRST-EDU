@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
-import com.admin.firstedu.consult.model.dto.ConsultInfoDTO;
 import com.admin.firstedu.consult.model.dto.ConsultListDTO;
 import com.admin.firstedu.consult.model.dto.PageInfoDTO;
 import com.admin.firstedu.consult.model.dto.SearchCriteria;
+import com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.consult.model.service.ConsultService;
 import com.admin.firstedu.paging.Pagenation;
 
@@ -111,11 +111,13 @@ public class ConsultController {
 		map.put("searchCriteria",searchCriteria);
 		map.put("pageInfo", pageInfo);
 		
-		List<ConsultInfoDTO> studentList = consultService.selectStudentList(map);
+		List<StudentAndClassInfoDTO> studentList = consultService.selectStudentList(map);
+		
+		int studentTotal = consultService.selectStudentTotal(searchCriteria);
 		
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("pageInfo", pageInfo);
-//		model.addAttribute("studentTotal", studentTotal);
+		model.addAttribute("studentTotal", studentTotal);
 		model.addAttribute("searchOption", searchCriteria.getSearchOption());
 		model.addAttribute("searchValue", searchCriteria.getSearchValue());
 		

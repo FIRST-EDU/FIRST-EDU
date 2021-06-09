@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
-import com.admin.firstedu.consult.model.dto.ConsultInfoDTO;
 import com.admin.firstedu.consult.model.dto.ConsultListDTO;
 import com.admin.firstedu.consult.model.dto.SearchCriteria;
+import com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO;
 
 public interface ConsultService {
 
 	List<ConsultListDTO> selectConsultList(Map<String, Object> map);
 
-	List<ConsultInfoDTO> selectStudentList(Map<String, Object> map);
+	List<StudentAndClassInfoDTO> selectStudentList(Map<String, Object> map);
 	
 	ConsultListDTO selectConsultDetail(int no);
 	
@@ -27,6 +27,8 @@ public interface ConsultService {
 	int searchTotalCount(SearchCriteria searchCriteria);
 
 	int selectTodayTotal();
+
+	int selectStudentTotal(SearchCriteria searchCriteria);
 
 
 

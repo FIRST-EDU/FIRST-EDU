@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.consult.model.dao.ConsultMapper;
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
-import com.admin.firstedu.consult.model.dto.ConsultInfoDTO;
 import com.admin.firstedu.consult.model.dto.ConsultListDTO;
 import com.admin.firstedu.consult.model.dto.SearchCriteria;
+import com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO;
 
 @Service("consultService")
 public class ConsultServiceImpl implements ConsultService{
@@ -32,7 +32,7 @@ public class ConsultServiceImpl implements ConsultService{
 
 
 	@Override
-	public List<ConsultInfoDTO> selectStudentList(Map<String, Object> map) {
+	public List<StudentAndClassInfoDTO> selectStudentList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return consultMapper.selectStudentList(map);
 	}
@@ -86,6 +86,13 @@ public class ConsultServiceImpl implements ConsultService{
 	public int selectTodayTotal() {
 		// TODO Auto-generated method stub
 		return consultMapper.selectTodayTotal();
+	}
+
+
+	@Override
+	public int selectStudentTotal(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return consultMapper.selectStudentTotal(searchCriteria);
 	}
 
 }
