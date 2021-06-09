@@ -5,7 +5,18 @@ $(function() {
 	setTimeout(function(){
 		createCalendar();
 		addEvent();
-	}, 150);
+		/* 달력 날짜 변경 시 검색 목록 조회 */
+		$('.fc-prev-button').click(function(){
+			searchExamSchedule();
+		});
+		$('.fc-next-button').click(function(){
+			searchExamSchedule();
+		});
+		$('.fc-today-button').click(function(){
+			searchExamSchedule();
+		});
+		
+	}, 200);
 });
 
 /* 처음 달력 생성 */

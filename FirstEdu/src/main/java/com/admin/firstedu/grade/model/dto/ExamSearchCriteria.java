@@ -21,5 +21,7 @@ public class ExamSearchCriteria implements java.io.Serializable {
 	private int categoryNo;
 	private String classCode;
 	private String examName;
+	private String startDate;
+	private String endDate;
 	private PageInfoDTO pageInfo;
 }

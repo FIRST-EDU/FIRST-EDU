@@ -8,8 +8,7 @@ calendarBtn.addEventListener('click', () => {
   listBtn.classList.remove('is-active')
   calendarCard.style.display = 'block'
   scoreTableCard.style.display = 'none'
-  calendar.removeAllEvents();
-  addEvent();
+  searchExamSchedule();
 })
 
 listBtn.addEventListener('click', () => {

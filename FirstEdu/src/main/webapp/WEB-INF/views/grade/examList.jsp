@@ -137,16 +137,16 @@
 
       <div class="row">
         <div class="col-sm-4">
-	      <c:forEach var="exam" items="${ requestScope.examList }" varStatus="status">
-	        <input type="hidden" name="no-list" value="${ exam.examNo }"/>
-	        <input type="hidden" name="title-list" value="${ exam.examName }"/>
-		    <input type="hidden" name="start-list" value="${ exam.startDate }"/>
-	  	    <input type="hidden" name="end-list" value="${ exam.endDate }"/>
-			<input type="hidden" name="color-list" value="${ exam.color.codeHex }"/>
-		  </c:forEach>
           <!-- calendar -->
           <section class="common-card calendar-card">
             <div id='calendar' class="calendar-table"></div>
+		    <c:forEach var="exam" items="${ requestScope.examList }" varStatus="status">
+		      <input type="hidden" name="no-list" value="${ exam.examNo }"/>
+		      <input type="hidden" name="title-list" value="${ exam.examName }"/>
+	    	  <input type="hidden" name="start-list" value="${ exam.startDate }"/>
+		  	  <input type="hidden" name="end-list" value="${ exam.endDate }"/>
+			  <input type="hidden" name="color-list" value="${ exam.color.codeHex }"/>
+			</c:forEach>
           </section>
           <!-- table -->
           <section class="common-table-card score-table-card">

@@ -10,15 +10,26 @@ $('#checkHagwonExam').click(function() {
 })
 
 /* 필터 검색 */
-$("input").change(function(){
-	searchExam(1);
+/* input 박스 값 변경 시 검색 목록 조회 */
+$('input').change(function(){
+	if(scoreTableCard.style.display == 'block') {
+		searchExam(1);
+	} else {
+		searchExamSchedule();
+	}
 });
 
-$("select").change(function(){
-	searchExam(1);
+/* select 값 변경 시 검색 목록 조회 */
+$('select').change(function(){
+	if(scoreTableCard.style.display == 'block') {
+		searchExam(1);
+	} else {
+		searchExamSchedule();
+	}
 });
 
-/* 시험 목록 조회 */
+
+/* 시험 목록 테이블 조회 */
 function searchExam(pageNo) {
 	let schoolExam = $('#checkSchoolExam').prop('checked') ? 1 : 0;
 	let mockExam = $('#checkMockExam').prop('checked') ? 2 : 0;
@@ -26,7 +37,6 @@ function searchExam(pageNo) {
 	let categoryNo = $('#checkHagwonExam').prop('checked') ? $('#category').val() : 0;
 	let classCode = $('#checkHagwonExam').prop('checked') ? $('#class').val() : null;
 	let examName = $('#examName').val() ? $('#examName').val() : null;
-	let limit = 10;
 	
 	$.ajax({
 		url: "/firstedu/grade/exam/search/" + pageNo,
@@ -45,14 +55,10 @@ function searchExam(pageNo) {
 			const $table = $('#examTable tbody');
 			$table.html("");
 			
+			let no = (pageNo - 1) * data.pageInfo.limit + 1
 			for(var index in data.examList) {
-				$noInput = '<input type="hidden" name="no-list" value="' + data.examList[index].examNo + '"/>';  
-				$titleInput = '<input type="hidden" name="title-list" value="' + data.examList[index].examName + '"/>';  
-				$startInput = '<input type="hidden" name="start-list" value="' + data.examList[index].startDate + '"/>';  
-				$endInput = '<input type="hidden" name="end-list" value="' + data.examList[index].endDate + '"/>';  
-				$colorInput = '<input type="hidden" name="color-list" value="' + data.examList[index].color.codeHex + '"/>';  
-				
-				$noTd = $('<td>').text(data.examList[index].examNo);
+				$noInput = '<input type="hidden" name="no-list" value="' + data.examList[index].examNo + '"/>';
+				$noTd = $('<td>').html($noInput + no++);
 				$categoryTd = $('<td class="custom-tag">').html('<span class="' + data.examList[index].color.tagClassName + '">' + data.examList[index].examCategoryName + '</span>');
 				$nameTd = $('<td>').text(data.examList[index].examName);
 				
@@ -78,11 +84,6 @@ function searchExam(pageNo) {
 				$tr.append($endTd);
 				$tr.append($descriptionTd);
 				
-				$table.append($noInput);
-				$table.append($titleInput);
-				$table.append($startInput);
-				$table.append($endInput);
-				$table.append($colorInput);
 				$table.append($tr);
 				
 			}
@@ -133,18 +134,72 @@ function searchExam(pageNo) {
 			$pagenation.append($leftButton);
 			$pagenation.append($ol);
 			$pagenation.append($rightButton);			
-				
-			/* 캘린더 데이터 수정 */
-//			calendar.removeAllEvents();
-//			if(data.length != 0) {
-//				addEvent();				
-//			}
-			
+
 		},
 		error: function(error) {
 			alert('시험 목록을 불러오지 못 했습니다. 잠시 후 다시 시도해 주세요.');
 		}
 	});
 	
-} // searchExam() end
+} // searchExam(pageNo) end
 
+/* 시험 일정 달력 조회 */
+function searchExamSchedule() {
+	let schoolExam = $('#checkSchoolExam').prop('checked') ? 1 : 0;
+	let mockExam = $('#checkMockExam').prop('checked') ? 2 : 0;
+	let hagwonExam = $('#checkHagwonExam').prop('checked') ? 3 : 0;
+	let categoryNo = $('#checkHagwonExam').prop('checked') ? $('#category').val() : 0;
+	let classCode = $('#checkHagwonExam').prop('checked') ? $('#class').val() : null;
+	let examName = $('#examName').val() ? $('#examName').val() : null;
+
+	let startDate = calendar.view.activeStart.toISOString().substring(0,10);
+	let endDate = calendar.view.activeEnd.toISOString().substring(0,10);
+
+	$.ajax({
+		url: "/firstedu/grade/exam/search/schedule",
+		type: "get",
+		data: {
+				schoolExam : schoolExam,
+				mockExam : mockExam,
+				hagwonExam : hagwonExam,
+				categoryNo : categoryNo,
+				classCode : classCode,
+				examName : examName,
+				startDate : startDate,
+				endDate : endDate
+			  },
+		success: function(data) {
+			
+			/* input hidden 태그 삭제 */
+		    console.log($('.calendar-card input'));
+			$('.calendar-card input').remove();
+		    console.log($('.calendar-card input'));
+			
+			
+			/* input hidden 태그 추가 */	
+			for(var index in data) {
+				$noInput = '<input type="hidden" name="no-list" value="' + data[index].examNo + '"/>';  
+				$titleInput = '<input type="hidden" name="title-list" value="' + data[index].examName + '"/>';  
+				$startInput = '<input type="hidden" name="start-list" value="' + data[index].startDate + '"/>';  
+				$endInput = '<input type="hidden" name="end-list" value="' + data[index].endDate + '"/>';  
+				$colorInput = '<input type="hidden" name="color-list" value="' + data[index].color.codeHex + '"/>';  
+				
+				$('.calendar-card').append($noInput);
+				$('.calendar-card').append($titleInput);
+				$('.calendar-card').append($startInput);
+				$('.calendar-card').append($endInput);
+				$('.calendar-card').append($colorInput);
+			}
+			console.log($('.calendar-card input'));
+			/* 캘린더 데이터 수정 */
+			calendar.removeAllEvents();
+			if(data.length != 0) {
+				addEvent();				
+			}
+		},
+		error: function(error) {
+			alert('시험 목록을 불러오지 못 했습니다. 잠시 후 다시 시도해 주세요.');
+		}
+	});
+		
+} // searchExamSchedule() end

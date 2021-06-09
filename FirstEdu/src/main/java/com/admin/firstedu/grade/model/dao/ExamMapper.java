@@ -11,15 +11,17 @@ import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 
 public interface ExamMapper {
 
-	List<ExamListInfoDTO> selectExamList();
-
-	int selectTotalCount(ExamSearchCriteria searchCriteria);
-
-	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
+	List<ExamListInfoDTO> selectExamScheduleList();
 
 	List<ExamCategoryFullInfoDTO> selectExamCategoryList();
 
 	List<ClassExamInfoDTO> selectClassList();
+
+	List<ExamListInfoDTO> searchExamScheduleList(ExamSearchCriteria searchCriteria);
+
+	int selectTotalCount(ExamSearchCriteria searchCriteria);
+	
+	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
 
 	int insertExam(ExamDTO exam);
 

@@ -23,6 +23,12 @@ public class Pagenation {
 			endPage = maxPage;
 		}
 		
+		/* 게시물이 존재하지 않는 경우 */
+		if(maxPage == 0 && endPage == 0) {
+			maxPage = startPage;
+			endPage = startPage;
+		}
+		
 		startRow = (pageNo - 1) * limit + 1;
 		endRow = startRow + limit - 1;
 		

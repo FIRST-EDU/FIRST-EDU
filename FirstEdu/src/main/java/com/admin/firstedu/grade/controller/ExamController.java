@@ -37,11 +37,11 @@ public class ExamController {
 		this.examService = examService;
 	}
 	
-	/* 시험 목록 조회 */
+	/* 시험 관리 첫 화면 - 시험 일정 조회(달력) */
 	@GetMapping("/grade/exam/list")
 	public String selectExamList(Model model) {
 		
-		List<ExamListInfoDTO> examList = examService.selectExamList();
+		List<ExamListInfoDTO> examList = examService.selectExamScheduleList();
 		
 		for(ExamListInfoDTO exam : examList) {
 			System.out.println(exam);
@@ -61,12 +61,12 @@ public class ExamController {
 		return "grade/examList";
 	}
 	
-	/* 시험 목록 검색 */
-	@GetMapping(value="/grade/exam/search", produces="application/json; charset=UTF-8")
+	/* 시험 일정 달력 조회 및 검색 */
+	@GetMapping(value="/grade/exam/search/schedule", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria) {
 		System.out.println(searchCriteria);
-		List<ExamListInfoDTO> examList = examService.searchExamList(searchCriteria);
+		List<ExamListInfoDTO> examList = examService.searchExamScheduleList(searchCriteria);
 		Gson gson = new GsonBuilder()
 						.setDateFormat("yyyy-MM-dd")
 						.setPrettyPrinting()
@@ -75,19 +75,16 @@ public class ExamController {
 		return gson.toJson(examList);
 	}
 
-	/* 시험 목록 검색(페이징 처리) */
+	/* 시험 목록 테이블 조회 및 검색(페이징 처리) */
 	@GetMapping(value="/grade/exam/search/{pageNo}", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria,
 								 @PathVariable("pageNo") int pageNo) {
-		System.out.println("pageNo : " + pageNo);
 		
 		/* 전체 게시물 개수 */
 		int totalCount = examService.selectTotalCount(searchCriteria);
 		int limit = 10;
 		int buttonAmount = 5;
-		
-		System.out.println("totalCount ; " + totalCount);
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		searchCriteria.setPageInfo(pageInfo);

@@ -24,18 +24,8 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	@Override
-	public List<ExamListInfoDTO> selectExamList() {
-		return mapper.selectExamList();
-	}
-	
-	@Override
-	public int selectTotalCount(ExamSearchCriteria searchCriteria) {
-		return mapper.selectTotalCount(searchCriteria);
-	}
-
-	@Override
-	public List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria) {
-		return mapper.searchExamList(searchCriteria);
+	public List<ExamListInfoDTO> selectExamScheduleList() {
+		return mapper.selectExamScheduleList();
 	}
 
 	@Override
@@ -46,6 +36,21 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public List<ClassExamInfoDTO> selectClassList() {
 		return mapper.selectClassList();
+	}
+	
+	@Override
+	public List<ExamListInfoDTO> searchExamScheduleList(ExamSearchCriteria searchCriteria) {
+		return mapper.searchExamScheduleList(searchCriteria);
+	}
+	
+	@Override
+	public int selectTotalCount(ExamSearchCriteria searchCriteria) {
+		return mapper.selectTotalCount(searchCriteria);
+	}
+	
+	@Override
+	public List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria) {
+		return mapper.searchExamList(searchCriteria);
 	}
 
 	@Override
