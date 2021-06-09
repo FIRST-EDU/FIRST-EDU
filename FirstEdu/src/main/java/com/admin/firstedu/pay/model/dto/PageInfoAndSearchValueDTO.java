@@ -2,7 +2,7 @@ package com.admin.firstedu.pay.model.dto;
 
 public class PageInfoAndSearchValueDTO {
 
-	private PayPageInfoDTO pageInfo;
+	private PageInfoDTO pageInfo;
 	private int searchValueNo;
 	private String searchValue;
 
@@ -10,18 +10,18 @@ public class PageInfoAndSearchValueDTO {
 		super();
 	}
 
-	public PageInfoAndSearchValueDTO(PayPageInfoDTO pageInfo, int searchValueNo, String searchValue) {
+	public PageInfoAndSearchValueDTO(PageInfoDTO pageInfo, int searchValueNo, String searchValue) {
 		super();
 		this.pageInfo = pageInfo;
 		this.searchValueNo = searchValueNo;
 		this.searchValue = searchValue;
 	}
 
-	public PayPageInfoDTO getPageInfo() {
+	public PageInfoDTO getPageInfo() {
 		return pageInfo;
 	}
 
-	public void setPageInfo(PayPageInfoDTO pageInfo) {
+	public void setPageInfo(PageInfoDTO pageInfo) {
 		this.pageInfo = pageInfo;
 	}
 
