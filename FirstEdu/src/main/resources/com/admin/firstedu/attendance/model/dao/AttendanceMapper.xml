@@ -169,31 +169,31 @@
 		 VALUES
 		 (
 		   #{ categoryNo } 
-		 , SYSDATE , #{ memo }
+		 , SYSDATE , #{ memo, jdbcType=VARCHAR }
 		 , #{ studentNo }
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 	)
 	</insert>
 	
-	<select id="selectStudent" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-        SELECT
-		A.ATTENDANCE_NO
-		, A.MEMO
-		, B.STUDENT_NAME
-        , C.CLASS_NAME
-		, D.CATEGORY_NO
+	<select id="selectCategory" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+       SELECT A.ATTENDANCE_NO
+        , B.CLASS_NAME
+        , C.STUDENT_NAME
         , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
         , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
         , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
         , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae
-        FROM TBL_ATTENDANCE A
-        INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
-        INNER JOIN TBL_CLASS C ON (A.CLASS_CODE = C.CLASS_CODE)
-		INNER JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)         
-        GROUP BY A.ATTENDANCE_NO, A.MEMO, B.STUDENT_NAME , C.CLASS_NAME , D.CATEGORY_NO
+          FROM TBL_ATTENDANCE A
+          INNER JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+          INNER JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+          INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
+          GROUP BY A.ATTENDANCE_NO, B.CLASS_NAME , C.STUDENT_NAME , D.CATEGORY_NO
+          ORDER BY A.ATTENDANCE_NO;
+    
     </select>
+    
 	
-	<select id="selectCategory" parameterType="ClassInfoStudentDTO" resultMap="classInfoStudentResultSet">
+	<select id="selectStudent" parameterType="ClassInfoStudentDTO" resultMap="classInfoStudentResultSet">
 	 SELECT
         B.STUDENT_NAME
         FROM TBL_STUDENT B
@@ -201,22 +201,11 @@
         WHERE C.CLASS_CODE = #{classCode}
 	</select>
 
-	<update id="updateStudent" parameterType="AttendanceDTO" >
-		UPDATE
-			   TBL_ATTENDANCE A
-		<set>
-			<if test="categoryNo != null and categoryNo gt 0">
-		        A.CATEGORY_NO = #{categoryNo}
-			</if>
-			<if test="memo != null and memo !=''"/>
-			  , A.MEMO = #{ memo }
-			<if test="checkOutTime != null">
-			  ,	A.CHECKOUT_TIME = #{checkOutTime}
-			</if>
-			<if test="studentNo != null and studentNo gt 0">
-				STUDENT_NO = {studentNo}
-			</if>
-		</set>
-			WHERE = #{no}
-	</update>
+	<delete id="deletStudent" parameterType="AttendanceDTO" >
+		DELETE
+		FROM	TBL_ATTENDANCE
+
+			WHERE ATTENDANCE_NO = #{no}
+			AND ATTENDANCE_TIME = #{attendanceTime}
+	</delete>
 </mapper>

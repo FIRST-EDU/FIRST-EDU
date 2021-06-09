@@ -1,6 +1,5 @@
 package com.admin.firstedu.attendance.model.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,33 +127,39 @@ public class AttendanceController {
 	}
 	
 	
-	@PostMapping("/insertStudent")
-	public String insertStudent(@ModelAttribute AttendanceDTO attendance,String[] categoryNo1 ,RedirectAttributes rttr) throws AttendanceInsertException {
-		int result = 0;
-		for(String arr : categoryNo1) {
-			AttendanceDTO newAtt = new AttendanceDTO();
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setClassNo(attendance.getClassNo());
-			newAtt.setCategoryNo(Integer.valueOf(arr));
-				System.out.println(arr);
-					
-			result += attendanceService.insertStudent(newAtt);
-		}
-		if(!(result == categoryNo1.length)) {
-			
-			throw new AttendanceInsertException("학생 출결 입력 실패");
-		}
-		
-		rttr.addFlashAttribute("message", "성공");
-		
-		return "attendance/selectStudent";
-		
-	}
 	
+
+	
+	   @PostMapping("/insertStudent")
+	   public String insertStudent(@ModelAttribute AttendanceDTO attendance,String[] categoryNo1 ,RedirectAttributes rttr) throws AttendanceInsertException {
+		   
+		  int delete = 0;
+		  attendance.setNo(1);
+		  delete = attendanceService.deleteStudent(attendance);
+		  
+		   
+		  int result = 0;
+	      for(String arr : categoryNo1) {
+	         AttendanceDTO newAtt = new AttendanceDTO();
+	         newAtt.setNo(attendance.getNo());
+	         newAtt.setStudentNo(attendance.getStudentNo());
+	         newAtt.setMemo(attendance.getMemo());
+
+	         newAtt.setCategoryNo(Integer.valueOf(arr));
+	            System.out.println(arr);
+	               
+	         result += attendanceService.insertStudent(newAtt);
+	      }
+	      if(!(result == categoryNo1.length), (delete == 0)) {
+	         
+	         throw new AttendanceInsertException("학생 출결 입력 실패");
+	      }
+	      
+	      rttr.addFlashAttribute("message", "성공");
+	      
+	      return "attendance/insertStudent";
+
+	   }
 	@GetMapping("/selectStudent")
 	public String selectStudnet(Model model) {
 		List<AttendanceInfoDTO>cateogryList = attendanceService.selectStudent();
@@ -179,27 +184,10 @@ public class AttendanceController {
 		
 	}
 	
-	@GetMapping("/updateStudent")
-	public String updateStudentAttendance() {
-		return "attendance/updateStudent";
-	}
+
 		
 	
-	@PostMapping("/updateStudent")
-	public String updateStudent(@ModelAttribute AttendanceDTO attendance, RedirectAttributes rttr) throws AttendanceUpdateException {
-		
-		if(!attendanceService.updateStudent(attendance)) {
-				
-			throw new AttendanceUpdateException("학생 출결 수정 실패");
-		} 
-		
-		rttr.addFlashAttribute("message", "성공");
-		
-		return "attendance/selectStudent";
-		
-	}
-	
-	
+
 	
 	
 

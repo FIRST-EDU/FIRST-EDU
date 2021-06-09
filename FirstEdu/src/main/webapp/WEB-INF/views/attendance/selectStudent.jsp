@@ -6,10 +6,12 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
 <form>
-	<input type="button" onclick="">
+
 	<table class="selectLsit" border="1">
 	 	<thead>
 	 		<tr>
@@ -25,24 +27,37 @@
 	 	</tbody>
 	</table>
 	
-	<table class="cateogryList" border="1">
+	<table class="studentList" border="1">
 		<thead>
-		
+			<tr>
+				<th>NO</th>
+				<th>수강정보</th>
+				<th>학생</th>
+				<th>출석</th>
+				<th>결석</th>
+				<th>지각</th>
+				<th>조퇴</th>
+			</tr>
 		</thead>
 		<tbody>
-	 		<c:forEach var="cateogry" items="${categoryList}">
+			<c:forEach var="student" items="${studentList}">
 			<tr>
-				<th><c:out value="${ category.chulsuck }" ></c:out></th>
-				<th><c:out value="${ category.jigack}" ></c:out></th>
-				<th><c:out value="${ category.kyulsuck}" ></c:out></th>
-				<th><c:out value="${ category.jotae}" ></c:out></th>
+				<td><c:out value="${ student.no }"></c:out></td>
+				<td><c:out value="${ student.classDTO.className }"></c:out></td>
+				<td><c:out value="${ student.studentDTO.studentName }"></c:out></td>
+				<td><c:out value="${ student.chulsuck }"></c:out></td>
+				<td><c:out value="${ student.jigack }"></c:out></td>
+				<td><c:out value="${ student.kyulsuck }"></c:out></td>
+				<td><c:out value="${ student.jotae }"></c:out></td>
 			</tr>
-		</c:forEach>
+			</c:forEach>
 		</tbody>
-	
 	</table>
 
+<script>
 
+
+</script>
 
 </form>
 	
