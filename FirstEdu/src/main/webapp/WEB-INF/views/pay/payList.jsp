@@ -276,9 +276,7 @@
                 </c:if>
               </c:otherwise>
               </c:choose>
-              </div>
-
-              
+              </div>    
           </section>
         </div>
       </div>
@@ -287,12 +285,9 @@
 
  
  <div id="myModal" class="modal">
- 
       <!-- Modal content -->
       <div class="modal-content">
-                
-                <form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
-					
+            	<form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
 					    <input type="hidden" name="payNo" id="payNo" value=""><br>
 						학생명 <input type="text" name="studentName" id="studentName"  value="" readonly><br>
 						강의명 <input type="text" name="className" id="className" value="" readonly><br>
@@ -311,161 +306,177 @@
 								 <option value="카드">현금</option>
 							  </select><br>
 						납입일 <input type="date" name="payDate" value=""><br>
-					
 					<button type="submit" class="btn-fill-primary btn-basic storage-input-btn">수정</button>
 					<button type="button" class="btn-fill-primary btn-basic storage-input-btn" onClick="close_pop();">취소</button>
-			</form>
-           
-      </div>
- 
+				</form>          
+      	 </div>
     </div>
 
-
-
-
   </main>
-<script>
-		
-		$(document).ready(function () {
+	<script>
+	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
+		$(document).ready(function() {
 			$('#payList').tablesorter();
 		});
-		
+
+	/* 페이징 처리 start */
 		const link = "${ pageContext.servletContext.contextPath }/pay/list";
 		const searchLink = "${ pageContext.servletContext.contextPath }/pay/search";
 
-		/* 원하는 페이지 클릭시 실행되는 콜백 함수 */
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
 		}
 
 		function searchPageButtonAction(text) {
-			location.href = searchLink + "?currentPage=" + text + "&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+			location.href = searchLink
+					+ "?currentPage="
+					+ text
+					+ "&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 		}
 
-		
-		if(document.getElementById("searchPrevPage")){
+		if (document.getElementById("searchPrevPage")) {
 			const $searchPrevPage = document.getElementById("searchPrevPage");
-			$searchPrevPage.onclick = function(){
-				location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+			$searchPrevPage.onclick = function() {
+				location.href = searchLink
+						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 			}
 		}
 
-		if(document.getElementById("searchNextPage")){
+		if (document.getElementById("searchNextPage")) {
 			const $searchNextPage = document.getElementById("searchNextPage");
-			$searchNextPage.onclick = function(){
-				location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+			$searchNextPage.onclick = function() {
+				location.href = searchLink
+						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 			}
 		}
 
-
-		if(document.getElementById("prevPage")){
+		if (document.getElementById("prevPage")) {
 			const $prevPage = document.getElementById("prevPage");
-			$prevPage.onclick = function(){
-				location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+			$prevPage.onclick = function() {
+				location.href = link
+						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
 			}
 		}
 
-		if(document.getElementById("nextPage")){
+		if (document.getElementById("nextPage")) {
 			const $nextPage = document.getElementById("nextPage");
-			$nextPage.onclick = function(){
-				location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+			$nextPage.onclick = function() {
+				location.href = link
+						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
 			}
 		}
 		
-	
-		 $(".edit-btn").click(function() {
-			 if(document.getElementsByTagName("td")) {
-					const $tds = document.getElementsByTagName("td");
-					for(var i = 0 ; i < $tds.length ; i++) {
-				/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
+		/* 수정 버튼 클릭 시 발동되는 함수 start */
+		$(".edit-btn").click(function() {
+			if (document.getElementsByTagName("td")) {
+				const $tds = document.getElementsByTagName("td");
+				for (var i = 0; i < $tds.length; i++) {
 					$tds[i].onclick = function() {
 						const no = this.parentNode.children[0].innerText;
 						console.log(no);
 						$.ajax({
-							 url:"update",
-							 type:"GET",
-							 data:{no:no},
-							 success:function(data){
-								 var payNo = data.payNo;
-								 $("#payNo").attr("value",payNo);
-								 
-								 var className = data.classDTO.className;
-								 $("#className").attr("value",className);
-								 
-								 var classPayment = data.classDTO.classPayment;
-								 $("#tution").attr("value",classPayment);
-								 
-								 var studentName = data.student.studentName;
-								 $("#studentName").attr("value",studentName);
-								 
-								 $('#myModal').show();
-								 
-								 
-							 }
-						 });
-						
+								url : "update",
+								type : "GET",
+								data : {no : no},
+								success : function(data) {
+									var payNo = data.payNo;
+									$("#payNo").attr("value", payNo);
+
+									var className = data.classDTO.className;
+									$("#className").attr("value",className);
+
+									var classPayment = data.classDTO.classPayment;
+									$("#tution").attr("value",classPayment);
+
+									var studentName = data.student.studentName;
+									$("#studentName").attr("value",studentName);
+
+									var payYn = data.payYn;
+									if (payYn == '납부') {
+										$("#payYn option:eq(0)").prop("selected",true);
+									} else if (payYn == '미납') {
+										$("#payYn option:eq(1)").prop("selected",true);
+									}
+
+									if (data.discount != null) {
+										var discountReason = data.discount.discountReason;
+										if (discountReason == '친구') {
+											$("input:radio[id=dis1]").prop("checked",true);
+										} else if (discountReason == '기간') {
+											$("input:radio[id=dis2]").prop("checked",true);
+										} else if (discountReason == '없음') {
+											$("input:radio[id=dis3]").prop("checked",true);
+										}
+									}
+
+									var payOption = data.payOption;
+									$("#payOption option:selected").attr("value",payOption);
+									$('#myModal').show();
+								}
+							});
+
 						}
 					}
 				}
 
-     	 });
-    
-		 
-		 
-	     function close_pop(flag) {
-	          $('#myModal').hide();
-	     };
+			});
 
-	     $("input:radio").click(function(){
-				var tution = document.getElementById('tution').value;
-				
-				if($('input:radio[id=dis1]').is(':checked') == true){
-					var disTution1 = tution - (tution * 0.1);
-					$('input[name=payment]').attr('value',disTution1);
-				}
-				if($('input:radio[id=dis2]').is(':checked') == true){
-					var disTution2 = tution - (tution * 0.05);
-					$('input[name=payment]').attr('value',disTution2);
-				}
-				if($('input:radio[id=dis3]').is(':checked') == true){
-					$('input[name=payment]').attr('value',tution);
-				}
-			})
+		/* 취소버튼 클릭 시 모달창 숨김 */
+		function close_pop(flag) {
+			$('#myModal').hide();
+		};
 
-/* 미납옵션 선택 시 하위의 옵션들을 선택할 수 없게 막아놓는 JS Start */
-			$(function(){	
-				$(document).on("change", "select[name=payYn]", function(){
+		/* 할인 옵션 선택 시 할인률이 적용 */
+		$("input:radio").click(function() {
+			var tution = document.getElementById('tution').value;
+
+			if ($('input:radio[id=dis1]').is(':checked') == true) {
+				var disTution1 = tution - (tution * 0.1);
+				$('input[name=payment]').attr('value', disTution1);
+			}
+			if ($('input:radio[id=dis2]').is(':checked') == true) {
+				var disTution2 = tution - (tution * 0.05);
+				$('input[name=payment]').attr('value', disTution2);
+			}
+			if ($('input:radio[id=dis3]').is(':checked') == true) {
+				$('input[name=payment]').attr('value', tution);
+			}
+		})
+
+		/* 미납옵션 선택 시 하위의 옵션들을 선택할 수 없게 막아놓는 JS Start */
+		$(function() {
+			$(document).on("change", "select[name=payYn]", function() {
 				var value = $(this).find("option:selected").val();
 				var discountText = $("input[name=discountNo]");
 				var paymentText = $("input[name=payment]");
 				var payOptionText = $("select[name=payOption]");
 				var payDateText = $("input[name=payDate]");
 				var flag = false;
-					if (value == '미납') {
-						flag = true;
-						$(paymentText).val('0');
-						$(payDateText).val('0001-01-01');
-					} 
+				if (value == '미납') {
+					flag = true;
+					$(paymentText).val('0');
+					$(payDateText).val('0001-01-01');
+				}
 				/* $("#option1").prop("selected",true); */
 				$("#dis3").prop("checked", true);
 				$(paymentText).attr("disabled", flag);
 				$(payDateText).attr("disabled", flag);
 				$(payOptionText).attr("disabled", flag);
-				});
-
 			});
-			
-/* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
-			 $("form").submit(function(){
-				 $("input[name=payment]").removeAttr('disabled'); 
-				 $("input[name=payDate]").removeAttr('disabled'); 
-				 $("select[name=payOption]").removeAttr('disabled'); 
-				 
-			 })
-   
+
+		});
+
+		/* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
+		$("form").submit(function() {
+			$("input[name=payment]").removeAttr('disabled');
+			$("input[name=payDate]").removeAttr('disabled');
+			$("select[name=payOption]").removeAttr('disabled');
+
+		})
+
 	</script>
+	
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-
 </body>
 </html>

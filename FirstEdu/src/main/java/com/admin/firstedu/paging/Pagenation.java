@@ -1,10 +1,10 @@
-package com.admin.firstedu.pay.paging;
+package com.admin.firstedu.paging;
 
-import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
+import com.admin.firstedu.pay.model.dto.PageInfoDTO;
 
-public class PayPagenation {
+public class Pagenation {
 	   
-	   public static PayPageInfoDTO getPageInfo(int pageNo, int totalCount, int limit, int buttonAmount) {
+	   public static PageInfoDTO getPageInfo(int pageNo, int totalCount, int limit, int buttonAmount) {
 	      
 	      /* pageNo과 totalCount가 넘어온 상태이기 때문에 
 	       * 페이징 처리에 필요한 나머지 변수만 선언을 한다.
@@ -30,10 +30,10 @@ public class PayPagenation {
 	      }
 	      
 	      /* 참고용 : 마지막 페이지는 0이 될 수 없기 때문에 게시물이 아무 것도 존재하지 않으면 maxPage와 endPage는 1이 된다. */
-//	      if(maxPage == 0 && endPage == 0) {
-//	         maxPage = startPage;
-//	         endPage = startPage;
-//	      }
+	      if(maxPage == 0 && endPage == 0) {
+	         maxPage = startPage;
+	         endPage = startPage;
+	      }
 	      
 	      /* DB 조회 할 시작 번호와 마지막 행 번호를 계산한다. */
 	      startRow = (pageNo -1) * limit + 1;
@@ -42,7 +42,7 @@ public class PayPagenation {
 //	      System.out.println("startRow : " + startRow);
 //	      System.out.println("endRow : " + endRow);
 	      
-	      PayPageInfoDTO pageInfo = new PayPageInfoDTO(pageNo, totalCount, limit, buttonAmount, 
+	      PageInfoDTO pageInfo = new PageInfoDTO(pageNo, totalCount, limit, buttonAmount, 
 	            maxPage, startPage, endPage, startRow, endRow);
 	      
 	      return pageInfo;

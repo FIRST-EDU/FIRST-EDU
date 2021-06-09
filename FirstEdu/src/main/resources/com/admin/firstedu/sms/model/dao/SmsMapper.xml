@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.admin.firstedu.sms.model.dao.SmsMapper">
+ 	<resultMap type="SmsDTO" id="smsResultMap">
+ 		<id property="smsNo" column="SMS_NO"/>
+ 		<result property="parentsPhone" column="PARENTS_PHONE"/>
+ 		<result property="smsContent" column="SMS_CONTENT"/>
+ 		<result property="sendTime" column="SEND_TIME"/>
+ 		<result property="studentNo" column="STUDENT_NO"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="StudentDTO" id="studentResultMap">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="grade" column="GRADE_CODE"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="parentsName" column="PARENTS_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="parentsPhone" column="PARENTS_PHONE"/>
+  		<result property="gender" column="GENDER"/>
+  		<result property="birth" column="BIRTH"/>
+  		<result property="school" column="SCHOOL"/>
+  		<result property="address" column="ADDRESS"/>
+  		<result property="registrationDate" column="REGISTRATION_DATE"/>
+  		<result property="status" column="STATUS"/>
+  	</resultMap>
+ 	
+ 	<resultMap type="SmsAndStudentDTO" id="smsAndStudentDTOResultMap">
+ 		<id property="smsNo" column="SMS_NO"/>
+ 		<result property="smsContent" column="SMS_CONTENT"/>
+ 		<result property="sendTime" column="SEND_TIME"/>
+ 		<association property="student" resultMap="studentResultMap"/>
+ 	</resultMap>
+ 	
+ 	<select id="selectSmsList" resultMap="smsAndStudentDTOResultMap">
+ 		SELECT
+		       A.SMS_NO
+		     , B.STUDENT_NAME
+		     , B.PARENTS_PHONE
+		     , A.SEND_TIME
+		     , A.SMS_CONTENT
+		  FROM TBL_SMS A
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  ORDER BY A.SMS_NO DESC
+ 	</select>
+ 	
+ 	<select id="selectStudentList" resultMap="studentResultMap">
+ 		SELECT
+ 			   A.STUDENT_NO
+ 			 , A.STUDENT_NAME
+ 			 , A.SCHOOL
+ 			 , A.PARENTS_PHONE
+ 		  FROM TBL_STUDENT A
+ 		 WHERE A.STATUS = 'Y'
+ 	</select>
+ 	
+ 	<insert id="sendMessage" parameterType="SmsDTO">
+ 		INSERT INTO 
+ 		    TBL_SMS
+ 		(
+ 		  SMS_NO
+ 		, PARENTS_PHONE
+ 		, SMS_CONTENT
+ 		, STUDENT_NO
+ 		)
+ 		VALUES
+ 		(
+ 		  SEQ_SMS_NO.NEXTVAL
+ 		, #{parentsPhone}
+ 		, #{smsContent}
+ 		, ${studentNo}
+ 		)
+ 	</insert>
+ </mapper>

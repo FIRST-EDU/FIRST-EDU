@@ -3,18 +3,18 @@ package com.admin.firstedu.pay.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.admin.firstedu.pay.model.dto.PageInfoDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
-import com.admin.firstedu.pay.model.dto.PayPageInfoDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
 import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
 public interface PayService {
 
-	List<PayListDTO> selectPayList(PayPageInfoDTO pageInfo);
+	List<PayListDTO> selectPayList(PageInfoDTO pageInfo);
 
-	List<StudentAndClassInfoDTO> selectStudentList();
+	List<StudentAndClassInfoDTO> selectStudentList(SearchCriteria searchCriteria);
 	
 	int insertPay(PayDTO pay);
 	
@@ -22,14 +22,13 @@ public interface PayService {
 
 	int deletePay(int no);
 
-
-	PayListDTO selectPayDetail(int no);
+//	PayListDTO selectPayDetail(int no);
 
 	PayListDTO selectUpdatePay(int no);
 
 	int selectPaySum();
 
-	List<StudentAndClassDTO> selectClassList(int stuNo);
+	List<StudentAndClassInfoDTO> selectClassList(int stuNo);
 	
 	List<PayListDTO> searchPayYnPayList(Map<String, Object> map);
 
@@ -41,8 +40,9 @@ public interface PayService {
 	
 	int searchTotalCount(SearchCriteria searchCriteria);
 
-
 	int searchPaySum(SearchCriteria searchCriteria);
+
+	int selectStudentTotal(SearchCriteria searchCriteria);
 
 
 

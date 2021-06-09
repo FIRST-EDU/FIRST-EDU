@@ -89,10 +89,10 @@
   		<association property="discount" resultMap="discountResultMap"/>
   	</resultMap>
   	
-  	<resultMap type="StudentAndClassDTO" id="studentAndClassResultMap">
+  	<!-- <resultMap type="StudentAndClassDTO" id="studentAndClassResultMap">
   		<id property="no" column="STUDENT_NO"/>
   		<collection property="classDTO" resultMap="classResultMap"/>
-  	</resultMap>
+  	</resultMap> -->
   	
   	<select id="selectTotalCount" resultType="_int">
   		SELECT COUNT(*)
@@ -120,7 +120,26 @@
   		 </if>
   	</select>
   	
-  	<select id="selectPayList" parameterType="PayPageInfoDTO" resultMap="payListResultMap">
+  	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_STUDENT A
+  		 <where>
+  		  <if test="searchOption == null">
+  		 	 A.STATUS = 'Y'
+  		  </if>
+  		 <if test="searchOption == 'className'">
+  		   JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
+  		   JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
+  		 	AND C.CLASS_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 <if test="searchOption == 'studentName'">
+  		 	AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 </where>
+
+  	</select>
+  	
+  	<select id="selectPayList" parameterType="PageInfoDTO" resultMap="payListResultMap">
 		SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
 		       A.RNUM
 		     , A.PAY_NO
@@ -167,27 +186,6 @@
 		WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
   	</select>
   	
-  	<select id="selectPayDetail" parameterType="_int" resultMap="payListResultMap">
-  		SELECT /* com.admin.firstEdu.pay.controller.selectPayDetail*/
-		       A.PAY_NO
-		     , B.BEGIN_DATE
-		     , C.STUDENT_NAME
-		     , D.CLASS_NAME
-		     , A.PAY_YN
-		     , A.PAY_OPTION
-		     , A.PAY_DATE
-		     , D.CLASS_PAYMENT
-		     , E.DISCOUNT_REASON
-		     , A.PAYMENT
-		  FROM TBL_PAY A
-		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
-		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
-		  JOIN TBL_CLASS D ON (B.CLASS_CODE = D.CLASS_CODE)
-		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
-		 WHERE A.PAY_STATUS = 'Y'
-		   AND A.PAY_NO = #{no}
-		 ORDER BY A.PAY_NO DESC
-  	</select>
   	
   	<select id="selectPayUpdate" parameterType="_int" resultMap="payListResultMap">
   		SELECT /* com.admin.firstEdu.pay.controller.selectPayUpdate*/
@@ -211,7 +209,7 @@
 		 ORDER BY A.PAY_NO DESC
   	</select>
   	
-  	<select id="selectStudentList" resultMap="studentResultMap2">
+  	<select id="selectStudentList" parameterType="SearchCriteria" resultMap="studentResultMap2">
   		SELECT /* com.admin.firstEdu.pay.controller.selectStudentList*/
   			   A.STUDENT_NO
   			 , A.STUDENT_NAME
@@ -224,7 +222,17 @@
   		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
   		  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
   		  JOIN TBL_GRADE D ON (A.GRADE_CODE = D.GRADE_CODE)
-  		 WHERE A.STATUS = 'Y'
+  		 <where>
+  		  <if test="searchOption == null">
+  		 	 A.STATUS = 'Y'
+  		  </if>
+  		 <if test="searchOption == 'className'">
+  		 AND C.CLASS_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 <if test="searchOption == 'studentName'">
+  		 AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 </where>
   	</select>
   	
   	<!-- <select id="selectClassInfo" resultMap=""></select> -->
@@ -276,9 +284,10 @@
   		 WHERE A.PAY_NO = #{no}
   	</update>
   	
-  	<select id="selectClassList" parameterType="_int" resultMap="studentAndClassResultMap">
+  	<select id="selectClassList" parameterType="_int" resultMap="studentResultMap2">
   		SELECT /* com.admin.firstEdu.pay.controller.selectClassList*/
-		       A.CLASS_NAME
+  			   B.CLASS_NO
+		     , A.CLASS_NAME
 		     , A.CLASS_PAYMENT
 		  FROM TBL_CLASS A
 		  JOIN TBL_CLASS_INFO B ON(A.CLASS_CODE = B.CLASS_CODE)
@@ -458,5 +467,27 @@
 		      ) A
 		WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
   	</select>
+  	
+<!--   	<select id="selectPayDetail" parameterType="_int" resultMap="payListResultMap">
+  		SELECT /* com.admin.firstEdu.pay.controller.selectPayDetail*/
+		       A.PAY_NO
+		     , B.BEGIN_DATE
+		     , C.STUDENT_NAME
+		     , D.CLASS_NAME
+		     , A.PAY_YN
+		     , A.PAY_OPTION
+		     , A.PAY_DATE
+		     , D.CLASS_PAYMENT
+		     , E.DISCOUNT_REASON
+		     , A.PAYMENT
+		  FROM TBL_PAY A
+		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
+		  JOIN TBL_STUDENT C ON (B.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (B.CLASS_CODE = D.CLASS_CODE)
+		  JOIN TBL_DISCOUNT E ON (A.DISCOUNT_NO = E.DISCOUNT_NO)
+		 WHERE A.PAY_STATUS = 'Y'
+		   AND A.PAY_NO = #{no}
+		 ORDER BY A.PAY_NO DESC
+  	</select> -->
   	
   </mapper>

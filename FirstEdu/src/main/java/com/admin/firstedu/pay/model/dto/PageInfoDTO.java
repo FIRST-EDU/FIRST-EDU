@@ -1,6 +1,6 @@
 package com.admin.firstedu.pay.model.dto;
 
-public class PayPageInfoDTO {
+public class PageInfoDTO {
 
 	   private int pageNo;            // 요청한 페이지 번호 (보여줄 현재 페이지)
 	   private int totalCount;         // 전체 게시물 수
@@ -12,10 +12,10 @@ public class PayPageInfoDTO {
 	   private int startRow;         // DB 조회 시 최신 글부터 조회해야 하는 행의 시작 row 수
 	   private int endRow;            // DB 조회 시 최신 글부터 조회해야 하는 행의 마지막 row 수
 
-	   public PayPageInfoDTO() {
+	   public PageInfoDTO() {
 	   }
 	   
-	   public PayPageInfoDTO(int pageNo, int totalCount, int limit, int buttonAmount, int maxPage, int startPage, int endPage,
+	   public PageInfoDTO(int pageNo, int totalCount, int limit, int buttonAmount, int maxPage, int startPage, int endPage,
 	         int startRow, int endRow) {
 	      this.pageNo = pageNo;
 	      this.totalCount = totalCount;
