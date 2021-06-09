@@ -186,7 +186,6 @@
       </div> <!-- lnb end -->
     </header>
 
-
   <aside class="side-gnb">
     <header class="side-gnb-header">
       <h1 class="logo">
@@ -272,28 +271,13 @@
         </a>
       </div>
 
-      <div class="drawer-menu is-sms">
-        <button class="drawer-menu-button" type="button">
+      <div class="drawer-menu">
+        <a class="drawer-menu-link" href="/">
           <i class="fas fa-sms" aria-hidden="true"></i>
           문자 관리
-          <span class="material-icons" aria-hidden="true">chevron_right</span>
+        </a>
         </button>
 
-        <div class="drawer-menu-content">
-          <ul class="drawer-menu-list">
-            <li class="drawer-menu-item">
-              <a href="/">
-                문자 목록
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
-                문자 전송
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
 
       <div class="drawer-menu">
         <a class="drawer-menu-link" href="/">
@@ -327,6 +311,7 @@
       </div>
     </nav>
   </aside>
+
 
   <aside class="search-modal sm-only">
     <div class="container">
