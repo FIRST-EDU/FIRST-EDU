@@ -31,8 +31,8 @@ public class PayServiceImpl implements PayService{
 	}
 
 	@Override
-	public List<StudentAndClassInfoDTO> selectStudentList(SearchCriteria searchCriteria) {
-		return payMapper.selectStudentList(searchCriteria);
+	public List<StudentAndClassInfoDTO> selectStudentList(Map<String, Object> map) {
+		return payMapper.selectStudentList(map);
 	}
 	
 	@Override

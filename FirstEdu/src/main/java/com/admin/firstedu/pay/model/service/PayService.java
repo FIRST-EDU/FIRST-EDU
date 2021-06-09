@@ -14,7 +14,7 @@ public interface PayService {
 
 	List<PayListDTO> selectPayList(PageInfoDTO pageInfo);
 
-	List<StudentAndClassInfoDTO> selectStudentList(SearchCriteria searchCriteria);
+	List<StudentAndClassInfoDTO> selectStudentList(Map<String, Object> map);
 	
 	int insertPay(PayDTO pay);
 	

@@ -170,31 +170,38 @@ public class PayController {
 	public String selectStudentList(Model model, HttpServletRequest request,
 			@ModelAttribute SearchCriteria searchCriteria) {
 
-//		String currentPage = request.getParameter("currentPage");
-//		
-//		int pageNo = 1;
-//
-//		if (currentPage != null && !"".equals(currentPage)) {
-//			pageNo = Integer.valueOf(currentPage);
-//			if (pageNo <= 0) {
-//				pageNo = 1;
-//			}
-//		}
-//
-//		int totalCount = payService.searchTotalCount(searchCriteria);
-//
-//		int limit = 10;
-//
-//		int buttonAmount = 5;
-//
-//		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		String currentPage = request.getParameter("currentPage");
 		
-		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList(searchCriteria);
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+
+		int totalCount = payService.searchTotalCount(searchCriteria);
+
+		int limit = 12;
+
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchCriteria",searchCriteria);
+		map.put("pageInfo", pageInfo);
+		
+		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList(map);
 		
 		int studentTotal = payService.selectStudentTotal(searchCriteria);
 
 		model.addAttribute("studentList", studentList);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("studentTotal", studentTotal);
+		model.addAttribute("searchOption", searchCriteria.getSearchOption());
+		model.addAttribute("searchValue", searchCriteria.getSearchValue());
 
 		return "pay/payInsert";
 

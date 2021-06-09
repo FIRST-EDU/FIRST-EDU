@@ -360,6 +360,10 @@ input[type='radio'] + label {
   transition: all 250ms ease-in-out;
   cursor: pointer; }
 
+input[type='button']:not(:disabled):focus {
+  border: 1px solid #dee2e6;
+  box-shadow: none; }
+
 a,
 button {
   cursor: pointer; }
@@ -709,7 +713,8 @@ ol {
 .form-select,
 .form-input,
 .form-input-search,
-.form-input-non-member {
+.form-input-non-member,
+textarea {
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.01em;
@@ -726,20 +731,30 @@ ol {
   .form-select::placeholder,
   .form-input::placeholder,
   .form-input-search::placeholder,
-  .form-input-non-member::placeholder {
+  .form-input-non-member::placeholder,
+  textarea::placeholder {
     color: #8898aa; }
   .form-select:not(:disabled):focus,
   .form-input:not(:disabled):focus,
   .form-input-search:not(:disabled):focus,
-  .form-input-non-member:not(:disabled):focus {
+  .form-input-non-member:not(:disabled):focus,
+  textarea:not(:disabled):focus {
     border-color: #5e72e4;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18); }
   .form-select:disabled,
   .form-input:disabled,
   .form-input-search:disabled,
-  .form-input-non-member:disabled {
+  .form-input-non-member:disabled,
+  textarea:disabled {
     cursor: not-allowed;
     opacity: 0.4; }
+
+.form-select,
+.form-input,
+.form-input-search,
+.form-input-non-member,
+textarea {
+  resize: none; }
 
 .select-group {
   position: relative; }
@@ -977,8 +992,6 @@ ol {
       .drawer-menu-all .drawer-menu.is-active .drawer-menu-item {
         background-color: #f6f9fc; }
     .drawer-menu-all .drawer-menu.is-open.is-grade .drawer-menu-content {
-      max-height: 90px; }
-    .drawer-menu-all .drawer-menu.is-open.is-sms .drawer-menu-content {
       max-height: 90px; }
     .drawer-menu-all .drawer-menu.is-open.is-boss .drawer-menu-content {
       max-height: 90px; }
@@ -1943,7 +1956,7 @@ ol {
   justify-content: center;
   white-space: nowrap; }
   .storage-list-form-content .sum-storage-price {
-    margin: 0 0 16px 6px; }
+    margin: 0 0 16px 16px; }
   .storage-list-form-content .storage-form-content {
     margin-bottom: 16px; }
 
@@ -2005,6 +2018,29 @@ ol {
     height: auto; }
     .storage-table-card th {
       position: static; } }
+
+.storage-search-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .storage-search-form .sum-student-number {
+    flex-direction: column;
+    margin-bottom: 16px; }
+
+@media screen and (min-width: 768px) {
+  .storage-search-form {
+    flex-direction: row;
+    justify-content: space-between; }
+    .storage-search-form .sum-student-number {
+      margin: 0 20px 0 0; }
+    .storage-search-form .form-flex-row {
+      display: flex;
+      align-items: center;
+      justify-content: center; } }
 
 .score-analysis-card {
   overflow: auto;
@@ -2108,7 +2144,7 @@ ol {
       justify-content: center; }
       .score-table-card tr .custom-tag i {
         margin-right: 8px;
-        font-size: 1px; }
+        font-size: 8px; }
 
 @media screen and (min-width: 768px) {
   .score-analysis-card .form-wrap {
@@ -2153,8 +2189,6 @@ ol {
   white-space: nowrap; }
   .teacher-list-form-content .sum-teacher-number {
     margin: 0 0 16px 6px; }
-  .teacher-list-form-content .teacher-form-content {
-    margin-bottom: 16px; }
 
 .teacher-list-table-card {
   height: 350px; }
@@ -2166,12 +2200,12 @@ ol {
     transition: all 150ms ease-in-out; }
     .teacher-list-table-card tr:hover {
       background-color: #f6f9fc; }
-  .teacher-list-table-card .edit-remove-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .teacher-list-table-card .edit-remove-btn button:first-child {
-      margin-right: 15px; }
+    .teacher-list-table-card tr .edit-remove-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .teacher-list-table-card tr .edit-remove-btn button:first-child {
+        margin-right: 15px; }
 
 .tag-sort {
   font-size: 14px;
@@ -2186,6 +2220,16 @@ ol {
     color: #ff7089; }
   .tag-sort:not(:disabled):active {
     color: #f5365c; }
+
+.teacher-list-img {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .teacher-list-img img {
+    display: block;
+    width: 350px;
+    height: auto;
+    overflow: hidden; }
 
 @media screen and (min-width: 768px) {
   .teacher-list-form-content {
@@ -2209,7 +2253,16 @@ ol {
   .teacher-list-table-card {
     height: auto; }
     .teacher-list-table-card th {
-      position: static; } }
+      position: static; }
+  .teacher-list-img {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .teacher-list-img img {
+      display: block;
+      width: auto;
+      height: 390px;
+      overflow: hidden; } }
 
 .hagone-table th {
   border: 1px solid #dee2e6; }
@@ -2235,7 +2288,184 @@ ol {
     .hagone-img-card img {
       display: block;
       width: auto;
-      height: 450px;
+      height: 520px;
       overflow: hidden; } }
+
+.consult-list-form-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap; }
+  .consult-list-form-content .consult-form-content {
+    margin-bottom: 16px; }
+  .consult-list-form-content .today-consult-list {
+    margin: 0 0 16px 16px; }
+
+.form-input {
+  width: 200px;
+  padding-left: 45px; }
+
+.consult-table-card {
+  height: 350px; }
+  .consult-table-card .consult-table th {
+    position: sticky;
+    top: 0;
+    cursor: default; }
+  .consult-table-card .consult-table tr {
+    transition: all 150ms ease-in-out; }
+    .consult-table-card .consult-table tr:hover {
+      cursor: pointer;
+      background-color: #f6f9fc; }
+    .consult-table-card .consult-table tr:active {
+      background-color: #f4f5f7; }
+    .consult-table-card .consult-table tr .consult-text-overflow {
+      display: block;
+      width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap; }
+
+.tag-sort {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: #525f7f;
+  font-weight: 600;
+  transition: all 250ms ease-in-out; }
+  .tag-sort .fa-sort {
+    font-size: 13px; }
+  .tag-sort:hover {
+    color: #ff7089; }
+  .tag-sort:not(:disabled):active {
+    color: #f5365c; }
+
+@media screen and (min-width: 768px) {
+  .consult-list-form-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row; }
+    .consult-list-form-content .today-consult-list {
+      margin: 0 20px 0 0; }
+    .consult-list-form-content .consult-form-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0; }
+    .consult-list-form-content .consult-search-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 2px; }
+  .consult-table-card {
+    height: auto; }
+    .consult-table-card .consult-table {
+      table-layout: fixed; }
+      .consult-table-card .consult-table th {
+        position: static; }
+      .consult-table-card .consult-table tr .consult-text-overflow {
+        display: table-cell;
+        width: 100%; } }
+
+.consult-input-table {
+  height: 350px; }
+  .consult-input-table tr {
+    transition: all 250ms ease-in-out; }
+    .consult-input-table tr:hover {
+      cursor: pointer;
+      background-color: #f6f9fc; }
+    .consult-input-table tr:active {
+      background-color: #f4f5f7; }
+    .consult-input-table tr.is-active {
+      cursor: default;
+      background-color: #dee2e6; }
+
+.consult-input-card {
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .consult-input-card .consult-input-box {
+    white-space: nowrap; }
+    .consult-input-card .consult-input-box .consult-input-form {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 41.3px; }
+      .consult-input-card .consult-input-box .consult-input-form label:first-child {
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+        color: #212529;
+        width: 50px;
+        margin-right: 8px; }
+      .consult-input-card .consult-input-box .consult-input-form .form-input {
+        padding: 0 15px; }
+      .consult-input-card .consult-input-box .consult-input-form .form-select {
+        text-overflow: clip; }
+      .consult-input-card .consult-input-box .consult-input-form textarea {
+        width: 100%;
+        height: 200px;
+        padding: 15px; }
+    .consult-input-card .consult-input-box input[type='radio'] + label {
+      transition: all 250ms ease-in-out;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 1px 0 rgba(0, 0, 0, 0.02);
+      cursor: pointer; }
+    .consult-input-card .consult-input-box .checked-radio {
+      background-color: #5e72e4; }
+    .consult-input-card .consult-input-box .check-discount {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px; }
+      .consult-input-card .consult-input-box .check-discount i {
+        font-size: 8px;
+        color: #fff; }
+    .consult-input-card .consult-input-box .discount {
+      margin: 0 10px;
+      cursor: pointer; }
+    .consult-input-card .consult-input-box .date-align {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .consult-input-card .consult-input-box .date-align .attendance-date {
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px; }
+    .consult-input-card .consult-input-box .consult-input-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+
+.consult-img {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .consult-img img {
+    display: block;
+    width: 500px;
+    height: auto;
+    overflow: hidden; }
+
+@media screen and (min-width: 768px) {
+  .consult-input-table {
+    height: auto; }
+  .consult-input-card .consult-input-box {
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-x: auto; }
+    .consult-input-card .consult-input-box .consult-input-form label:first-child {
+      margin-right: 20px; }
+    .consult-input-card .consult-input-box .consult-input-form textarea {
+      height: 300px; }
+  .consult-img img {
+    width: auto;
+    height: 450px; } }
 
 /*# sourceMappingURL=style.css.map */

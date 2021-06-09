@@ -30,10 +30,10 @@ public class Pagenation {
 	      }
 	      
 	      /* 참고용 : 마지막 페이지는 0이 될 수 없기 때문에 게시물이 아무 것도 존재하지 않으면 maxPage와 endPage는 1이 된다. */
-	      if(maxPage == 0 && endPage == 0) {
-	         maxPage = startPage;
-	         endPage = startPage;
-	      }
+			/*
+			 * if(maxPage == 0 && endPage == 0) { maxPage = startPage; endPage = startPage;
+			 * }
+			 */
 	      
 	      /* DB 조회 할 시작 번호와 마지막 행 번호를 계산한다. */
 	      startRow = (pageNo -1) * limit + 1;
