@@ -17,12 +17,14 @@
 <button type="submit" id="save_btn">저장 </button>
 <input type='checkbox' onclick='selectAll(this.checked);'>모두선택/해제
 
-
 <br>
+
+날짜:<input type="date" name="attendanceTime" id="attendanceTime" >
 
 <input type="hidden" name="no" id="no" value="1">
 <input type="hidden" name="studentNo" id="studentNo" value="1">
-
+<input type="hidden" name="classNo" id="classNo" value="1">
+<br>
 
 <input type="checkbox" name="categoryNo1" id="dis" value="1" >출석
 <input type="checkbox" name="categoryNo1" id="dis" value="2">결석

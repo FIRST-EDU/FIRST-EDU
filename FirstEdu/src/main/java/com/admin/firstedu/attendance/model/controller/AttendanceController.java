@@ -125,32 +125,31 @@ public class AttendanceController {
 	public String InsertStudent() {
 		return "attendance/insertStudent";
 	}
-	
-	
-	
 
-	
 	   @PostMapping("/insertStudent")
 	   public String insertStudent(@ModelAttribute AttendanceDTO attendance,String[] categoryNo1 ,RedirectAttributes rttr) throws AttendanceInsertException {
-		   
+   
 		  int delete = 0;
-		  attendance.setNo(1);
+
+		  attendance.setNo(attendance.getNo());
+
 		  delete = attendanceService.deleteStudent(attendance);
 		  
-		   
+		  
 		  int result = 0;
 	      for(String arr : categoryNo1) {
 	         AttendanceDTO newAtt = new AttendanceDTO();
 	         newAtt.setNo(attendance.getNo());
 	         newAtt.setStudentNo(attendance.getStudentNo());
 	         newAtt.setMemo(attendance.getMemo());
-
+	         newAtt.setClassNo(attendance.getClassNo());
+	         newAtt.setAttendanceTime(attendance.getAttendanceTime());
 	         newAtt.setCategoryNo(Integer.valueOf(arr));
 	            System.out.println(arr);
 	               
 	         result += attendanceService.insertStudent(newAtt);
 	      }
-	      if(!(result == categoryNo1.length), (delete == 0)) {
+	      if(!(result == categoryNo1.length) && (delete == 0)) {
 	         
 	         throw new AttendanceInsertException("학생 출결 입력 실패");
 	      }
@@ -170,7 +169,7 @@ public class AttendanceController {
 		
 		
 		for(AttendanceInfoDTO cateogry : cateogryList) {
-	
+			
 			System.out.println(cateogry);
 		}
 		

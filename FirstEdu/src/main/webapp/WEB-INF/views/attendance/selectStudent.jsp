@@ -27,12 +27,10 @@
 	 	</tbody>
 	</table>
 	
-	<table class="studentList" border="1">
+	<table class="cateogryList" border="1">
 		<thead>
 			<tr>
-				<th>NO</th>
-				<th>수강정보</th>
-				<th>학생</th>
+
 				<th>출석</th>
 				<th>결석</th>
 				<th>지각</th>
@@ -40,15 +38,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="student" items="${studentList}">
+			<c:forEach var="cateogry" items="${cateogryList}">
 			<tr>
-				<td><c:out value="${ student.no }"></c:out></td>
-				<td><c:out value="${ student.classDTO.className }"></c:out></td>
-				<td><c:out value="${ student.studentDTO.studentName }"></c:out></td>
-				<td><c:out value="${ student.chulsuck }"></c:out></td>
-				<td><c:out value="${ student.jigack }"></c:out></td>
-				<td><c:out value="${ student.kyulsuck }"></c:out></td>
-				<td><c:out value="${ student.jotae }"></c:out></td>
+				<td><c:out value="${ cateogry.chulsuck }"></c:out></td>
+				<td><c:out value="${ cateogry.jigack }"></c:out></td>
+				<td><c:out value="${ cateogry.kyulsuck }"></c:out></td>
+				<td><c:out value="${ cateogry.jotae }"></c:out></td>
 			</tr>
 			</c:forEach>
 		</tbody>

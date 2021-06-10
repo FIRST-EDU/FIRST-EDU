@@ -8,7 +8,6 @@ import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
 
 public interface AttendanceMapper {
 	
-//	boolean insertStudent(AttendanceDTO attendance);
 	
 	int insertTeacher(AttendanceDTO attendance);
 	

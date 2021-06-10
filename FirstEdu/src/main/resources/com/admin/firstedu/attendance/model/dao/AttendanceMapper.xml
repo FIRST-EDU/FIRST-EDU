@@ -163,33 +163,29 @@
 		 A.CATEGORY_NO,  
 		 A.ATTENDANCE_TIME
 		, A.MEMO
-		, STUDENT_NO
+		, A.STUDENT_NO
 		, A.ATTENDANCE_NO
+		, A.CLASS_NO
 		 )
 		 VALUES
 		 (
 		   #{ categoryNo } 
-		 , SYSDATE , #{ memo, jdbcType=VARCHAR }
+		 , #{ attendanceTime } , #{ memo, jdbcType=VARCHAR }
 		 , #{ studentNo }
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
+		 , #{classNo}
 		 	)
 	</insert>
 	
 	<select id="selectCategory" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-       SELECT A.ATTENDANCE_NO
-        , B.CLASS_NAME
-        , C.STUDENT_NAME
-        , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
+     SELECT 
+          SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
         , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
         , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
         , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae
           FROM TBL_ATTENDANCE A
-          INNER JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
-          INNER JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
           INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
-          GROUP BY A.ATTENDANCE_NO, B.CLASS_NAME , C.STUDENT_NAME , D.CATEGORY_NO
-          ORDER BY A.ATTENDANCE_NO;
-    
+          GROUP BY D.CATEGORY_NO    
     </select>
     
 	
@@ -198,14 +194,14 @@
         B.STUDENT_NAME
         FROM TBL_STUDENT B
         JOIN TBL_CLASS_INFO C ON (B.STUDENT_NO = C.STUDENT_NO) 
-        WHERE C.CLASS_CODE = #{classCode}
+        WHERE C.CLASS_NO = #{ no }
 	</select>
 
-	<delete id="deletStudent" parameterType="AttendanceDTO" >
+	<delete id="deleteStudent" parameterType="AttendanceDTO" >
 		DELETE
 		FROM	TBL_ATTENDANCE
+		WHERE STUDENT_NO = #{studentNo}
+		AND ATTENDANCE_TIME = #{attendanceTime} 
 
-			WHERE ATTENDANCE_NO = #{no}
-			AND ATTENDANCE_TIME = #{attendanceTime}
 	</delete>
 </mapper>
