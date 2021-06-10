@@ -219,7 +219,7 @@
 	</select>
 	
 	<!-- 검색 -->
-	<select id="searchClass" parameterType="SearchCriteriaDTO" resultMap="classAndInforResultMap">
+<!-- 	<select id="searchClass" parameterType="SearchCriteriaDTO" resultMap="classAndInforResultMap">
 		SELECT
                C.GRADE_NAME
              , D.SUBJECT_NAME
@@ -243,7 +243,7 @@
 		  AND A.CLASS_DAY = #{searchValue}
 		  </if>
 		  </where>
-	</select>
+	</select> -->
   	<!-- 초기 페이지 처리 안하려고 했을 때 검색만 사용 시 -->	 
   	
   	

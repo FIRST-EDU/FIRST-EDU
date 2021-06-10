@@ -18,8 +18,7 @@
 	<jsp:include page="../common/commonNonMember.jsp"/>
 	<h1>main입니다.</h1>
 	<button onclick="location.href='${ pageContext.servletContext.contextPath }/member/teacherList'">선생님목록</button>
-	<button onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/classList'">수강목록</button>
+	<button onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/list'">수강목록</button>
 	<button onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/timeTable'">시간표목록</button>
-	<button onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/searchList'">게시판테스트</button>
 </body>
 </html>

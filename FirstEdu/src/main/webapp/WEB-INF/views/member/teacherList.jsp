@@ -34,15 +34,15 @@
             <section class="teacher-form-content">
               <div class="tag-lb-dark btn-check sum-teacher-number">총 직원 수 : 6</div>
               <article class="storage-search-form">
-
-              <form class="storage-search-form" action="${pageContext.servletContext.contextPath }/pay/search" method="get">
+              <form class="storage-search-form" action="${pageContext.servletContext.contextPath }/member/search" method="get">
                 <c:choose>
 				<c:when test="${ !empty requestScope.searchValue }">
                 <div class="select-group">
-                  <select class="form-select" id="searchOption" name="searchOption">
-					<option value="studentName" <c:if test="${requestScope.searchCondition eq 'studentName' }">selected</c:if>>학생명</option>
-					<option value="className" <c:if test="${requestScope.searchCondition eq 'className' }">selected</c:if>>강의명</option>
-					<option value="payYn" <c:if test="${requestScope.searchCondition eq 'payYn' }">selected</c:if>>현황</option>
+                  <select class="form-select" id="searchCondition" name="searchCondition">
+					<option value="id" <c:if test="${requestScope.searchCondition eq 'id' }">selected</c:if>>아이디</option>
+					<option value="name" <c:if test="${requestScope.searchCondition eq 'name' }">selected</c:if>>선생님</option>
+					<option value="jobName" <c:if test="${requestScope.searchCondition eq 'jobName' }">selected</c:if>>직급</option>
+					<option value="role" <c:if test="${requestScope.searchCondition eq 'role' }">selected</c:if>>권한</option>
 				  </select>
                   <i class="fas fa-caret-down" aria-hidden></i>
                   </div>
@@ -58,10 +58,11 @@
               </c:when>
               <c:otherwise> 
               <div class="select-group">
-                  <select class="form-select" id="searchOption" name="searchOption">
-					<option value="studentName">학생명</option>
-					<option value="className">강의명</option>
-					<option value="payYn">현황</option>
+                  <select class="form-select" id="searchCondition" name="searchCondition">
+					<option value="id">아이디</option>
+						<option value="name">선생님</option>
+						<option value="jobName">직급</option>
+						<option value="role">권한</option>
 				  </select>
                   <i class="fas fa-caret-down" aria-hidden></i>
                   </div>
@@ -76,43 +77,10 @@
               </div>
                </c:otherwise>
               </c:choose>
+             <!--  <button type="submit">검색하기</button> -->
              </form>
-             
-             
-              
-              
-		<div class="search-area" align="center">
-			<c:choose>
-	
-				<c:when test="${ !empty requestScope.searchValue }">
-					<select id="searchCondition" name="searchCondition">
-						<option value="id"
-							<c:if test="${requestScope.searchCondition eq 'id' }">selected</c:if>>아이디</option>
-						<option value="name"
-							<c:if test="${requestScope.searchCondition eq 'name' }">selected</c:if>>선생님</option>
-						<option value="jobName"
-							<c:if test="${requestScope.searchCondition eq 'jobName' }">selected</c:if>>직급</option>
-						<option value="role"
-							<c:if test="${requestScope.searchCondition eq 'role' }">selected</c:if>>권한</option>
-					</select>
-					<input type="search" id="searchValue" name="searchValue"
-						value="${requestScope.searchValue}"}>
-				</c:when>
-				<c:otherwise>
-					<select id="searchCondition" name="searchCondition">
-						<option value="id">아이디</option>
-						<option value="name">선생님</option>
-						<option value="jobName">직급</option>
-						<option value="role">권한</option>
-					</select>
-					<input type="search" id="searchValue" name="searchValue">
-				</c:otherwise>
-			</c:choose>
-			<button type="submit">검색하기</button>
-		</div>
-	</form>
-	</article>
-	<!-- row -->
+			</article>
+			<!-- row -->
             </section>
             <button type="button" class="btn-fill-primary btn-basic teacher-input-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/member/regist'">직원 등록</button>
           </section>
@@ -153,7 +121,7 @@
 							<td><c:out value="${teacher.status}" /></td>
 							<td class="edit-remove-btn">
 								<button id="detailBtn" type="button" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/member/update'"> <i class="fas fa-pen"></i>수정 </button>
-							    <button type="button" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/member/regist'"> <i class="fas fa-trash-alt"></i>삭제 </button>
+							    <button type="button" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/member/delete'"> <i class="fas fa-trash-alt"></i>삭제 </button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -188,7 +156,7 @@
 	
 	
 		$("#detailBtn").click(function(){
-		location.href="${pageContext.servletContext.contextPath}/member/detail/" + parseInt(no);
+			location.href="${pageContext.servletContext.contextPath}/member/detail/" + parseInt(no);
 		})
 	</script>
 

@@ -232,11 +232,7 @@ public class ClassInfoController {
 	
 	 @GetMapping("list")
 	 public String selectClassList(@ModelAttribute SearchCriteriaDTO searchCriteria, HttpServletRequest request, Model model, RedirectAttributes rttr) throws MemberRegistException {
-	
-//	 String condition = request.getParameter("searchCondition");
-//	String value = request.getParameter("searchValue");
-//		
-	 
+
 	 String currentPage = request.getParameter("currentPage");
 	 
 	 

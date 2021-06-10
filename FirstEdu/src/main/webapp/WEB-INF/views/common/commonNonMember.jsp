@@ -15,18 +15,9 @@
 	<title>비회원 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script
-      src="https://kit.fontawesome.com/11694e3acf.js"
-      crossorigin="anonymous"
-    ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/11694e3acf.js" crossorigin="anonymous"></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
   <body class="non-member-page-background">
@@ -42,7 +33,7 @@
                   /></a>
                 </h1>
               </section>
-			  
+
               <section class="non-member-header-right">
                 <article class="portpolio-icon-content">
                   <a
