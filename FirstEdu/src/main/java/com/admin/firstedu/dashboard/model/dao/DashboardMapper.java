@@ -6,6 +6,7 @@ import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.TeacherStatisticsDTO;
 
 public interface DashboardMapper {
 
@@ -17,4 +18,5 @@ public interface DashboardMapper {
 
 	List<StudentSchoolStatisticsDTO> selectStudentSchoolStatistics();
 
+	TeacherStatisticsDTO selectTeacherStatistics();
 }

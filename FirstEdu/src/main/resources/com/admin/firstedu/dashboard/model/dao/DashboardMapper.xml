@@ -5,6 +5,7 @@
    
 <mapper namespace="com.admin.firstedu.dashboard.model.dao.DashboardMapper">
 
+	<!-- resultMap -->
 	<!-- 학생 기본 통계 StudentStatisticsDTO -->
 	<resultMap id="studentStatisticsResultMap" type="StudentStatisticsDTO">
 		<result column="TOTAL_COUNT" property="totalCount"/>
@@ -34,6 +35,14 @@
 		<result column="COUNT" property="count"/>
 	</resultMap>
 
+	<!-- 선생님 관련 통계 TeacherStatisticsDTO -->
+	<resultMap id="teacherStatisticsResultMap" type="TeacherStatisticsDTO">
+		<result column="TOTAL_COUNT" property="totalCount"/>
+		<result column="TOTAL_SALARY" property="totalSalary"/>
+	</resultMap>
+
+
+	<!-- 쿼리 -->
 	<!-- 학생 기본 통계 자료 조회 -->
 	<select id="selectStudentStatistics" resultMap="studentStatisticsResultMap">
 		SELECT
@@ -98,5 +107,13 @@
 		 GROUP BY A.SCHOOL	
 	</select>	
 
-
+	<!-- 선생님 관련 통계 -->
+	<select id="selectTeacherStatistics" resultMap="teacherStatisticsResultMap">
+		SELECT
+		       COUNT(A.TEACHER_NO) AS TOTAL_COUNT
+		     , SUM(A.SALARY) AS TOTAL_SALARY
+		  FROM TBL_TEACHER A
+		 WHERE A.TEACHER_STATUS = 'Y'	
+	</select>
+	
 </mapper>

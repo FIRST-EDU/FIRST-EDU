@@ -11,6 +11,7 @@ import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.TeacherStatisticsDTO;
 import com.admin.firstedu.dashboard.model.service.DashboardService;
 
 @Controller
@@ -39,14 +40,9 @@ public class DashboardController {
 		/* 학교별 학생 수 */
 		List<StudentSchoolStatisticsDTO> studentSchoolStatistics = dashboardService.selectStudentSchoolStatistics();
 		
-		System.out.println(studentStatistics);
-		System.out.println(studentGradeStatistics);
-		System.out.println(studentClassStatistics);
-		System.out.println(studentSchoolStatistics);
-		
 		/* 선생님 관련 */
-		/* 총 선생님 수 */
-		/* 총 월 급여 */
+		/* 총 선생님 수, 총 월 급여 */
+		TeacherStatisticsDTO teacherStatistics = dashboardService.selectTeacherStatistics();
 		
 		/* 매출 관련 */
 		/* 총 매출 */

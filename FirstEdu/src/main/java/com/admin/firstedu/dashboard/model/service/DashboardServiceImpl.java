@@ -10,6 +10,7 @@ import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.TeacherStatisticsDTO;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -39,6 +40,11 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public List<StudentSchoolStatisticsDTO> selectStudentSchoolStatistics() {
 		return mapper.selectStudentSchoolStatistics();
+	}
+
+	@Override
+	public TeacherStatisticsDTO selectTeacherStatistics() {
+		return mapper.selectTeacherStatistics();
 	}
 
 }
