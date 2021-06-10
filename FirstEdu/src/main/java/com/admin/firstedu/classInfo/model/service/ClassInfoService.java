@@ -24,18 +24,18 @@ public interface ClassInfoService {
 
 	List<ClassAndInfoDTO> selectTimeTable();
 
-	List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria);
+//	List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria);
 
 	int selectTotalCount(SearchCriteriaDTO searchCriteria);
 
 	boolean deleteClass(int no);
 
-
-	List<ClassAndInfoDTO> selectClassList(PageInfoDTO pageInfo);
-
 	List<ClassAndInfoDTO> searchClassList(Map<String, Object> map);
 
 	int searchClassCount(SearchCriteriaDTO searchCriteria);
+
+
+	List<ClassAndInfoDTO> selectClassList(PageInfoDTO pageInfo);
 
 
 

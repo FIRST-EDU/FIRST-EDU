@@ -154,20 +154,20 @@ public class ClassInfoController {
 	
 
 	/* 검색 */
-	@GetMapping("search")
-	public String searchClass(Model model,SearchCriteriaDTO searchCriteria) {
-		
-		System.out.println("searchList");
-		
-		List<ClassAndInfoDTO> classGroup = classListService.searchClass(searchCriteria);
-		model.addAttribute("classGroup", classGroup);
-		
-		 for(ClassAndInfoDTO search : classGroup) {
-	         System.out.println("searchList " + search);
-	      }
-		 
-		return "classInfo/classList";
-	}
+//	@GetMapping("search")
+//	public String searchClass(Model model,SearchCriteriaDTO searchCriteria) {
+//		
+//		System.out.println("searchList");
+//		
+//		List<ClassAndInfoDTO> classGroup = classListService.searchClass(searchCriteria);
+//		model.addAttribute("classGroup", classGroup);
+//		
+//		 for(ClassAndInfoDTO search : classGroup) {
+//	         System.out.println("searchList " + search);
+//	      }
+//		 
+//		return "classInfo/classList";
+//	}
 	
 	
 	@GetMapping("searchList")

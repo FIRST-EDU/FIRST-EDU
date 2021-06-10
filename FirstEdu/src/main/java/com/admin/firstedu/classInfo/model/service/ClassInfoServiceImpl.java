@@ -61,11 +61,11 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 		return classMapper.selectTimeTable();
 	}
 
-	@Override
-	public List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria) {
-		
-		return classMapper.searchClass(searchCriteria);
-	}
+//	@Override
+//	public List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria) {
+//		
+//		return classMapper.searchClass(searchCriteria);
+//	}
 
 	@Override
 	public int selectTotalCount(SearchCriteriaDTO searchCriteria) {
@@ -82,13 +82,6 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 
 
 	@Override
-	public List<ClassAndInfoDTO> selectClassList(PageInfoDTO pageInfo) {
-		
-		return classMapper.selectClsssAndInfo();
-	}
-
-
-	@Override
 	public List<ClassAndInfoDTO> searchClassList(Map<String, Object> map) {
 		
 		return classMapper.searchClassList(map);
@@ -97,6 +90,12 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 	@Override
 	public int searchClassCount(SearchCriteriaDTO searchCriteria) {
 		return classMapper.searchClassCount(searchCriteria);
+	}
+
+	@Override
+	public List<ClassAndInfoDTO> selectClassList(PageInfoDTO pageInfo) {
+		
+		return classMapper.selectClassList(pageInfo);
 	}
 
 
