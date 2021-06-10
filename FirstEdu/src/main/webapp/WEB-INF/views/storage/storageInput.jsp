@@ -33,7 +33,7 @@
 	<jsp:include page="../common/commonMember.jsp"/>
 
 
-    <main class="common-background">
+   <main class="common-background">
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-md-6">
@@ -305,10 +305,22 @@
                   </article>
 
                   <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic">취소</button>
-                    <button type="submit" class="btn-fill-primary btn-basic">확인</button>
+                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn">취소</button>
+                    <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
                 </section>
+
+                <div class="modal complete-input-board-modal">
+                  <div class="modal-content">
+                    <strong>게시물 등록하기</strong>
+                    <p>게시물을 등록하시겠습니까?</p>
+                      <div class="popup-2btn">
+                        <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+                        <!-- <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button> -->
+                        <button type="button" class="btn-fill-primary btn-popup complete-btn" onclick="location.href='storage-list.html'">확인</button>
+                      </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -316,19 +328,29 @@
           <div class="row">
             <div class="col-sm-4">
               <section class="common-card consult-img">
-                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/storage-input.png" alt="">
+                <img src="${ pageContext.servletContext.contextPath }/resources//assets/png/storage-input.png" alt="">
               </section>
             </div>
           </div>
         </div>
     </main>
 
+	<div class="modal cancel-board-mordal">
+      <div class="modal-content">
+        <strong>게시물 등록 취소</strong>
+        <p>게시물 등록을 취소하시겠습니까?</p>
+          <div class="popup-2btn">
+            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
+            <a href="consult-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
+          </div>
+      </div>
+    </div>
 
-<div class="overlay" aria-hidden="true"></div>
 
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>
