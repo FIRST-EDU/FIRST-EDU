@@ -81,13 +81,31 @@
 	<association resultMap="classInfoResultSet" property="classInfo"/>
 	</resultMap>
 	
-	<resultMap type="ClassInfoStudentDTO" id="classInfoStudentResultSet">
+<!-- <resultMap type="ClassInfoStudentDTO" id="classInfoStudentResultSet">
 		<id column="CLASS_NO" property="no"/>
 		<result column="BEGIN_DATE" property="beginDate"/>
 		<result column="END_DATE" property="endDate"/>
 		<association resultMap="studentResultSet" property="studentDTO"/>
 		<association resultMap="classInfoResultSet" property="classInfo"/>
+	</resultMap>  -->	
+	
+	<resultMap type="ClassInfoClassDTO" id="classInfoClassResultSet">
+		<id column="CLASS_NO" property="no"/>
+		<result column="BEGIN_DATE" property="beginDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="STATUS" property="status"/>		
+		<association resultMap="STUDENT_NO" property="student"/>
+		<association resultMap="CLASS_CODE" property="classDTO"/>
 	</resultMap>
+
+	<resultMap type="StudentSetDTO" id="studentSetResultSet">
+		<id column="STUDENT_NO" property="no"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="STATUS" property="status"/>
+		<collection resultMap="classInfoClassResultSet" property="classInfoList"/>
+		<collection resultMap="attendanceInfoResultSet" property="attendanceList"/>
+	</resultMap>
+		
 		
 	
 	<select id="selectStudentAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
@@ -107,21 +125,7 @@
           ORDER BY A.ATTENDANCE_NO
 
 	</select>
-	
-<!--  <select id="selectTeacherAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-	SELECT 
-	
-          A.ATTENDANCE_TIME
-        , A.CHECKOUT_TIME
-        , SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
-        , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
-        , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
-        , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae      
-          FROM TBL_ATTENDANCE A
-          INNER JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
-          INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
-          GROUP BY A.ATTENDANCE_TIME, A.CHECKOUT_TIME, D.CATEGORY_NO
-	</select> -->
+
 	
 	<insert id="insertTeacher" parameterType="AttendanceDTO">
 		INSERT
@@ -189,12 +193,18 @@
     </select>
     
 	
-	<select id="selectStudent" parameterType="ClassInfoStudentDTO" resultMap="classInfoStudentResultSet">
-	 SELECT
-        B.STUDENT_NAME
-        FROM TBL_STUDENT B
-        JOIN TBL_CLASS_INFO C ON (B.STUDENT_NO = C.STUDENT_NO) 
-        WHERE C.CLASS_NO = #{ no }
+	<select id="selectStudent" parameterType="StudentSetDTO" resultMap="classInfoStudentResultSet">
+	SELECT 
+	       A.STUDENT_NAME
+	     , B.CLASS_NO
+	     , C.CLASS_NAME
+	     , E.CATEGORY_NO
+	  FROM TBL_STUDENT A
+	  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
+	  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
+	  JOIN TBL_ATTENDANCE D ON (A.STUDENT_NO = D.STUDENT_NO)
+	  JOIN TBL_ATTENDANCE_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
+	  WHERE C.CLASS_NAME LIKE '%{className}%';
 	</select>
 
 	<delete id="deleteStudent" parameterType="AttendanceDTO" >

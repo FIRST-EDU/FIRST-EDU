@@ -9,6 +9,7 @@ public class ClassInfoDTO implements Serializable{
 	private int no;
 	private Date beginDate;
 	private Date endDate;
+	private Date status;
 	private int studentNo;
 	private String subjectCode;
 
@@ -18,11 +19,12 @@ public class ClassInfoDTO implements Serializable{
 
 	
 	
-	public ClassInfoDTO(int no, Date beginDate, Date endDate, int studentNo, String subjectCode) {
+	public ClassInfoDTO(int no, Date beginDate, Date endDate, Date status, int studentNo, String subjectCode) {
 		super();
 		this.no = no;
 		this.beginDate = beginDate;
 		this.endDate = endDate;
+		this.status = status;
 		this.studentNo = studentNo;
 		this.subjectCode = subjectCode;
 	}
@@ -65,6 +67,18 @@ public class ClassInfoDTO implements Serializable{
 
 
 
+	public Date getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(Date status) {
+		this.status = status;
+	}
+
+
+
 	public int getStudentNo() {
 		return studentNo;
 	}
@@ -89,11 +103,18 @@ public class ClassInfoDTO implements Serializable{
 
 
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "ClassInfoDTO [no=" + no + ", beginDate=" + beginDate + ", endDate=" + endDate + ", studentNo="
-				+ studentNo + ", subjectCode=" + subjectCode + "]";
+		return "ClassInfoDTO [no=" + no + ", beginDate=" + beginDate + ", endDate=" + endDate + ", status=" + status
+				+ ", studentNo=" + studentNo + ", subjectCode=" + subjectCode + "]";
 	}
+
 
 	
 }
