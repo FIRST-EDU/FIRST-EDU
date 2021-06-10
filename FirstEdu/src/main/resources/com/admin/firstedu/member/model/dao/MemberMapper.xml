@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.firstedu.member.model.dao.MemberMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="TEACHER_NO" property="no" />
+		<result column="JOB_CODE" property="jobCode" />
+		<result column="TEACHER_ID" property="id" />
+		<result column="TEACHER_PWD" property="pwd" />
+		<result column="TEACHER_NAME" property="name" />
+		<result column="TEACHER_EMAIL" property="email" />
+		<result column="TEACHER_GENDER" property="gender" />
+		<result column="TEACHER_PHONE" property="phone" />
+		<result column="TEACHER_ADDRESS" property="address" />
+		<result column="TEACHER_ROLE" property="role" />
+		<result column="HIRE_DATE" property="hireDate" />
+		<result column="ENT_DATE" property="endDate" />
+		<result column="TEACHER_STATUS" property="status" />
+	</resultMap>
+	
+	<!-- association(1(선생님):1(직급)) -->
+	<resultMap id="teacherAndJobResultSet" type="com.admin.firstedu.member.model.dto.TeacherAndJobDTO">
+	 	<id property="no" column="TEACHER_NO"/>
+	 	<result property="jobCode" column="JOB_CODE"/>
+	 	<result property="id" column="TEACHER_ID"/>
+		<result property="pwd" column="TEACHER_PWD"/>
+		<result property="name" column="TEACHER_NAME"/>
+		<result property="email" column="TEACHER_EMAIL"/>
+		<result property="gender" column="TEACHER_GENDER"/>
+		<result property="phone" column="TEACHER_PHONE"/>
+		<result property="address" column="TEACHER_ADDRESS"/>
+		<result property="role" column="TEACHER_ROLE"/>
+		<result property="hireDate" column="HIRE_DATE"/>
+		<result property="endDate" column="ENT_DATE"/>
+		<result property="status" column="TEACHER_STATUS"/>
+		<association property="job" javaType="com.admin.firstedu.member.model.dto.JobDTO">
+			<id property="jobCode" column="JOB_CODE"/>
+	 		<result property="jobName" column="JOB_NAME"/>
+		</association>
+	 </resultMap>
+	 
+	<!-- 선생님 등록 -->
+	<insert id="insertMember" parameterType="MemberDTO">
+	<!-- MemberMapper에 있는 insertMember가 이 쿼리를 사용 -->
+        INSERT <!-- com.admin.firstedu.member.model.dao.MemberMapper#insertMember -->
+          INTO TBL_TEACHER A
+        (
+          A.TEACHER_NO, A.JOB_CODE, A.TEACHER_ID
+        , A.TEACHER_PWD, A.TEACHER_NAME, A.TEACHER_EMAIL
+        , A.TEACHER_GENDER, A.TEACHER_PHONE, A.TEACHER_ADDRESS, A.TEACHER_ROLE
+        ) 
+		VALUES
+		(
+		  SEQ_TEACHER_NO.NEXTVAL, #{jobCode}, #{ id }
+		, #{ pwd }, #{ name }, #{ email }, #{ gender }
+		, #{ phone }, #{ address }, #{ role }
+		)
+	</insert>
+	
+	<!-- 비빌번호 -->
+	<select id="selectEncPassword" resultType="java.lang.String" parameterType="MemberDTO">
+        SELECT 
+               A.TEACHER_PWD 
+          FROM TBL_TEACHER A 
+         WHERE A.TEACHER_ID = #{id} 
+           AND A.TEACHER_STATUS='Y'
+	</select>
+	
+	<!-- 회원등록 -->
+	<select id="selectMember" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               A.TEACHER_NO
+             , A.JOB_CODE
+             , A.TEACHER_ID
+             , A.TEACHER_NAME
+             , A.TEACHER_EMAIL
+             , A.TEACHER_GENDER
+             , A.TEACHER_PHONE
+             , A.TEACHER_ADDRESS
+             , A.TEACHER_ROLE
+             , A.HIRE_DATE
+             , A.ENT_DATE
+             , A.TEACHER_STATUS
+          FROM TBL_TEACHER A 
+         WHERE A.TEACHER_ID = #{id} 
+           AND A.TEACHER_STATUS='Y'
+	</select>
+	
+	<!-- 아이디중복확인 -->
+	<select id="idDupCheck" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT
+			   A.TEACHER_ID
+		  FROM TBL_TEACHER A 
+         WHERE A.TEACHER_ID = #{userId} 
+           AND A.TEACHER_STATUS='Y'
+	</select>
+		
+	<!-- 아이디찾기 -->	
+	<select id="findId" resultMap="memberResultSet" parameterType="MemberDTO">
+		SELECT
+			   A.TEACHER_ID
+		  FROM TBL_TEACHER A 
+         WHERE A.TEACHER_NAME = #{name} 
+           AND A.TEACHER_EMAIL= #{email}
+	</select>
+	
+	<delete id="deleteMember" parameterType="MemberDTO">
+		UPDATE
+		       TBL_TEACHER A
+		   SET A.TEACHER_STATUS = 'N'
+		 WHERE A.TEACHER_NO = #{no}
+	</delete>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="memberPwdFind" resultMap="memberResultSet" parameterType="MemberDTO">
+		SELECT
+			   A.TEACHER_ID
+		  FROM TBL_TEACHER A 
+		 WHERE A.TEACHER_ID = #{userId} 
+           AND A.TEACHER_NAME = #{name} 
+           AND A.TEACHER_EMAIL= #{email}
+	</select>
+	
+	<!-- 정보수정 -->
+	<update id="selectUpdateMember" parameterType="MemberDTO">
+		UPDATE 
+			TBL_TEACHER A
+		   SET A.JOB_CODE = #{jobCode}
+		     , A.TEACHER_PWD = #{pwd}
+  		     , A.TEACHER_PHONE = #{phone}
+  		     , A.TEACHER_ADDRESS = #{address}
+  		     , A.TEACHER_ROLE = #{role}
+  		 WHERE A.TEACHER_NO = #{no} 
+           AND A.TEACHER_STATUS='Y'
+	</update>
+	
+	<!-- 선생님 리스트 -->
+	<select id="selectTeacherAndJob" resultMap="teacherAndJobResultSet" parameterType="TeacherAndJobDTO">
+		SELECT /* com.admin.fristedu.member.model.dao.MemberMapper#selectTeacherAndJob() */
+	            A.TEACHER_NO
+	          , A.TEACHER_ID
+	          , A.TEACHER_NAME
+              , A.TEACHER_EMAIL
+              , A.TEACHER_PHONE
+              , A.TEACHER_ROLE
+              , A.HIRE_DATE
+	          , B.JOB_CODE
+	          , B.JOB_NAME
+	          , A.TEACHER_STATUS
+	       FROM TBL_TEACHER A
+	       JOIN TBL_JOB B ON (A.JOB_CODE = B.JOB_CODE)
+	      WHERE A.TEACHER_STATUS = 'Y'
+  	</select>
+  	
+  	<!-- 선생님 상세정보 -->
+  	<select id="selectMemberDetail" resultMap="teacherAndJobResultSet" parameterType="_int">
+  			SELECT 
+               A.TEACHER_NO
+             , A.JOB_CODE
+             , A.TEACHER_ID
+             , A.TEACHER_NAME
+             , A.TEACHER_EMAIL
+             , A.TEACHER_GENDER
+             , A.TEACHER_PHONE
+             , A.TEACHER_ADDRESS
+             , A.TEACHER_ROLE
+             , A.HIRE_DATE
+             , A.ENT_DATE
+             , A.TEACHER_STATUS
+          FROM TBL_TEACHER A 
+          JOIN TBL_JOB B ON (A.JOB_CODE = B.JOB_CODE)
+         WHERE A.TEACHER_NO = #{no} 
+           AND A.TEACHER_STATUS='Y'
+  	</select>
+	
+	<select id="searchMember" parameterType="TeacherAndJobDTO" resultMap="teacherAndJobResultSet">
+		SELECT
+               	A.TEACHER_NO
+              , A.TEACHER_ID
+	          , A.TEACHER_NAME
+              , A.TEACHER_EMAIL
+              , A.TEACHER_PHONE
+              , A.TEACHER_ROLE
+              , A.HIRE_DATE
+	          , B.JOB_CODE
+	          , B.JOB_NAME
+	          , A.TEACHER_STATUS
+	       FROM TBL_TEACHER A
+	       JOIN TBL_JOB B ON (A.JOB_CODE = B.JOB_CODE)
+	      WHERE A.TEACHER_STATUS = 'Y'
+		  <if test="searchCondition == 'id'">
+          WHERE A.TEACHER_ID = #{searchValue}	  
+		  </if>
+		  <if test="searchCondition == 'name'">
+		    AND A.TEACHER_NAME = #{searchValue}
+		  </if>
+		  <if test="searchCondition == 'jobName'">
+		    AND B.JOB_NAME LIKE '%' || #{searchValue} || '%'  
+		  </if>
+		  <if test="searchCondition == 'role'">
+		    AND A.TEACHER_ROLE = #{searchValue}
+		  </if>
+	</select>
+	
+</mapper>

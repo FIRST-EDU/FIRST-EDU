@@ -13,6 +13,9 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+	<!-- DB연결 마이바티스 설정 root에 대부분 들어있음 -->
+	<context:property-placeholder location="classpath:config/connection-info.properties"/>
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
 		<property name="dataSource" ref="dataSource"/>
@@ -31,6 +34,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
+	<!-- 트랜잭션 처리 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="find*" read-only="true" rollback-for="Exception" />
@@ -48,5 +52,12 @@
 		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
 			advice-ref="txAdvice" />
 	</aop:config>
+	<!-- 트랜잭션 처리 -->
 	
+	<!-- mapperScan 매퍼등록/dao이 인터페이스 위치를 동일하게 적으면 됨, 일치한는  mapper 자동으로  등록 해줌-->
+	<mybatis-spring:scan base-package="com.admin.firstedu.member.model.dao,
+										com.admin.firstedu.classInfo.model.dao"/>
+
+
+
 </beans>

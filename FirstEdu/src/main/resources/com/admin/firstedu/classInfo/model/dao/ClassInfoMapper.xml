@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.admin.firstedu.classInfo.model.dao.ClassInfoMapper">
+
+	<!-- 선생님 정보 -->
+	 <resultMap id="teacherResultMap" type="com.admin.firstedu.classInfo.model.dto.TeacherDTO">
+		<id property="no" column="TEACHER_NO"/>
+		<result property="jobCode" column="JOB_CODE"/>
+		<result property="id" column="TEACHER_ID"/>
+		<result property="pwd" column="TEACHER_PWD"/>
+		<result property="teacherName" column="TEACHER_NAME"/>
+		<result property="email" column="TEACHER_EMAIL"/>
+		<result property="gender" column="TEACHER_GENDER"/>
+		<result property="phone" column="TEACHER_PHONE"/>
+		<result property="address" column="TEACHER_ADDRESS"/>
+		<result property="role" column="TEACHER_ROLE"/>
+		<result property="hireDate" column="HIRE_DATE"/>
+		<result property="endDate" column="ENT_DATE"/>
+		<result property="status" column="TEACHER_STATUS"/>
+	</resultMap> 
+	
+	<!-- class 정보 -->
+	 <resultMap id="classResultSet" type="ClassDTO">
+		<id property="code" column="CLASS_CODE"/>
+		<result property="classNum" column="CLASS_NUM"/>
+		<result property="room" column="CLASS_ROOM"/>
+		<result property="className" column="CLASS_NAME"/>
+		<result property="day" column="CLASS_DAY"/>
+		<result property="startTime" column="CLASS_START_TIME"/>
+		<result property="endTime" column="CLASS_END_TIME"/>
+		<result property="book" column="CLASS_BOOK"/>
+		<result property="payment" column="CLASS_PAYMENT"/>
+		<result property="subjectNo" column="SUBJECT_NO"/>
+		<result property="gradeCode" column="GRADE_CODE"/>
+		<result property="no" column="TEACHER_NO"/>
+	</resultMap> 
+	
+	<!-- 학년정보 -->
+	 <resultMap id="gradeResultSMap" type="com.admin.firstedu.classInfo.model.dto.GradeDTO">
+		<id property="gradeCode" column="GRADE_CODE"/>
+		<result property="gradeName" column="GRADE_NAME"/>
+	</resultMap> 
+	
+	<!-- 과목카테고리 정보 -->
+	 <resultMap id="subjectCategoryResultSMap" type="com.admin.firstedu.classInfo.model.dto.SubjectCategoryDTO">
+		<id property="subjectNo" column="SUBJECT_NO"/>
+		<result property="subjectName" column="SUBJECT_NAME"/>
+		<result property="subjectStatus" column="SUBJECT_STATUS"/>
+	</resultMap> 
+	
+	<!-- 수강정보 + 과목 + 학년 + 선생님 정보 -->
+	<resultMap id="classAndInforResultMap" type="com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO">
+		<id property="code" column="CLASS_CODE"/>
+		<result property="classNum" column="CLASS_NUM"/>
+	 	<result property="room" column="CLASS_ROOM"/>
+	 	<result property="className" column="CLASS_NAME"/>
+		<result property="day" column="CLASS_DAY"/>
+		<result property="startTime" column="CLASS_START_TIME"/>
+		<result property="endTime" column="CLASS_END_TIME"/>
+		<result property="book" column="CLASS_BOOK"/>
+		<result property="payment" column="CLASS_PAYMENT"/>
+		<result property="subjectNo" column="SUBJECT_NO"/>
+		<result property="gradeCode" column="GRADE_CODE"/>
+		<result property="no" column="TEACHER_NO"/>
+		<association property="teacherInfo" javaType="com.admin.firstedu.classInfo.model.dto.TeacherDTO">
+			<id property="no" column="TEACHER_NO"/>
+	 		<result property="teacherName" column="TEACHER_NAME"/>
+		</association>
+		<association property="grade" javaType="com.admin.firstedu.classInfo.model.dto.GradeDTO">
+			<id property="gradeCode" column="GRADE_CODE"/>
+	 		<result property="gradeName" column="GRADE_NAME"/>
+		</association>
+		<association property="subjectCategory" javaType="com.admin.firstedu.classInfo.model.dto.SubjectCategoryDTO">
+			<id property="subjectNo" column="SUBJECT_NO"/>
+	 		<result property="subjectName" column="SUBJECT_NAME"/>
+	 		<result property="subjectStatus" column="SUBJECT_STATUS"/>
+		</association>
+	</resultMap>
+	
+	<!-- 수강등록 -->
+	<insert id="insertClassInfo" parameterType="ClassDTO">
+        INSERT 
+	          INTO TBL_CLASS A
+	        (
+	          A.CLASS_NUM, A.CLASS_CODE, A.CLASS_ROOM, A.CLASS_NAME , A.CLASS_DAY
+	        , A.CLASS_START_TIME, A.CLASS_END_TIME, A.CLASS_BOOK, A.CLASS_PAYMENT, A.SUBJECT_NO
+	        , A.GRADE_CODE , A.TEACHER_NO
+	        ) 
+			VALUES
+			(
+			  SEQ_CLASS_NUM.NEXTVAL, #{code}, #{ room }
+			, #{ className }, #{ day }, #{ startTime }, #{ endTime }
+			, #{ book }, #{ payment }, #{ subjectNo }
+			, #{ gradeCode }, #{ no }
+		)
+	</insert>
+	
+	<select id="selectUpdateMember" resultMap="classAndInforResultMap" parameterType="_int">
+		SELECT
+			   A.CLASS_NUM
+		 	 , A.CLASS_CODE
+             , B.TEACHER_NAME
+             , C.GRADE_NAME
+             , D.SUBJECT_NAME
+		     , A.CLASS_ROOM
+		     , A.CLASS_NAME
+		     , A.CLASS_DAY
+		     , A.CLASS_START_TIME
+		     , A.CLASS_END_TIME
+		     , A.CLASS_BOOK
+		     , A.CLASS_PAYMENT
+		  FROM TBL_CLASS A
+          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		  WHERE A.CLASS_NUM = #{no} 
+		  ORDER BY A.CLASS_NUM ASC 
+	</select>
+	
+	<!-- 정보수정 -->
+	<update id="classUpdate" parameterType="ClassDTO">
+		UPDATE 
+			TBL_CLASS A
+		   SET A.CLASS_CODE = #{code}
+		     , A.CLASS_ROOM = #{room}
+  		     , A.CLASS_NAME = #{className}
+  		     , A.CLASS_DAY = #{day}
+  		     , A.CLASS_START_TIME = #{startTime}
+  		     , A.CLASS_END_TIME = #{endTime}
+  		     , A.CLASS_BOOK = #{book}
+  		     , A.CLASS_PAYMENT = #{payment}
+  		     , A.SUBJECT_NO = #{subjectNo}
+  		     , A.GRADE_CODE = #{gradeCode}
+  		 WHERE A.CLASS_NUM = #{classNum} 
+	</update>
+	
+	<!-- 과목 등록 -->
+	<select id="selectClsssAndInfo" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">
+			SELECT
+			   A.CLASS_NUM
+		 	 , A.CLASS_CODE
+             , B.TEACHER_NAME
+             , C.GRADE_NAME
+             , D.SUBJECT_NAME
+		     , A.CLASS_ROOM
+		     , A.CLASS_NAME
+		     , A.CLASS_DAY
+		     , A.CLASS_START_TIME
+		     , A.CLASS_END_TIME
+		     , A.CLASS_BOOK
+		     , A.CLASS_PAYMENT
+		  FROM TBL_CLASS A
+          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		  ORDER BY A.CLASS_NUM
+	</select>
+	
+	<!-- 과목 상세정보 -->
+	<select id="selectClassDetail" resultMap="classAndInforResultMap" parameterType="_int">
+			SELECT
+			   A.CLASS_NUM
+		 	 , A.CLASS_CODE
+             , B.TEACHER_NAME
+             , C.GRADE_NAME
+             , D.SUBJECT_NAME
+		     , A.CLASS_ROOM
+		     , A.CLASS_NAME
+		     , A.CLASS_DAY
+		     , A.CLASS_START_TIME
+		     , A.CLASS_END_TIME
+		     , A.CLASS_BOOK
+		     , A.CLASS_PAYMENT
+		  FROM TBL_CLASS A
+		  JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+	 	 WHERE A.CLASS_NUM = #{classNum}
+	</select>
+	
+	<!-- 시간표 목록 -->
+	<select id="selectTimeTable" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">
+		SELECT
+               C.GRADE_NAME
+             , D.SUBJECT_NAME
+             , B.TEACHER_NAME
+             , A.CLASS_NAME
+             , A.CLASS_DAY
+             , A.CLASS_START_TIME
+             , A.CLASS_END_TIME
+		     , A.CLASS_BOOK
+		  FROM TBL_CLASS A
+          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		 ORDER BY GRADE_NAME
+	</select>
+	
+	
+	<!-- 시간표 등록 -->
+	<select id="selectTimeInsert" parameterType="ClassDTO">
+		INSERT 
+          INTO TBL_CLASS A
+	        (
+	          A.CLASS_NUM, A.CLASS_CODE, A.CLASS_ROOM, A.CLASS_NAME , A.CLASS_DAY
+	        , A.CLASS_START_TIME, A.CLASS_END_TIME, A.CLASS_BOOK, A.CLASS_PAYMENT, A.SUBJECT_NO
+	        , A.GRADE_CODE , A.TEACHER_NO
+	        ) 
+			VALUES
+			(
+			  SEQ_CLASS_NUM.NEXTVAL, #{code}, #{ room }
+			, #{ className }, #{ day }, #{ startTime }, #{ endTime }
+			, #{ book }, #{ payment }, #{ subjectNo }
+			, #{ gradeCode }, #{ no }
+			)
+	</select>
+	
+	<!-- 검색 -->
+	<select id="searchClass" parameterType="SearchCriteriaDTO" resultMap="classAndInforResultMap">
+		SELECT
+               C.GRADE_NAME
+             , D.SUBJECT_NAME
+             , B.TEACHER_NAME
+             , A.CLASS_DAY
+		  FROM TBL_CLASS A
+          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		  <where>
+		  <if test="searchCondition == 'gradeName'">
+          	 C.GRADE_NAME LIKE '%' || #{ searchValue } || '%'	  
+		  </if>
+		  <if test="searchCondition == 'subjectName'">
+		  AND D.SUBJECT_NAME LIKE '%' || #{searchValue} || '%'
+		  </if>
+		  <if test="searchCondition == 'teacherName'">
+		  AND B.TEACHER_NAME LIKE '%' || #{searchValue} || '%'  
+		  </if>
+		  <if test="searchCondition == 'day'">
+		  AND A.CLASS_DAY = #{searchValue}
+		  </if>
+		  </where>
+	</select>
+  	<!-- 초기 페이지 처리 안하려고 했을 때 검색만 사용 시 -->	 
+  	
+  	
+  	<select id="searchClassCount" parameterType="SearchCriteriaDTO" resultType="_int">
+  	SELECT /* com.admin.firstedu.classInfo.model.dao.ClassInfoMapper#selectTotalCount() */
+		   COUNT(*)
+	   	FROM TBL_CLASS A
+	   	JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+	 	  <where>
+		  <if test="searchCondition == 'gradeName'">
+          C.GRADE_NAME LIKE '%' || #{ searchValue } || '%'	  
+		  </if>
+		  <if test="searchCondition == 'subjectName'">
+		  AND D.SUBJECT_NAME LIKE '%' || #{searchValue} || '%'
+		  </if>
+		  <if test="searchCondition == 'teacherName'">
+		  AND B.TEACHER_NAME LIKE '%' || #{searchValue} || '%'  
+		  </if>
+		  <if test="searchCondition == 'day'">
+		  AND A.CLASS_DAY = #{searchValue}
+		  </if>
+		  </where>
+  	</select>
+	
+	<!-- 페이징처리 -->
+	<select id="selectTotalCount" parameterType="SearchCriteriaDTO" resultType="_int">
+		SELECT /* com.admin.firstedu.classInfo.model.dao.ClassInfoMapper#selectTotalCount() */
+		   COUNT(*)
+	   	FROM TBL_CLASS A
+	   	JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+	 	  <where>
+		  <if test="searchCondition == 'gradeName'">
+          C.GRADE_NAME LIKE '%' || #{ searchValue } || '%'	  
+		  </if>
+		  <if test="searchCondition == 'subjectName'">
+		  AND D.SUBJECT_NAME LIKE '%' || #{searchValue} || '%'
+		  </if>
+		  <if test="searchCondition == 'teacherName'">
+		  AND B.TEACHER_NAME LIKE '%' || #{searchValue} || '%'  
+		  </if>
+		  <if test="searchCondition == 'day'">
+		  AND A.CLASS_DAY = #{searchValue}
+		  </if>
+		  </where>
+		  
+	</select>
+	
+	<select id="selectClassList" parameterType="SearchCriteriaDTO" resultMap="classAndInforResultMap">
+	SELECT 
+       A.CLASS_NUM
+     , A.CLASS_CODE
+     , A.TEACHER_NAME
+     , A.GRADE_NAME
+     , A.SUBJECT_NAME
+     , A.CLASS_ROOM
+	 , A.CLASS_NAME
+     , A.CLASS_DAY
+     , A.CLASS_START_TIME
+     , A.CLASS_END_TIME
+     , A.CLASS_BOOK
+     , A.CLASS_PAYMENT
+  FROM(SELECT ROWNUM RNUM
+             , B.CLASS_NUM
+		 	 , B.CLASS_CODE
+             , B.TEACHER_NAME
+             , B.GRADE_NAME
+             , B.SUBJECT_NAME
+		     , B.CLASS_ROOM
+		     , B.CLASS_NAME
+		     , B.CLASS_DAY
+		     , B.CLASS_START_TIME
+		     , B.CLASS_END_TIME
+		     , B.CLASS_BOOK
+		     , B.CLASS_PAYMENT       
+        FROM(SELECT	A.CLASS_NUM
+                  , A.CLASS_CODE
+                  , B.TEACHER_NAME
+                  , C.GRADE_NAME
+                  , D.SUBJECT_NAME
+                  , A.CLASS_ROOM
+                  , A.CLASS_NAME
+                  , A.CLASS_DAY
+                  , A.CLASS_START_TIME
+                  , A.CLASS_END_TIME
+                  , A.CLASS_BOOK
+                  , A.CLASS_PAYMENT
+               FROM TBL_CLASS A
+               JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+               JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+               JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+              )B
+        )A
+ WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}   
+	</select>
+	
+	<select id="searchClassList" parameterType="map" resultMap="classAndInforResultMap">
+		SELECT 
+       A.CLASS_NUM
+     , A.CLASS_CODE
+     , A.TEACHER_NAME
+     , A.GRADE_NAME
+     , A.SUBJECT_NAME
+     , A.CLASS_ROOM
+	 , A.CLASS_NAME
+     , A.CLASS_DAY
+     , A.CLASS_START_TIME
+     , A.CLASS_END_TIME
+     , A.CLASS_BOOK
+     , A.CLASS_PAYMENT
+  FROM(SELECT ROWNUM RNUM
+             , B.CLASS_NUM
+		 	 , B.CLASS_CODE
+             , B.TEACHER_NAME
+             , B.GRADE_NAME
+             , B.SUBJECT_NAME
+		     , B.CLASS_ROOM
+		     , B.CLASS_NAME
+		     , B.CLASS_DAY
+		     , B.CLASS_START_TIME
+		     , B.CLASS_END_TIME
+		     , B.CLASS_BOOK
+		     , B.CLASS_PAYMENT       
+        FROM(SELECT	A.CLASS_NUM
+                  , A.CLASS_CODE
+                  , B.TEACHER_NAME
+                  , C.GRADE_NAME
+                  , D.SUBJECT_NAME
+                  , A.CLASS_ROOM
+                  , A.CLASS_NAME
+                  , A.CLASS_DAY
+                  , A.CLASS_START_TIME
+                  , A.CLASS_END_TIME
+                  , A.CLASS_BOOK
+                  , A.CLASS_PAYMENT
+               FROM TBL_CLASS A
+               JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+               JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+               JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+              <where>
+			  <if test="searchCriteria.searchCondition == 'gradeName'">
+	          	 C.GRADE_NAME LIKE '%' || #{ searchCriteria.searchValue } || '%'	  
+			  </if>
+			  <if test="searchCriteria.searchCondition == 'subjectName'">
+			  AND D.SUBJECT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+			  </if>
+			  <if test="searchCriteria.searchCondition == 'teacherName'">
+			  AND B.TEACHER_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'  
+			  </if>
+			  <if test="searchCriteria.searchCondition == 'day'">
+			  AND A.CLASS_DAY = #{searchCriteria.searchValue}
+			  </if>
+			  </where>
+              )B
+        )A
+ WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}      
+	</select>
+	
+</mapper>
