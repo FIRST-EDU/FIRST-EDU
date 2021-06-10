@@ -1,0 +1,20 @@
+package com.admin.firstedu.dashboard.model.dao;
+
+import java.util.List;
+
+import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO;
+
+public interface DashboardMapper {
+
+	StudentStatisticsDTO selectStudentStatistics();
+
+	List<StudentGradeStatisticsDTO> selectStudentGradeStatistics();
+
+	List<StudentClassStatisticsDTO> selectStudentClassStatistics();
+
+	List<StudentSchoolStatisticsDTO> selectStudentSchoolStatistics();
+
+}

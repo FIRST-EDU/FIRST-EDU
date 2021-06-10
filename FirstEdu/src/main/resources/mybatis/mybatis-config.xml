@@ -4,5 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
- 
+	<typeAliases>
+		<typeAlias alias="SalesStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO"/>
+		<typeAlias alias="StudentClassStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO"/>
+		<typeAlias alias="StudentGradeStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO"/>
+		<typeAlias alias="StudentSchoolStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO"/>
+		<typeAlias alias="StudentStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO"/>
+		<typeAlias alias="TeacherStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.TeacherStatisticsDTO"/>
+	</typeAliases>
 </configuration>

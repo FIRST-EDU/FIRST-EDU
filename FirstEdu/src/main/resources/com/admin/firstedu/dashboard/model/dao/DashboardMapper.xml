@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.dashboard.model.dao.DashboardMapper">
+
+	<!-- 학생 기본 통계 StudentStatisticsDTO -->
+	<resultMap id="studentStatisticsResultMap" type="StudentStatisticsDTO">
+		<result column="TOTAL_COUNT" property="totalCount"/>
+		<result column="NEW_COUNT" property="newCount"/>
+		<result column="QUIT_COUNT" property="quitCount"/>
+		<result column="FEMALE_COUNT" property="femaleCount"/>
+		<result column="MALE_COUNT" property="maleCount"/>
+	</resultMap>
+	
+	<!-- 학년별 학생 현황 StudentGradeStatisticsDTO -->
+	<resultMap id="StudentGradeStatisticsResultMap" type="StudentGradeStatisticsDTO">
+		<id column="GRADE_CODE" property="gradeCode"/>
+		<result column="GRADE_NAME" property="gradeName"/>
+		<result column="COUNT" property="count"/>
+	</resultMap>
+
+	<!-- 강의별 학생 현황 StudentClassStatisticsDTO -->
+	<resultMap id="StudentClassStatisticsResultMap" type="StudentClassStatisticsDTO">
+		<id column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NAME" property="className"/>
+		<result column="COUNT" property="count"/>
+	</resultMap>
+
+	<!-- 학교별 학생 현황 StudentSchoolStatisticsDTO -->
+	<resultMap id="StudentSchoolStatisticsResultMap" type="StudentSchoolStatisticsDTO">
+		<id column="SCHOOL" property="school"/>
+		<result column="COUNT" property="count"/>
+	</resultMap>
+
+	<!-- 학생 기본 통계 자료 조회 -->
+	<select id="selectStudentStatistics" resultMap="studentStatisticsResultMap">
+		SELECT
+		       (SELECT COUNT(A.STUDENT_NO)
+		          FROM TBL_STUDENT A
+		         WHERE A.STATUS = 'Y'
+		       ) AS TOTAL_COUNT
+		     , (SELECT COUNT(A.STUDENT_NO)
+		          FROM TBL_STUDENT A
+		         WHERE A.STATUS = 'Y'
+		           AND EXTRACT(MONTH FROM A.REGISTRATION_DATE) = EXTRACT(MONTH FROM SYSDATE)
+		       ) AS NEW_COUNT
+		     , (SELECT COUNT(A.STUDENT_NO)
+		          FROM TBL_STUDENT A
+		         WHERE A.STATUS = 'N'
+		           AND EXTRACT(MONTH FROM A.QUIT_DATE) = EXTRACT(MONTH FROM SYSDATE)  
+		       ) AS QUIT_COUNT
+		     , (SELECT COUNT(A.STUDENT_NO)
+		          FROM TBL_STUDENT A
+		         WHERE A.STATUS = 'Y'
+		           AND A.GENDER = '여'
+		       ) AS FEMALE_COUNT
+		     , (SELECT COUNT(A.STUDENT_NO)
+		          FROM TBL_STUDENT A
+		         WHERE A.STATUS = 'Y'
+		           AND A.GENDER = '남'
+		       ) AS MALE_COUNT
+		 FROM DUAL		
+	</select>
+	
+	<!-- 학년별 학생 현황 조회 -->
+	<select id="selectStudentGradeStatistics" resultMap="StudentGradeStatisticsResultMap">
+		SELECT
+		       A.GRADE_CODE
+		     , B.GRADE_NAME
+		     , COUNT(A.GRADE_CODE) AS COUNT
+		  FROM TBL_STUDENT A
+		  JOIN TBL_GRADE B ON (A.GRADE_CODE = B.GRADE_CODE)
+		 WHERE A.STATUS = 'Y'
+		 GROUP BY A.GRADE_CODE, B.GRADE_NAME	
+	</select>	
+	
+	<!-- 강의별 학생 현황 조회 -->
+	<select id="selectStudentClassStatistics" resultMap="StudentClassStatisticsResultMap">
+		SELECT
+		       A.CLASS_CODE
+		     , B.CLASS_NAME
+		     , COUNT(A.CLASS_CODE) AS COUNT
+		  FROM TBL_CLASS_INFO A
+		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+		 WHERE A.STATUS = 'Y'
+		 GROUP BY A.CLASS_CODE, B.CLASS_NAME	
+	</select>	
+	
+	<!-- 학교별 학생 현황 조회 -->
+	<select id="selectStudentSchoolStatistics" resultMap="StudentSchoolStatisticsResultMap">
+		SELECT
+		       A.SCHOOL
+		     , COUNT(A.STUDENT_NO) AS COUNT
+		  FROM TBL_STUDENT A
+		 WHERE A.STATUS = 'Y'
+		 GROUP BY A.SCHOOL	
+	</select>	
+
+
+</mapper>
