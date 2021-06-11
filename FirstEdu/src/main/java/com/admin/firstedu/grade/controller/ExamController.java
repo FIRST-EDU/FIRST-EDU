@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 @Controller
+@RequestMapping("/grade/*")
 public class ExamController {
 
 	private final ExamService examService;
@@ -38,7 +40,7 @@ public class ExamController {
 	}
 	
 	/* 시험 관리 첫 화면 - 시험 일정 조회(달력) */
-	@GetMapping("/grade/exam/list")
+	@GetMapping("/exam/list")
 	public String selectExamList(Model model) {
 		
 		List<ExamListInfoDTO> examList = examService.selectExamScheduleList();
@@ -62,7 +64,7 @@ public class ExamController {
 	}
 	
 	/* 시험 일정 달력 조회 및 검색 */
-	@GetMapping(value="/grade/exam/search/schedule", produces="application/json; charset=UTF-8")
+	@GetMapping(value="/exam/search/schedule", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria) {
 		System.out.println(searchCriteria);
@@ -76,7 +78,7 @@ public class ExamController {
 	}
 
 	/* 시험 목록 테이블 조회 및 검색(페이징 처리) */
-	@GetMapping(value="/grade/exam/search/{pageNo}", produces="application/json; charset=UTF-8")
+	@GetMapping(value="/exam/search/{pageNo}", produces="application/json; charset=UTF-8")
 	@ResponseBody
 	public String searchExamList(@ModelAttribute ExamSearchCriteria searchCriteria,
 								 @PathVariable("pageNo") int pageNo) {
@@ -198,6 +200,14 @@ public class ExamController {
 		rttr.addFlashAttribute("message", "시험 종류 카테고리가 삭제되었습니다.");
 		
 		return "redirect:/grade/exam";
+	}
+	
+	@GetMapping("/exam/{examNo}")
+	public String examDetail(@PathVariable("examNo") int examNo, Model model) {
+		
+		ExamListInfoDTO exam = examService.selectExam(examNo);
+		//List<ScoreListInfoDTO> scoreList = examService.selectScoreList(examNo);
+		return "grade/examDetail";
 	}
 	
 }

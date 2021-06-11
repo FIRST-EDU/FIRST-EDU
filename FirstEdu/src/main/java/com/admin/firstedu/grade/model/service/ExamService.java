@@ -35,5 +35,9 @@ public interface ExamService {
 	
 	boolean removeExamCategory(int examCategoryNo);
 
+	ExamListInfoDTO selectExam(int examNo);
+
+	//List<ScoreListInfoDTO> selectScoreList(int examNo);
+
 
 }
