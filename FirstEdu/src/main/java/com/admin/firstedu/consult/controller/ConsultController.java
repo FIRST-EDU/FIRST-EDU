@@ -103,7 +103,7 @@ public class ConsultController {
 
 		int totalCount = consultService.selectStudentTotal(searchCriteria);
 
-		int limit = 11;
+		int limit = 10;
 
 		int buttonAmount = 5;
 

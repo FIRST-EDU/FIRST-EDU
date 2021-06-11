@@ -189,45 +189,32 @@
 
   	</select>
   	
-  	<select id="selectStudentList" parameterType="hashmap" resultMap="studentResultMap2">
+  	<select id="selectStudentList" parameterType="map" resultMap="studentResultMap2">
   	SELECT  A.RNUM
-		  , A.STUDENT_NO
+  		  , A.STUDENT_NO
 		  , A.STUDENT_NAME
 		  , A.GRADE_NAME
 		  , A.STUDENT_PHONE
-		  , A.CLASS_NO
-		  , A.CLASS_NAME
-		  , A.CLASS_PAYMENT
 		  , A.SCHOOL
 		 FROM(SELECT ROWNUM RNUM
 		            , B.STUDENT_NO
 			  		, B.STUDENT_NAME
 			  		, B.GRADE_NAME
 			  		, B.STUDENT_PHONE
-			  	    , B.CLASS_NO
-			  	    , B.CLASS_NAME
-			  	    , B.CLASS_PAYMENT
 			  	    , B.SCHOOL
 		       FROM (SELECT 
 		                   C.STUDENT_NO
 			  			 , C.STUDENT_NAME
-			  			 , F.GRADE_NAME
+			  			 , D.GRADE_NAME
 			  			 , C.STUDENT_PHONE
-			  			 , D.CLASS_NO
-			  			 , E.CLASS_NAME
-			  			 , E.CLASS_PAYMENT
 			  			 , C.SCHOOL
 		              FROM TBL_STUDENT C
-			  		  JOIN TBL_CLASS_INFO D ON (C.STUDENT_NO = D.STUDENT_NO)
-			  		  JOIN TBL_CLASS E ON (D.CLASS_CODE = E.CLASS_CODE)
-			  		  JOIN TBL_GRADE F ON (C.GRADE_CODE = F.GRADE_CODE)
+			  		  JOIN TBL_GRADE D ON (C.GRADE_CODE = D.GRADE_CODE)
 			  		 WHERE C.STATUS = 'Y'
 		             ORDER BY C.STUDENT_NO DESC
 		             ) B
 		      ) A
-		WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
-  		  <if test="searchCriteria.searchOption == null">
-  		  </if>
+  		  WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
   		 <if test="searchCriteria.searchOption == 'school'">
   		 AND A.SCHOOL LIKE '%' || #{searchCriteria.searchValue} || '%'
   		  </if>
