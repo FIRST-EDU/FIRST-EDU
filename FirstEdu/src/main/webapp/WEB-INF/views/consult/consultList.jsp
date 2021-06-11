@@ -57,8 +57,9 @@
                       />
                     </div>
                 </form>
-            </section>
-              <button type="button" class="btn-fill-primary btn-basic consult-input-btn">상담 입력</button>
+              </section>
+              <a href="consult-input.html" class="btn-fill-primary btn-basic consult-input-btn">상담 입력</a>
+          </section>
           </div>
         </div>
 
@@ -76,7 +77,7 @@
                       <th scope="col">상담내용</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="click-detail-modal">
                     <tr>
                       <td>1</td>
                       <td>2021/04/07</td>
@@ -279,7 +280,69 @@
       </div>
     </main>
 
+ <div class="modal detail-board-modal">
+    <div class="modal-content">
+      <section class="form-left">
+        <article class="form-align">
+        <label>학생번호</label>
+        <div class="input-group">
+          <input class="form-input" type="button" readonly />
+        </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담일</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>학생명</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담자</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담방법</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담내용</label>
+          <textarea name="" id="" readonly></textarea>
+        </article>
+      </section>
+
+        <div class="popup-2btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-popup back-btn">목록</button>
+        <a href="consult-input.html" class="btn-fill-primary btn-popup">수정</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-input-board-modal">
+  <div class="modal-content">
+    <strong>게시물 등록</strong>
+    <p>게시물이 등록되었습니다.</p>
+    <div class="popup-1btn">
+      <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+    </div>
+  </div>
+  </div>
+
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

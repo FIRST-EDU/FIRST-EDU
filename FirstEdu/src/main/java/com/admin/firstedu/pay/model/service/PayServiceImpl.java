@@ -105,6 +105,18 @@ public class PayServiceImpl implements PayService{
 		return payMapper.selectStudentTotal(searchCriteria);
 	}
 
+	@Override
+	public int searchStudentTotalCount(SearchCriteria searchCriteria) {
+		// TODO Auto-generated method stub
+		return payMapper.searchStudentTotalCount(searchCriteria);
+	}
+
+	@Override
+	public int selectPayment(int classOne) {
+		// TODO Auto-generated method stub
+		return payMapper.selectPayment(classOne);
+	}
+
 	
 
 	

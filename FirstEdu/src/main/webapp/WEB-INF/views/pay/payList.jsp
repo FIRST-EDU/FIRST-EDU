@@ -36,7 +36,7 @@
     
     </head>
 <style>
-	.modal {
+	.modal1 {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 1; /* Sit on top */
@@ -50,7 +50,7 @@
         }
     
         /* Modal Content/Box */
-        .modal-content {
+        .modal-content1 {
             background-color: #fefefe;
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
@@ -284,9 +284,9 @@
     </div>
 
  
- <div id="myModal" class="modal">
+ <div id="myModal" class="modal1">
       <!-- Modal content -->
-      <div class="modal-content">
+      <div class="modal-content1">
             	<form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
 					    <input type="hidden" name="payNo" id="payNo" value=""><br>
 						학생명 <input type="text" name="studentName" id="studentName"  value="" readonly><br>
@@ -311,7 +311,37 @@
 				</form>          
       	 </div>
     </div>
+    
+<div class="modal delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제하기</strong>
+      <p>게시물을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
 
+  <div class="modal complete-modal complete-delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제</strong>
+      <p>게시물이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-input-board-modal">
+    <div class="modal-content">
+      <strong>게시물 등록</strong>
+      <p>게시물이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
   </main>
 	<script>
 	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
@@ -379,6 +409,7 @@
 								type : "GET",
 								data : {no : no},
 								success : function(data) {
+									$('#myModal').show();
 									var payNo = data.payNo;
 									$("#payNo").attr("value", payNo);
 
@@ -391,12 +422,12 @@
 									var studentName = data.student.studentName;
 									$("#studentName").attr("value",studentName);
 
-									var payYn = data.payYn;
+									/* var payYn = data.payYn;
 									if (payYn == '납부') {
 										$("#payYn option:eq(0)").prop("selected",true);
 									} else if (payYn == '미납') {
 										$("#payYn option:eq(1)").prop("selected",true);
-									}
+									} */
 
 									if (data.discount != null) {
 										var discountReason = data.discount.discountReason;
@@ -409,9 +440,9 @@
 										}
 									}
 
-									var payOption = data.payOption;
+									/* var payOption = data.payOption;
 									$("#payOption option:selected").attr("value",payOption);
-									$('#myModal').show();
+									 */
 								}
 							});
 

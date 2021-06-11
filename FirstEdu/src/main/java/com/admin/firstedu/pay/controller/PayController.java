@@ -2,6 +2,8 @@ package com.admin.firstedu.pay.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +28,6 @@ import com.admin.firstedu.pay.model.dto.PageInfoDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
-import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.pay.model.service.PayService;
 import com.google.gson.Gson;
@@ -60,6 +64,7 @@ public class PayController {
 		}
 
 		int totalCount = payService.selectTotalCount();
+		System.out.println("리스트 : " + totalCount);
 
 		int limit = 10;
 
@@ -94,6 +99,8 @@ public class PayController {
 		}
 
 		int totalCount = payService.searchTotalCount(searchCriteria);
+
+		System.out.println("search List : ");
 
 		int limit = 10;
 
@@ -150,19 +157,25 @@ public class PayController {
 		return "pay/payList";
 	}
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	/* insert라는 매핑명 & post방식으로 넘어온 작업 수행. 수납 입력 기능 */
 	@PostMapping("insert")
 	public String insertPay(Model model, @ModelAttribute PayDTO pay) {
 
+		System.out.println(pay);
+		
 		int result = payService.insertPay(pay);
 
-		if (result > 0) {
-			model.addAttribute("message", "수납입력에 성공하였습니다.");
-		} else {
-			model.addAttribute("message", "수납입력에 실패하였습니다.");
-		}
+		/*
+		 * if (result > 0) { model.addAttribute("message", "수납입력에 성공하였습니다."); } else {
+		 * model.addAttribute("message", "수납입력에 실패하였습니다."); }
+		 */
 
-		return "main/result";
+		return "redirect:/pay/list";
 	}
 
 	/* insertView라는 매핑명 & Get으로 요청된 작업 수행. insert 시 학생목록을 출력해 주기 위한 학생목록조회 기능 */
@@ -171,7 +184,7 @@ public class PayController {
 			@ModelAttribute SearchCriteria searchCriteria) {
 
 		String currentPage = request.getParameter("currentPage");
-		
+
 		int pageNo = 1;
 
 		if (currentPage != null && !"".equals(currentPage)) {
@@ -181,27 +194,36 @@ public class PayController {
 			}
 		}
 
-		int totalCount = payService.searchTotalCount(searchCriteria);
+		int totalCount = payService.selectStudentTotal(searchCriteria);
 
-		int limit = 12;
+		int limit = 11;
 
 		int buttonAmount = 5;
 
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
-		
+
 		Map<String, Object> map = new HashMap<>();
-		map.put("searchCriteria",searchCriteria);
+		map.put("searchCriteria", searchCriteria);
 		map.put("pageInfo", pageInfo);
-		
+
 		List<StudentAndClassInfoDTO> studentList = payService.selectStudentList(map);
-		
+
 		int studentTotal = payService.selectStudentTotal(searchCriteria);
 
 		model.addAttribute("studentList", studentList);
-		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("studentTotal", studentTotal);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("searchOption", searchCriteria.getSearchOption());
 		model.addAttribute("searchValue", searchCriteria.getSearchValue());
+
+		for (StudentAndClassInfoDTO student : studentList) {
+			System.out.println(student);
+		}
+		System.out.println(pageInfo);
+		System.out.println(totalCount);
+		System.out.println(studentTotal);
+		System.out.println(searchCriteria.getSearchOption());
+		System.out.println(searchCriteria.getSearchValue());
 
 		return "pay/payInsert";
 
@@ -266,7 +288,8 @@ public class PayController {
 	}
 
 	@GetMapping("classList")
-	public String selectClassList(Model model, HttpServletResponse response, @RequestParam(value = "stuNo") int stuNo) throws IOException {
+	public String selectClassList(Model model, HttpServletResponse response, @RequestParam(value = "stuNo") int stuNo)
+			throws IOException {
 
 		List<StudentAndClassInfoDTO> classList = payService.selectClassList(stuNo);
 
@@ -279,7 +302,7 @@ public class PayController {
 
 		out.flush();
 		out.close();
-		
+
 		for (StudentAndClassInfoDTO classL : classList) {
 			System.out.println(classL);
 		}
@@ -287,19 +310,23 @@ public class PayController {
 		return "pay/payInsert";
 	}
 
-	/*
-	 * detail이라는 매핑명 & Get으로 요청된 작업 수행. 수납 상세 페이지를 조회해오는 기능
-	 * 
-	 * @GetMapping("detail") public String selectPayDetail(Model
-	 * model, @RequestParam(value="no") int no) {
-	 * 
-	 * PayListDTO payDetail = payService.selectPayDetail(no);
-	 * 
-	 * model.addAttribute("payDetail", payDetail);
-	 * 
-	 * return "pay/payDetail"; }
-	 */
+	@GetMapping("selectPayment")
+	public String selectPayment(Model model, HttpServletResponse response,
+			@RequestParam(value = "classOne") int classOne) throws IOException {
 
-	
+		int classPayment = payService.selectPayment(classOne);
+
+		response.setContentType("application/json; charset=UTF-8");
+
+		Gson gson = new GsonBuilder().create();
+
+		PrintWriter out = response.getWriter();
+		out.print(gson.toJson(classPayment));
+
+		out.flush();
+		out.close();
+
+		return "pay/payInsert";
+	}
 
 }

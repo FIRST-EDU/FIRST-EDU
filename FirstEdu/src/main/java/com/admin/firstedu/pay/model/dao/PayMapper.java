@@ -46,4 +46,8 @@ public interface PayMapper {
 
 	int selectStudentTotal(SearchCriteria searchCriteria);
 
+	int searchStudentTotalCount(SearchCriteria searchCriteria);
+
+	int selectPayment(int classOne);
+
 }

@@ -32,11 +32,12 @@
     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+</head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
 
 
-   <main class="common-background">
+    <main class="common-background">
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-md-6">
@@ -318,11 +319,12 @@
                   </article>
 
                   <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn">취소</button>
+                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn"
+                    onclick="location.href='${pageContext.servletContext.contextPath}/pay/list'">취소</button>
                     <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
                 </section>
-
+                
                 <div class="modal complete-input-board-modal">
                   <div class="modal-content">
                     <strong>게시물 등록하기</strong>
@@ -334,6 +336,7 @@
                       </div>
                   </div>
                 </div>
+                
               </form>
             </div>
           </div>
@@ -341,14 +344,14 @@
           <div class="row">
             <div class="col-sm-4">
               <section class="common-card consult-img">
-                <img src="${ pageContext.servletContext.contextPath }/resources//assets/png/storage-input.png" alt="">
+                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/storage-input.png" alt="">
               </section>
             </div>
           </div>
         </div>
     </main>
-
-	<div class="modal cancel-board-mordal">
+    
+    <div class="modal cancel-board-mordal">
       <div class="modal-content">
         <strong>게시물 등록 취소</strong>
         <p>게시물 등록을 취소하시겠습니까?</p>
@@ -359,11 +362,160 @@
       </div>
     </div>
 
+<script>
+		const link = "${ pageContext.servletContext.contextPath }/pay/insertView";
+		const searchLink = "${ pageContext.servletContext.contextPath }/pay/insertView";
+		
+		function pageButtonAction(text) {
+			location.href = link + "?currentPage=" + text;
+		}
+		
+		function searchPageButtonAction(text) {
+			location.href = searchLink
+					+ "?currentPage="
+					+ text
+					+ "&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+		}
+		
+		if (document.getElementById("searchPrevPage")) {
+			const $searchPrevPage = document.getElementById("searchPrevPage");
+			$searchPrevPage.onclick = function() {
+				location.href = searchLink
+						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+			}
+		}
+		
+		if (document.getElementById("searchNextPage")) {
+			const $searchNextPage = document.getElementById("searchNextPage");
+			$searchNextPage.onclick = function() {
+				location.href = searchLink
+						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
+			}
+		}
+		
+		if (document.getElementById("prevPage")) {
+			const $prevPage = document.getElementById("prevPage");
+			$prevPage.onclick = function() {
+				location.href = link
+						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+			}
+		}
+		
+		if (document.getElementById("nextPage")) {
+			const $nextPage = document.getElementById("nextPage");
+			$nextPage.onclick = function() {
+				location.href = link
+						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+			}
+		}
+		/* 테이블 클릭 시 값이 자동으로 input태그에 입력되게 하는 JS Start */
+		$("#studentList tr").click(
+				function() {
+					var tdArr = new Array();
+
+					var tr = $(this);
+					var td = tr.children();
+
+					td.each(function(i) {
+						tdArr.push(td.eq(i).text());
+					});
+
+					var stuNo = td.eq(0).text();
+					var name = td.eq(1).text();
+					var classPayment = td.eq(5).text();
+
+					$.ajax({
+						url : "classList",
+						type : 'GET',
+						data : {
+							stuNo : stuNo
+						},
+						success : function(data) {
+
+							for (i = 0; i < data.length; i++) {
+								$("#classNo").append(
+										'<option value="' + data[i].classInfo.no + '">'
+												+ data[i].classDTO.className
+												+ '</option>');
+
+							}
+
+						}
+					});
+
+					$('input[name=studentNo]').attr('value', stuNo);
+					$('input[name=studentName]').attr('value', name);
+					$('input[name=tution]').attr('value', classPayment);
+
+				});
+
+		/* 할인 수단 radio버튼 클릭 시 각각의 할인율을 적용하여 결제금액 input태그에 값 입력 Start */
+		$("input:radio").click(function() {
+			var tution = document.getElementById('tution').value;
+
+			if ($('input:radio[id=checkFriend]').is(':checked') == true) {
+				var disTution1 = tution - (tution * 0.1);
+				$('input[name=payment]').attr('value', disTution1);
+			}
+			if ($('input:radio[id=checkMonth]').is(':checked') == true) {
+				var disTution2 = tution - (tution * 0.05);
+				$('input[name=payment]').attr('value', disTution2);
+			}
+			if ($('input:radio[id=checkNull]').is(':checked') == true) {
+				$('input[name=payment]').attr('value', tution);
+			}
+		})
+
+		/* 미납옵션 선택 시 하위의 옵션들을 선택할 수 없게 막아놓는 JS Start */
+		$(function() {
+			$(document).on("change", "select[name=payYn]", function() {
+				var value = $(this).find("option:selected").val();
+				var discountText = $("input[name=discountNo]");
+				var paymentText = $("input[name=payment]");
+				var payOptionText = $("select[name=payOption]");
+				var payDateText = $("input[name=payDate]");
+				var flag = false;
+				if (value == '미납') {
+					flag = true;
+					$(paymentText).val('0');
+					$(payDateText).val('0001-01-01');
+				}
+				/* $("#option1").prop("selected",true); */
+				$("#checkNull").prop("checked", true);
+				$(paymentText).attr("disabled", flag);
+				$(payDateText).attr("disabled", flag);
+				$(payOptionText).attr("disabled", flag);
+			});
+
+		});
+
+		/* form 태그 내부에 disabled 속성으로 된 태그의 데이터는 넘기지 못하기 때문에 submit버튼 클릭 시 disabled 속성을 지워줘야 한다. */
+		$("form").submit(function() {
+			$("input[name=payment]").removeAttr('disabled');
+			$("input[name=payDate]").removeAttr('disabled');
+			$("select[name=payOption]").removeAttr('disabled');
+
+		})
+
+		/* td태그에 마우스 호버 시 pointer 스타일로 변경 Start */
+		if (document.getElementsByTagName("td")) {
+			const $tds = document.getElementsByTagName("td");
+			for (var i = 0; i < $tds.length; i++) {
+
+				$tds[i].onmouseenter = function() {
+					this.parentNode.style.cursor = "pointer";
+				}
+
+			}
+		}
+	</script>
+
+
+<div class="overlay" aria-hidden="true"></div>
 
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

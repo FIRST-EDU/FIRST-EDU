@@ -10,8 +10,8 @@
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-    <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="${ pageContext.servletContext.contextPath }/favicon-32x32.png" />
+    <link rel="shortcut icon" type="image/png" sizes="16x16" href="${ pageContext.servletContext.contextPath }/favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
 	<title> 수납 관리 &gt; 수납 입력 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
@@ -32,12 +32,11 @@
     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-</head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
 
 
-    <main class="common-background">
+   <main class="common-background">
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-md-6">
@@ -52,7 +51,7 @@
 					<div class="select-group">
 	                      <select class="form-select" id="searchOption" name="searchOption">
 	                        <option value="studentName" <c:if test="${requestScope.searchCondition eq 'studentName' }">selected</c:if>>학생명</option>
-							<option value="className" <c:if test="${requestScope.searchCondition eq 'className' }">selected</c:if>>강의명</option>
+							<option value="school" <c:if test="${requestScope.searchCondition eq 'school' }">selected</c:if>>학교</option>
 	                      </select>
 	                      <i class="fas fa-caret-down" aria-hidden></i>
 	                    </div>
@@ -62,7 +61,7 @@
 	                        class="form-input"
 	                        type="search"
 	                        placeholder="검색어를 입력하세요."
-	                        id="searchValue" name="searchValue"
+	                        id="searchValue" name="searchValue" value="${requestScope.searchValue}"
 	                      />
 	                      </div>
                   </c:when>
@@ -70,7 +69,7 @@
                     <div class="select-group">
                       <select class="form-select" id="searchOption" name="searchOption">
                         <option value="studentName">학생명</option>
-						<option value="className">강의명</option>
+						<option value="school">학교</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -80,7 +79,7 @@
                         class="form-input"
                         type="search"
                         placeholder="검색어를 입력하세요."
-                        id="searchValue" name="searchValue"
+                        id="searchValue" name="searchValue" value=""
                       />
                     </div>
                     </c:otherwise>
@@ -96,10 +95,10 @@
                   <tr>
                     <th scope="col">번호</th>
                     <th scope="col">학생명</th>
-                    <th scope="col">강의명</th>
+                    <th scope="col">학교</th>
                     <th scope="col">학년</th>
                     <th scope="col">전화번호</th>
-                    <th style="display: none;"></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -107,17 +106,15 @@
 				<tr>
 					<td><c:out value="${ student.no }" /></td>
 					<td><c:out value="${ student.studentName }" /></td>
-					<td><c:out value="${ student.classDTO.className }" /></td>
+					<td><c:out value="${ student.school }" /></td>
 					<td><c:out value="${ student.grade.gradeName }" /></td>
 					<td><c:out value="${ student.studentPhone }" /></td>
-					<td style="display: none;"><c:out
-							value="${ student.classDTO.classPayment }" /></td>
 				</tr>
 			</c:forEach>
                 </tbody>
               </table>
               
-              <div class="pagenation">
+               <div class="pagenation">
               <c:choose>
 				<c:when test="${ !empty requestScope.searchValue }">
                 
@@ -202,7 +199,7 @@
           </div>
 
             <div class="col-sm-4 col-md-6">
-              <form class="common-card consult-input-card storage-input-card"
+              <form class="common-card consult-input-card storage-input-card" id="inputForm"
               action="${pageContext.servletContext.contextPath}/pay/insert" method="post">
                 <section class="consult-input-box">
                   <article class="consult-input-form">
@@ -216,8 +213,9 @@
                   <article class="consult-input-form">
                     <label>강의명</label>
                     <div class="select-group">
-                      <select class="form-select"
+                      <select class="form-select" 
                       name="classNo" id="classNo">
+                      <option value="">선택</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -302,7 +300,7 @@
                     <div class="select-group">
                       <select class="form-select"
                       name="payOption">
-                        <option value="--">선택</option>
+                        <option value="">선택</option>
                         <option value="카드">카드</option>
                         <option value="현금">현금</option>
                       </select>
@@ -319,24 +317,48 @@
                   </article>
 
                   <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic"
-                    onclick="location.href='${pageContext.servletContext.contextPath}/pay/list'">취소</button>
-                    <button type="submit" class="btn-fill-primary btn-basic">확인</button>
+                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn">취소</button>
+                    <!-- <button type="submit">dddd</button> -->
+                    <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
+
+                 <div class="modal complete-input-board-modal">
+                  <div class="modal-content">
+                    <strong>게시물 등록하기</strong>
+                    <p>게시물을 등록하시겠습니까?</p>
+                      <div class="popup-2btn">
+                        <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+                        <button type="submit" class="btn-fill-primary btn-popup complete-btn"
+                        onclick="location.href='${pageContext.servletContext.contextPath}/pay/list'">확인</button>
+                      </div>
+                  </div>
+                </div>
                 </section>
               </form>
             </div>
-          </div>
+            </div>
+          
 
           <div class="row">
             <div class="col-sm-4">
               <section class="common-card consult-img">
-                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/storage-input.png" alt="">
+                <img src="${ pageContext.servletContext.contextPath }/resources//assets/png/storage-input.png" alt="">
               </section>
             </div>
           </div>
         </div>
     </main>
+
+	<div class="modal cancel-board-mordal">
+      <div class="modal-content">
+        <strong>게시물 등록 취소</strong>
+        <p>게시물 등록을 취소하시겠습니까?</p>
+          <div class="popup-2btn">
+            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
+            <a href="${ pageContext.servletContext.contextPath }/pay/list" class="btn-fill-primary btn-popup complete-btn">확인</a>
+          </div>
+      </div>
+    </div>
 
 <script>
 		const link = "${ pageContext.servletContext.contextPath }/pay/insertView";
@@ -345,14 +367,14 @@
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
 		}
-		
+
 		function searchPageButtonAction(text) {
 			location.href = searchLink
 					+ "?currentPage="
 					+ text
 					+ "&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 		}
-		
+
 		if (document.getElementById("searchPrevPage")) {
 			const $searchPrevPage = document.getElementById("searchPrevPage");
 			$searchPrevPage.onclick = function() {
@@ -360,7 +382,7 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 			}
 		}
-		
+
 		if (document.getElementById("searchNextPage")) {
 			const $searchNextPage = document.getElementById("searchNextPage");
 			$searchNextPage.onclick = function() {
@@ -368,7 +390,7 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchOption=${requestScope.searchOption}&searchValue=${requestScope.searchValue}";
 			}
 		}
-		
+
 		if (document.getElementById("prevPage")) {
 			const $prevPage = document.getElementById("prevPage");
 			$prevPage.onclick = function() {
@@ -376,7 +398,7 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
 			}
 		}
-		
+
 		if (document.getElementById("nextPage")) {
 			const $nextPage = document.getElementById("nextPage");
 			$nextPage.onclick = function() {
@@ -413,17 +435,31 @@
 										'<option value="' + data[i].classInfo.no + '">'
 												+ data[i].classDTO.className
 												+ '</option>');
-
 							}
+							
+							$("#classNo").change(function(){
+								const classOne = $("#classNo").val();
+								console.log(classOne);
+								 $.ajax({
+									url:"selectPayment",
+									type:"GET",
+									data : {classOne:classOne},
+									success : function(data){
+									  $("#tution").attr('value',data);
+										
+									}
+								}) 
+								
+							})
 
 						}
 					});
 
 					$('input[name=studentNo]').attr('value', stuNo);
 					$('input[name=studentName]').attr('value', name);
-					$('input[name=tution]').attr('value', classPayment);
 
 				});
+		
 
 		/* 할인 수단 radio버튼 클릭 시 각각의 할인율을 적용하여 결제금액 input태그에 값 입력 Start */
 		$("input:radio").click(function() {
@@ -454,7 +490,6 @@
 				if (value == '미납') {
 					flag = true;
 					$(paymentText).val('0');
-					$(payDateText).val('0001-01-01');
 				}
 				/* $("#option1").prop("selected",true); */
 				$("#checkNull").prop("checked", true);
@@ -487,11 +522,9 @@
 	</script>
 
 
-<div class="overlay" aria-hidden="true"></div>
-
-
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>
