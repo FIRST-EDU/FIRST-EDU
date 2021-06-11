@@ -136,20 +136,13 @@
   	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_STUDENT A
-  		  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
-  		  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
-  		 <where>
-  		  <if test="searchOption == null">
-  		 	 A.STATUS = 'Y'
-  		  </if>
+  		  WHERE A.STATUS = 'Y'
   		 <if test="searchOption == 'school'">
   		 	AND A.SCHOOL LIKE '%' || #{searchValue} || '%'
   		  </if>
   		 <if test="searchOption == 'studentName'">
   		 	AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
   		  </if>
-  		 </where>
-
   	</select>
   	
   	<select id="selectConsultList" parameterType="hashmap" resultMap="consultListResultMap">

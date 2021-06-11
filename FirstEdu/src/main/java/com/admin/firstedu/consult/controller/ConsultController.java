@@ -49,6 +49,7 @@ public class ConsultController {
 			}
 		}
 
+		/* 상담목록 페이징 */
 		int totalCount = consultService.searchTotalCount(searchCriteria);
 
 		int limit = 12;
@@ -63,6 +64,7 @@ public class ConsultController {
 		
 		List<ConsultListDTO> consultList = consultService.selectConsultList(map);
 		
+		/* 금일 상담 수 */
 		int consultTodayTotal = consultService.selectTodayTotal();
 		
 		model.addAttribute("consultList", consultList);
@@ -99,9 +101,9 @@ public class ConsultController {
 			}
 		}
 
-		int totalCount = consultService.searchTotalCount(searchCriteria);
+		int totalCount = consultService.selectStudentTotal(searchCriteria);
 
-		int limit = 12;
+		int limit = 11;
 
 		int buttonAmount = 5;
 
@@ -113,11 +115,10 @@ public class ConsultController {
 		
 		List<StudentAndClassInfoDTO> studentList = consultService.selectStudentList(map);
 		
-		int studentTotal = consultService.selectStudentTotal(searchCriteria);
 		
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("pageInfo", pageInfo);
-		model.addAttribute("studentTotal", studentTotal);
+		model.addAttribute("studentTotal", totalCount);
 		model.addAttribute("searchOption", searchCriteria.getSearchOption());
 		model.addAttribute("searchValue", searchCriteria.getSearchValue());
 		

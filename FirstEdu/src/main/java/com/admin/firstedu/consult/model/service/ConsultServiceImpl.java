@@ -95,4 +95,6 @@ public class ConsultServiceImpl implements ConsultService{
 		return consultMapper.selectStudentTotal(searchCriteria);
 	}
 
+
+
 }

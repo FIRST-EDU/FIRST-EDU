@@ -29,5 +29,7 @@ public interface ConsultMapper {
 	int selectTodayTotal();
 
 	int selectStudentTotal(SearchCriteria searchCriteria);
+
+	int searchStudentTotal(SearchCriteria searchCriteria);
 		
 }
