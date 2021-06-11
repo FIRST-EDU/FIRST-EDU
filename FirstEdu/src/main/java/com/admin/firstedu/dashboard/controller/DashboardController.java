@@ -50,6 +50,11 @@ public class DashboardController {
 		/* 월별 매출 */
 		/* 인건비 비율 */
 		
+		model.addAttribute("student", studentStatistics);
+		model.addAttribute("studentGrade", studentGradeStatistics);
+		model.addAttribute("studentClass", studentClassStatistics);
+		model.addAttribute("studentSchool", studentSchoolStatistics);
+		model.addAttribute("teacher", teacherStatistics);
 		
 		
 		return "dashboard/dashboard";
