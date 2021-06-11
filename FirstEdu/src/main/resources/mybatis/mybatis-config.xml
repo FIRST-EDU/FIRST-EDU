@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="SalesStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO"/>
+		<typeAlias alias="SalaryStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalaryStatisticsDTO"/>
 		<typeAlias alias="StudentClassStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO"/>
 		<typeAlias alias="StudentGradeStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO"/>
 		<typeAlias alias="StudentSchoolStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO"/>

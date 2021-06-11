@@ -17,14 +17,12 @@
 	
 	<!-- 학년별 학생 현황 StudentGradeStatisticsDTO -->
 	<resultMap id="StudentGradeStatisticsResultMap" type="StudentGradeStatisticsDTO">
-		<id column="GRADE_CODE" property="gradeCode"/>
 		<result column="GRADE_NAME" property="gradeName"/>
 		<result column="COUNT" property="count"/>
 	</resultMap>
 
 	<!-- 강의별 학생 현황 StudentClassStatisticsDTO -->
 	<resultMap id="StudentClassStatisticsResultMap" type="StudentClassStatisticsDTO">
-		<id column="CLASS_CODE" property="classCode"/>
 		<result column="CLASS_NAME" property="className"/>
 		<result column="COUNT" property="count"/>
 	</resultMap>
@@ -39,6 +37,18 @@
 	<resultMap id="teacherStatisticsResultMap" type="TeacherStatisticsDTO">
 		<result column="TOTAL_COUNT" property="totalCount"/>
 		<result column="TOTAL_SALARY" property="totalSalary"/>
+	</resultMap>
+
+	<!-- 월별 매출 관련 통계 TeacherStatisticsDTO -->
+	<resultMap id="salesStatisticsResultMap" type="SalesStatisticsDTO">
+		<result column="MONTH" property="month"/>
+		<result column="MONTHLY_SALES" property="sales"/>
+	</resultMap>
+
+	<!-- 월 인건비 관련 통계 TeacherStatisticsDTO -->
+	<resultMap id="salaryStatisticsResultMap" type="SalaryStatisticsDTO">
+		<result column="MONTH" property="month"/>
+		<result column="MONTHLY_SALARY" property="salary"/>
 	</resultMap>
 
 
@@ -76,8 +86,7 @@
 	<!-- 학년별 학생 현황 조회 -->
 	<select id="selectStudentGradeStatistics" resultMap="StudentGradeStatisticsResultMap">
 		SELECT
-		       A.GRADE_CODE
-		     , B.GRADE_NAME
+		       B.GRADE_NAME
 		     , COUNT(A.GRADE_CODE) AS COUNT
 		  FROM TBL_STUDENT A
 		  JOIN TBL_GRADE B ON (A.GRADE_CODE = B.GRADE_CODE)
@@ -88,8 +97,7 @@
 	<!-- 강의별 학생 현황 조회 -->
 	<select id="selectStudentClassStatistics" resultMap="StudentClassStatisticsResultMap">
 		SELECT
-		       A.CLASS_CODE
-		     , B.CLASS_NAME
+		       B.CLASS_NAME
 		     , COUNT(A.CLASS_CODE) AS COUNT
 		  FROM TBL_CLASS_INFO A
 		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
@@ -115,5 +123,57 @@
 		  FROM TBL_TEACHER A
 		 WHERE A.TEACHER_STATUS = 'Y'	
 	</select>
+	
+	<!-- 총 매출 -->
+	<select id="selectTotalSales" resultType="_int">
+		SELECT
+	       SUM(A.PAYMENT) AS TOTAL_SALES
+	  FROM TBL_PAY A
+	 WHERE PAY_STATUS = 'Y'
+	</select>
+	
+	<!-- 지난 1년 간 월별 매출 -->
+	<select id="selectSalesStatistics" resultMap="salesStatisticsResultMap">
+		SELECT 
+		       A.MONTH
+		     , A.MONTHLY_SALES
+		  FROM (SELECT B.MONTH
+		             , SUM(B.PAYMENT) AS MONTHLY_SALES
+		          FROM (SELECT TO_CHAR(C.PAY_DATE, 'YYYY/MM') AS MONTH
+		                     , C.PAYMENT
+		                  FROM TBL_PAY C
+		                 WHERE C.PAY_DATE IS NOT NULL
+		               ) B
+		         GROUP BY B.MONTH
+		         ORDER BY B.MONTH DESC
+		       ) A
+		 WHERE ROWNUM BETWEEN 1 AND 13
+	</select>
+	
+	<!-- 지난 1년 간 월 인건비 -->
+	<select id="selectSalaryStatistics" resultMap="salaryStatisticsResultMap">
+		SELECT 
+		       A.MONTH
+		     , A.MONTHLY_SALARY
+		  FROM (SELECT B.MONTH
+		             , SUM(B.PAYMENT_AMOUNT) AS MONTHLY_SALARY
+		          FROM (SELECT TO_CHAR(C.PAYMENT_DATE, 'YYYY/MM') AS MONTH
+		                     , C.PAYMENT_AMOUNT
+		                  FROM TBL_SALARY_PAYMENT C
+		                 WHERE C.PAYMENT_DATE IS NOT NULL
+		               ) B
+		         GROUP BY B.MONTH
+		         ORDER BY B.MONTH DESC
+		       ) A
+		 WHERE ROWNUM BETWEEN 1 AND 13
+	</select>
+	
+	<!-- 수능 D-day -->
+	<select id="selectDday" resultType="_int">
+		SELECT
+		       TRUNC(TO_DATE('2021/11/18', 'YYYY/MM/DD')) - TRUNC(SYSDATE)
+		  FROM DUAL
+	</select>
+	
 	
 </mapper>

@@ -7,24 +7,50 @@ let school = $('input[name="school"]');
 let schoolCount = $('input[name="schoolCount"]');
 let gradeName = $('input[name="gradeName"]');
 let gradeCount = $('input[name="gradeCount"]');
+let monthList = $('input[name="sales-month"]');
+let salesList = $('input[name="sales"]');
+let salaryList = $('input[name="salary"]');
 
 /* 배열 선언 */
 let classArray = [];
 let schoolArray = [];
 let gradeArray = [];
+let salesArray = [];
+let salaryRatioArray = [];
+
+let donutColorArray = [];
+donutColorArray.push('#39f');
+donutColorArray.push('#11cdef');
+donutColorArray.push('#1b47b1');
+donutColorArray.push('#006ccb');
+donutColorArray.push('#00bee4');
+donutColorArray.push('#825ee4');
+donutColorArray.push('#4d32b1');
+
 
 /* 배열에 데이터 입력 */
 classArray.push(['강의명', '원생 수']);
 for(var i = 0 ; i < className.length ; i++) {
-	classArray.push([className.eq(i).val(), parseInt(classCount.eq(i).val())]);
+	classArray.push( [className.eq(i).val(), parseInt(classCount.eq(i).val())] );
 }
 schoolArray.push(['학교', '원생 수']);
 for(var i = 0 ; i < school.length ; i++) {
-	schoolArray.push([school.eq(i).val(), parseInt(schoolCount.eq(i).val())]);
+	schoolArray.push( [school.eq(i).val(), parseInt(schoolCount.eq(i).val()) ]);
 }
 gradeArray.push(['학년', '원생 수']);
 for(var i = 0 ; i < gradeName.length ; i++) {
-	gradeArray.push([gradeName.eq(i).val(), parseInt(gradeCount.eq(i).val())]);
+	gradeArray.push([ gradeName.eq(i).val(), parseInt(gradeCount.eq(i).val()) ]);
+}
+salesArray.push(['월', '매출', '인건비']);
+salaryRatioArray.push(['월', '매출 대비 인건비']);
+for(var i = 12 ; i > 0 ; i--) {
+	let month = monthList.eq(i).val();
+	let sales = parseInt(salesList.eq(i).val());
+	let salary = parseInt(salaryList.eq(i).val());
+	let ratio = (salary / sales);
+	
+	salesArray.push([ month, sales, salary ]);
+	salaryRatioArray.push([ month, ratio ]);
 }
 
 
@@ -33,6 +59,7 @@ google.charts.load('current', {'packages':['corechart']});
 
 /* 차트 그리기 */
 google.charts.setOnLoadCallback(drawSalesChart);
+google.charts.setOnLoadCallback(drawSalaryRatioChart);
 google.charts.setOnLoadCallback(drawStudentClassChart);
 google.charts.setOnLoadCallback(drawStudentGenderChart);
 google.charts.setOnLoadCallback(drawStudentSchoolChart);
@@ -41,6 +68,43 @@ google.charts.setOnLoadCallback(drawStudentGradeChart);
 /* 매출 현황 차트 */
 function drawSalesChart() {
 
+	var data = new google.visualization.arrayToDataTable(salesArray);
+    
+    var options = {
+        curveType: 'function',
+        legend: { position: 'bottom' },
+        colors: ['#5e72e4', '#825ee4'],
+        animation:{
+	        startup: true,
+	      	duration: 1000,
+	        easing: 'out'
+        }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('sales'));
+
+    chart.draw(data, options);
+}
+
+/* 매출 대비 인건비 차트 */
+function drawSalaryRatioChart() {
+
+	var data = new google.visualization.arrayToDataTable(salaryRatioArray);
+    
+    var options = {
+        curveType: 'function',
+        legend: { position: 'bottom' },
+        colors: ['#ff7089'],
+        animation:{
+	        startup: true,
+	      	duration: 1000,
+	        easing: 'out'
+        },
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('salaryRatio'));
+
+    chart.draw(data, options);
 }
 
 /* 강의별 학생 현황 차트 */
@@ -50,9 +114,9 @@ function drawStudentClassChart() {
 	
     var options = {
       bar: { groupWidth: '50%' },
-      chartArea: {height:'100%'},
+      chartArea: { width: '200', height:'100%'},
       legend:  'none',
-      colors: ['#39f'],
+      colors: ['#fbb140'],
       animation:{
         startup: true,
       	duration: 1000,
@@ -97,7 +161,7 @@ function drawStudentSchoolChart() {
     var options = {
       pieHole: 0.3,
       chartArea:{left:10, top:10, width:'100%', height:'100%'},
-      colors: ['#1b47b1', '#006ccb', '#39f', '#11cdef'],
+      colors: donutColorArray,
       animation:{
         startup : true,
       	duration: 1000,
@@ -115,7 +179,7 @@ function drawStudentGradeChart() {
     var options = {
       pieHole: 0.3,
       chartArea:{left:10, top:10, width:'100%', height:'100%'},
-      colors: ['#11cdef', '#39f', '#006ccb'],
+      colors: donutColorArray,
       animation:{
         startup : true,
       	duration: 1000,

@@ -15,7 +15,6 @@ public class StudentGradeStatisticsDTO implements java.io.Serializable {
 
 	private static final long serialVersionUID = 7603254932653399754L;
 
-	private String gradeCode;
 	private String gradeName;
 	private int count;
 }

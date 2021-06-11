@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.dashboard.model.dao.DashboardMapper;
+import com.admin.firstedu.dashboard.model.dto.SalaryStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
@@ -45,6 +47,26 @@ public class DashboardServiceImpl implements DashboardService {
 	@Override
 	public TeacherStatisticsDTO selectTeacherStatistics() {
 		return mapper.selectTeacherStatistics();
+	}
+
+	@Override
+	public int selectTotalSales() {
+		return mapper.selectTotalSales();
+	}
+
+	@Override
+	public List<SalesStatisticsDTO> selectSalesStatistics() {
+		return mapper.selectSalesStatistics();
+	}
+
+	@Override
+	public List<SalaryStatisticsDTO> selectSalaryStatistics() {
+		return mapper.selectSalaryStatistics();
+	}
+
+	@Override
+	public int selectDday() {
+		return mapper.selectDday();
 	}
 
 }

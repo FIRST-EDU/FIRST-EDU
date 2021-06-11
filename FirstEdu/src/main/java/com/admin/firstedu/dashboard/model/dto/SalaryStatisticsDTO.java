@@ -11,10 +11,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StudentClassStatisticsDTO implements java.io.Serializable {
+public class SalaryStatisticsDTO implements java.io.Serializable {
+	
+	private static final long serialVersionUID = 8946217977771675125L;
 
-	private static final long serialVersionUID = -823511849893968355L;
-
-	private String className;
-	private int count;
+	private String month;
+	private int salary;
 }

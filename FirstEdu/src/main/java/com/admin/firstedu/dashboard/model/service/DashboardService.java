@@ -2,6 +2,8 @@ package com.admin.firstedu.dashboard.model.service;
 
 import java.util.List;
 
+import com.admin.firstedu.dashboard.model.dto.SalaryStatisticsDTO;
+import com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO;
 import com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO;
@@ -19,5 +21,13 @@ public interface DashboardService {
 	List<StudentSchoolStatisticsDTO> selectStudentSchoolStatistics();
 
 	TeacherStatisticsDTO selectTeacherStatistics();
+
+	int selectTotalSales();
+
+	List<SalesStatisticsDTO> selectSalesStatistics();
+
+	List<SalaryStatisticsDTO> selectSalaryStatistics();
+
+	int selectDday();
 
 }

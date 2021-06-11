@@ -15,5 +15,6 @@ public class SalesStatisticsDTO implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 8946217977771675125L;
 
-	private int totalSales;
+	private String month;
+	private int sales;
 }
