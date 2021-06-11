@@ -50,6 +50,7 @@ function drawStudentClassChart() {
 	
     var options = {
       bar: { groupWidth: '50%' },
+      chartArea: {height:'100%'},
       legend:  'none',
       colors: ['#39f'],
       animation:{
