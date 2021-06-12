@@ -8,6 +8,7 @@ import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
+import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
 
 public interface StudentService {
 
@@ -22,5 +23,9 @@ public interface StudentService {
 	List<GradeDTO> selectGradeList();
 
 	List<ClassBasicInfoDTO> selectClassList();
+
+	int searchTotalCount(StudentSearchCriteria searchCriteria);
+
+	List<StudentRegistListDTO> searchStudentRegistList(StudentSearchCriteria searchCriteria);
 
 }

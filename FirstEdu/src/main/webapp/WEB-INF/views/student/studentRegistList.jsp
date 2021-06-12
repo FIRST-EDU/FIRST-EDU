@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 성적 관리 &gt; 시험 관리 | FIRST EDU</title>
+	<title> 원생 관리 &gt; 재원생 목록 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/fullCalendar.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -50,14 +50,14 @@
           <section class="common-card score-analysis-card">
             <section class="form-wrap">
               
-	          <div class="tag-lb-dark btn-check sum-storage-price">총 원생 : ${ fn:length(requestScope.studentList) }명</div>
+	          <div class="tag-lb-dark btn-check sum-storage-price">총 인원 : ${ requestScope.pageInfo.totalCount }명</div>
               <article class="storage-form-content">
-	              <form class="storage-search-form">
+	              <div class="storage-search-form">
 	                <div class="select-group">
 	                  <select id="searchOption" class="form-select">
-	                    <option value="1">보호자 연락처</option>
-	                    <option value="2">학생명</option>
-	                    <option value="3">학생 연락처</option>
+	                    <option value="parentsPhone">보호자 연락처</option>
+	                    <option value="studentName">학생명</option>
+	                    <option value="studentPhone">학생 연락처</option>
 	                  </select>
 	                  <i class="fas fa-caret-down" aria-hidden></i>
 	                  </div>
@@ -70,14 +70,14 @@
 	                      placeholder="검색어를 입력하세요."
 	                    />
 	                  </div>
-	              </form>
+	              </div>
           	  </article>
           
               <article class="select-exam-wrap">
                 <span class="exam-type">학교</span>
                 <form class="select-group">
                   <select id="school" class="form-select">
-                    <option value="0">전체</option>
+                    <option value="all">전체</option>
                   	<c:forEach var="school" items="${ requestScope.schoolList }">
 	                    <option value="${ school.school }">${ school.school }</option>
                     </c:forEach>
@@ -90,7 +90,7 @@
                 <span class="class-name">학년</span>
                 <form class="select-group">
                   <select id="gradeCode" class="form-select">
-                    <option value="0">전체</option>
+                    <option value="all">전체</option>
                		<c:forEach var="grade" items="${ requestScope.gradeList }">
 	                    <option value="${ grade.code }">${ grade.name }</option>
                     </c:forEach>
@@ -103,7 +103,7 @@
                 <span class="class-name">강의명</span>
                 <form class="select-group">
                   <select id="classCode" class="form-select">
-                    <option value="0">전체</option>
+                    <option value="all">전체</option>
                   	<c:forEach var="classOption" items="${ requestScope.classList }">
 	                    <option value="${ classOption.code }">${ classOption.name }</option>
                     </c:forEach>
@@ -121,7 +121,7 @@
         <div class="col-sm-4">
           <!-- table -->
           <section class="common-table-card">
-            <table class="common-table storage-table ">
+            <table id="studentTable" class="common-table storage-table ">
               <thead>
                 <tr>
                   <th scope="col">번호</th>
@@ -159,31 +159,43 @@
                 </c:forEach>
               </tbody>
             </table>
+            
+            <!-- 페이징 처리 -->
             <div class="pagenation">
-              <button class="page-control page-prev" type="button">
-                <span class="material-icons"> chevron_left </span>
-              </button>
+              <!-- 왼쪽 버튼 -->
+              <c:if test="${ requestScope.pageInfo.pageNo == 1 }">
+	              <button class="page-control page-prev" type="button" disabled>
+	                <span class="material-icons"> chevron_left </span>
+	              </button>
+              </c:if>
+              <c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+	              <button class="page-control page-prev" type="button" onclick="searchStudent(${ requestScope.pageInfo.pageNo - 1 })">
+	                <span class="material-icons"> chevron_left </span>
+	              </button>
+              </c:if>
+              
+              <!-- 페이지 숫자 -->
               <ol class="page-list">
-                <li class="page-item">
-                  <a href="/">1</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">2</a>
-                </li>
-                <li class="page-item is-active">
-                  <a href="/">3</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">4</a>
-                </li>
-                <li class="page-item">
-                  <a href="/">5</a>
-                </li>
+              	<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+              		<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+		                <li class="page-item is-active">
+		                  <button type="button" disabled><c:out value="${ p }"/></button>
+		                </li>
+              		</c:if>
+              		<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+		                <li class="page-item">
+		                  <button type="button" onclick="searchStudent(this.innerText)"><c:out value="${ p }"/></button>
+		                </li>
+              		</c:if>
+              	</c:forEach>
               </ol>
+              
+              <!-- 오른쪽 버튼 -->
               <button class="page-control page-next" type="button">
                 <span class="material-icons"> chevron_right </span>
               </button>
             </div>
+            
           </section>
         </div>
       </div>
@@ -195,9 +207,9 @@
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/scoreAnalysis.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-scoreAnalysis.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/studentRegistList.js"></script>
 
 
 </body>

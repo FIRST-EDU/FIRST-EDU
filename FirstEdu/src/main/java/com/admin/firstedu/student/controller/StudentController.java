@@ -14,8 +14,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.StudentRegistException;
@@ -26,7 +28,11 @@ import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
+import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
+import com.admin.firstedu.student.model.dto.StudentSearchResultDTO;
 import com.admin.firstedu.student.model.service.StudentService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/student/*")
@@ -102,12 +108,42 @@ public class StudentController {
 		model.addAttribute("schoolList", schoolList);
 		model.addAttribute("gradeList", gradeList);
 		model.addAttribute("classList", classList);
+		model.addAttribute("pageInfo", pageInfo);
 		
 		return "student/studentRegistList";
 	}
 	
-	/* 퇴원생 조회 */
-	
+	/* 재원생 조회 및 검색 (+페이징 처리) */
+	@GetMapping(value="/regist/search/{pageNo}", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String searchExamList(@ModelAttribute StudentSearchCriteria searchCriteria,
+								 @PathVariable("pageNo") int pageNo) {
+		
+		/* 전체 게시물 개수 */
+		int totalCount = studentService.searchTotalCount(searchCriteria);
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		searchCriteria.setPageInfo(pageInfo);
+		
+		/* 전화번호 검색 시 "-" 없애주기 */
+		String searchOption = searchCriteria.getSearchOption();
+		if(("parentsPhone").equals(searchOption) || ("studentPhone").equals(searchOption)) {
+			String searchValue = searchCriteria.getSearchValue().replace("-", "");
+			searchCriteria.setSearchValue(searchValue);
+		}
+
+		List<StudentRegistListDTO> studentList = studentService.searchStudentRegistList(searchCriteria);
+		
+		StudentSearchResultDTO searchResult = new StudentSearchResultDTO(studentList, pageInfo);
+		
+		Gson gson = new GsonBuilder()
+					   .setDateFormat("yyyy-MM-dd")
+					   .create();
+		
+		return gson.toJson(searchResult);
+	}
 	
 	
 	

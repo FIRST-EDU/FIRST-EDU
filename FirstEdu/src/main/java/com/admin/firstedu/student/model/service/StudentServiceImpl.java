@@ -12,6 +12,7 @@ import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
+import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -60,6 +61,25 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<ClassBasicInfoDTO> selectClassList() {
 		return mapper.selectClassList();
+	}
+
+	@Override
+	public int searchTotalCount(StudentSearchCriteria searchCriteria) {
+		return mapper.searchTotalCount(searchCriteria);
+	}
+
+	@Override
+	public List<StudentRegistListDTO> searchStudentRegistList(StudentSearchCriteria searchCriteria) {
+		
+		/* 한 페이지에 보여 줄 학생 목록 조회 */
+		List<StudentRegistListDTO> studentList = mapper.searchStudentRegistList(searchCriteria);
+		
+		/* 각 학생의 수강 내역 조회 */
+		for(StudentRegistListDTO student : studentList) {
+			student.setClassList(mapper.selectStudentClassList(student.getNo()));
+		}
+		
+		return studentList;
 	}
 	
 }
