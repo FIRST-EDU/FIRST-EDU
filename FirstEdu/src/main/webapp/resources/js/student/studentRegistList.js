@@ -109,13 +109,13 @@ function searchStudent(pageNo) {
 			for(let p = startPage ; p <= endPage ; p++) {
 				if(p == pageNo) {
 					$li = $('<li class="page-item is-active">');
+					$button = $('<button type="button" disabled>').text(p);
 				} else {
 					$li = $('<li class="page-item">');
+					$button = $('<button type="button" onclick="searchStudent(this.innerText)">').text(p);
 				}
 			
-				$a = $('<a href="#" onclick="searchStudent(this.innerText)">' + p + '</a>');
-			
-				$li.append($a);
+				$li.append($button);
 				$ol.append($li);
 			}
 			

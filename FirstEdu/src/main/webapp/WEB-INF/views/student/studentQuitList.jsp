@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 원생 관리 &gt; 재원생 목록 | FIRST EDU</title>
+	<title> 원생 관리 &gt; 퇴원생 목록 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -39,8 +39,8 @@
       <div class="row">
         <div class="col-sm-4">
           <section>
-            <button type="button" class="btn-fill-light-blue btn-long" disabled>재원생</button>
-            <button type="button" class="btn-fill-seconary btn-long" onclick="location.href='${ pageContext.servletContext.contextPath }/student/quit/list'">퇴원생</button>
+            <button type="button" class="btn-fill-seconary btn-long" onclick="location.href='${ pageContext.servletContext.contextPath }/student/regist/list'">재원생</button>
+            <button type="button" class="btn-fill-light-blue btn-long" disabled>퇴원생</button>
           </section>
         </div>
       </div>
@@ -98,19 +98,6 @@
                 </form>
               </article>
 
-              <article class="select-class-wrap">
-                <span class="class-name">강의명</span>
-                <form class="select-group">
-                  <select id="classCode" class="form-select">
-                    <option value="all">전체</option>
-                  	<c:forEach var="classOption" items="${ requestScope.classList }">
-	                    <option value="${ classOption.code }">${ classOption.name }</option>
-                    </c:forEach>
-                  </select>
-                  <i class="fas fa-caret-down" aria-hidden></i>
-                </form>
-              </article>
-
             </section>
           </section>
         </div>
@@ -127,10 +114,12 @@
                   <th scope="col">학생명</th>
                   <th scope="col">학교</th>
                   <th scope="col">학년</th>
-                  <th scope="col">수강 정보</th>
                   <th scope="col">연락처</th>
                   <th scope="col">보호자 연락처</th>
                   <th scope="col">등록일</th>
+                  <th scope="col">퇴원일</th>
+                  <th scope="col">재원 기간</th>
+                  <th scope="col">퇴원 사유</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,20 +129,12 @@
 	                  <td>${ student.name }</td>
 	                  <td>${ student.school }</td>
 	                  <td>${ student.grade }</td>
-	                  <td>
-		                  <c:forEach var="classInfo" items="${ student.classList }">
-		                  	<c:if test="${ classInfo.subjectNo eq '1' }">
-		                  		<span class="tag-light-blue">${ classInfo.name }</span>
-		                  	</c:if>
-		                  	<c:if test="${ classInfo.subjectNo eq '2' }">
-		                  		<span class="tag-blue">${ classInfo.name }</span>
-		                  	</c:if>
-		                  </c:forEach>
-	                  </td>
 	                  <td>${ student.studentPhone }</td>
 	                  <td>${ student.parentsPhone }</td>
 	                  <td>${ fn:substring(student.registrationDate, 0, 10) }</td>
-	 
+	                  <td>${ fn:substring(student.quitDate, 0, 10) }</td>
+	                  <td>${ student.lengthOfStay } 개월</td>
+	                  <td>${ student.quitReason }</td>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -215,7 +196,7 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/scoreAnalysis.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/student/studentRegistList.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/student/studentQuitList.js"></script>
 
 
 </body>

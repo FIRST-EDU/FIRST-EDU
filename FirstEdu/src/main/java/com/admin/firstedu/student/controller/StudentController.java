@@ -27,8 +27,10 @@ import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentQuitListDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
+import com.admin.firstedu.student.model.dto.StudentSearchQuitResultDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchResultDTO;
 import com.admin.firstedu.student.model.service.StudentService;
 import com.google.gson.Gson;
@@ -78,12 +80,12 @@ public class StudentController {
 		
 		rttr.addFlashAttribute("message", "신규 원생을 등록하였습니다.");
 		
-		return "redirect:/student/list";
+		return "redirect:/student/regist/list";
 	}
 	
 	/* 원생 관리 첫 화면 - 재원생 조회 (+페이징 처리) */
 	@GetMapping("/regist/list")
-	public String StudentList(Model model) {
+	public String StudentRegistList(Model model) {
 		
 		/* 페이지 번호 */
 		int pageNo = 1;
@@ -116,7 +118,7 @@ public class StudentController {
 	/* 재원생 조회 및 검색 (+페이징 처리) */
 	@GetMapping(value="/regist/search/{pageNo}", produces="application/json; charset=UTF-8")
 	@ResponseBody
-	public String searchExamList(@ModelAttribute StudentSearchCriteria searchCriteria,
+	public String searchStudentList(@ModelAttribute StudentSearchCriteria searchCriteria,
 								 @PathVariable("pageNo") int pageNo) {
 		
 		/* 전체 게시물 개수 */
@@ -145,6 +147,67 @@ public class StudentController {
 		return gson.toJson(searchResult);
 	}
 	
+	/* 퇴원생 조회 첫 화면 (+ 페이징 처리) */
+	@GetMapping("/quit/list")
+	public String StudentQuitList(Model model) {
+		
+		/* 페이지 번호 */
+		int pageNo = 1;
+
+		/* 전체 원생 수 조회 */
+		int totalCount = studentService.selectQuitTotalCount();
+		
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		/* 학생 목록 조회 */
+		List<StudentQuitListDTO> studentList = studentService.selectStudentQuitList(pageInfo);
+		
+		/* 검색용 학교, 학년, 강의 목록 조회 */
+		List<SchoolDTO> schoolList = studentService.selectQuitStudentSchoolList();
+		List<GradeDTO> gradeList = studentService.selectGradeList();
+		
+		model.addAttribute("studentList", studentList);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("gradeList", gradeList);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "student/studentQuitList";
+	}
+	
+	/* 퇴원생 조회 및 검색 (+페이징 처리) */
+	@GetMapping(value="/quit/search/{pageNo}", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String searchQuitStudentList(@ModelAttribute StudentSearchCriteria searchCriteria,
+								 	    @PathVariable("pageNo") int pageNo) {
+		
+		/* 전체 게시물 개수 */
+		int totalCount = studentService.searchQuitTotalCount(searchCriteria);
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		searchCriteria.setPageInfo(pageInfo);
+		
+		/* 전화번호 검색 시 "-" 없애주기 */
+		String searchOption = searchCriteria.getSearchOption();
+		if(("parentsPhone").equals(searchOption) || ("studentPhone").equals(searchOption)) {
+			String searchValue = searchCriteria.getSearchValue().replace("-", "");
+			searchCriteria.setSearchValue(searchValue);
+		}
+
+		List<StudentQuitListDTO> studentList = studentService.searchStudentQuitList(searchCriteria);
+		
+		StudentSearchQuitResultDTO searchResult = new StudentSearchQuitResultDTO(studentList, pageInfo);
+		
+		Gson gson = new GsonBuilder()
+					   .setDateFormat("yyyy-MM-dd")
+					   .create();
+		
+		return gson.toJson(searchResult);
+	}
 	
 	
 }

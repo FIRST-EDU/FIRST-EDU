@@ -52,9 +52,19 @@
 		<result column="SCHOOL" property="school"/>
 	</resultMap>
 	
-	
 	<!-- 퇴원생 목록 조회용 DTO -->
-	
+	<resultMap id="studentQuitListResultMap" type="StudentQuitListDTO">
+		<id column="STUDENT_NO" property="no"/>
+		<result column="STUDENT_NAME" property="name"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="GRADE_NAME" property="grade"/>
+		<result column="STUDENT_PHONE" property="studentPhone"/>
+		<result column="PARENTS_PHONE" property="parentsPhone"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
+		<result column="QUIT_DATE" property="quitDate"/>
+		<result column="QUIT_REASON" property="quitReason"/>
+		<result column="LENGTH_OF_STAY" property="lengthOfStay"/>
+	</resultMap>	
 	
 	<!-- 학생 모든 정보 StudentFullInfoDTO -->
 	<resultMap id="studentFullInfoResultMap" type="StudentFullInfoDTO">
@@ -148,7 +158,7 @@
 		 ORDER BY B.SUBJECT_NO
 	</select>
 	
-	<!-- 검색용 학교 목록 조회 -->
+	<!-- 검색용 재원생 학교 목록 조회 -->
 	<select id="selectSchoolList" resultMap="schoolResultMap">
 		SELECT
 		       DISTINCT(A.SCHOOL)
@@ -255,4 +265,125 @@
 		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
 	</select>
 		
+	<!-- 퇴원생 목록 조회 -->	
+	<select id="selectQuitTotalCount" resultType="_int">
+		SELECT
+		       COUNT(A.STUDENT_NO)
+		  FROM TBL_STUDENT A
+		 WHERE A.STATUS = 'N'
+	</select>
+	<select id="selectStudentQuitList" parameterType="PageInfoDTO" resultMap="studentQuitListResultMap">
+		SELECT
+	           A.RNUM	
+		     , A.STUDENT_NO
+		     , A.STUDENT_NAME
+		     , A.SCHOOL
+		     , A.GRADE_NAME
+		     , A.STUDENT_PHONE
+		     , A.PARENTS_PHONE
+		     , A.REGISTRATION_DATE
+		     , A.QUIT_DATE
+		     , A.QUIT_REASON
+		     , A.LENGTH_OF_STAY
+		  FROM (SELECT ROWNUM RNUM
+		             , V.STUDENT_NO
+				     , V.STUDENT_NAME
+				     , V.SCHOOL
+				     , V.GRADE_NAME
+				     , V.STUDENT_PHONE
+				     , V.PARENTS_PHONE
+				     , V.REGISTRATION_DATE
+				     , V.QUIT_DATE
+				     , V.QUIT_REASON
+				     , V.LENGTH_OF_STAY
+		          FROM V_STUDENT_N_LIST V
+		  	   ) A
+		 WHERE A.RNUM BETWEEN #{ startRow } AND #{ endRow }
+	</select>	
+	
+	<!-- 검색용 퇴원생 학교 목록 조회 -->
+	<select id="selectQuitStudentSchoolList" resultMap="schoolResultMap">
+		SELECT
+		       DISTINCT(A.SCHOOL)
+		  FROM TBL_STUDENT A
+		 WHERE A.STATUS = 'N'
+		   AND A.SCHOOL IS NOT NULL
+	</select>
+
+
+	<!-- 퇴원생 목록 검색 및 페이징 처리 -->
+	<!-- 검색 결과 원생 수 조회 -->
+	<select id="searchQuitTotalCount" parameterType="StudentSearchCriteria" resultType="_int">
+		SELECT
+		       COUNT(V.STUDENT_NO)
+		  FROM V_STUDENT_N_LIST V
+		<where>
+		  <if test="searchValue != null and searchValue != ''">
+		      <if test="searchOption == 'parentsPhone'">
+		           REPLACE(V.PARENTS_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
+		      </if>
+		      <if test="searchOption == 'studentName'">
+		       AND V.STUDENT_NAME LIKE '%' || #{ searchValue } || '%'
+		      </if>
+		      <if test="searchOption == 'studentPhone'">
+		       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
+		      </if>
+		  </if>
+	      <if test="school != 'all'">
+	       AND V.SCHOOL = #{ school }
+	      </if>
+	      <if test="gradeCode != 'all'">
+	       AND V.GRADE_CODE = #{ gradeCode }
+	      </if>
+	    </where>
+	</select>	
+	<!-- 원생 목록 검색 (페이징 처리) -->
+	<select id="searchStudentQuitList" parameterType="StudentSearchCriteria" resultMap="studentQuitListResultMap">
+		SELECT
+	           A.RNUM	
+		     , A.STUDENT_NO
+		     , A.STUDENT_NAME
+		     , A.SCHOOL
+		     , A.GRADE_NAME
+		     , A.STUDENT_PHONE
+		     , A.PARENTS_PHONE
+		     , A.REGISTRATION_DATE
+		     , A.QUIT_DATE
+		     , A.QUIT_REASON
+		     , A.LENGTH_OF_STAY
+		  FROM (SELECT ROWNUM RNUM
+		             , V.STUDENT_NO
+				     , V.STUDENT_NAME
+				     , V.SCHOOL
+				     , V.GRADE_NAME
+				     , V.STUDENT_PHONE
+				     , V.PARENTS_PHONE
+				     , V.REGISTRATION_DATE
+				     , V.QUIT_DATE
+				     , V.QUIT_REASON
+				     , V.LENGTH_OF_STAY
+		          FROM V_STUDENT_N_LIST V
+			<where>
+			  <if test="searchValue != null and searchValue != ''">
+			      <if test="searchOption == 'parentsPhone'">
+			           REPLACE(V.PARENTS_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
+			      </if>
+			      <if test="searchOption == 'studentName'">
+			       AND V.STUDENT_NAME LIKE '%' || #{ searchValue } || '%'
+			      </if>
+			      <if test="searchOption == 'studentPhone'">
+			       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
+			      </if>
+			  </if>
+		      <if test="school != 'all'">
+		       AND V.SCHOOL = #{ school }
+		      </if>
+		      <if test="gradeCode != 'all'">
+		       AND V.GRADE_CODE = #{ gradeCode }
+		      </if>
+		    </where>
+		  	   ) A
+		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+	</select>
+	
 </mapper>

@@ -7,6 +7,7 @@ import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentQuitListDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
 
@@ -28,5 +29,14 @@ public interface StudentMapper {
 
 	List<StudentRegistListDTO> searchStudentRegistList(StudentSearchCriteria searchCriteria);
 
-	
+	int selectQuitTotalCount();
+
+	List<StudentQuitListDTO> selectStudentQuitList(PageInfoDTO pageInfo);
+
+	List<SchoolDTO> selectQuitStudentSchoolList();
+
+	int searchQuitTotalCount(StudentSearchCriteria searchCriteria);
+
+	List<StudentQuitListDTO> searchStudentQuitList(StudentSearchCriteria searchCriteria);
+
 }
