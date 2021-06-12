@@ -194,12 +194,12 @@
         WHERE A.CLASS_NUM = #{no}
   	</delete>
   	
-  	<update id="deleteClass" parameterType="_int">
+  	<!-- <update id="deleteClass" parameterType="_int">
   		UPDATE
 		       TBL_CLASS A
 		   SET A.CLASS_STATUS = 'N'
 		 WHERE AND A.CLASS_NUM= #{classNum}
-  	</update>
+  	</update> -->
 
 	<!-- 시간표 목록 -->
 	<select id="selectTimeTable" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">

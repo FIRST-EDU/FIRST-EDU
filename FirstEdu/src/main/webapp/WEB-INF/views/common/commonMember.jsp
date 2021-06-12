@@ -250,12 +250,6 @@
       </a>
 
       <strong class="drawer-menu-category">선생님</strong>
-      <div class="drawer-menu">
-        <a class="drawer-menu-link" href="/">
-          <i class="fas fa-file-alt" aria-hidden="true"></i>
-          업무 관리
-        </a>
-      </div>
 
       <div class="drawer-menu">
         <a class="drawer-menu-link" href="/">
@@ -278,13 +272,6 @@
         </a>
         </button>
 
-
-      <div class="drawer-menu">
-        <a class="drawer-menu-link" href="/">
-          <i class="fas fa-clipboard" aria-hidden="true"></i>
-          자료실
-        </a>
-      </div>
 
       <!-- Note: Login boss  -->
       <div class="drawer-menu boss is-boss">
@@ -392,3 +379,5 @@
 
   <script src="${ pageContext.servletContext.contextPath }/resources/js/myMenu.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/searchHistory.js"></script>
+</body>
+</html>
