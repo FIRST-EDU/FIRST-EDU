@@ -11,9 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StudentListClassNameDTO implements java.io.Serializable {
+public class SchoolDTO implements java.io.Serializable {
 
-	private static final long serialVersionUID = 3976782039997969072L;
-
-	private String name;
+	private static final long serialVersionUID = 7052452347242259322L;
+	
+	private String school;
 }

@@ -24,5 +24,5 @@ public class StudentRegistListDTO implements java.io.Serializable {
 	private String studentPhone;
 	private String parentsPhone;
 	private String registrationDate;
-	private List<StudentListClassNameDTO> classList;
+	private List<ClassBasicInfoDTO> classList;
 }

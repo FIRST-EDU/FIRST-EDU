@@ -349,8 +349,6 @@
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-scoreAnalysis.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/scoreAnalysis.js"></script>
 
 

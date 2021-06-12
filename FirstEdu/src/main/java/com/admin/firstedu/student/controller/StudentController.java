@@ -20,7 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.StudentRegistException;
 import com.admin.firstedu.common.paging.Pagenation;
+import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
+import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
+import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.service.StudentService;
@@ -72,8 +75,8 @@ public class StudentController {
 		return "redirect:/student/list";
 	}
 	
-	/* 원생 관리 첫 화면 (+페이징 처리) */
-	@GetMapping("/list")
+	/* 원생 관리 첫 화면 - 재원생 조회 (+페이징 처리) */
+	@GetMapping("/regist/list")
 	public String StudentList(Model model) {
 		
 		/* 페이지 번호 */
@@ -87,14 +90,24 @@ public class StudentController {
 		
 		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
 		
+		/* 학생 목록 조회 */
 		List<StudentRegistListDTO> studentList = studentService.selectStudentRegistList(pageInfo);
 		
-		model.addAttribute("studentList", studentList);
+		/* 검색용 학교, 학년, 강의 목록 조회 */
+		List<SchoolDTO> schoolList = studentService.selectSchoolList();
+		List<GradeDTO> gradeList = studentService.selectGradeList();
+		List<ClassBasicInfoDTO> classList = studentService.selectClassList();
 		
-		return "student/studentList";
+		model.addAttribute("studentList", studentList);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("gradeList", gradeList);
+		model.addAttribute("classList", classList);
+		
+		return "student/studentRegistList";
 	}
 	
 	/* 퇴원생 조회 */
+	
 	
 	
 	

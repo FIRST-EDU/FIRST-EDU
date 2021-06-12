@@ -6,15 +6,16 @@
 <configuration>
 	<typeAliases>
 		<!-- 원생관리 -->
+		<typeAlias alias="ClassBasicInfoDTO" type="com.admin.firstedu.student.model.dto.ClassBasicInfoDTO"/>
 		<typeAlias alias="ClassDTO" type="com.admin.firstedu.student.model.dto.ClassDTO"/>
 		<typeAlias alias="ClassInfoAndClassDTO" type="com.admin.firstedu.student.model.dto.ClassInfoAndClassDTO"/>
 		<typeAlias alias="ClassInfoDTO" type="com.admin.firstedu.student.model.dto.ClassInfoDTO"/>
 		<typeAlias alias="GradeDTO" type="com.admin.firstedu.student.model.dto.GradeDTO"/>
+		<typeAlias alias="SchoolDTO" type="com.admin.firstedu.student.model.dto.SchoolDTO"/>
 		<typeAlias alias="StudentAndGradeDTO" type="com.admin.firstedu.student.model.dto.StudentAndGradeDTO"/>
 		<typeAlias alias="StudentClassInfoDTO" type="com.admin.firstedu.student.model.dto.StudentClassInfoDTO"/>
 		<typeAlias alias="StudentDTO" type="com.admin.firstedu.student.model.dto.StudentDTO"/>
 		<typeAlias alias="StudentFullInfoDTO" type="com.admin.firstedu.student.model.dto.StudentFullInfoDTO"/>
-		<typeAlias alias="StudentListClassNameDTO" type="com.admin.firstedu.student.model.dto.StudentListClassNameDTO"/>
 		<typeAlias alias="StudentQuitListDTO" type="com.admin.firstedu.student.model.dto.StudentQuitListDTO"/>
 		<typeAlias alias="StudentRegistListDTO" type="com.admin.firstedu.student.model.dto.StudentRegistListDTO"/>
 		

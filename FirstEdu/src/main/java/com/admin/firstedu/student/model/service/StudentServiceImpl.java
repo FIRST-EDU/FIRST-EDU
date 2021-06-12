@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.student.model.dao.StudentMapper;
+import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
+import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
+import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
-import com.admin.firstedu.student.model.dto.StudentListClassNameDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 
 @Service
@@ -43,6 +45,21 @@ public class StudentServiceImpl implements StudentService {
 		}
 		
 		return studentList;
+	}
+
+	@Override
+	public List<SchoolDTO> selectSchoolList() {
+		return mapper.selectSchoolList();
+	}
+
+	@Override
+	public List<GradeDTO> selectGradeList() {
+		return mapper.selectGradeList();
+	}
+
+	@Override
+	public List<ClassBasicInfoDTO> selectClassList() {
+		return mapper.selectClassList();
 	}
 	
 }
