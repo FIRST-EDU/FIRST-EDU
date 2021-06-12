@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,8 @@
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-    <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+    <link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.servletContext.contextPath }/favicon-32x32.png" />
+    <link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.servletContext.contextPath }/favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
 	<title> 상담 관리 &gt; 상담 상세 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
@@ -28,6 +29,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
@@ -36,26 +38,28 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-md-6">
-            <form class="common-card consult-edit-card">
+            <form class="common-card consult-edit-card"
+            action="${pageContext.servletContext.contextPath }/consult/update" method="post">
+            <input type="hidden" name="studentNo" id="studentNo" value="${ consultUpdateView.student.no}"><br>
               <section class="consult-input-box">
                 <article class="consult-input-form">
-                  <label>학생번호</label>
+                  <label>상담번호</label>
                   <div class="input-group">
-                    <input class="form-input" type="text" value="1" readonly/>
+                    <input class="form-input" type="text" name="consultNo" id="consultNo" value="${consultUpdateView.consultNo }" readonly/>
                   </div>
                 </article>
 
                 <article class="consult-input-form">
                   <label>학생명</label>
                   <div class="input-group">
-                    <input class="form-input" type="text" value="정유미" readonly/>
+                    <input class="form-input" type="text" value="${ consultUpdateView.student.studentName}" readonly/>
                   </div>
                 </article>
 
                 <article class="consult-input-form">
                   <div class="date-align">
                     <label>상담일</label>
-                    <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
+                    <input class="attendance-date" type="date" name="consultDate" id="consultDate" value="${ consultUpdateView.consultDate}">
                     <label for="check-date"></label>
                   </div>
                 </article>
@@ -63,24 +67,35 @@
                 <article class="consult-input-form">
                   <label>상담방법</label>
                   <div class="select-group">
-                    <select class="form-select">
-                      <option value="1">선택</option>
-                      <option value="2">대면</option>
-                      <option value="3">비대면</option>
-                      <option value="4">부모님동행</option>
-                    </select>
+                    <select class="form-select" id="categoryNo" name="categoryNo">
+					<c:if test="${ consultUpdateView.category.categoryNo == 1}">
+						<option value="1">대면</option>
+						<option value="2">비대면</option>
+						<option value="3">학부모동참</option>
+					</c:if>
+					<c:if test="${ consultUpdateView.category.categoryNo == 2}">
+						<option value="2">비대면</option>
+						<option value="1">대면</option>
+						<option value="3">학부모동참</option>
+					</c:if>
+					<c:if test="${ consultUpdateView.category.categoryNo == 3}">
+						<option value="3">학부모동참</option>
+						<option value="1">대면</option>
+						<option value="2">비대면</option>
+					</c:if>
+			</select>
                     <i class="fas fa-caret-down" aria-hidden></i>
                   </div>
                 </article>
 
                 <article class="consult-input-form">
                   <label>상담내용</label>
-                  <textarea name="" id=""></textarea>
+                  <textarea id="consultContent" name="consultContent">${ consultUpdateView.consultContent}</textarea>
                 </article>
 
 
                 <article class="consult-input-btn">
-                  <button type="button" class="btn-fill-seconary btn-basic cancel-board-btn">취소</button>
+                  <button type="button" class="btn-fill-seconary btn-basic cancel-board-btn" id="detailBtn">취소</button>
                   <div>
                     <button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
                     <button type="button" class="btn-fill-primary btn-basic confirm-btn">수정</button>
@@ -95,7 +110,7 @@
                     <div class="popup-2btn">
                       <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
                       <!-- <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button> -->
-                      <button type="button" class="btn-fill-primary btn-popup complete-btn" onclick="location.href='consult-list.html'">확인</button>
+                      <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button>
                     </div>
                 </div>
               </div>
@@ -126,11 +141,23 @@
       <strong>게시물 삭제하기</strong>
       <p>게시물을 삭제하시겠습니까?</p>
         <div class="popup-2btn">
-          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn"  id="deleteBtn">삭제</button>
           <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
         </div>
     </div>
   </div>
+  <script>
+		
+		$("#deleteBtn").click(function(){
+			const no = $("#consultNo").val();
+			location.href="${pageContext.servletContext.contextPath}/consult/delete/" + no;
+		})
+		
+		$("#detailBtn").click(function(){
+			const no = $("#consultNo").val();
+			location.href="${pageContext.servletContext.contextPath}/consult/detail/" + no;
+		})
+	</script>
 
     <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>

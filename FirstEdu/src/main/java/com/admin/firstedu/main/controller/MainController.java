@@ -11,6 +11,6 @@ public class MainController {
 	@GetMapping(value={"/", "main"})
 	public String main() {
 
-		return "consult/consultList";
+		return "consulting/consultUpdate";
 	}
 }

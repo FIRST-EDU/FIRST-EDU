@@ -30,33 +30,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-    <script
+     <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<!-- <script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script> -->
-	 <style>
-		.modal1 {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-         .modal-content1 {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%; /* Could be more or less, depending on screen size                          
-        } 
-	</style> 
+	 <script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
@@ -71,7 +48,7 @@
                 <form class="consult-search-form"
                 action="${pageContext.servletContext.contextPath }/consult/list" method="get">
                   <div class="select-group">
-                    <select class="form-select"
+                   <select class="form-select"
                     name="searchOption" id="searchOption">
                       <option value="studentName">학생명</option>
                       <option value="consultOption">상담방법</option>
@@ -89,9 +66,11 @@
                       />
                     </div>
                 </form>
-            </section>
-              <button type="button" class="btn-fill-primary btn-basic consult-input-btn"
-              onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담 입력</button>
+              </section>
+              <a href="consult-input.html" class="btn-fill-primary btn-basic consult-input-btn"
+              onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담 입력</a>
+              
+          </section>
           </div>
         </div>
 
@@ -109,7 +88,7 @@
                       <th scope="col">상담내용</th>
                     </tr>
                   </thead>
-                  <tbody>
+                   <tbody>
                     <c:forEach var="consult" items="${consultList}">
 					<fmt:formatDate var="consultDate" value="${consult.consultDate}" pattern="yyyy/MM/dd"/>
 					<tr>
@@ -142,7 +121,7 @@
                   </tbody>
                 </table>
 
-                 <div class="pagenation">
+               <div class="pagenation">
               <c:choose>
 				<c:when test="${ !empty requestScope.searchValue }">
                 
@@ -228,73 +207,83 @@
         </div>
       </div>
     </main>
-  
-   <div class="modal1" id="modalConsult">
-    <div class="modal-content1">
+
+ <div class="modal detail-board-modal">
+    <div class="modal-content">
       <section class="form-left">
         <article class="form-align">
         <label>상담번호</label>
         <div class="input-group">
-          <input class="form-input" type="text" readonly />
+          <input class="form-input" type="text" id="consultNo" name="consultNo" value="" readonly />
         </div>
         </article>
 
         <article class="form-align">
           <label>상담일</label>
           <div class="input-group">
-            <input class="form-input" type="text" readonly />
+            <input class="form-input" type="text" id="consultDate" name="consultDate" value="" readonly/>
           </div>
         </article>
 
         <article class="form-align">
           <label>학생명</label>
           <div class="input-group">
-            <input class="form-input" type="text" readonly />
+            <input class="form-input" type="text" id="studentName" name="studentName" value="" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담자</label>
           <div class="input-group">
-            <input class="form-input" type="text" readonly />
+            <input class="form-input" type="text" id="teacherName" name="teacherName" value="" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담방법</label>
           <div class="input-group">
-            <input class="form-input" type="text" readonly />
+            <input class="form-input" type="text" id="consultOption" name="consultOption" value="" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담내용</label>
-          <textarea name="" id="" readonly></textarea>
+          <textarea name="consultContent" id="consultContent" readonly></textarea>
         </article>
       </section>
 
-        <div class="popup-2btn form-btn">
-        <button type="button" class="btn-fill-seconary btn-popup back-btn" onclick="close_pop();">목록</button>
-        <a href="consult-input.html" class="btn-fill-primary btn-popup">수정</a>
+        <div class="popup-3btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">목록</button>
+        <button type="button" class="btn-fill-primary btn-basic" id="consultUpdateBtn">수정</button>
       </div>
     </div>
   </div>
 
-  <!-- <div class="modal complete-modal complete-input-board-modal">
-  <div class="modal-content">
-    <strong>게시물 등록</strong>
-    <p>게시물이 등록되었습니다.</p>
-    <div class="popup-1btn">
-      <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+  <div class="modal complete-modal complete-input-board-modal">
+    <div class="modal-content">
+      <strong>게시물 등록</strong>
+      <p>게시물이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
     </div>
   </div>
-  </div> -->
-    
-    <script>
+
+  <div class="modal complete-modal complete-delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제</strong>
+      <p>게시물이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
 	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
-		/*$(document).ready(function() {
+		$(document).ready(function() {
 			$('#consultList').tablesorter();
-		});*/
+		});
 	/* 페이징 처리 start */
 		const link = "${ pageContext.servletContext.contextPath }/consult/list"; 
 		const searchLink = "${ pageContext.servletContext.contextPath }/consult/list";
@@ -336,31 +325,21 @@
 			}
 		} 
 		
-		/* td태그에 마우스 호버시 pointer 스타일로 변경  */
-		  if(document.getElementsByTagName("td")) {
-			const $tds = document.getElementsByTagName("td");
-			 for(var i = 0 ; i < $tds.length ; i++) {
-				$tds[i].onmouseenter = function() {
-				this.parentNode.style.cursor = "pointer";
-			}  
-		/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
-			  $tds[i].onclick = function() {
-				const no = this.parentNode.children[0].innerText;
-				 /*  location.href = "${pageContext.servletContext.contextPath}/consult/detail/" + no;  */
-				console.log(no);
-				$("#modalConsult").show();
-				} 
-			}
-		}  
+		$("#consultList td").click(function(){
+			
+			const no = this.parentNode.children[0].innerText;
+			console.log(no);
+		})
 		
-		  function close_pop(flag) {
-				$('#modalConsult').hide();
-			};
+		/* $("#consultUpdate").click(function(){
+			const no = $("#consultNo").val();
+			location.href = "${pageContext.servletContext.contextPath}/pay/update/" + no; 
+		}) */
 
 	</script>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-<%-- <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>  --%>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>
