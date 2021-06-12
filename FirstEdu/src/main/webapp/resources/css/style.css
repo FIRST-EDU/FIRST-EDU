@@ -317,6 +317,8 @@ body {
   height: 100%;
   font-family: "Noto Sans KR", sans-serif;
   background-color: #f6f9fc; }
+  body.modal-open {
+    overflow-y: hidden; }
 
 h1 {
   margin: 0; }
@@ -1390,7 +1392,7 @@ textarea {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 40;
+  z-index: 50;
   width: 250px;
   height: 100vh;
   padding: 0 10px;
@@ -1412,8 +1414,8 @@ textarea {
     left: 20px;
     width: 250px;
     height: 70px;
-    z-index: 40;
-    background-color: #fff; }
+    background-color: #fff;
+    z-index: 50; }
     .side-gnb-header .logo a {
       display: block;
       padding: 20px;
@@ -1423,11 +1425,15 @@ textarea {
       width: auto;
       height: 35px; }
 
+@media screen and (min-width: 768px) {
+  .side-gnb {
+    z-index: 40; } }
+
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 40;
   width: 100%;
   height: 100vh;
   background-color: rgba(33, 37, 41, 0.5);
@@ -1692,6 +1698,99 @@ textarea {
       font-size: 13px;
       line-height: 20px;
       letter-spacing: -0.01em; } }
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  flex-wrap: wrap;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms ease-in-out; }
+  .modal .modal-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18); }
+    .modal .modal-content strong {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.01em;
+      color: #212529;
+      margin-bottom: 35px; }
+    .modal .modal-content p {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.01em;
+      color: #212529;
+      margin-bottom: 70px; }
+    .modal .modal-content label {
+      font-size: 14px;
+      line-height: 24px;
+      letter-spacing: -0.01em;
+      color: #212529;
+      width: 50px;
+      margin-right: 8px; }
+    .modal .modal-content .form-align {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px; }
+      .modal .modal-content .form-align textarea {
+        width: 200px;
+        height: 150px;
+        overflow: auto; }
+    .modal .modal-content .popup-2btn {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .modal .modal-content .popup-2btn button {
+        font-weight: 600; }
+        .modal .modal-content .popup-2btn button:first-child {
+          margin-right: 5px; }
+    .modal .modal-content .popup-1btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 75px; }
+  .modal.is-active {
+    opacity: 1;
+    visibility: visible; }
+    .modal.is-active body {
+      position: fixed;
+      overflow-y: hidden; }
+
+@media screen and (min-width: 768px) {
+  .modal .modal-content {
+    padding: 25px; }
+    .modal .modal-content label {
+      margin-right: 20px; }
+    .modal .modal-content .form-left {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      width: 420px; }
+    .modal .modal-content .form-align {
+      margin-bottom: 25px; }
+      .modal .modal-content .form-align textarea {
+        width: 350px;
+        height: 250px; }
+        .modal .modal-content .form-align textarea:read-only {
+          cursor: default;
+          border: 1px solid #dee2e6;
+          box-shadow: none; }
+    .modal .modal-content .popup-2btn button:first-child {
+      margin-right: 15px; }
+    .modal .modal-content .popup-1btn {
+      padding: 0 80px; } }
 
 .attendance-class-card {
   display: flex;
@@ -1978,7 +2077,7 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center; }
-    .storage-table-card .edit-remove-btn button:first-child {
+    .storage-table-card .edit-remove-btn a:first-child {
       margin-right: 15px; }
 
 .tag-sort {
