@@ -2815,6 +2815,150 @@ textarea {
       width: auto;
       height: 500px; } }
 
+.class-list-form-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap; }
+  .class-list-form-content .class-form-content {
+    margin-bottom: 16px; }
+  .class-list-form-content .today-consult-list {
+    margin: 0 0 16px 16px; }
+
+.form-input {
+  width: 200px;
+  padding-left: 45px; }
+
+.class-table-card {
+  height: 350px; }
+  .class-table-card .class-table th {
+    position: sticky;
+    top: 0;
+    cursor: default; }
+  .class-table-card .class-table tbody tr {
+    transition: all 150ms ease-in-out; }
+    .class-table-card .class-table tbody tr:not(.is-active):hover {
+      cursor: pointer;
+      background-color: #f6f9fc; }
+    .class-table-card .class-table tbody tr:not(:disabled):active {
+      background-color: #f4f5f7; }
+
+.tag-sort {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: #525f7f;
+  font-weight: 600;
+  transition: all 250ms ease-in-out; }
+  .tag-sort .fa-sort {
+    font-size: 13px; }
+  .tag-sort:hover {
+    color: #ff7089; }
+  .tag-sort:not(:disabled):active {
+    color: #f5365c; }
+
+@media screen and (min-width: 768px) {
+  .class-list-form-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row; }
+    .class-list-form-content .today-consult-list {
+      margin: 0 20px 0 0; }
+    .class-list-form-content .class-form-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0; }
+    .class-list-form-content .class-search-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 2px; }
+  .class-table-card {
+    height: auto; }
+    .class-table-card .class-table {
+      table-layout: fixed; }
+      .class-table-card .class-table th {
+        position: static; }
+      .class-table-card .class-table tr .consult-text-overflow {
+        display: table-cell;
+        width: 100%; } }
+
+.class-detail-card {
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .class-detail-card .class-input-box {
+    white-space: nowrap; }
+    .class-detail-card .class-input-box .teacher-input-form {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 30px; }
+      .class-detail-card .class-input-box .teacher-input-form label:first-child {
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: -0.01em;
+        color: #212529;
+        width: 70px;
+        margin-right: 35px; }
+      .class-detail-card .class-input-box .teacher-input-form button {
+        flex-shrink: 0;
+        flex-wrap: wrap;
+        height: 40px;
+        padding: 0 15px; }
+        .class-detail-card .class-input-box .teacher-input-form button:hover {
+          background-color: #f6f9fc; }
+        .class-detail-card .class-input-box .teacher-input-form button:not(:disabled):active {
+          background-color: #e9ecef; }
+      .class-detail-card .class-input-box .teacher-input-form .form-input {
+        padding: 0 15px; }
+    .class-detail-card .class-input-box .teacher-input-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 30px; }
+      .class-detail-card .class-input-box .teacher-input-btn .delete-b-btn {
+        margin-right: 5px; }
+
+.date-align {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .date-align .attendance-date {
+    height: 35px;
+    padding: 0 10px;
+    border: 1px solid #e9ecef;
+    border-radius: 4px; }
+
+.class-edit-img {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .class-edit-img img {
+    display: block;
+    width: 500px;
+    height: auto;
+    overflow: hidden; }
+
+@media screen and (min-width: 768px) {
+  .class-detail-card .class-input-box {
+    margin: 0 auto;
+    overflow: hidden;
+    overflow-x: auto; }
+    .class-detail-card .class-input-box .teacher-input-form label:first-child {
+      margin-right: 50px; }
+    .class-detail-card .class-input-box .teacher-input-btn .delete-b-btn {
+      margin-right: 10px; }
+  .class-edit-img {
+    height: 942px; }
+    .class-edit-img img {
+      width: auto;
+      height: 500px; } }
+
 .dashboard-s-card {
   display: flex;
   align-items: center;
