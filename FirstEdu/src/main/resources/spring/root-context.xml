@@ -50,5 +50,6 @@
 			advice-ref="txAdvice" />
 	</aop:config>
 	
-	<mybatis-spring:scan base-package="com.admin.firstedu.dashboard.model.dao"/>
+	<mybatis-spring:scan base-package="com.admin.firstedu.dashboard.model.dao,
+									   com.admin.firstedu.student.model.dao"/>
 </beans>

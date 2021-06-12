@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.student.model.dao.StudentMapper">
+
+	<!-- resultMap -->
+	<!-- TBL_STUDENT DTO -->
+	<resultMap id="studentResultMap" type="StudentDTO">
+		<id column="STUDENT_NO" property="no"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="STUDENT_PHONE" property="studentPhone"/>
+		<result column="PARENTS_NAME" property="parentsName"/>
+		<result column="PARENTS_PHONE" property="parentsPhone"/>
+		<result column="GENDER" property="gender"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="REGISTRATION_DATE" property="registrationDate"/>
+		<result column="QUIT_DATE" property="quitDate"/>
+		<result column="STATUS" property="status"/>
+		<result column="GRADE_CODE" property="gradeCode"/>
+	</resultMap>
+	
+	
+	<!-- 쿼리 -->
+	<!-- 학생 등록 -->
+	<insert id="insertStudent" parameterType="StudentDTO">
+		INSERT
+		  INTO TBL_STUDENT A
+		(
+		  A.STUDENT_NO
+		, A.STUDENT_NAME
+		, A.STUDENT_PHONE
+		, A.PARENTS_NAME
+		, A.PARENTS_PHONE
+		, A.GENDER
+		, A.SCHOOL
+		, A.ADDRESS
+		, A.BIRTH
+		, A.REGISTRATION_DATE
+		, A.GRADE_CODE
+		)
+		VALUES
+		(
+		  SEQ_STUDENT_NO.NEXTVAL
+		, #{ studentName }
+		, #{ studentPhone, jdbcType=VARCHAR }
+		, #{ parentsName, jdbcType=VARCHAR }
+		, #{ parentsPhone, jdbcType=VARCHAR }
+		, #{ gender, jdbcType=VARCHAR }
+		, #{ school, jdbcType=VARCHAR }
+		, #{ address, jdbcType=VARCHAR }
+		, #{ birth, jdbcType=VARCHAR }
+		, NVL(#{ registrationDate, jdbcType=DATE }, SYSDATE)
+		, #{ gradeCode }
+		)
+	</insert>
+	
+	
+</mapper>
