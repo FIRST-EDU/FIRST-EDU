@@ -179,14 +179,14 @@
                   <article class="consult-input-form">
                     <label>학생번호</label>
                     <div class="input-group">
-                      <input class="form-input" type="button" readonly />
+                      <input class="form-input" type="text" value="1" readonly/>
                     </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>학생명</label>
                     <div class="input-group">
-                      <input class="form-input" type="button" readonly/>
+                      <input class="form-input" type="text" value="정유미" readonly/>
                     </div>
                   </article>
 
@@ -218,7 +218,7 @@
 
 
                   <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn">취소</button>
+                    <button type="button" class="btn-fill-seconary btn-basic cancel-board-btn">취소</button>
                     <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
                 </section>
@@ -248,7 +248,7 @@
         </div>
     </main>
 
-    <div class="modal cancel-board-mordal">
+    <div class="modal cancel-board-modal">
       <div class="modal-content">
         <strong>게시물 등록 취소</strong>
         <p>게시물 등록을 취소하시겠습니까?</p>
@@ -262,6 +262,7 @@
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>
