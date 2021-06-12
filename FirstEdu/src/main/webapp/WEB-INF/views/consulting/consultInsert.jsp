@@ -230,7 +230,7 @@
                       name="categoryNo" id="categoryNo">
                         <option value="1">대면</option>
                         <option value="2">비대면</option>
-                        <option value="3">부모님동행</option>
+                        <option value="3">보호자동참</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
