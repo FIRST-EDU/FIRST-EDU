@@ -286,59 +286,81 @@
         <article class="form-align">
         <label>학생번호</label>
         <div class="input-group">
-          <input class="form-input" type="button" readonly />
+          <input class="form-input" type="text" value="1" readonly />
         </div>
         </article>
 
         <article class="form-align">
           <label>상담일</label>
           <div class="input-group">
-            <input class="form-input" type="button" readonly />
+            <input class="form-input" type="text" value="2021/06/15" readonly/>
           </div>
         </article>
 
         <article class="form-align">
           <label>학생명</label>
           <div class="input-group">
-            <input class="form-input" type="button" readonly />
+            <input class="form-input" type="text" value="김고딩" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담자</label>
           <div class="input-group">
-            <input class="form-input" type="button" readonly />
+            <input class="form-input" type="text" value="강용승" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담방법</label>
           <div class="input-group">
-            <input class="form-input" type="button" readonly />
+            <input class="form-input" type="text" value="대면" readonly />
           </div>
         </article>
 
         <article class="form-align">
           <label>상담내용</label>
-          <textarea name="" id="" readonly></textarea>
+          <textarea name="" id="" readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, natus omnis corporis fuga officia totam excepturi assumenda repellendus magni, inventore hic laudantium. Nemo repudiandae nesciunt, illum minima vel pariatur quibusdam.</textarea>
         </article>
       </section>
 
-        <div class="popup-2btn form-btn">
-        <button type="button" class="btn-fill-seconary btn-popup back-btn">목록</button>
-        <a href="consult-input.html" class="btn-fill-primary btn-popup">수정</a>
+        <div class="popup-3btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">목록</button>
+        <button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
+        <button type="button" class="btn-fill-primary btn-basic">수정</button>
       </div>
     </div>
   </div>
 
   <div class="modal complete-modal complete-input-board-modal">
-  <div class="modal-content">
-    <strong>게시물 등록</strong>
-    <p>게시물이 등록되었습니다.</p>
-    <div class="popup-1btn">
-      <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+    <div class="modal-content">
+      <strong>게시물 등록</strong>
+      <p>게시물이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
     </div>
   </div>
+
+  <div class="modal delete-board-modal second-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제하기</strong>
+      <p>게시물을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제</strong>
+      <p>게시물이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
   </div>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
