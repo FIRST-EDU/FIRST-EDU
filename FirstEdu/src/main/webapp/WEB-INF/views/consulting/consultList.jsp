@@ -30,6 +30,10 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
@@ -201,6 +205,67 @@
         </div>
       </div>
     </main>
+  
+   <div class="modal detail-board-modal" id="consultModal">
+    <div class="modal-content">
+      <section class="form-left">
+        <article class="form-align">
+        <label>학생번호</label>
+        <div class="input-group">
+          <input class="form-input" type="button" readonly />
+        </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담일</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>학생명</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담자</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담방법</label>
+          <div class="input-group">
+            <input class="form-input" type="button" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담내용</label>
+          <textarea name="" id="" readonly></textarea>
+        </article>
+      </section>
+
+        <div class="popup-2btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-popup back-btn">목록</button>
+        <a href="consult-input.html" class="btn-fill-primary btn-popup">수정</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-input-board-modal">
+  <div class="modal-content">
+    <strong>게시물 등록</strong>
+    <p>게시물이 등록되었습니다.</p>
+    <div class="popup-1btn">
+      <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+    </div>
+  </div>
+  </div>
     
     <script>
 	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
@@ -249,22 +314,26 @@
 		}
 		
 		/* td태그에 마우스 호버시 pointer 스타일로 변경  */
-		f(document.getElementsByTagName("td")) {
+		 if(document.getElementsByTagName("td")) {
 			const $tds = document.getElementsByTagName("td");
-			for(var i = 0 ; i < $tds.length ; i++) {
-				$tds[i].onmouseenter = function() {
+			 for(var i = 0 ; i < $tds.length ; i++) {
+				/*$tds[i].onmouseenter = function() {
 				this.parentNode.style.cursor = "pointer";
-			} 
+			}  */
 		/* td태그 클릭 시 테이블의 첫 번째 인덱스에 위치한 No를 가지고 detail로 이동 */
-			$tds[i].onclick = function() {
+			  $tds[i].onclick = function() {
 				const no = this.parentNode.children[0].innerText;
-				location.href = "${pageContext.servletContext.contextPath}/consult/detail/" + no;
-				}
+				 /* location.href = "${pageContext.servletContext.contextPath}/consult/detail/" + no; */
+				console.log(no);
+				$("#consultModal").show();
+				} 
 			}
-		}
+		} 
+
 	</script>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<%-- <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script> --%>
 </body>
 </html>
