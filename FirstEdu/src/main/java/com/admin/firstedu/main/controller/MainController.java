@@ -12,7 +12,7 @@ public class MainController {
 	public String main() {
 
 
-		return "storage/storageList";
+		return "storage/storageInput";
 
 
 	}

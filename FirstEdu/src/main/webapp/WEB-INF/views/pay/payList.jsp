@@ -35,7 +35,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.9.1/jquery.tablesorter.min.js"></script>
     
     </head>
-<style>
+<!-- <style>
 	.modal1 {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -62,7 +62,7 @@
         }
 
 
-</style>
+</style> -->
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
 
@@ -168,8 +168,8 @@
 		                      <button type="button" class="edit-btn" aria-label="수정 버튼">
 		                        <i class="fas fa-pen"></i>
 		                      </button>
-		                      <button type="button" class="delete-btn" aria-label="삭제 버튼" 
-		                      onclick="location.href='${pageContext.servletContext.contextPath}/pay/delete?no=${pay.payNo}'">
+		                      <button type="button" class="delete-btn" id="payDelete" aria-label="삭제 버튼" 
+		                     value="${pay.payNo }">
 		                        <i class="fas fa-trash-alt"></i>
 		                      </button>
 		                    </td>
@@ -184,8 +184,8 @@
 		                      <button type="button" class="edit-btn" aria-label="수정 버튼">
 		                        <i class="fas fa-pen"></i>
 		                      </button>
-		                      <button type="button" class="delete-btn" aria-label="삭제 버튼" 
-		                      onclick="location.href='${pageContext.servletContext.contextPath}/pay/delete?no=${pay.payNo}'">
+		                      <button type="button" class="delete-btn" id="payDelete" aria-label="삭제 버튼" 
+		                     value="${pay.payNo }">
 		                        <i class="fas fa-trash-alt"></i>
 		                      </button>
 		                    </td>
@@ -284,7 +284,7 @@
     </div>
 
  
- <div id="myModal" class="modal1">
+<%--  <div id="myModal" class="modal1">
       <!-- Modal content -->
       <div class="modal-content1">
             	<form action="${pageContext.servletContext.contextPath}/pay/update" method="post">
@@ -310,14 +310,143 @@
 					<button type="button" class="btn-fill-primary btn-basic storage-input-btn" onClick="close_pop();">취소</button>
 				</form>          
       	 </div>
-    </div>
+    </div> --%>
+    
+    <div class="modal edit-board-modal">
+    <form class="modal-content"
+    action="${pageContext.servletContext.contextPath}/pay/update" method="post">
+      <section class="form-left">
+        <article class="form-align">
+        <label>수납번호</label>
+        <div class="input-group">
+          <input class="form-input" type="text" readonly name="payNo" id="payNo" value=""/>
+        </div>
+        </article>
+
+        <article class="form-align">
+          <label>학생명</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly name="studentName" id="studentName" value=""/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>강의명</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly value="1학년 초급 영어"/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>수강료</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly  name="tution" id="tution" value=""/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>납입현황</label>
+          <div class="select-group">
+            <select class="form-select" name="payYn">
+              <option value="">선택</option>
+              <option value="납부">납부</option>
+              <option value="미납">미납</option>
+            </select>
+            <i class="fas fa-caret-down" aria-hidden></i>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>할인수단</label>
+          <div class="checkbox-wrap">
+            <input
+            type="radio"
+            id="checkFriend"
+            name="discountNo"
+            value="1"
+            />
+            <label for="checkFriend" class="check-discount check-friend">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkFriend" class="discount">친구</label>
+
+            <input
+              type="radio"
+              id="checkMonth"
+              name="discountNo"
+              value="2"
+            />
+            <label for="checkMonth" class="check-discount check-month">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkMonth" class="discount">기간</label>
+
+            <input
+              type="radio"
+              id="checkNull"
+              name="discountNo"
+              value="3"
+            />
+            <label for="checkNull" class="check-discount check-null">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkNull" class="discount">없음</label>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>결제금액</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly  name="payment" value=""/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>결제수단</label>
+          <div class="select-group">
+            <select class="form-select" name="payOption">
+              <option value="">선택</option>
+              <option value="카드">카드</option>
+              <option value="현금">현금</option>
+            </select>
+            <i class="fas fa-caret-down" aria-hidden></i>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <div class="date-align">
+            <label>납입일</label>
+            <input class="attendance-date" type="date" name="payDate" value="">
+            <label for="check-date"></label>
+          </div>
+        </article>
+      </section>
+
+      <div class="popup-2btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
+        <button type="button" class="btn-fill-primary btn-basic edit-board-btn">수정</button>
+      </div>
+
+      <div class="modal again-edit-board-modal second-modal">
+        <div class="modal-content">
+          <strong>게시물 수정하기</strong>
+          <p>게시물을 수정하시겠습니까?</p>
+            <div class="popup-2btn">
+              <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+              <button type="submit" class="btn-fill-primary btn-popup edit-complete-btn">수정</button>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
     
 <div class="modal delete-board-modal">
     <div class="modal-content">
       <strong>게시물 삭제하기</strong>
       <p>게시물을 삭제하시겠습니까?</p>
         <div class="popup-2btn">
-          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn" 
+           id="payDeleteBtn">삭제</button>
           <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
         </div>
     </div>
@@ -422,13 +551,6 @@
 									var studentName = data.student.studentName;
 									$("#studentName").attr("value",studentName);
 
-									/* var payYn = data.payYn;
-									if (payYn == '납부') {
-										$("#payYn option:eq(0)").prop("selected",true);
-									} else if (payYn == '미납') {
-										$("#payYn option:eq(1)").prop("selected",true);
-									} */
-
 									if (data.discount != null) {
 										var discountReason = data.discount.discountReason;
 										if (discountReason == '친구') {
@@ -440,9 +562,6 @@
 										}
 									}
 
-									/* var payOption = data.payOption;
-									$("#payOption option:selected").attr("value",payOption);
-									 */
 								}
 							});
 
@@ -461,15 +580,15 @@
 		$("input:radio").click(function() {
 			var tution = document.getElementById('tution').value;
 
-			if ($('input:radio[id=dis1]').is(':checked') == true) {
+			if ($('input:radio[id=checkFriend]').is(':checked') == true) {
 				var disTution1 = tution - (tution * 0.1);
 				$('input[name=payment]').attr('value', disTution1);
 			}
-			if ($('input:radio[id=dis2]').is(':checked') == true) {
+			if ($('input:radio[id=checkMonth]').is(':checked') == true) {
 				var disTution2 = tution - (tution * 0.05);
 				$('input[name=payment]').attr('value', disTution2);
 			}
-			if ($('input:radio[id=dis3]').is(':checked') == true) {
+			if ($('input:radio[id=checkNull]').is(':checked') == true) {
 				$('input[name=payment]').attr('value', tution);
 			}
 		})
@@ -504,10 +623,20 @@
 			$("select[name=payOption]").removeAttr('disabled');
 
 		})
+		
+		$("#payDeleteBtn").click(function(){
+			const no = $("#payDelete").val();
+			console.log(no);
+			location.href = "${pageContext.servletContext.contextPath}/pay/delete?no=" + no; 
+			
+		})
 
 	</script>
 	
+
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

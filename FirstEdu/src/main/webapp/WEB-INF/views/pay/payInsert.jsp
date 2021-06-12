@@ -251,7 +251,7 @@
 
                   <article class="consult-input-form">
                     <label>할인수단</label>
-                    <form class="checkbox-wrap">
+                    <div class="checkbox-wrap">
                       <input
                       type="radio"
                       id="checkFriend"
@@ -284,7 +284,7 @@
                         <i class="fas fa-check"></i>
                       </label>
                       <label for="checkNull" class="discount">없음</label>
-                    </form>
+                   </div>
                   </article>
 
                   <article class="consult-input-form">
@@ -321,6 +321,7 @@
                     <!-- <button type="submit">dddd</button> -->
                     <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
+                </section>
 
                  <div class="modal complete-input-board-modal">
                   <div class="modal-content">
@@ -333,7 +334,6 @@
                       </div>
                   </div>
                 </div>
-                </section>
               </form>
             </div>
             </div>
@@ -525,6 +525,7 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

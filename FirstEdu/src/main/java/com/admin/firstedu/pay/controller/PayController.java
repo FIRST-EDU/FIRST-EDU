@@ -265,7 +265,7 @@ public class PayController {
 			model.addAttribute("message", "수납수정에 실패하였습니다.");
 		}
 
-		return "main/result";
+		return "redirect:/pay/list";
 
 	}
 
@@ -278,13 +278,13 @@ public class PayController {
 
 		int result = payService.deletePay(no);
 
-		if (result > 0) {
-			model.addAttribute("message", "수납목록 삭제에 성공하였습니다.");
-		} else {
-			model.addAttribute("message", "수납목록 삭제에 실패하였습니다.");
-		}
+//		if (result > 0) {
+//			model.addAttribute("message", "수납목록 삭제에 성공하였습니다.");
+//		} else {
+//			model.addAttribute("message", "수납목록 삭제에 실패하였습니다.");
+//		}
 
-		return "main/result";
+		return "redirect:/pay/list";
 	}
 
 	@GetMapping("classList")
