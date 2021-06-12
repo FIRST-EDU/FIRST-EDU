@@ -55,7 +55,7 @@ public class StudentController {
 	/* 원생 등록 페이지로 이동 */
 	@GetMapping("/regist")
 	public String regist() {
-		return "student/registForm";
+		return "student/studentRegistForm";
 	}
 	
 	/* 원생 등록 */
@@ -64,13 +64,13 @@ public class StudentController {
 								HttpServletRequest request,
 								RedirectAttributes rttr)
 									throws StudentRegistException {
-//		String address = request.getParameter("address1") + "$" + request.getParameter("address2");
-		student.setGradeCode("H1");
-		student.setStudentName("김고딩");
+		String address = request.getParameter("basicAddress") + "$" + request.getParameter("detailAddress");
+		student.setAddress(address);
+		
 		if(("1").equals(student.getGender())) {
-			student.setGender("남");
-		} else if(("2").equals(student.getGender())) {
 			student.setGender("여");
+		} else if(("2").equals(student.getGender())) {
+			student.setGender("남");
 		}
 		
 		System.out.println(student);
@@ -78,7 +78,8 @@ public class StudentController {
 			throw new StudentRegistException("원생 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
 		}
 		
-		rttr.addFlashAttribute("message", "신규 원생을 등록하였습니다.");
+		rttr.addFlashAttribute("messageTitle", "원생 등록");
+		rttr.addFlashAttribute("messageBody", student.getStudentName() + " 학생을 등록하였습니다.");
 		
 		return "redirect:/student/regist/list";
 	}

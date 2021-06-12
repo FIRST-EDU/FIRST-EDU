@@ -204,6 +204,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/dashboard/chart.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
+<%-- <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script> --%>
 </body>
 </html>

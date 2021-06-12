@@ -207,6 +207,18 @@
       </div>
     </div>
   </main>
+  
+  <c:if test="${ not empty requestScope.messageTitle }">
+	  <div class="modal complete-modal complete-input-board-modal">
+	    <div class="modal-content">
+	      <strong>${ requestScope.messageTitle }</strong>
+	      <p>${ requestScope.messageBody }</p>
+	      <div class="popup-1btn">
+	        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+	      </div>
+	    </div>
+	  </div>
+  </c:if>
 
 
 <div class="overlay" aria-hidden="true"></div>
@@ -214,9 +226,8 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/scoreAnalysis.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/student/studentRegistList.js"></script>
-
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 
 </body>
 </html>
