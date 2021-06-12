@@ -33,7 +33,7 @@
 	<jsp:include page="../common/commonMember.jsp"/>
 
 
-   <main class="common-background">
+     <main class="common-background">
       <div class="container">
         <div class="row">
           <div class="col-sm-4 col-md-6">
@@ -188,7 +188,7 @@
                   <article class="consult-input-form">
                     <label>학생번호</label>
                     <div class="input-group">
-                      <input class="form-input" type="button" readonly />
+                      <input class="form-input" type="text" value="1" readonly />
                     </div>
                   </article>
 
@@ -216,14 +216,14 @@
                   <article class="consult-input-form">
                     <label>학생명</label>
                     <div class="input-group">
-                      <input class="form-input" type="button" readonly />
+                      <input class="form-input" type="text" value="정유미" readonly />
                     </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>수강료</label>
                       <div class="input-group">
-                        <input class="form-input" type="text" />
+                        <input class="form-input" type="text" value="150,000" readonly/>
                       </div>
                   </article>
 
@@ -241,7 +241,7 @@
 
                   <article class="consult-input-form">
                     <label>할인수단</label>
-                    <form class="checkbox-wrap">
+                    <div class="checkbox-wrap">
                       <input
                       type="radio"
                       id="checkFriend"
@@ -274,13 +274,13 @@
                         <i class="fas fa-check"></i>
                       </label>
                       <label for="checkNull" class="discount">없음</label>
-                    </form>
+                    </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>결제금액</label>
                     <div class="input-group">
-                      <input class="form-input" type="text"/>
+                      <input class="form-input" type="text" value="130,000" readonly/>
                     </div>
                   </article>
 
@@ -305,7 +305,7 @@
                   </article>
 
                   <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic cancle-btn">취소</button>
+                    <button type="button" class="btn-fill-seconary btn-basic cancel-board-btn">취소</button>
                     <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
                   </article>
                 </section>
@@ -328,20 +328,20 @@
           <div class="row">
             <div class="col-sm-4">
               <section class="common-card consult-img">
-                <img src="${ pageContext.servletContext.contextPath }/resources//assets/png/storage-input.png" alt="">
+                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/storage-input.png" alt="">
               </section>
             </div>
           </div>
         </div>
     </main>
 
-	<div class="modal cancel-board-mordal">
+	<div class="modal cancel-board-modal">
       <div class="modal-content">
         <strong>게시물 등록 취소</strong>
         <p>게시물 등록을 취소하시겠습니까?</p>
           <div class="popup-2btn">
             <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
-            <a href="consult-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
+            <a href="storage-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
           </div>
       </div>
     </div>
@@ -351,6 +351,7 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>
