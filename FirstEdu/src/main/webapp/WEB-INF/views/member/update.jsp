@@ -9,47 +9,53 @@
 <body>
 	<h1 align="center">직원정보 수정하기</h1>
 	
-	<form id="form" action="${ pageContext.servletContext.contextPath }/member/update" method="post">  <!-- enctype="multipart/form-data" -->
+	<%-- 	<input type="hidden" name = "no" value="${updateMember.no}"> --%>
+	<form id="form" action="${ pageContext.servletContext.contextPath }/member/update" method="post">
 	
 		<table align="center" id="classListArea">
-			<input type="hidden" name = "no" value="${sessionScope.loginMember.no }">
 			<tr>
-				<td> * 아이디 </td>
-				<td><input type="text" name="id" id="id" readonly value="${sessionScope.loginMember.id }"></td>
-				<td><button onclick="return duplicationCheck()">중복확인</button></td>
+				<td><input type="hidden" name="no" id="no" value="${updateMember.no }"></td>
+				<!-- <td><button onclick="return duplicationCheck()">중복확인</button></td> -->
 			</tr>
  			<tr>
-				<td> * 직급코드 </td>
-				<td><input type="text" name="jobCode" id="jobCode" readonly value="${sessionScope.loginMember.jobCode }"></td>
+				<td>직급코드 </td>
+				<td>
+					<select name="jobCode"  id="jobCode">
+						<option value="J1">원장</option>
+						<option value="J2">부원장</option>
+						<option value="J3">팀장</option>
+						<option value="J4">선생님</option>
+						<option value="J5">인턴</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td> * 비밀번호 </td>
-				<td><input type="password" name="pwd" required></td>
+				<td>아이디 </td>
+				<td><input type="text" name="id" id="id" value="${updateMember.id }"></td>
+				<!-- <td><button onclick="return duplicationCheck()">중복확인</button></td> -->
 			</tr>
 			<tr>
-				<td> * 비밀번호확인 </td>
-				<td><input type="password" name="pwd2" id="checkPwd"></td>
+				<td>이름 </td>
+				<td>
+					<input type="text" name = "name" value="${updateMember.name }">
+				</td>
 			</tr>
 			<tr>
-				<td> * 이름 </td>
-				<td><input type="text" name="name" readonly value="${sessionScope.loginMember.name }"></td>
+				<td>이메일 </td>
+				<td><input type="email" name="email" value="${updateMember.email }"></td>
 			</tr>
 			<tr>
-				<td> * 이메일 </td>
-				<td><input type="email" name="email" readonly value="${sessionScope.loginMember.email }"></td>
-			</tr>
-			<tr>
-				<td> * 전화번호 </td>
-				<td><input type="tel" name="phone" value="${sessionScope.loginMember.phone }"></td>
+				<td>전화번호 </td>
+				<td><input type="text" name="phone" value="${updateMember.phone }"></td>
 			</tr>
 			<tr>
 					<td>우편번호</td>
 					<td><input type="text" name="zipCode" id="zipCode" readonly></td>
-					<td><input type="button" value="검색" class="btn btn-yg" id="searchZipCode"></td>
+					<td><input type="button" value="검색" class="btn btn-yg" id="searchZipCode" readonly></td>
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="address1" id="address1" readonly></td>
+					<td><input type="text" name="address1" id="address1"></td>
 					<td></td>
 				</tr>	
 				<tr>
@@ -59,19 +65,13 @@
 				</tr>
 				<tr>
 				<td>권한</td>
-					<td>
-					<input type="radio" id="rolladmin" name="role" value="ADMIN" checked>
-			        <label for="rolladmin">ADMIN</label>
-			        <input type="radio" id="rolluser" name="role" value="USER">
-			        <label for="rolluser">USER</label>
+				<td>
+					<select name="role">
+						<option value="ADMIN">ADMIN</option>
+						<option value="USER">USER</option>
+					</select>
 					</td>
 				</tr>
-			<tr>
-				<td>프로필사진</td>
-				<td>
-					<input type="file" name="photo">
-				</td>
-			</tr>
 		</table>
 		<br>
 		<div class="btns" align="center">
@@ -114,7 +114,6 @@
 				document.getElementById("password").focus();
 			 
 				return false;
-
 			}
 			
 			requestPath = "<%=request.getContextPath()%>";

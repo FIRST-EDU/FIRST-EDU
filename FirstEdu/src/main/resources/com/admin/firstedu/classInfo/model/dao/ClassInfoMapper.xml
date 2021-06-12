@@ -98,45 +98,6 @@
 		)
 	</insert>
 	
-	<select id="selectUpdateMember" resultMap="classAndInforResultMap" parameterType="_int">
-		SELECT
-			   A.CLASS_NUM
-		 	 , A.CLASS_CODE
-             , B.TEACHER_NAME
-             , C.GRADE_NAME
-             , D.SUBJECT_NAME
-		     , A.CLASS_ROOM
-		     , A.CLASS_NAME
-		     , A.CLASS_DAY
-		     , A.CLASS_START_TIME
-		     , A.CLASS_END_TIME
-		     , A.CLASS_BOOK
-		     , A.CLASS_PAYMENT
-		  FROM TBL_CLASS A
-          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
-		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
-		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
-		  WHERE A.CLASS_NUM = #{no} 
-		  ORDER BY A.CLASS_NUM ASC 
-	</select>
-	
-	<!-- 정보수정 -->
-	<update id="classUpdate" parameterType="ClassDTO">
-		UPDATE 
-			TBL_CLASS A
-		   SET A.CLASS_CODE = #{code}
-		     , A.CLASS_ROOM = #{room}
-  		     , A.CLASS_NAME = #{className}
-  		     , A.CLASS_DAY = #{day}
-  		     , A.CLASS_START_TIME = #{startTime}
-  		     , A.CLASS_END_TIME = #{endTime}
-  		     , A.CLASS_BOOK = #{book}
-  		     , A.CLASS_PAYMENT = #{payment}
-  		     , A.SUBJECT_NO = #{subjectNo}
-  		     , A.GRADE_CODE = #{gradeCode}
-  		 WHERE A.CLASS_NUM = #{classNum} 
-	</update>
-	
 	<!-- 과목 등록 -->
 	<select id="selectClsssAndInfo" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">
 			SELECT
@@ -180,6 +141,61 @@
 		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
 	 	 WHERE A.CLASS_NUM = #{classNum}
 	</select>
+	
+	<select id="selectUpdateClass" resultMap="classAndInforResultMap" parameterType="_int">
+		SELECT
+			   A.CLASS_NUM
+		 	 , A.CLASS_CODE
+             , B.TEACHER_NAME
+             , C.GRADE_NAME
+             , D.SUBJECT_NAME
+		     , A.CLASS_ROOM
+		     , A.CLASS_NAME
+		     , A.CLASS_DAY
+		     , A.CLASS_START_TIME
+		     , A.CLASS_END_TIME
+		     , A.CLASS_BOOK
+		     , A.CLASS_PAYMENT
+		  FROM TBL_CLASS A
+          JOIN TBL_TEACHER B ON (A.TEACHER_NO = B.TEACHER_NO)
+		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		  WHERE A.CLASS_NUM = #{no} 
+		  ORDER BY A.CLASS_NUM ASC 
+	</select>
+	
+	<!-- 정보수정 -->
+	<update id="classUpdate" parameterType="ClassDTO">
+		UPDATE 
+			TBL_CLASS A
+		   SET A.CLASS_CODE = #{code}
+		     , A.CLASS_ROOM = #{room}
+  		     , A.CLASS_NAME = #{className}
+  		     , A.CLASS_DAY = #{day}
+  		     , A.CLASS_START_TIME = #{startTime}
+  		     , A.CLASS_END_TIME = #{endTime}
+  		     , A.CLASS_BOOK = #{book}
+  		     , A.CLASS_PAYMENT = #{payment}
+  		     , A.SUBJECT_NO = #{subjectNo}
+  		     , A.GRADE_CODE = #{gradeCode}
+  		     , A.TEACHER_NO = #{no}
+  		 WHERE A.CLASS_NUM = #{classNum} 
+	</update>
+	
+	<!-- DB에서 영구 삭제 처리 예정 -->
+	<delete id="deleteClass" parameterType="_int">
+  		DELETE 
+  		 FROM TBL_CLASS A
+        WHERE A.CLASS_NUM = #{no}
+  	</delete>
+  	
+  	<!-- <update id="deleteClass" parameterType="_int">
+  		UPDATE
+		       TBL_CLASS A
+		   SET A. = ''
+		 WHERE A.CLASS_NUM = #{ no }
+  	</update> -->
+  	
 	
 	<!-- 시간표 목록 -->
 	<select id="selectTimeTable" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">

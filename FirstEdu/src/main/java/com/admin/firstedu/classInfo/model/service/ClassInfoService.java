@@ -18,13 +18,7 @@ public interface ClassInfoService {
 
 	boolean classRegist(ClassDTO classDTO);
 
-	ClassAndInfoDTO selectUpdateMember(int no);
-
-	boolean classUpdate(ClassDTO classDTO);
-
 	List<ClassAndInfoDTO> selectTimeTable();
-
-//	List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria);
 
 	int selectTotalCount(SearchCriteriaDTO searchCriteria);
 
@@ -34,11 +28,11 @@ public interface ClassInfoService {
 
 	int searchClassCount(SearchCriteriaDTO searchCriteria);
 
-
 	List<ClassAndInfoDTO> selectClassList(PageInfoDTO pageInfo);
 
+	ClassAndInfoDTO selectUpdateClass(int no);
 
-
+	boolean classUpdate(ClassDTO classDTO);
 
 
 }

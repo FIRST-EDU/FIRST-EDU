@@ -106,6 +106,7 @@
            AND A.TEACHER_EMAIL= #{email}
 	</select>
 	
+	<!-- 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="MemberDTO">
 		UPDATE
 		       TBL_TEACHER A
@@ -123,17 +124,41 @@
            AND A.TEACHER_EMAIL= #{email}
 	</select>
 	
+	<select id="selectUpdateMember" resultMap="teacherAndJobResultSet" parameterType="_int">
+		SELECT 
+               A.TEACHER_NO
+             , A.JOB_CODE
+             , B.JOB_NAME
+             , A.TEACHER_ID
+             , A.TEACHER_NAME
+             , A.TEACHER_EMAIL
+             , A.TEACHER_GENDER
+             , A.TEACHER_PHONE
+             , A.TEACHER_ADDRESS
+             , A.TEACHER_ROLE
+             , A.HIRE_DATE
+             , A.ENT_DATE
+             , A.TEACHER_STATUS
+          FROM TBL_TEACHER A 
+          JOIN TBL_JOB B ON (A.JOB_CODE = B.JOB_CODE)
+         WHERE A.TEACHER_NO = #{no} 
+           AND A.TEACHER_STATUS='Y'
+	</select>
+	
 	<!-- 정보수정 -->
-	<update id="selectUpdateMember" parameterType="MemberDTO">
+ 	<update id="updateMember" parameterType="MemberDTO">
 		UPDATE 
 			TBL_TEACHER A
-		   SET A.JOB_CODE = #{jobCode}
-		     , A.TEACHER_PWD = #{pwd}
+		   SET A.TEACHER_NO = # {no}
+		   	 , A.JOB_CODE = #{jobCode}		   
+		   	 , A.TEACHER_ID = # {id}	
+		   	 , A.TEACHER_NAME = # {name}
+		   	 , A.TEACHER_EMAIL = # {email}
   		     , A.TEACHER_PHONE = #{phone}
   		     , A.TEACHER_ADDRESS = #{address}
   		     , A.TEACHER_ROLE = #{role}
-  		 WHERE A.TEACHER_NO = #{no} 
-           AND A.TEACHER_STATUS='Y'
+  		 WHERE TEACHER_NO = # {no}
+  		   AND A.TEACHER_STATUS='Y' 
 	</update>
 	
 	<!-- 선생님 리스트 -->
@@ -159,6 +184,7 @@
   			SELECT 
                A.TEACHER_NO
              , A.JOB_CODE
+             , B.JOB_NAME
              , A.TEACHER_ID
              , A.TEACHER_NAME
              , A.TEACHER_EMAIL
@@ -175,6 +201,7 @@
            AND A.TEACHER_STATUS='Y'
   	</select>
 	
+	<!-- 검색기능 -->
 	<select id="searchMember" parameterType="TeacherAndJobDTO" resultMap="teacherAndJobResultSet">
 		SELECT
                	A.TEACHER_NO

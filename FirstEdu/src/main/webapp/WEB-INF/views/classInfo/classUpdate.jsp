@@ -85,19 +85,19 @@
 			<tr>
 				<td>담당선생님</td>
 				<td><select name="no" id="name">
-						<option value="1">전인애</option>
-						<option value="2">유진희</option>
-						<option value="3">민하영</option>
-						<option value="4">김태훈</option>
-						<option value="5">박인식</option>
-						<option value="6">윤여경</option>
+						<option value="1">강호돈</option>
+						<option value="2">이수군</option>
+						<option value="3">은지은</option>
+						<option value="4">안재은</option>
+						<option value="5">송민훈</option>
+						<option value="6">윤피오</option>
 				</select></td>
 			</tr>
 		</table>
 		<br>
 		<div align="center">
+			<button type="submit">수정하기</button>
 			<button type="reset">작성취소</button>
-			<button type="submit">등록하기</button>
 		</div>
 	</form>
 </body>

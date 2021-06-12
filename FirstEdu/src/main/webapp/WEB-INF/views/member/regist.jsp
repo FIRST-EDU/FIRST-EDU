@@ -10,15 +10,15 @@
 </head>
 <body>
 	<h1 align="center">선생님등록</h1>
-
-	<form action="${ pageContext.servletContext.contextPath }/member/regist" method="post" enctype="multipart/form-data">
+	
+	<form action="${ pageContext.servletContext.contextPath }/member/regist" method="post">
 		<div>
 			<label>* 아이디</label> <input type="text" name="id" id="userId" required>
 			<td><button onclick="return duplicationCheck()">중복확인</button></td>
 		</div>
 		<div>
 			<label>* 직급코드</label> <select name="jobCode" required>
-				<option value="	J1">원장</option>
+				<option value="J1">원장</option>
 				<option value="J2">부원장</option>
 				<option value="J3">팀장</option>
 				<option value="J4">선생님</option>
@@ -58,6 +58,7 @@
 			<select name="role" required>
 				<option value="ADMIN">ADMIN</option>
 				<option value="USER">USER</option>
+				<!-- 나중에 권한 나누기(이부분 숨기기) -->
 			</select>
 		</div>
 		<div>
@@ -76,9 +77,7 @@
 	<script>
 		const $searchZipCode = document.getElementById("searchZipCode");
 		const $goMain = document.getElementById("goMain");
-
 		$searchZipCode.onclick = function() {
-
 			new daum.Postcode({
 				oncomplete : function(data) {
 					document.getElementById("zipCode").value = data.zonecode;
@@ -87,7 +86,6 @@
 				}
 			}).open();
 		}
-
 		$goMain.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath}";
 		}
@@ -116,14 +114,14 @@
 						},
 						error : function(error) {
 							console.log(error);
-
 						}
 					});
-
 			return false;
 		}
 	</script>
 
+<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 
 </body>
 </html>

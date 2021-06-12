@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +25,6 @@ import com.admin.firstedu.classInfo.model.service.ClassInfoService;
 import com.admin.firstedu.common.exception.MemberRegistException;
 import com.admin.firstedu.common.exception.MemberUpdateExcption;
 import com.admin.firstedu.common.paging.Pagenation;
-import com.admin.firstedu.member.model.dto.MemberDTO;
-import com.admin.firstedu.member.model.dto.TeacherAndJobDTO;
-
 
 @Controller
 @RequestMapping("/classInfo/*")
@@ -44,7 +40,7 @@ public class ClassInfoController {
 		
 	}
 	
-	/*과목목록*/
+	/*수강목록*/
 	@GetMapping("/classList")
 	   public String selectClassList(Model model) {
 	      
@@ -53,14 +49,13 @@ public class ClassInfoController {
 	      model.addAttribute("classGroup", classGroup);
 	      
 	      for(ClassAndInfoDTO list : classGroup) {
-//	         System.out.println(list);
 	      }
 	      
 	      return "classInfo/classList";
 	   }
 	
 	
-	/*과목목록등록*/
+	/*수강목록등록*/
 	@GetMapping("/classRegist")
 	public void classRegistForm() {
 	}
@@ -78,13 +73,13 @@ public class ClassInfoController {
 		return "redirect:/classInfo/classList";
 	}
 	
-	
+
 	/*과목목록수정*/
 	@GetMapping("/classUpdate/{no}")
 	public String updateForm(Model model, @PathVariable("no") int no) 
 			throws  MemberUpdateExcption{
 		System.out.println("no : " + no);
-		ClassAndInfoDTO classUpdate = classListService.selectUpdateMember(no);
+		ClassAndInfoDTO classUpdate = classListService.selectUpdateClass(no);
 		
 		model.addAttribute("classUpdate", classUpdate);
 
@@ -94,10 +89,20 @@ public class ClassInfoController {
 
 	}
 	
-	
 	@PostMapping("/classUpdate")
-	public String classUpdate(@ModelAttribute ClassDTO classDTO, Model model, RedirectAttributes rttr) throws MemberRegistException 
+	public String classUpdate(@ModelAttribute ClassDTO classDTO, HttpServletRequest request, RedirectAttributes rttr) throws MemberRegistException 
 	{
+		System.out.println(classDTO);
+		String day = request.getParameter("day");
+		String room = request.getParameter("room");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		String book = request.getParameter("book");
+		String payment = request.getParameter("payment");
+		int no =  Integer.parseInt(request.getParameter("no"));
+		
+		classDTO.setDay(day);
+		classDTO.setNo(no);
 		
 		if(!classListService.classUpdate(classDTO)){
 			throw new MemberRegistException(" 실패!");
@@ -108,20 +113,6 @@ public class ClassInfoController {
 		return "redirect:/classInfo/classList";
 
 	}
-	
-	/*과목 삭제*/
-//	@GetMapping("delete/{no}")
-//	public String deleteClass(@PathVariable("no") int no, RedirectAttributes rttr) throws MemberUpdateExcption {
-//		
-//		if(!classListService.deleteClass(no)) {
-//			throw new MemberUpdateExcption("실패!");
-//		}
-//		
-//		rttr.addFlashAttribute("message", "삭제 성공");
-//		
-//		return "redirect:/classInfo/delete";
-//	}
-	
 		
 	/*과목리스트*/
 	@GetMapping("/detail/{no}")
@@ -134,6 +125,37 @@ public class ClassInfoController {
 		System.out.println(classDetail);
 
 		return "classInfo/classDetail";
+	}
+	
+	/*수강목록삭제*/
+	@GetMapping("delete/{no}")
+	public String deleteClass(@ModelAttribute ClassDTO classDTO, @PathVariable("no") int no, RedirectAttributes rttr, HttpServletRequest request) 
+			throws MemberUpdateExcption {
+		System.out.println(classDTO);
+		
+//		String day = request.getParameter("day");
+//		int room = Integer.parseInt(request.getParameter("room"));
+//		String startTime = request.getParameter("startTime");
+//		String endTime = request.getParameter("endTime");
+//		String book = request.getParameter("book");
+//		int payment = Integer.parseInt(request.getParameter("payment"));
+//		int classNum =  Integer.parseInt(request.getParameter("classNum"));
+//		
+//		classDTO.setDay(day);
+//		classDTO.setRoom(room);
+//		classDTO.setStartTime(startTime);
+//		classDTO.setEndTime(endTime);
+//		classDTO.setBook(book);
+//		classDTO.setPayment(payment);
+//		classDTO.setClassNum(classNum);
+		
+		if(!classListService.deleteClass(no)) {
+			throw new MemberUpdateExcption("실패!");
+		}
+		
+		rttr.addFlashAttribute("message", "삭제 성공");
+		
+		return "redirect:/classInfo/classList";
 	}
 	
 	
@@ -151,24 +173,6 @@ public class ClassInfoController {
 	      
 	      return "classInfo/timeTable";
 	   }
-	
-
-	/* 검색 */
-//	@GetMapping("search")
-//	public String searchClass(Model model,SearchCriteriaDTO searchCriteria) {
-//		
-//		System.out.println("searchList");
-//		
-//		List<ClassAndInfoDTO> classGroup = classListService.searchClass(searchCriteria);
-//		model.addAttribute("classGroup", classGroup);
-//		
-//		 for(ClassAndInfoDTO search : classGroup) {
-//	         System.out.println("searchList " + search);
-//	      }
-//		 
-//		return "classInfo/classList";
-//	}
-	
 	
 	@GetMapping("searchList")
 	public String searchClassList(@ModelAttribute SearchCriteriaDTO searchCriteria, HttpServletRequest request, Model model, RedirectAttributes rttr) {

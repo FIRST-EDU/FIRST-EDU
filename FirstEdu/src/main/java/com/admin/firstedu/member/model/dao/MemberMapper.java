@@ -2,6 +2,7 @@ package com.admin.firstedu.member.model.dao;
 
 import java.util.List;
 
+import com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO;
 import com.admin.firstedu.member.model.dto.MemberDTO;
 import com.admin.firstedu.member.model.dto.SearchCriteriaDTO;
 import com.admin.firstedu.member.model.dto.TeacherAndJobDTO;
@@ -22,9 +23,10 @@ public interface MemberMapper {
 
 	TeacherAndJobDTO selectMemberDetail(int no);
 
-	int selectUpdateMember(MemberDTO member);
-
 	List<TeacherAndJobDTO> searchMember(SearchCriteriaDTO searchCriteria);
+	
+	TeacherAndJobDTO selectUpdateMember(int no);
 
+	boolean updateMember(MemberDTO member);
 
 }

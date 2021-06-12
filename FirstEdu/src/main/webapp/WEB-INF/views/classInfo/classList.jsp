@@ -81,7 +81,7 @@
              </form>
 			</article>
             </section>
-            <button type="button" class="btn-fill-primary btn-basic teacher-input-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/classUpdate'">과목 등록</button>
+            <button type="button" class="btn-fill-primary btn-basic teacher-input-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/classRegist'">과목 등록</button>
           </section>
         </div>
      </div>
@@ -124,12 +124,15 @@
 							<td><c:out value="${list.payment}" /></td>
 							<td class="edit-remove-btn">
 							<button type="button" id="updateBtn" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/classUpdate/'">상세보기</button>
-							<button id="btn" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/delete/'">삭제</button>
+							<button type="button" id="deleteBtn" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/delete/'">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+		</form>
+		<form action="${ pageContext.servletContext.contextPath }/classInfo/delete/'" method="post">
+		
 		</form>
 		</div>
 	</div>
@@ -256,12 +259,18 @@
 	<!--container -->
 	</main>
 	<script>
-
 	$("#updateBtn").click(function(){
 		alert($("#classNum").val())
 		const no = $("#classNum").val();
 		console.log(no);
 		location.href="${pageContext.servletContext.contextPath}/classInfo/classUpdate/" + parseInt(no);
+	})
+	
+	$("#deleteBtn").click(function(){
+			alert($("#classNum").val())
+			const no = $("#classNum").val();
+			console.log(no);
+			location.href="${pageContext.servletContext.contextPath}/classInfo/classDelete/" + parseInt(no);
 	})
 	
 	$(function(){
@@ -278,19 +287,16 @@
 	<script>
 		const link = "${ pageContext.servletContext.contextPath }/classInfo/list";
 		const searchLink = "${ pageContext.servletContext.contextPath }/classInfo/classList";
-
 		/* 원하는 페이지 클릭시 실행되는 콜백 함수 */
 		function pageButtonAction(text) {
 			location.href = link + "?currentPage=" + text;
 		}
-
 		function searchPageButtonAction(text) {
 			location.href = searchLink
 					+ "?currentPage="
 					+ text
 					+ "&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
 		}
-
 		if (document.getElementById("searchStartPage")) {
 			const $searchStartPage = document.getElementById("searchStartPage");
 			$searchStartPage.onclick = function() {
@@ -298,7 +304,6 @@
 						+ "?currentPage=1&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
 			}
 		}
-
 		if (document.getElementById("searchMaxPage")) {
 			const $searchMaxPage = document.getElementById("searchMaxPage");
 			$searchMaxPage.onclick = function() {
@@ -306,7 +311,6 @@
 						+ "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
 			}
 		}
-
 		if (document.getElementById("searchPrevPage")) {
 			const $searchPrevPage = document.getElementById("searchPrevPage");
 			$searchPrevPage.onclick = function() {
@@ -314,7 +318,6 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
 			}
 		}
-
 		if (document.getElementById("searchNextPage")) {
 			const $searchNextPage = document.getElementById("searchNextPage");
 			$searchNextPage.onclick = function() {
@@ -322,14 +325,12 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}";
 			}
 		}
-
 		if (document.getElementById("startPage")) {
 			const $startPage = document.getElementById("startPage");
 			$searchStartPage.onclick = function() {
 				location.href = link + "?currentPage=1";
 			}
 		}
-
 		if (document.getElementById("maxPage")) {
 			const $maxPage = document.getElementById("maxPage");
 			$searchMaxPage.onclick = function() {
@@ -337,7 +338,6 @@
 						+ "?currentPage=${ requestScope.pageInfo.maxPage }";
 			}
 		}
-
 		if (document.getElementById("prevPage")) {
 			const $prevPage = document.getElementById("prevPage");
 			$searchPrevPage.onclick = function() {
@@ -345,7 +345,6 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
 			}
 		}
-
 		if (document.getElementById("nextPage")) {
 			const $nextPage = document.getElementById("nextPage");
 			$searchNextPage.onclick = function() {
@@ -353,7 +352,9 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
 			}
 		}
-
 	</script>
+	
+<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 </body>
 </html>

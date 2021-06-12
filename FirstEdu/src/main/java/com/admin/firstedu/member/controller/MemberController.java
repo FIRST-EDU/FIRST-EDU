@@ -21,6 +21,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO;
+import com.admin.firstedu.classInfo.model.dto.ClassDTO;
 import com.admin.firstedu.common.exception.LoginFailedException;
 import com.admin.firstedu.common.exception.MemberRegistException;
 import com.admin.firstedu.common.exception.MemberUpdateExcption;
@@ -107,36 +109,91 @@ public class MemberController {
 	
 	
 	/*회원정보 수정*/
-	@GetMapping("/update")
-	public void updateForm() {
+//	@GetMapping("/update")
+//	public void updateForm() {
+//	}
+//	
+//	@PostMapping("/update/{no}")
+//	public String updateMember(@ModelAttribute MemberDTO member, RedirectAttributes rttr, HttpServletRequest request) throws  MemberUpdateExcption{
+//		System.out.println("입력된 정보를 받은 MemberDTO : " + member);
+//
+//		String phone = request.getParameter("phone").replace("-", "");
+//		String address = request.getParameter("zipCode") + "$" + request.getParameter("address1") + "$"
+//				+ request.getParameter("address2");
+//		
+//		member.setPwd(passwordEncoder.encode(member.getPwd()));
+//		member.setPhone(phone);
+//		member.setAddress(address);
+//		
+//		System.out.println("입력된 주소 : " + member.getAddress());
+//		
+//		
+//		if(!memberService.selectUpdateMember(member)){
+//			throw new MemberUpdateExcption(" 실패!");
+//		}
+//		
+//		rttr.addFlashAttribute("message", "수정에 성공하셨습니다.");
+//		
+//		return "member/update";
+//	}
+	
+	
+	
+	/*수강과목 수정*/
+	@GetMapping("/update/{no}")
+	public String updateForm(Model model, @PathVariable("no") int no) 
+			throws  MemberUpdateExcption{
+		System.out.println("no : " + no);
+		
+		TeacherAndJobDTO updateMember = memberService.selectUpdateMember(no);
+		
+		model.addAttribute("updateMember", updateMember);
+
+		System.out.println(updateMember);
+		
+		return "member/update";
+
 	}
 	
-	@PostMapping("/update")
-	public String updateMember(@ModelAttribute MemberDTO member, RedirectAttributes rttr, HttpServletRequest request) throws  MemberUpdateExcption{
-		System.out.println("입력된 정보를 받은 MemberDTO : " + member);
-		System.out.println("입력된 암호 : " + member.getPwd());
 
+	@PostMapping("/update")
+	public String memberUpdate(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr) 
+			throws MemberRegistException 
+	{
+		System.out.println(member);
+		
+		int no =  Integer.parseInt(request.getParameter("no"));
+		String id = request.getParameter("id");
+		String jobCode = request.getParameter("jobCode");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
 		String phone = request.getParameter("phone").replace("-", "");
 		String address = request.getParameter("zipCode") + "$" + request.getParameter("address1") + "$"
 				+ request.getParameter("address2");
+		String role = request.getParameter("role");
 		
-		member.setPwd(passwordEncoder.encode(member.getPwd()));
-		member.setPhone(phone);
 		member.setAddress(address);
+		member.setNo(no);
+		member.setId(id);
+		member.setJobCode(jobCode);
+		member.setEmail(email);
+		member.setPhone(phone);
+		member.setRole(role);
 		
-		System.out.println("입력된 주소 : " + member.getAddress());
 		
-		if(!memberService.selectUpdateMember(member)){
-			throw new MemberUpdateExcption(" 실패!");
+		
+		if(!memberService.updateMember(member)){
+			throw new MemberRegistException(" 실패!");
 		}
 		
 		rttr.addFlashAttribute("message", "수정에 성공하셨습니다.");
 		
-		return "member/main";
+		return "redirect:/member/teacherList";
+
 	}
 	
-	/* 회원탙퇴 */
 	
+	/* 회원탙퇴 */
 	@GetMapping("/delete")
 	public void deleteForm() {
 	}
@@ -164,7 +221,7 @@ public class MemberController {
 	}
 	
 	
-	/* 회원목록 */
+	/* 맴버리스트 */
 	@GetMapping("/teacherList")
 	public String selectTeacherAndJob(Model model) {
 
@@ -193,7 +250,7 @@ public class MemberController {
 		return "member/memberDetail";
 	}
 	
-	/* 검색 */
+	/* 검색기능 */
 	@GetMapping("search")
 	public String searchMember(Model model,SearchCriteriaDTO searchCriteria) {
 		

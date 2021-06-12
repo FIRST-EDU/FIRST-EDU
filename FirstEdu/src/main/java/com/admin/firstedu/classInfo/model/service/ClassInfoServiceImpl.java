@@ -42,30 +42,19 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 		
 	}
 
-	@Override
-	public ClassAndInfoDTO selectUpdateMember(int no) {
-		
-		return classMapper.selectUpdateMember(no);
-	}
+//	@Override
+//	public ClassAndInfoDTO selectUpdateMember(int no) {
+//		
+//		return classMapper.selectUpdateMember(no);
+//	}
 
 	
-	@Override
-	public boolean classUpdate(ClassDTO classDTO) {
-		
-		return classMapper.classUpdate(classDTO);
-	}
-
 	@Override
 	public List<ClassAndInfoDTO> selectTimeTable() {
 		
 		return classMapper.selectTimeTable();
 	}
 
-//	@Override
-//	public List<ClassAndInfoDTO> searchClass(SearchCriteriaDTO searchCriteria) {
-//		
-//		return classMapper.searchClass(searchCriteria);
-//	}
 
 	@Override
 	public int selectTotalCount(SearchCriteriaDTO searchCriteria) {
@@ -97,6 +86,19 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 		
 		return classMapper.selectClassList(pageInfo);
 	}
+
+	@Override
+	public ClassAndInfoDTO selectUpdateClass(int no) {
+		
+		return classMapper.selectUpdateClass(no);
+	}
+	
+	@Override
+	public boolean classUpdate(ClassDTO classDTO) {
+		
+		return classMapper.classUpdate(classDTO);
+	}
+
 
 
 }

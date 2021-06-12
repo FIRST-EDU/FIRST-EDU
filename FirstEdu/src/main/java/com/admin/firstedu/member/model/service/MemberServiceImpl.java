@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO;
 import com.admin.firstedu.common.exception.LoginFailedException;
 import com.admin.firstedu.member.model.dao.MemberMapper;
 import com.admin.firstedu.member.model.dto.MemberDTO;
@@ -26,15 +28,14 @@ public class MemberServiceImpl implements MemberService {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
+	/* 회원가입 */
 	@Override
 	public boolean registMember(MemberDTO member) {
 		
 		return mapper.insertMember(member) > 0? true: false;
 	}
 
-	/* 회원정보 수정 메소드*/
-
-	
+	/* 로그인 */
 	@Override
 	public MemberDTO loginMember(MemberDTO member) throws LoginFailedException {
 		
@@ -46,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
-	/*아이디 중복확인*/
+	/*회원가입 아이디 중복확인*/
 	@Override
 	public String idDupCheck(String userId)  {
 		
@@ -75,27 +76,43 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	/*회원정보 수정*/
-	@Override
-	public boolean selectUpdateMember(MemberDTO member) {
-		
-		int result = mapper.selectUpdateMember(member);
-		System.out.println("update 결과 : " + result);
-		return result > 0 ? true : false; 
-	}
-
-
+	/* 검색기능 */
 	@Override
 	public List<TeacherAndJobDTO> searchMember(SearchCriteriaDTO searchCriteria) {
 		
 		return mapper.searchMember(searchCriteria);
 	}
 
+	
+	/* 회원정보수정 */
+	@Override
+	public TeacherAndJobDTO selectUpdateMember(int no) {
+		
+		return mapper.selectUpdateMember(no);
+	}
+	
+	/* 회원정보수정 */
+	@Override
+	public boolean updateMember(MemberDTO member) {
+		
+		return mapper.updateMember(member);
+	}
+
+	
 	@Override
 	public MemberDTO memberPwdFind(MemberDTO member) throws LoginFailedException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
+	
+	/*회원정보 수정(보류)*/
+//	@Override
+//	public boolean selectUpdateMember(MemberDTO member) {
+//		
+//		int result = mapper.selectUpdateMember(member);
+//		System.out.println("update 결과 : " + result);
+//		return result > 0 ? true : false; 
+//	}
 
 
 

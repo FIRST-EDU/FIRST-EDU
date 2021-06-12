@@ -81,7 +81,7 @@
 		</table>
 		<div align="center">
 			<button type="button">취소</button>
-			<button type="button" id="updateBtn" >수정</button>
+			<button type="button" id="updateBtn">수정</button>
 			<button type="button" id="deleteBtn">삭제</button>                                                      
 		</div>
 
@@ -99,9 +99,20 @@
 			alert($("#classNum").val())
 			const no = $("#classNum").val();
 			console.log(no);
-			location.href="${pageContext.servletContext.contextPath}/classInfo/classDelete/" + parseInt(no);
+			location.href="${pageContext.servletContext.contextPath}/classInfo/delete/" + parseInt(no);
 		})
+		
+		/* function del(no) {
+				var chk = confirm("정말 삭제하시겠습니까?");
+				if (chk) {
+					location.href="${pageContext.servletContext.contextPath}/classInfo/delete/" + parseInt(no);
+				}
+			} */	
 		</script>
+		
+
+			
+
 
 </body>
 </html>

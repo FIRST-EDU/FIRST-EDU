@@ -82,7 +82,8 @@
 			</article>
 			<!-- row -->
             </section>
-            <button type="button" class="btn-fill-primary btn-basic teacher-input-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/member/regist'">직원 등록</button>
+            <button type="reset">작성취소</button>
+            <button type="submit" class="btn-fill-primary btn-basic teacher-input-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/member/regist'">직원 등록</button>
           </section>
         </div>
      </div>
@@ -120,7 +121,7 @@
 							<td><span class="tag-p-dark"><c:out value="${teacher.job.jobName}" /></span></td>
 							<td><c:out value="${teacher.status}" /></td>
 							<td class="edit-remove-btn">
-								<button id="detailBtn" type="button" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/member/update'"> <i class="fas fa-pen"></i>수정 </button>
+								<button id="updateBtn" type="button" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/member/update'"> <i class="fas fa-pen"></i>수정 </button>
 							    <button type="button" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/member/delete'"> <i class="fas fa-trash-alt"></i>삭제 </button>
 							</td>
 						</tr>
@@ -155,10 +156,12 @@
 		})	
 	
 	
-		$("#detailBtn").click(function(){
-			location.href="${pageContext.servletContext.contextPath}/member/detail/" + parseInt(no);
+		$("#updateBtn").click(function(){
+			location.href="${pageContext.servletContext.contextPath}/member/update/" + parseInt(no);
 		})
 	</script>
-
+	
+<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 </body>
 </html>
