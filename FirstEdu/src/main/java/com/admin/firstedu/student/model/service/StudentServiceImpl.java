@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.student.model.dao.StudentMapper;
+import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentListClassNameDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 
 @Service
@@ -25,8 +27,22 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<StudentRegistListDTO> selectStudentRegistList() {
-		return mapper.selectStudentRegistList();
+	public int selectTotalCount() {
+		return mapper.selectTotalCount();
+	}
+
+	@Override
+	public List<StudentRegistListDTO> selectStudentRegistList(PageInfoDTO pageInfo) {
+		
+		/* 한 페이지에 보여 줄 학생 목록 조회 */
+		List<StudentRegistListDTO> studentList = mapper.selectStudentRegistList(pageInfo);
+		
+		/* 각 학생의 수강 내역 조회 */
+		for(StudentRegistListDTO student : studentList) {
+			student.setClassList(mapper.selectStudentClassList(student.getNo()));
+		}
+		
+		return studentList;
 	}
 	
 }

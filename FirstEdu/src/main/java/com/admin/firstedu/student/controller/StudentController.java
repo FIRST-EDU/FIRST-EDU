@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.StudentRegistException;
+import com.admin.firstedu.common.paging.Pagenation;
+import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.service.StudentService;
@@ -39,11 +41,13 @@ public class StudentController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
+	/* 원생 등록 페이지로 이동 */
 	@GetMapping("/regist")
 	public String regist() {
 		return "student/registForm";
 	}
 	
+	/* 원생 등록 */
 	@PostMapping("/regist")
 	public String registStudent(@ModelAttribute StudentDTO student,
 								HttpServletRequest request,
@@ -68,15 +72,30 @@ public class StudentController {
 		return "redirect:/student/list";
 	}
 	
+	/* 원생 관리 첫 화면 (+페이징 처리) */
 	@GetMapping("/list")
 	public String StudentList(Model model) {
 		
-		List<StudentRegistListDTO> studentList = studentService.selectStudentRegistList(); 
-		for(StudentRegistListDTO student : studentList) {
-			System.out.println(student);
-		}
+		/* 페이지 번호 */
+		int pageNo = 1;
+
+		/* 전체 원생 수 조회 */
+		int totalCount = studentService.selectTotalCount();
+		
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		List<StudentRegistListDTO> studentList = studentService.selectStudentRegistList(pageInfo);
+		
 		model.addAttribute("studentList", studentList);
 		
 		return "student/studentList";
 	}
+	
+	/* 퇴원생 조회 */
+	
+	
+	
 }

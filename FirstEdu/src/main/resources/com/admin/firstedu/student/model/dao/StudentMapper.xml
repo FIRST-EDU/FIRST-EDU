@@ -38,9 +38,11 @@
 		<result column="STUDENT_PHONE" property="studentPhone"/>
 		<result column="PARENTS_PHONE" property="parentsPhone"/>
 		<result column="REGISTRATION_DATE" property="registrationDate"/>
-		<collection property="classList" ofType="com.admin.firstedu.student.model.dto.StudentListClassNameDTO">
-			<result column="CLASS_NAME" property="name"/>
-		</collection>
+	</resultMap>
+	
+	<!-- 학생별 수강 내역 조회용 -->	
+	<resultMap id="StudentListClassNameResultMap" type="StudentListClassNameDTO">
+		<result column="CLASS_NAME" property="name"/>
 	</resultMap>
 	
 	<!-- 퇴원생 목록 조회용 DTO -->
@@ -99,23 +101,52 @@
 		)
 	</insert>
 	
-	<!-- 재원생 목록 조회 -->
+	<!-- 재원생 목록 조회(+페이징 처리) -->
+	<select id="selectTotalCount" resultType="_int">
+		SELECT
+		       COUNT(A.STUDENT_NO)
+		  FROM TBL_STUDENT A
+		 WHERE A.STATUS = 'Y'
+	</select>
 	<select id="selectStudentRegistList" resultMap="StudentRegistListResultMap">
 		SELECT
-		       A.STUDENT_NO
+	           A.RNUM	
+		     , A.STUDENT_NO
 		     , A.STUDENT_NAME
 		     , A.SCHOOL
-		     , B.GRADE_NAME
+		     , A.GRADE_NAME
 		     , A.STUDENT_PHONE
 		     , A.PARENTS_PHONE
 		     , A.REGISTRATION_DATE
-		     , D.CLASS_NAME
-		  FROM TBL_STUDENT A
-		  JOIN TBL_GRADE B ON (A.GRADE_CODE = B.GRADE_CODE)
-		  JOIN TBL_CLASS_INFO C ON (A.STUDENT_NO = C.STUDENT_NO)
-		  JOIN TBL_CLASS D ON (C.CLASS_CODE = D.CLASS_CODE)
-		 WHERE A.STATUS = 'Y'
-		 ORDER BY A.STUDENT_NO DESC
+		  FROM (SELECT ROWNUM RNUM
+		             , B.STUDENT_NO
+				     , B.STUDENT_NAME
+				     , B.SCHOOL
+				     , B.GRADE_NAME
+				     , B.STUDENT_PHONE
+				     , B.PARENTS_PHONE
+				     , B.REGISTRATION_DATE
+		          FROM (SELECT C.STUDENT_NO
+						     , C.STUDENT_NAME
+						     , C.SCHOOL
+						     , D.GRADE_NAME
+						     , C.STUDENT_PHONE
+						     , C.PARENTS_PHONE
+						     , C.REGISTRATION_DATE
+						  FROM TBL_STUDENT C
+						  JOIN TBL_GRADE D ON (C.GRADE_CODE = D.GRADE_CODE)
+						 WHERE C.STATUS = 'Y'
+						 ORDER BY C.STUDENT_NO DESC
+		               ) B	  
+		  	   ) A
+		 WHERE A.RNUM BETWEEN #{ startRow } AND #{ endRow }
+	</select>
+	<select id="selectStudentClassList" parameterType="_int" resultMap="StudentListClassNameResultMap">
+		SELECT
+		       B.CLASS_NAME
+		  FROM TBL_CLASS_INFO A
+		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+		 WHERE A.STUDENT_NO = #{ studentNo }
 	</select>
 	
 	
