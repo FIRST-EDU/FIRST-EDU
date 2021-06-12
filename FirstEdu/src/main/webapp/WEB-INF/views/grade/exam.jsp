@@ -63,6 +63,9 @@
 		<input type="hidden" class="exam-list" name="title-list" value="${ exam.name }"/>
 		<input type="hidden" class="exam-list" name="start-list" value="${ exam.startDate }"/>
 	</c:forEach>
+	
+	<h3>1학년 1학기 중간고사</h3>
+
 </body>
 
 </html>

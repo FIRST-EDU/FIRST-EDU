@@ -88,6 +88,12 @@ function searchExam(pageNo) {
 				
 			}
 			
+			/* 상세 페이지 조회용 이벤트 추가 */
+			$("#examTable td").click(function() {
+				const no = $(this).parent().find('input[name=no-list]').val();
+				location.href = "/firstedu/grade/exam/" + no;
+			})
+			
 			/* 페이징 처리 */
 			let totalCount = data.pageInfo.totalCount;
 			let buttonAmount = data.pageInfo.buttonAmount;
@@ -171,10 +177,7 @@ function searchExamSchedule() {
 		success: function(data) {
 			
 			/* input hidden 태그 삭제 */
-		    console.log($('.calendar-card input'));
 			$('.calendar-card input').remove();
-		    console.log($('.calendar-card input'));
-			
 			
 			/* input hidden 태그 추가 */	
 			for(var index in data) {
@@ -190,7 +193,6 @@ function searchExamSchedule() {
 				$('.calendar-card').append($endInput);
 				$('.calendar-card').append($colorInput);
 			}
-			console.log($('.calendar-card input'));
 			/* 캘린더 데이터 수정 */
 			calendar.removeAllEvents();
 			if(data.length != 0) {

@@ -24,6 +24,7 @@ import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
 import com.admin.firstedu.grade.model.dto.PageInfoDTO;
+import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -103,16 +104,17 @@ public class ExamController {
 		return gson.toJson(searchResult);
 	}
 
-	/* 시험 일정 등록 */
+	/* 시험 일정 및 성적 기본 정보 등록 */
 	@PostMapping("/exam/regist")
-	public String registExam(@ModelAttribute ExamDTO exam,
+	public String registExamAndScoreBasicInfo(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-		exam.setCategoryNo(1);
+		exam.setCategoryNo(4);
 		exam.setName("test");
-		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
-		exam.setSchool("더조은고등학교");
-		if(!examService.registExam(exam)) {
+		exam.setStartDate(new java.sql.Date(System.currentTimeMillis()));
+		exam.setClassCode("TTE1");
+//		exam.setSchool("더조은고등학교");
+		if(!examService.registExamAndScoreBasicInfo(exam)) {
 			throw new ExamException("시험 일정 등록에 실패하였습니다.");
 		}
 		
@@ -206,7 +208,9 @@ public class ExamController {
 	public String examDetail(@PathVariable("examNo") int examNo, Model model) {
 		
 		ExamListInfoDTO exam = examService.selectExam(examNo);
-		//List<ScoreListInfoDTO> scoreList = examService.selectScoreList(examNo);
+		System.out.println(exam);
+		List<ScoreFullInfoDTO> scoreList = examService.selectScoreList(examNo);
+		System.out.println(scoreList);
 		return "grade/examDetail";
 	}
 	

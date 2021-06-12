@@ -11,14 +11,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ScoreDTO implements java.io.Serializable {
+public class ScoreFullInfoDTO implements java.io.Serializable {
 
-	private static final long serialVersionUID = 6722910210269772872L;
+	private static final long serialVersionUID = 2950445852771543932L;
 
 	private int no;
-	private int studentNo;
-	private int examNo;
-	private int subjectNo;
 	private String subjectDetail;
 	private double targetScore;
 	private double score;
@@ -28,5 +25,7 @@ public class ScoreDTO implements java.io.Serializable {
 	private int overallRank;
 	private int totalPersonnel;
 	private String teacherComment;
-	private String status;
+	private StudentAndGradeDTO student;
+	private ExamDTO exam;
+	private SubjectCategoryDTO subject;
 }

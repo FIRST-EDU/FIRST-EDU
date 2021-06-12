@@ -90,7 +90,14 @@
 		<association resultMap="gradeResultMap" property="mockExamGrade" columnPrefix="MOCK_EXAM_"/>
 		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
  	</resultMap>
-
+ 	
+ 	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO -->
+	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="HagwonExamScoreBasicInfoDTO">
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+	</resultMap>
 
 	<!-- 첫 화면 시험 일정 조회 -->
 	<select id="selectExamScheduleList" resultMap="examListInfoResultMap">
@@ -293,6 +300,72 @@
 		)
 	</insert>
 	
+	<!-- 등록한 시험 번호 조회 -->
+	<select id="selectRegisteredExamNo" resultType="_int">
+		SELECT
+		       SEQ_EXAM_NO.CURRVAL
+		  FROM DUAL
+	</select>
+	
+	<!-- 학교 내신 시험 대상 학생 조회 
+	<select id="selectSchoolExamStudentList" resultMap=com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap>
+		SELECT
+		       A.STUDENT_NO
+		     , A.STUDENT_NAME
+		     
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select>
+	
+	 모의고사 대상 학생 조회
+	<select id="selectMockExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
+		SELECT
+		       A.STUDENT_NO
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select> -->
+	
+	<!-- 학원 시험 대상 기본 정보 조회 -->
+	<select id="selectHagwonExamScoreBasicInfoList" parameterType="_int" resultMap="hagwonExamScoreBasicInfoResultMap">
+		SELECT
+		       A.EXAM_NO
+		     , B.SUBJECT_NO
+		     , GET_CLASS_PERSONNEL(#{ examNo }) AS CLASS_PERSONNEL
+		     , C.STUDENT_NO
+		  FROM TBL_EXAM A
+		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+		  JOIN TBL_CLASS_INFO C ON (B.CLASS_CODE = C.CLASS_CODE)
+		 WHERE A.EXAM_NO = #{ examNo }
+	</select>
+	
+	<!-- 시험 등록 시 성적 기본 정보도 등록 -->
+	<insert id="insertHagwonExamScoreBasicInfo" parameterType="HagwonExamScoreBasicInfoListDTO">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.STUDENT_NO
+		, A.EXAM_NO
+		, A.SUBJECT_NO
+		, A.CLASS_PERSONNEL
+		)
+		<foreach collection="hagwonExamScoreBasicInfoList" item="hagwonExamScoreBasicInfo" separator="UNION ALL">
+		  SELECT GET_SCORE_NO
+		       , #{ hagwonExamScoreBasicInfo.studentNo }
+		       , #{ hagwonExamScoreBasicInfo.examNo }
+		       , #{ hagwonExamScoreBasicInfo.subjectNo }
+		       , #{ hagwonExamScoreBasicInfo.classPersonnel }
+		    FROM DUAL
+		</foreach>
+	
+	</insert>
+	
 	<!-- 시험 일정 수정 -->
 	<update id="updateExam" parameterType="ExamDTO">
 		UPDATE
@@ -377,4 +450,58 @@
 		 WHERE A.EXAM_CATEGORY_NO = #{ examCategoryNo }
 	</update>
 
+	<!-- 시험 상세 페이지 조회 -->
+	<select id="selectExam" parameterType="_int" resultMap="examListInfoResultMap">
+		SELECT
+    	       V.EXAM_CATEGORY_NO
+		     , V.EXAM_CATEGORY_NAME
+		     , V.REF_CATEGORY_NO
+		     , V.COLOR_NO
+		     , V.COLOR_NAME
+		     , V.TAG_CLASS_NAME
+		     , V.COLOR_CODE_HEX
+		     , V.EXAM_NO
+		     , V.EXAM_NAME
+		     , V.START_DATE
+		     , V.END_DATE
+		     , V.SCHOOL
+		     , V.DESCRIPTION
+		     , V.CLASS_CODE
+		     , V.MOCK_EXAM_GRADE_NAME
+		     , V.CLASS_NAME
+		     , V.SUBJECT_NO
+		     , V.GRADE_CODE
+		     , V.TEACHER_NO
+		     , V.SUBJECT_NAME
+		     , V.HAGWON_EXAM_GRADE_NAME
+		  FROM V_EXAM_LIST V
+		 WHERE V.EXAM_NO = #{ examNo }
+	</select>
+	
+	<select id="selectScoreList" parameterType="_int" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.scoreFullInfoResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.STUDENT_NO
+		     , B.STUDENT_NAME
+		     , C.GRADE_NAME
+		     , A.SUBJECT_NO
+		     , D.SUBJECT_NAME
+		     , A.SUBJECT_DETAIL
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.SCORE_GRADE
+		     , A.CLASS_RANK
+		     , A.CLASS_PERSONNEL
+		     , A.OVERALL_RANK
+		     , A.TOTAL_PERSONNEL
+		     , A.TEACHER_COMMENT
+		     , A.SCORE_STATUS
+		  FROM TBL_EXAM_SCORE A
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_GRADE C ON (B.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		 WHERE A.SCORE_STATUS = 'Y'
+		   AND EXAM_NO = #{ examNo }
+	</select>
+	
 </mapper>

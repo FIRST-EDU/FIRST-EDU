@@ -36,30 +36,13 @@ function createCalendar () {
             month: "월별",
             week: "주별",
         },
-        navLinks: true, // can click day/week names to navigate views
         nowIndicator: true,
         dayPopoverFormat: "dddd DD/MM",
         eventColor: "#5e72e4", // 이벤트 색상
-        selectable: true,
-        selectMirror: true,
-        select: function (arg) {
-            var title = prompt("일정을 입력하세요:");
-            if (title) {
-                calendar.addEvent({
-                    title: title,
-                    start: arg.start,
-                    end: arg.end,
-                    allDay: arg.allDay,
-                });
-            }
-            calendar.unselect();
-        },
         eventClick: function (arg) {
-            if (confirm("일정을 삭제하시겠습니까?")) {
-                arg.event.remove();
-            }
+            location.href = '/firstedu/grade/exam/' + arg.event.id
         },
-        editable: true,
+        editable: true
     });
 
     calendar.render();
@@ -69,17 +52,22 @@ function createCalendar () {
 
 /* 이벤트 추가 */
 function addEvent() {
+	let noList = $('input[name="no-list"]');
 	let titleList = $('input[name="title-list"]');
 	let startList = $('input[name="start-list"]');
 	let endList = $('input[name="end-list"]');
 	let colorList = $('input[name="color-list"]');
 	
+	let idArray = [];
 	let titleArray = [];
 	let startArray = [];
 	let endArray = [];
 	let colorArray = [];
 
     for (let i = 0 ; i < titleList.length ; i++) {
+    	idArray.push({
+    		'idList' : noList.eq(i).val()
+    	});
     	titleArray.push({
     		'titleList' : titleList.eq(i).val()
     	});
@@ -99,6 +87,7 @@ function addEvent() {
     	});
     	
         calendar.addEvent({
+            id: idArray[i].idList,
             title: titleArray[i].titleList,
             start: startArray[i].startList,
             end: endArray[i].endList,

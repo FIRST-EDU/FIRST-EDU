@@ -8,6 +8,7 @@ import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
+import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 
 public interface ExamService {
 
@@ -23,7 +24,7 @@ public interface ExamService {
 
 	List<ExamListInfoDTO> searchExamList(ExamSearchCriteria searchCriteria);
 
-	boolean registExam(ExamDTO exam);
+	boolean registExamAndScoreBasicInfo(ExamDTO exam);
 	
 	boolean modifyExam(ExamDTO exam);
 	
@@ -37,7 +38,6 @@ public interface ExamService {
 
 	ExamListInfoDTO selectExam(int examNo);
 
-	//List<ScoreListInfoDTO> selectScoreList(int examNo);
-
+	List<ScoreFullInfoDTO> selectScoreList(int examNo);
 
 }

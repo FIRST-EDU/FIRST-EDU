@@ -14,7 +14,15 @@
  		<typeAlias alias="ExamListInfoDTO" type="com.admin.firstedu.grade.model.dto.ExamListInfoDTO"/>
  		<typeAlias alias="ExamSearchCriteria" type="com.admin.firstedu.grade.model.dto.ExamSearchCriteria"/>
  		<typeAlias alias="GradeDTO" type="com.admin.firstedu.grade.model.dto.GradeDTO"/>
+ 		<typeAlias alias="HagwonExamScoreBasicInfoDTO" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO"/>
+ 		<typeAlias alias="HagwonExamScoreBasicInfoListDTO" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO"/>
+ 		<typeAlias alias="ModifiedScoreDTO" type="com.admin.firstedu.grade.model.dto.ModifiedScoreDTO"/>
  		<typeAlias alias="ScoreDTO" type="com.admin.firstedu.grade.model.dto.ScoreDTO"/>
+ 		<typeAlias alias="ScoreFullInfoDTO" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO"/>
+ 		<typeAlias alias="ScoreListDTO" type="com.admin.firstedu.grade.model.dto.ScoreListDTO"/>
+ 		<typeAlias alias="ScoreSearchCriteria" type="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria"/>
+ 		<typeAlias alias="StudentDTO" type="com.admin.firstedu.grade.model.dto.StudentDTO"/>
+ 		<typeAlias alias="StudentAndGradeDTO" type="com.admin.firstedu.grade.model.dto.StudentAndGradeDTO"/>
  		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
  	</typeAliases>
 </configuration>
