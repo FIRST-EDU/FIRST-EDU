@@ -108,37 +108,6 @@ public class MemberController {
 	}
 	
 	
-	/*회원정보 수정*/
-//	@GetMapping("/update")
-//	public void updateForm() {
-//	}
-//	
-//	@PostMapping("/update/{no}")
-//	public String updateMember(@ModelAttribute MemberDTO member, RedirectAttributes rttr, HttpServletRequest request) throws  MemberUpdateExcption{
-//		System.out.println("입력된 정보를 받은 MemberDTO : " + member);
-//
-//		String phone = request.getParameter("phone").replace("-", "");
-//		String address = request.getParameter("zipCode") + "$" + request.getParameter("address1") + "$"
-//				+ request.getParameter("address2");
-//		
-//		member.setPwd(passwordEncoder.encode(member.getPwd()));
-//		member.setPhone(phone);
-//		member.setAddress(address);
-//		
-//		System.out.println("입력된 주소 : " + member.getAddress());
-//		
-//		
-//		if(!memberService.selectUpdateMember(member)){
-//			throw new MemberUpdateExcption(" 실패!");
-//		}
-//		
-//		rttr.addFlashAttribute("message", "수정에 성공하셨습니다.");
-//		
-//		return "member/update";
-//	}
-	
-	
-	
 	/*수강과목 수정*/
 	@GetMapping("/update/{no}")
 	public String updateForm(Model model, @PathVariable("no") int no) 
@@ -157,12 +126,11 @@ public class MemberController {
 	
 
 	@PostMapping("/update")
-	public String memberUpdate(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr) 
+	public String updateMember(@ModelAttribute MemberDTO member, HttpServletRequest request, RedirectAttributes rttr) 
 			throws MemberRegistException 
 	{
 		System.out.println(member);
 		
-		int no =  Integer.parseInt(request.getParameter("no"));
 		String id = request.getParameter("id");
 		String jobCode = request.getParameter("jobCode");
 		String name = request.getParameter("name");
@@ -173,7 +141,6 @@ public class MemberController {
 		String role = request.getParameter("role");
 		
 		member.setAddress(address);
-		member.setNo(no);
 		member.setId(id);
 		member.setJobCode(jobCode);
 		member.setEmail(email);
@@ -267,9 +234,5 @@ public class MemberController {
 	}
 	
 
-	/* 아이디 찾기 페이지 */
-
-
-	/* 비밀번호 찾기 페이지 */
 
 }

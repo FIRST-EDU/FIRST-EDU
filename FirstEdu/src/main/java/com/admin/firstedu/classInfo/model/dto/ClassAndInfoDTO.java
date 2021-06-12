@@ -18,6 +18,7 @@ public class ClassAndInfoDTO implements Serializable {
 	private int subjectNo;
 	private String gradeCode; 
 	private int no;
+	private String classStatus;
 	private TeacherDTO teacherInfo;
 	private GradeDTO grade;
 	private SubjectCategoryDTO subjectCategory;
@@ -26,8 +27,8 @@ public class ClassAndInfoDTO implements Serializable {
 	}
 
 	public ClassAndInfoDTO(int classNum, String code, int room, String className, String day, String startTime,
-			String endTime, String book, int payment, int subjectNo, String gradeCode, int no, TeacherDTO teacherInfo,
-			GradeDTO grade, SubjectCategoryDTO subjectCategory) {
+			String endTime, String book, int payment, int subjectNo, String gradeCode, int no, String classStatus,
+			TeacherDTO teacherInfo, GradeDTO grade, SubjectCategoryDTO subjectCategory) {
 		super();
 		this.classNum = classNum;
 		this.code = code;
@@ -41,6 +42,7 @@ public class ClassAndInfoDTO implements Serializable {
 		this.subjectNo = subjectNo;
 		this.gradeCode = gradeCode;
 		this.no = no;
+		this.classStatus = classStatus;
 		this.teacherInfo = teacherInfo;
 		this.grade = grade;
 		this.subjectCategory = subjectCategory;
@@ -142,6 +144,14 @@ public class ClassAndInfoDTO implements Serializable {
 		this.no = no;
 	}
 
+	public String getClassStatus() {
+		return classStatus;
+	}
+
+	public void setClassStatus(String classStatus) {
+		this.classStatus = classStatus;
+	}
+
 	public TeacherDTO getTeacherInfo() {
 		return teacherInfo;
 	}
@@ -175,10 +185,9 @@ public class ClassAndInfoDTO implements Serializable {
 		return "ClassAndInfoDTO [classNum=" + classNum + ", code=" + code + ", room=" + room + ", className="
 				+ className + ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", book=" + book
 				+ ", payment=" + payment + ", subjectNo=" + subjectNo + ", gradeCode=" + gradeCode + ", no=" + no
-				+ ", teacherInfo=" + teacherInfo + ", grade=" + grade + ", subjectCategory=" + subjectCategory + "]";
+				+ ", classStatus=" + classStatus + ", teacherInfo=" + teacherInfo + ", grade=" + grade
+				+ ", subjectCategory=" + subjectCategory + "]";
 	}
-	
-	
-	
+
 	
 }

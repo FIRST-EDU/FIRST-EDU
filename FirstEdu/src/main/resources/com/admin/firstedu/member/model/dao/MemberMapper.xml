@@ -107,12 +107,12 @@
 	</select>
 	
 	<!-- 회원탈퇴 -->
-	<delete id="deleteMember" parameterType="MemberDTO">
+	<update id="deleteMember" parameterType="_int">
 		UPDATE
 		       TBL_TEACHER A
 		   SET A.TEACHER_STATUS = 'N'
 		 WHERE A.TEACHER_NO = #{no}
-	</delete>
+	</update>
 	
 	<!-- 비밀번호 찾기 -->
 	<select id="memberPwdFind" resultMap="memberResultSet" parameterType="MemberDTO">
@@ -149,15 +149,15 @@
  	<update id="updateMember" parameterType="MemberDTO">
 		UPDATE 
 			TBL_TEACHER A
-		   SET A.TEACHER_NO = # {no}
+		   SET A.TEACHER_NO = #{no}
 		   	 , A.JOB_CODE = #{jobCode}		   
-		   	 , A.TEACHER_ID = # {id}	
-		   	 , A.TEACHER_NAME = # {name}
-		   	 , A.TEACHER_EMAIL = # {email}
+		   	 , A.TEACHER_ID = #{id}	
+		   	 , A.TEACHER_NAME = #{name}
+		   	 , A.TEACHER_EMAIL = #{email}
   		     , A.TEACHER_PHONE = #{phone}
   		     , A.TEACHER_ADDRESS = #{address}
   		     , A.TEACHER_ROLE = #{role}
-  		 WHERE TEACHER_NO = # {no}
+  		 WHERE TEACHER_NO = #{no}
   		   AND A.TEACHER_STATUS='Y' 
 	</update>
 	

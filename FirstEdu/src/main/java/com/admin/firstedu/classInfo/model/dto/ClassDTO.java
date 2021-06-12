@@ -18,12 +18,13 @@ public class ClassDTO implements Serializable {
 	private int subjectNo;
 	private String gradeCode; 
 	private int no;
+	private String classStatus;
 	
 	public ClassDTO() {
 	}
 
 	public ClassDTO(int classNum, String code, int room, String className, String day, String startTime, String endTime,
-			String book, int payment, int subjectNo, String gradeCode, int no) {
+			String book, int payment, int subjectNo, String gradeCode, int no, String classStatus) {
 		super();
 		this.classNum = classNum;
 		this.code = code;
@@ -37,6 +38,7 @@ public class ClassDTO implements Serializable {
 		this.subjectNo = subjectNo;
 		this.gradeCode = gradeCode;
 		this.no = no;
+		this.classStatus = classStatus;
 	}
 
 	public int getClassNum() {
@@ -63,11 +65,11 @@ public class ClassDTO implements Serializable {
 		this.room = room;
 	}
 
-	public String getclassName() {
+	public String getClassName() {
 		return className;
 	}
 
-	public void setclassName(String className) {
+	public void setClassName(String className) {
 		this.className = className;
 	}
 
@@ -135,12 +137,25 @@ public class ClassDTO implements Serializable {
 		this.no = no;
 	}
 
+	public String getClassStatus() {
+		return classStatus;
+	}
+
+	public void setClassStatus(String classStatus) {
+		this.classStatus = classStatus;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "ClassDTO [classNum=" + classNum + ", code=" + code + ", room=" + room + ", className=" + className + ", day="
-				+ day + ", startTime=" + startTime + ", endTime=" + endTime + ", book=" + book + ", payment=" + payment
-				+ ", subjectNo=" + subjectNo + ", gradeCode=" + gradeCode + ", no=" + no + "]";
+		return "ClassDTO [classNum=" + classNum + ", code=" + code + ", room=" + room + ", className=" + className
+				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", book=" + book + ", payment="
+				+ payment + ", subjectNo=" + subjectNo + ", gradeCode=" + gradeCode + ", no=" + no + ", classStatus="
+				+ classStatus + "]";
 	}
-	
+
 
 }
