@@ -14,6 +14,9 @@
 		<typeAlias alias="StudentClassInfoDTO" type="com.admin.firstedu.student.model.dto.StudentClassInfoDTO"/>
 		<typeAlias alias="StudentDTO" type="com.admin.firstedu.student.model.dto.StudentDTO"/>
 		<typeAlias alias="StudentFullInfoDTO" type="com.admin.firstedu.student.model.dto.StudentFullInfoDTO"/>
+		<typeAlias alias="StudentListClassNameDTO" type="com.admin.firstedu.student.model.dto.StudentListClassNameDTO"/>
+		<typeAlias alias="StudentQuitListDTO" type="com.admin.firstedu.student.model.dto.StudentQuitListDTO"/>
+		<typeAlias alias="StudentRegistListDTO" type="com.admin.firstedu.student.model.dto.StudentRegistListDTO"/>
 		
 		<!-- 대시보드 -->
 		<typeAlias alias="SalesStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO"/>

@@ -2,6 +2,7 @@ package com.admin.firstedu.student.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.StudentRegistException;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.service.StudentService;
 
 @Controller
@@ -68,6 +70,12 @@ public class StudentController {
 	
 	@GetMapping("/list")
 	public String StudentList(Model model) {
+		
+		List<StudentRegistListDTO> studentList = studentService.selectStudentRegistList(); 
+		for(StudentRegistListDTO student : studentList) {
+			System.out.println(student);
+		}
+		model.addAttribute("studentList", studentList);
 		
 		return "student/studentList";
 	}
