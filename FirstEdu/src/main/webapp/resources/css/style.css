@@ -3076,4 +3076,172 @@ textarea {
       height: 520px;
       overflow: hidden; } }
 
+.message-list-form-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  white-space: nowrap; }
+  .message-list-form-content .message-form-content {
+    margin-bottom: 16px; }
+  .message-list-form-content .today-consult-list {
+    margin: 0 0 16px 16px; }
+
+.form-input {
+  width: 200px;
+  padding-left: 45px; }
+
+.message-table-card {
+  height: 350px; }
+  .message-table-card .message-table th {
+    position: sticky;
+    top: 0;
+    cursor: default; }
+  .message-table-card .message-table tbody tr {
+    transition: all 150ms ease-in-out; }
+    .message-table-card .message-table tbody tr:not(.is-active):hover {
+      cursor: pointer;
+      background-color: #f6f9fc; }
+    .message-table-card .message-table tbody tr:not(:disabled):active {
+      background-color: #f4f5f7; }
+    .message-table-card .message-table tbody tr .message-text-overflow {
+      width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap; }
+
+.tag-sort {
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.01em;
+  color: #525f7f;
+  font-weight: 600;
+  transition: all 250ms ease-in-out; }
+  .tag-sort .fa-sort {
+    font-size: 13px; }
+  .tag-sort:hover {
+    color: #ff7089; }
+  .tag-sort:not(:disabled):active {
+    color: #f5365c; }
+
+@media screen and (min-width: 768px) {
+  .message-list-form-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row; }
+    .message-list-form-content .today-consult-list {
+      margin: 0 20px 0 0; }
+    .message-list-form-content .message-form-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0; }
+    .message-list-form-content .message-search-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 2px; }
+  .message-table-card {
+    height: auto; }
+    .message-table-card .message-table {
+      table-layout: fixed; }
+      .message-table-card .message-table th {
+        position: static; }
+      .message-table-card .message-table tr .message-text-overflow {
+        display: table-cell;
+        width: 100%; } }
+
+.storage-search-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .storage-search-form .sum-student-number {
+    flex-direction: column;
+    margin-bottom: 16px; }
+
+.message-card {
+  height: 350px;
+  overflow: hidden; }
+  .message-card .message-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px; }
+    .message-card .message-img .sm-phone {
+      position: relative;
+      top: -5px;
+      width: 280px;
+      height: auto; }
+    .message-card .message-img .recipient .form-input {
+      position: absolute;
+      top: -5px;
+      left: 70px;
+      background-color: transparent;
+      border: 0; }
+    .message-card .message-img textarea {
+      width: 280px;
+      height: 240px;
+      padding: 10px;
+      margin-bottom: 15px;
+      color: #f4f5f7;
+      background-color: #5e72e4;
+      border: 0;
+      border-radius: 4px; }
+      .message-card .message-img textarea:not(:disabled):hover,
+      .message-card .message-img textarea :focus {
+        box-shadow: none; }
+    .message-card .message-img .btn-center {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+
+@media screen and (min-width: 768px) {
+  .storage-search-form {
+    flex-direction: row;
+    justify-content: space-between; }
+    .storage-search-form .sum-student-number {
+      margin: 0 20px 0 0; }
+    .storage-search-form .form-flex-row {
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+  .message-card {
+    height: 782px; }
+    .message-card .message-img {
+      height: 740px;
+      overflow: hidden;
+      overflow-x: auto; }
+      .message-card .message-img .md-iphone {
+        width: 500px;
+        height: auto; }
+      .message-card .message-img .recipient {
+        top: -266px;
+        right: 385px; }
+      .message-card .message-img textarea {
+        position: absolute;
+        top: 56px;
+        left: 35px;
+        width: 200px;
+        height: 390px;
+        margin-bottom: 0;
+        box-shadow: none; }
+      .message-card .message-img .btn-center {
+        position: relative;
+        white-space: nowrap; }
+        .message-card .message-img .btn-center .confirm-btn {
+          position: absolute;
+          top: 479px;
+          left: 170px; }
+        .message-card .message-img .btn-center .cancel-board-btn {
+          position: absolute;
+          top: 479px;
+          left: 40px; } }
+
 /*# sourceMappingURL=style.css.map */
