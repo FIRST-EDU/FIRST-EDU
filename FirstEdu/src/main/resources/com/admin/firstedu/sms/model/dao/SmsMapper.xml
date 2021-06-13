@@ -10,6 +10,7 @@
  		<result property="smsContent" column="SMS_CONTENT"/>
  		<result property="sendTime" column="SEND_TIME"/>
  		<result property="studentNo" column="STUDENT_NO"/>
+ 		<result property="smsStatus" column="SMS_STATUS"/>
  	</resultMap>
  	
  	<resultMap type="StudentDTO" id="studentResultMap">
@@ -26,6 +27,33 @@
   		<result property="registrationDate" column="REGISTRATION_DATE"/>
   		<result property="status" column="STATUS"/>
   	</resultMap>
+  	
+  	<resultMap type="ClassInfoDTO" id="classInfoResultMap">
+  		<id property="no" column="CLASS_NO"/>
+  		<result property="beginDate" column="BEGIN_DATE"/>
+  		<result property="endDate" column="END_DATE"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="subjectCode" column="CLASS_CODE"/>
+  	</resultMap>
+  	
+  	<resultMap type="GradeDTO" id="gradeResultMap">
+  		<id property="gradeCode" column="GRADE_CODE"/>
+  		<result property="gradeName" column="GRADE_NAME"/>
+  	</resultMap>
+  	
+  	<resultMap type="ClassDTO" id="classResultMap">
+  		<id property="classCode" column="CLASS_CODE"/>
+  		<result property="classRoom" column="CLASS_ROOM"/>
+  		<result property="className" column="CLASS_NAME"/>
+  		<result property="classDay" column="CLASS_DAY"/>
+  		<result property="classTime" column="CLASS_TIME"/>
+  		<result property="classBook" column="CLASS_BOOK"/>
+  		<result property="classPariticipants" column="CLASS_PARTICIPANTS"/>
+  		<result property="classPayment" column="CLASS_PAYMENT"/>
+  		<result property="subjectNo" column="SUBJECT_NO"/>
+  		<result property="teacherNo" column="TEACHER_NO"/>
+  	</resultMap>
+  	
  	
  	<resultMap type="SmsAndStudentDTO" id="smsAndStudentDTOResultMap">
  		<id property="smsNo" column="SMS_NO"/>
@@ -34,27 +62,119 @@
  		<association property="student" resultMap="studentResultMap"/>
  	</resultMap>
  	
- 	<select id="selectSmsList" resultMap="smsAndStudentDTOResultMap">
- 		SELECT
-		       A.SMS_NO
-		     , B.STUDENT_NAME
-		     , B.PARENTS_PHONE
-		     , A.SEND_TIME
-		     , A.SMS_CONTENT
-		  FROM TBL_SMS A
+ 	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="parentsName" column="PARENTS_NAME"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="school" column="SCHOOL"/>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>  		
+  		<collection property="grade" resultMap="gradeResultMap"/>  		
+  	</resultMap>
+ 	
+ 	<select id="selectTotalCount" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_SMS A
 		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
-		  ORDER BY A.SMS_NO DESC
+		  <where>
+		  <if test="searchOption == null">
+  		  	A.SMS_STATUS = 'Y'
+  		 </if>
+  		 <if test="searchOption == 'studentName'">
+  		   AND B.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'smsContent'">
+  		   AND A.SMS_CONTENT LIKE '%' || #{searchValue} || '%'
+  		 </if>
+		  </where>
+  	</select>
+  	
+  	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_STUDENT A
+  		  WHERE A.STATUS = 'Y'
+  		 <if test="searchOption == 'school'">
+  		 	AND A.SCHOOL LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 <if test="searchOption == 'studentName'">
+  		 	AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  	</select>
+ 	
+ 	<select id="selectSmsList" parameterType="hashmap" resultMap="smsAndStudentDTOResultMap">
+		  SELECT A.RNUM
+               , A.SMS_NO
+		       , A.STUDENT_NAME
+		       , A.PARENTS_PHONE
+		       , A.SEND_TIME
+		       , A.SMS_CONTENT
+          FROM(SELECT ROWNUM RNUM
+	                , B.SMS_NO
+		     		, B.STUDENT_NAME
+		     	  	, B.PARENTS_PHONE
+		     	    , B.SEND_TIME
+		     	    , B.SMS_CONTENT
+	            FROM (SELECT C.SMS_NO
+		     			   , D.STUDENT_NAME
+		     	  	       , D.PARENTS_PHONE
+		     			   , C.SEND_TIME
+		     			   , C.SMS_CONTENT
+		                FROM TBL_SMS C
+			  		    JOIN TBL_STUDENT D ON (C.STUDENT_NO = D.STUDENT_NO)
+			  		   WHERE C.SMS_STATUS = 'Y'
+			  		   ORDER BY C.SMS_NO DESC
+		             ) B
+             ) A
+            <if test="searchCriteria.searchOption == null">
+                WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+            </if>
+            <if test="searchCriteria.searchOption == 'studentName'">
+                WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+  		 		AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  	</if>
+  		  	<if test="searchCriteria.searchOption == 'smsContent'">
+                WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
+		  		AND A.SMS_CONTENT LIKE '%' || #{searchCriteria.searchValue} || '%'
+		  	</if>
+             
  	</select>
  	
- 	<select id="selectStudentList" resultMap="studentResultMap">
- 		SELECT
- 			   A.STUDENT_NO
- 			 , A.STUDENT_NAME
- 			 , A.SCHOOL
- 			 , A.PARENTS_PHONE
- 		  FROM TBL_STUDENT A
- 		 WHERE A.STATUS = 'Y'
- 	</select>
+ 	<select id="selectStudentList" parameterType="hashmap" resultMap="smsAndStudentDTOResultMap">
+  	SELECT  A.RNUM
+  		  , A.STUDENT_NO
+		  , A.STUDENT_NAME
+		  , A.PARENTS_PHONE
+		  , A.STUDENT_PHONE
+		  , A.SCHOOL
+		 FROM(SELECT ROWNUM RNUM
+		            , B.STUDENT_NO
+			  		, B.STUDENT_NAME
+			  		, B.PARENTS_PHONE
+			  		, B.STUDENT_PHONE
+			  	    , B.SCHOOL
+		       FROM (SELECT 
+		                   C.STUDENT_NO
+			  			 , C.STUDENT_NAME
+			  			 , C.PARENTS_PHONE
+			  			 , C.STUDENT_PHONE
+			  			 , C.SCHOOL
+		              FROM TBL_STUDENT C
+			  		 WHERE C.STATUS = 'Y'
+		             ORDER BY C.STUDENT_NO DESC
+		             ) B
+		      ) A
+  		  WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+  		   <if test="searchCriteria.searchOption == null">
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'school'">
+  		 AND A.SCHOOL LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'studentName'">
+  		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  	</select>
  	
  	<insert id="sendMessage" parameterType="SmsDTO">
  		INSERT INTO 
@@ -64,6 +184,7 @@
  		, PARENTS_PHONE
  		, SMS_CONTENT
  		, STUDENT_NO
+ 		, SMS_STATUS
  		)
  		VALUES
  		(
@@ -71,6 +192,7 @@
  		, #{parentsPhone}
  		, #{smsContent}
  		, ${studentNo}
+ 		, 'Y'
  		)
  	</insert>
  </mapper>

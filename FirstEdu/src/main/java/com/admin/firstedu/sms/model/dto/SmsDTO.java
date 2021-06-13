@@ -9,18 +9,20 @@ public class SmsDTO {
 	private String smsContent;
 	private java.sql.Date sendTime;
 	private int studentNo;
+	private String smsStatus;
 
 	public SmsDTO() {
 		super();
 	}
 
-	public SmsDTO(int smsNo, String parentsPhone, String smsContent, Date sendTime, int studentNo) {
+	public SmsDTO(int smsNo, String parentsPhone, String smsContent, Date sendTime, int studentNo, String smsStatus) {
 		super();
 		this.smsNo = smsNo;
 		this.parentsPhone = parentsPhone;
 		this.smsContent = smsContent;
 		this.sendTime = sendTime;
 		this.studentNo = studentNo;
+		this.smsStatus = smsStatus;
 	}
 
 	public int getSmsNo() {
@@ -63,10 +65,18 @@ public class SmsDTO {
 		this.studentNo = studentNo;
 	}
 
+	public String getSmsStatus() {
+		return smsStatus;
+	}
+
+	public void setSmsStatus(String smsStatus) {
+		this.smsStatus = smsStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "SmsDTO [smsNo=" + smsNo + ", parentsPhone=" + parentsPhone + ", smsContent=" + smsContent
-				+ ", sendTime=" + sendTime + ", studentNo=" + studentNo + "]";
+				+ ", sendTime=" + sendTime + ", studentNo=" + studentNo + ", smsStatus=" + smsStatus + "]";
 	}
 
 }

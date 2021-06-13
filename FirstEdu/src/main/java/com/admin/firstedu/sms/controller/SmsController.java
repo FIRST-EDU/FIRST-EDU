@@ -2,6 +2,7 @@ package com.admin.firstedu.sms.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.admin.firstedu.pay.model.dto.StudentDTO;
+import com.admin.firstedu.paging.Pagenation;
+import com.admin.firstedu.pay.model.dto.PageInfoDTO;
+import com.admin.firstedu.pay.model.dto.SearchCriteria;
+import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.sms.model.dto.SmsAndStudentDTO;
 import com.admin.firstedu.sms.model.dto.SmsDTO;
 import com.admin.firstedu.sms.model.service.SmsService;
@@ -35,42 +39,82 @@ public class SmsController {
 	}
 
 	@GetMapping("list")
-	public String showSMS(Model model, HttpServletRequest request) {
+	public String showSMS(Model model, HttpServletRequest request, @ModelAttribute SearchCriteria searchCriteria) {
 
-		/*
-		 * String currentPage = request.getParameter("currentPage");
-		 * 
-		 * int pageNo = 1;
-		 * 
-		 * if (currentPage != null && !"".equals(currentPage)) { pageNo =
-		 * Integer.valueOf(currentPage);
-		 * 
-		 * if (pageNo <= 0) { pageNo = 1; } }
-		 * 
-		 * int totalCount = smsService.selectTotalCount();
-		 * 
-		 * int limit = 10;
-		 * 
-		 * int buttonAmount = 5;
-		 * 
-		 * PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit,
-		 * buttonAmount);
-		 */
+		String currentPage = request.getParameter("currentPage");
 
-		List<SmsAndStudentDTO> smsList = smsService.selectSmsList();
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+
+		int totalCount = smsService.selectTotalCount(searchCriteria);
+
+		int limit = 10;
+
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchCriteria",searchCriteria);
+		map.put("startRow", pageInfo.getStartRow());
+		map.put("endRow", pageInfo.getEndRow());
+		
+		List<SmsAndStudentDTO> smsList = smsService.selectSmsList(map);
+		
+		for(SmsAndStudentDTO sms : smsList)	{
+			System.out.println(sms);
+		}
 
 		model.addAttribute("smsList", smsList);
-//		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("searchOption", searchCriteria.getSearchOption());
+		model.addAttribute("searchValue", searchCriteria.getSearchValue());
+		model.addAttribute("smsTotal", totalCount);
 
 		return "sms/smsList";
 	}
 	
 	@GetMapping("insertView")
-	public String selectStudentList(Model model) {
+	public String selectStudentList(Model model, HttpServletRequest request,
+			@ModelAttribute SearchCriteria searchCriteria) {
 		
-		List<StudentDTO> studentList = smsService.selectStudentList();
+		String currentPage = request.getParameter("currentPage");
+		
+		int pageNo = 1;
+
+		if (currentPage != null && !"".equals(currentPage)) {
+			pageNo = Integer.valueOf(currentPage);
+			if (pageNo <= 0) {
+				pageNo = 1;
+			}
+		}
+
+		int totalCount = smsService.selectStudentTotal(searchCriteria);
+
+		int limit = 11;
+
+		int buttonAmount = 5;
+
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchCriteria",searchCriteria);
+		map.put("pageInfo", pageInfo);
+		
+		List<SmsAndStudentDTO> studentList = smsService.selectStudentList(map);
 		
 		model.addAttribute("studentList", studentList);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("studentTotal", totalCount);
+		model.addAttribute("searchOption", searchCriteria.getSearchOption());
+		model.addAttribute("searchValue", searchCriteria.getSearchValue());
 		
 		return "sms/sendSms";
 	}
@@ -101,6 +145,6 @@ public class SmsController {
 		      System.out.println(e.getCode());
 		    }
 
-		return "main/result";
+		return "redirect:/sms/list";
 	}
 }

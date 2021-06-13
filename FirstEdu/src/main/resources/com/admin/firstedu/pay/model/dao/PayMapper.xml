@@ -69,6 +69,7 @@
   		<id property="no" column="STUDENT_NO"/>
   		<result property="studentName" column="STUDENT_NAME"/>
   		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="parentsName" column="PARENTS_NAME"/>
   		<result property="status" column="STATUS"/>
   		<result property="school" column="SCHOOL"/>
   		<collection property="classInfo" resultMap="classInfoResultMap"/>
@@ -89,11 +90,7 @@
   		<association property="student" resultMap="studentResultMap"/>
   		<association property="discount" resultMap="discountResultMap"/>
   	</resultMap>
-  	
-  	<!-- <resultMap type="StudentAndClassDTO" id="studentAndClassResultMap">
-  		<id property="no" column="STUDENT_NO"/>
-  		<collection property="classDTO" resultMap="classResultMap"/>
-  	</resultMap> -->
+
   	
   	<select id="selectTotalCount" resultType="_int">
   		SELECT COUNT(*)
@@ -121,18 +118,7 @@
   		  AND C.SCHOOL LIKE '%' || #{searchValue} || '%'
   		 </if>
   	</select>
-  	
-  		<!-- <select id="searchStudentTotalCount" parameterType="SearchCriteria" resultType="_int">
-  		SELECT COUNT(*)
-  		  FROM TBL_STUDENT A
-  		  WHERE A.PAY_STATUS = 'Y'
-  		 <if test="searchOption == 'studentName'">
-  		   AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
-  		 </if>
-  		 <if test="searchOption == 'school'">
-  		  AND A.SCHOOL LIKE '%' || #{searchValue} || '%'
-  		 </if>
-  	</select> -->
+
   	
   	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
@@ -244,6 +230,8 @@
 		             ) B
 		      ) A
   		  WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+  		   <if test="searchCriteria.searchOption == null">
+  		  </if>
   		 <if test="searchCriteria.searchOption == 'school'">
   		 AND A.SCHOOL LIKE '%' || #{searchCriteria.searchValue} || '%'
   		  </if>

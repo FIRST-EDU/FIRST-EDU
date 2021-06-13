@@ -5,6 +5,7 @@ public class StudentAndClassInfoDTO {
 	private int no;
 	private String studentName;
 	private String studentPhone;
+	private String parentsPhone;
 	private String status;
 	private String school;
 	private ClassInfoDTO classInfo;
@@ -15,13 +16,13 @@ public class StudentAndClassInfoDTO {
 		super();
 	}
 
-
-	public StudentAndClassInfoDTO(int no, String studentName, String studentPhone, String status, String school,
-			ClassInfoDTO classInfo, ClassDTO classDTO, GradeDTO grade) {
+	public StudentAndClassInfoDTO(int no, String studentName, String studentPhone, String parentsPhone, String status,
+			String school, ClassInfoDTO classInfo, ClassDTO classDTO, GradeDTO grade) {
 		super();
 		this.no = no;
 		this.studentName = studentName;
 		this.studentPhone = studentPhone;
+		this.parentsPhone = parentsPhone;
 		this.status = status;
 		this.school = school;
 		this.classInfo = classInfo;
@@ -51,6 +52,14 @@ public class StudentAndClassInfoDTO {
 
 	public void setStudentPhone(String studentPhone) {
 		this.studentPhone = studentPhone;
+	}
+
+	public String getParentsPhone() {
+		return parentsPhone;
+	}
+
+	public void setParentsPhone(String parentsPhone) {
+		this.parentsPhone = parentsPhone;
 	}
 
 	public String getStatus() {
@@ -96,8 +105,8 @@ public class StudentAndClassInfoDTO {
 	@Override
 	public String toString() {
 		return "StudentAndClassInfoDTO [no=" + no + ", studentName=" + studentName + ", studentPhone=" + studentPhone
-				+ ", status=" + status + ", school=" + school + ", classInfo=" + classInfo + ", classDTO=" + classDTO
-				+ ", grade=" + grade + "]";
+				+ ", parentsPhone=" + parentsPhone + ", status=" + status + ", school=" + school + ", classInfo="
+				+ classInfo + ", classDTO=" + classDTO + ", grade=" + grade + "]";
 	}
 
 }
