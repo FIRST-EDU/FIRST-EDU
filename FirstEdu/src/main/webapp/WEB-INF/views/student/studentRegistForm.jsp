@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,14 +43,14 @@
                 <article class="teacher-input-form">
                   <label class="essential">* 학생명</label>
                   <div class="input-group">
-                    <input id="studentName" name="studentName" class="form-input" type="text" required/>
+                    <input id="studentName" name="studentName" class="form-input" type="text" autocomplete="new-password" required/>
                   </div>
                 </article>
                 
                 <article class="teacher-input-form">
                   <label class="essential">* 학교</label>
                   <div class="input-group">
-                    <input id="school" name="school" class="form-input" type="text" required/>
+                    <input id="school" name="school" class="form-input" type="text" autocomplete="new-password" required/>
                   </div>
                 </article>
 
@@ -68,21 +70,21 @@
                 <article class="teacher-input-form">
                   <label class="essential">* 연락처</label>
                   <div class="input-group">
-                    <input id="studentPhone" name="studentPhone" class="form-input" type="text" required/>
+                    <input id="studentPhone" name="studentPhone" class="form-input" type="text" autocomplete="new-password" required/>
                   </div>
                 </article>
 
                 <article class="teacher-input-form">
                   <label class="essential">* 보호자 성함</label>
                   <div class="input-group">
-                    <input id="parentsName" name="parentsName" class="form-input" type="text" required/>
+                    <input id="parentsName" name="parentsName" class="form-input" type="text" autocomplete="new-password" required/>
                   </div>
                 </article>
 
                 <article class="teacher-input-form">
                   <label class="essential">* 보호자 연락처</label>
                   <div class="input-group">
-                    <input id="parentsPhone" name="parentsPhone" class="form-input" type="text" required/>
+                    <input id="parentsPhone" name="parentsPhone" class="form-input" type="text" autocomplete="new-password" required/>
                   </div>
                 </article>
 
@@ -123,7 +125,6 @@
 
                 <article class="teacher-input-form">
                   <label>주소</label>
-                  
                   <div class="input-group">
                     <input id="basicAddress" name="basicAddress" class="form-input" type="text" readonly/>
                   </div>
@@ -133,7 +134,25 @@
                 <article class="teacher-input-form">
                   <label>상세주소</label>
                   <div class="input-group">
-                    <input id="detailAddress" name="detailAddress" class="form-input" type="text"/>
+                    <input id="detailAddress" name="detailAddress" class="form-input" type="text" autocomplete="new-password"/>
+                  </div>
+                </article>
+
+                <article id="classInfoForm" class="teacher-input-form">
+                  <label>수강 강의</label>
+                  <c:forEach var="classOption" items="${ requestScope.classList }">
+	              	<input type="hidden" class="class-code" value="${ classOption.code }"/>
+	              	<input type="hidden" class="class-name" value="${ classOption.name }"/>
+	              	<input type="hidden" class="subject-no" value="${ classOption.subjectNo }"/>
+                  </c:forEach>
+                  <div class="select-group">
+                  <select id="classCode" class="form-select" required>
+                    <option value="none">선택</option>
+                    <c:forEach var="classOption" items="${ requestScope.classList }">
+	                    <option value="${ classOption.code }">${ classOption.name }</option>
+                    </c:forEach>
+                  </select>
+                  <i class="fas fa-caret-down" aria-hidden></i>
                   </div>
                 </article>
 

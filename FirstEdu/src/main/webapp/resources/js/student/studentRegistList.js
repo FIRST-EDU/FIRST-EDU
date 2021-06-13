@@ -52,7 +52,7 @@ function searchStudent(pageNo) {
 						$classSpan = $('<span class="tag-light-blue">').text(data.studentList[index].classList[i].name);
 						$classInfoTd.append($classSpan);
 					} else {
-						$classSpan = $('<span class="tag-blue">').text(data.studentList[index].classList[i].name);
+						$classSpan = $('<span class="tag-violet">').text(data.studentList[index].classList[i].name);
 						$classInfoTd.append($classSpan);
 					}
 				}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.student.model.dao.StudentMapper;
 import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
+import com.admin.firstedu.student.model.dto.ClassInfoDTO;
 import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
@@ -27,7 +28,16 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public boolean registStudent(StudentDTO student) {
-		return mapper.insertStudent(student);
+		return mapper.insertStudent(student) > 0 ? true : false;
+	}
+
+	@Override
+	public boolean registClassInfo(List<ClassInfoDTO> classInfoList) {
+		int result = 0;
+		for(ClassInfoDTO classInfo : classInfoList) {
+			result += mapper.insertClassInfo(classInfo);
+		}
+		return result == classInfoList.size() ? true : false;
 	}
 
 	@Override
@@ -107,5 +117,5 @@ public class StudentServiceImpl implements StudentService {
 	public List<StudentQuitListDTO> searchStudentQuitList(StudentSearchCriteria searchCriteria) {
 		return mapper.searchStudentQuitList(searchCriteria);
 	}
-	
+
 }

@@ -146,7 +146,7 @@
 		                  		<span class="tag-light-blue">${ classInfo.name }</span>
 		                  	</c:if>
 		                  	<c:if test="${ classInfo.subjectNo eq '2' }">
-		                  		<span class="tag-blue">${ classInfo.name }</span>
+		                  		<span class="tag-violet">${ classInfo.name }</span>
 		                  	</c:if>
 		                  </c:forEach>
 	                  </td>

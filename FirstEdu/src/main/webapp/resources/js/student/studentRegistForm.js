@@ -23,3 +23,40 @@ function searchAddress() {
         }
     }).open();
 }
+
+let classCodeList = $('.class-code');
+let classNameList = $('.class-name');
+let subjectNoList = $('.subject-no');
+
+$('#classCode').change(function() {
+	let classCode = $('#classCode').val();
+	let className;
+	let subjectNo;
+	
+	if(classCode != 'none') {
+		for(var i = 0 ; i < classCodeList.length ; i++) {
+			if(classCodeList.eq(i).val() == classCode) {
+				className = classNameList.eq(i).val()
+				subjectNo = subjectNoList.eq(i).val()
+			}
+		}
+		
+		if(subjectNo == '1') {
+			$classSpan = $('<span id="classSpan" class="tag-light-blue">');
+		} else if(subjectNo == '2') {
+			$classSpan = $('<span id="classSpan" class="tag-violet">');
+		} else {
+			$classSpan = $('<span id="classSpan" class="tag-blue">');
+		}
+		$classCodeInput = '<input type="hidden" name="classCode" value="' + classCode + '">';
+		
+		$classSpan.html(className + $classCodeInput + '&nbsp; &nbsp; <span id="removeBtn" onclick="removeClass(this)">&#215;</span>')
+		
+		$('#classInfoForm').append($classSpan);
+		
+	}
+});
+
+function removeClass(removedClass) {
+	removedClass.closest("#classSpan").remove();
+}

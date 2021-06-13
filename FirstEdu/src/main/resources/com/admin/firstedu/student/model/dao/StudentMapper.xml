@@ -117,6 +117,30 @@
 		, NVL(#{ registrationDate, jdbcType=DATE }, SYSDATE)
 		, #{ gradeCode }
 		)
+		<selectKey keyProperty="no" order="AFTER" resultType="_int">
+			SELECT
+			       SEQ_STUDENT_NO.CURRVAL
+			  FROM DUAL
+		</selectKey>
+	</insert>
+	
+	<!-- 수강 정보 등록 -->
+	<insert id="insertClassInfo" parameterType="ClassInfoDTO">
+		INSERT
+		  INTO TBL_CLASS_INFO A
+		(
+		  A.CLASS_NO
+		, A.BEGIN_DATE
+		, A.STUDENT_NO
+		, A.CLASS_CODE
+		)
+		VALUES
+		(
+		  SEQ_CLASS_NO.NEXTVAL
+		, #{ beginDate }
+		, #{ studentNo }
+		, #{ classCode }
+		)
 	</insert>
 	
 	<!-- 재원생 목록 조회(+페이징 처리) -->
