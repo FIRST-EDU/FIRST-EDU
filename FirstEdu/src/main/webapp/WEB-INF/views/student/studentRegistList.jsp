@@ -110,6 +110,10 @@
                   <i class="fas fa-caret-down" aria-hidden></i>
                 </form>
               </article>
+              
+              <button type="button" class="btn-fill-primary btn-basic exam-registration" onclick="location.href='${ pageContext.servletContext.contextPath }/student/regist'">
+                원생 등록
+              </button>
 
             </section>
           </section>
