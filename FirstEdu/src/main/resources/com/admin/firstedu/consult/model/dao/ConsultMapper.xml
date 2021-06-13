@@ -174,19 +174,16 @@
 			  		   ORDER BY C.CONSULT_NO DESC
 		             ) B
              ) A
-         WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
-         <if test="searchCriteria.searchOption == null">
-  		  </if>
-  		 <if test="searchCriteria.searchOption == 'studentName'">
-  		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
-  		  </if>
-  		 <if test="searchCriteria.searchOption == 'consultContent'">
-  		 AND A.CONSULT_CONTENT LIKE '%' || #{searchCriteria.searchValue} || '%'
-  		  </if>
-  		  <if test="searchCriteria.searchOption == 'consultOption'">
-  		 AND A.CONSULT_OPTION LIKE '%' || #{searchCriteria.searchValue} || '%'
-  		  </if>
-
+			WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+			<if test="searchCriteria.searchOption == 'studentName'">
+			AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
+			<if test="searchCriteria.searchOption == 'consultContent'">
+			AND A.CONSULT_CONTENT LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
+			<if test="searchCriteria.searchOption == 'consultOption'">
+			AND A.CONSULT_OPTION LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
   	</select>
   	
   	<select id="selectStudentList" parameterType="map" resultMap="studentResultMap2">
