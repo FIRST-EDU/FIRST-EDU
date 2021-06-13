@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 상담 관리 &gt; 상담 입력 | FIRST EDU</title>
+	<title> 문자 관리 &gt; 문자 전송 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -58,90 +58,87 @@
                       />
                     </div>
                   </article>
+                  <a href="message-list.html" class="btn-fill-primary btn-basic">전송 내역</a>
                 </form>
               </article>
             </section>
+
             <section class="common-table-card consult-input-table">
               <table class="common-table">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
-                    <th scope="col">강의명</th>
                     <th scope="col">학생명</th>
-                    <th scope="col">학년</th>
-                    <th scope="col">전화번호</th>
+                    <th scope="col">학교</th>
+                    <th scope="col">보호자연락처</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td>1학년 고급 영어1</td>
                     <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>정유미</td>
+                    <td>반포고등학교</td>
+                    <td>010-1504-3140</td>
                   </tr>
                 </tbody>
               </table>
@@ -174,63 +171,27 @@
           </div>
 
             <div class="col-sm-4 col-md-6">
-              <form class="common-card consult-input-card">
-                <section class="consult-input-box">
-                  <article class="consult-input-form">
-                    <label>학생번호</label>
-                    <div class="input-group">
-                      <input class="form-input" type="text" value="1" readonly/>
+              <form class="common-card message-card">
+                <section class="message-img">
+                  <img class="md-iphone sm-hidden" src="${ pageContext.servletContext.contextPath }/resources/assets/png/iphone.png" alt="">
+                  <div class="input-group recipient">
+                    <img class="sm-phone sm-only" src="${ pageContext.servletContext.contextPath }/resources/assets/png/mobile-phone.png" alt="">
+                    <input class="form-input" value="010-2412-2345" readonly/>
+                    <textarea class="mobile-text">안녕하세요. FIRST EDU 입니다.</textarea>
+                    <div class="btn-center">
+                      <button type="button" class="btn-fill-select btn-basic cancel-board-btn">취소</button>
+                      <button type="button" class="btn-fill-primary btn-basic confirm-btn">전송</button>
                     </div>
-                  </article>
-
-                  <article class="consult-input-form">
-                    <label>학생명</label>
-                    <div class="input-group">
-                      <input class="form-input" type="text" value="정유미" readonly/>
-                    </div>
-                  </article>
-
-                  <article class="consult-input-form">
-                    <div class="date-align">
-                      <label>상담일</label>
-                      <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
-                      <label for="check-date"></label>
-                    </div>
-                  </article>
-
-                  <article class="consult-input-form">
-                    <label>상담방법</label>
-                    <div class="select-group">
-                      <select class="form-select">
-                        <option value="1">선택</option>
-                        <option value="2">대면</option>
-                        <option value="3">비대면</option>
-                        <option value="4">부모님동행</option>
-                      </select>
-                      <i class="fas fa-caret-down" aria-hidden></i>
-                    </div>
-                  </article>
-
-                  <article class="consult-input-form">
-                    <label>상담내용</label>
-                    <textarea name="" id=""></textarea>
-                  </article>
-
-
-                  <article class="consult-input-btn">
-                    <button type="button" class="btn-fill-seconary btn-basic cancel-board-btn">취소</button>
-                    <button type="button" class="btn-fill-primary btn-basic confirm-btn">확인</button>
-                  </article>
+                  </div>
                 </section>
-
                 <div class="modal complete-input-board-modal">
                   <div class="modal-content">
-                    <strong>게시물 등록하기</strong>
-                    <p>게시물을 등록하시겠습니까?</p>
+                    <strong>문자 전송하기</strong>
+                    <p>문자를 전송하시겠습니까?</p>
                       <div class="popup-2btn">
                         <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
                         <!-- <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button> -->
-                        <button type="button" class="btn-fill-primary btn-popup complete-btn" onclick="location.href='consult-list.html'">확인</button>
+                        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
                       </div>
                   </div>
                 </div>
@@ -241,7 +202,7 @@
           <div class="row">
             <div class="col-sm-4">
               <section class="common-card consult-img">
-                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/consult-input.png" alt="">
+                <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/message.png" alt="">
               </section>
             </div>
           </div>
@@ -250,19 +211,19 @@
 
     <div class="modal cancel-board-modal">
       <div class="modal-content">
-        <strong>게시물 등록 취소</strong>
-        <p>게시물 등록을 취소하시겠습니까?</p>
+        <strong>문자 전송 취소</strong>
+        <p>문자 전송을 취소하시겠습니까?</p>
           <div class="popup-2btn">
-            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
-            <a href="consult-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
+            <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+            <a href="message-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
           </div>
       </div>
     </div>
 
 
-<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

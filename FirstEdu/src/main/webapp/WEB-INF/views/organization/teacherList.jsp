@@ -39,15 +39,33 @@
           <section class="common-card teacher-list-form-content">
             <section class="teacher-form-content">
               <div class="tag-lb-dark btn-check sum-teacher-number">총 직원 수 : 6</div>
+              <form class="storage-search-form">
+                <div class="select-group">
+                  <select class="form-select">
+                    <option value="1">번호</option>
+                    <option value="2">직원명</option>
+                    <option value="3">직책</option>
+                  </select>
+                  <i class="fas fa-caret-down" aria-hidden></i>
+                  </div>
+                  <div class="input-group">
+                    <span class="material-icons"> search </span>
+                    <input
+                      class="form-input"
+                      type="search"
+                      placeholder="검색어를 입력하세요."
+                    />
+                  </div>
+              </form>
             </section>
-            <button type="button" class="btn-fill-primary btn-basic teacher-input-btn">직원 등록</button>
+            <a href="teacher-input.html" class="btn-fill-primary btn-basic teacher-input-btn">직원 등록</a>
           </section>
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-4">
-          <form class="common-table-card teacher-list-table-card">
+          <section class="common-table-card teacher-list-table-card">
             <table class="common-table">
               <thead>
                 <tr>
@@ -59,7 +77,6 @@
                   <th scope="col">입사일</th>
                   <th scope="col">직책</th>
                   <th scope="col">상태</th>
-                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
@@ -74,14 +91,6 @@
                     <span class="tag-p-dark">원장</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
@@ -94,14 +103,6 @@
                     <span class="tag-violet">부원장</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
@@ -114,14 +115,6 @@
                     <span class="tag-orange">팀장</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
@@ -134,14 +127,6 @@
                     <span class="tag-yellow">선생님</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
                 <tr>
                 <tr>
@@ -155,14 +140,6 @@
                     <span class="tag-yellow">선생님</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
                 <tr>
                   <td>1</td>
@@ -175,18 +152,10 @@
                     <span class="tag-green">일반</span>
                   </td>
                   <td>Y</td>
-                  <td class="edit-remove-btn">
-                    <button type="button" class="edit-btn" aria-label="수정 버튼">
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </td>
                 </tr>
               </tbody>
             </table>
-            </form>
+          </section>
         </div>
       </div>
 
@@ -201,6 +170,16 @@
       </div>
     </div>
   </main>
+
+    <div class="modal complete-modal complete-input-board-modal">
+    <div class="modal-content">
+      <strong>직원 등록</strong>
+      <p>직원이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
 
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
