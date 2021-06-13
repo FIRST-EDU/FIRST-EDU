@@ -30,6 +30,7 @@ import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentFullInfoDTO;
 import com.admin.firstedu.student.model.dto.StudentQuitListDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
@@ -236,6 +237,17 @@ public class StudentController {
 		
 		return gson.toJson(searchResult);
 	}
+	
+	/* 원생 상세 페이지 조회용 */
+	@GetMapping("/{studentNo}")
+	public String examDetail(@PathVariable("studentNo") int studentNo, Model model) {
+		
+		StudentFullInfoDTO student = studentService.selectStudentFullInfo(studentNo);
+		System.out.println(student);
+		
+		return "student/studentDetail";
+	}	
+	
 	
 	
 }

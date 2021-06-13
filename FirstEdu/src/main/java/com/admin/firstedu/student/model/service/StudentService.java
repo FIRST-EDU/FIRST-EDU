@@ -8,6 +8,7 @@ import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentFullInfoDTO;
 import com.admin.firstedu.student.model.dto.StudentQuitListDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
@@ -55,5 +56,8 @@ public interface StudentService {
 
 	/* 퇴원생 검색 */
 	List<StudentQuitListDTO> searchStudentQuitList(StudentSearchCriteria searchCriteria);
+
+	/* 원생 상세 페이지 조회용 */
+	StudentFullInfoDTO selectStudentFullInfo(int studentNo);
 
 }

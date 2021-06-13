@@ -137,3 +137,9 @@ function searchStudent(pageNo) {
 	});
 	
 } // searchStudent(pageNo) end
+
+/* 상세 페이지 조회용 */
+$("#studentTable td").click(function() {
+	const no = $(this).parent().children(":eq(0)").text();
+	location.href = "/firstedu/student/" + no;
+})

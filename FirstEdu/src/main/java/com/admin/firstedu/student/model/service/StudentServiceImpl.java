@@ -12,6 +12,7 @@ import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.admin.firstedu.student.model.dto.StudentDTO;
+import com.admin.firstedu.student.model.dto.StudentFullInfoDTO;
 import com.admin.firstedu.student.model.dto.StudentQuitListDTO;
 import com.admin.firstedu.student.model.dto.StudentRegistListDTO;
 import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
@@ -116,6 +117,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public List<StudentQuitListDTO> searchStudentQuitList(StudentSearchCriteria searchCriteria) {
 		return mapper.searchStudentQuitList(searchCriteria);
+	}
+
+	@Override
+	public StudentFullInfoDTO selectStudentFullInfo(int studentNo) {
+		return mapper.selectStudentFullInfo(studentNo);
 	}
 
 }

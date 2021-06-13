@@ -29,7 +29,7 @@ public class StudentFullInfoDTO implements java.io.Serializable {
 	private java.sql.Date registrationDate;
 	private java.sql.Date quitDate;
 	private String status;
-	private String gradeName;
+	private GradeDTO grade;
 	private List<StudentClassInfoDTO> classList;
 	
 }

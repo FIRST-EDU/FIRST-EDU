@@ -80,8 +80,16 @@
 		<result column="REGISTRATION_DATE" property="registrationDate"/>
 		<result column="QUIT_DATE" property="quitDate"/>
 		<result column="STATUS" property="status"/>
-		<result column="GRADE_NAME" property="gradeName"/>
+		<association resultMap="gradeResultMap" property="grade"/>
 		<collection resultMap="studentClassInfoResultMap" property="classList"/>
+	</resultMap>
+	
+	<!-- 학생 수강 정보 조회용 -->
+	<resultMap id="studentClassInfoResultMap" type="StudentClassInfoDTO">
+		<id column="CLASS_NO" property="classNo"/>
+		<result column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NAME" property="className"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
 	
 	
@@ -408,6 +416,34 @@
 		    </where>
 		  	   ) A
 		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+	</select>
+	
+	<select id="selectStudentFullInfo" parameterType="_int" resultMap="studentFullInfoResultMap">
+		SELECT
+			   A.STUDENT_NO
+			 , A.STUDENT_NAME
+			 , A.STUDENT_PHONE
+			 , A.PARENTS_NAME
+			 , A.PARENTS_PHONE
+			 , A.GENDER
+			 , A.SCHOOL
+			 , A.ADDRESS
+			 , A.BIRTH
+			 , A.REGISTRATION_DATE
+			 , A.QUIT_DATE
+			 , A.STATUS
+		     , B.GRADE_CODE
+		     , B.GRADE_NAME
+		     , C.CLASS_NO
+		     , D.CLASS_CODE
+		     , D.CLASS_NAME
+		     , D.SUBJECT_NO
+		  FROM TBL_STUDENT A
+		  JOIN TBL_GRADE B ON (A.GRADE_CODE = B.GRADE_CODE)
+		  JOIN TBL_CLASS_INFO C ON (A.STUDENT_NO = C.STUDENT_NO)
+		  JOIN TBL_CLASS D ON (C.CLASS_CODE = D.CLASS_CODE)
+		 WHERE C.STATUS = 'Y'
+		   AND A.STUDENT_NO = #{ studentNo }
 	</select>
 	
 </mapper>

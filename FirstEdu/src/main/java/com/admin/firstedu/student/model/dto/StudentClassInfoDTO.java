@@ -21,4 +21,5 @@ public class StudentClassInfoDTO implements java.io.Serializable {
 	private String status;
 	private String classCode;
 	private String className;
+	private int subjectNo;
 }
