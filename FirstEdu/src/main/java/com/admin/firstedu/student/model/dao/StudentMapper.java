@@ -45,5 +45,9 @@ public interface StudentMapper {
 
 	StudentFullInfoDTO selectStudentFullInfo(int studentNo);
 
+	boolean updateStudent(StudentDTO student);
+
+	boolean deleteClassInfo(int studentNo);
+
 
 }

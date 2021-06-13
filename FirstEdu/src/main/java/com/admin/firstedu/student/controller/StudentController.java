@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.admin.firstedu.common.exception.StudentModifyException;
 import com.admin.firstedu.common.exception.StudentRegistException;
 import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
@@ -81,9 +82,6 @@ public class StudentController {
 		} else if(("2").equals(student.getGender())) {
 			student.setGender("남");
 		}
-		
-		System.out.println(classList);
-		System.out.println(student);
 		
 		if(studentService.registStudent(student)) {
 			
@@ -240,14 +238,73 @@ public class StudentController {
 	
 	/* 원생 상세 페이지 조회용 */
 	@GetMapping("/{studentNo}")
-	public String examDetail(@PathVariable("studentNo") int studentNo, Model model) {
+	public String studentDetail(@PathVariable("studentNo") int studentNo, Model model) {
 		
 		StudentFullInfoDTO student = studentService.selectStudentFullInfo(studentNo);
-		System.out.println(student);
+		String address = student.getAddress().replace("$", " ");
+		student.setAddress(address);
+		model.addAttribute("student", student);
 		
 		return "student/studentDetail";
 	}	
 	
+	/* 원생 정보 수정 페이지로 이동 */
+	@GetMapping("/modify/{studentNo}")
+	public String selectModifyStudent(@PathVariable("studentNo") int studentNo, Model model) {
+		StudentFullInfoDTO student = studentService.selectStudentFullInfo(studentNo);
+		List<ClassBasicInfoDTO> classList = studentService.selectClassList();
+		
+		model.addAttribute("student", student);
+		model.addAttribute("classList", classList);
+		
+		return "student/studentModifyForm";
+	}
 	
+	/* 원생 정보 수정 */
+	@PostMapping("/modify")
+	public String modifyStudent(@ModelAttribute StudentDTO student,
+								@ModelAttribute ClassListDTO classList,
+								HttpServletRequest request,
+								RedirectAttributes rttr)
+										throws StudentModifyException {
+		
+		String address = request.getParameter("basicAddress") + "$" + request.getParameter("detailAddress");
+		student.setAddress(address);
+		
+		if(("1").equals(student.getGender())) {
+			student.setGender("여");
+		} else if(("2").equals(student.getGender())) {
+			student.setGender("남");
+		}
+		
+		System.out.println(classList);
+		System.out.println(student);
+		
+		if(studentService.modifyStudent(student)) {
+			
+			List<ClassInfoDTO> classInfoList = new ArrayList<>();
+			for(int i = 0 ; i < classList.getClassCode().size() ; i++) {
+				ClassInfoDTO classInfo = new ClassInfoDTO();
+				classInfo.setStudentNo(student.getNo());
+				classInfo.setClassCode(classList.getClassCode().get(i));
+				System.out.println("classInfo : " + classInfo);
+				classInfoList.add(classInfo);
+			}
+			
+			if(!studentService.removeClassInfo(student.getNo()) || !studentService.registClassInfo(classInfoList)) {
+				
+				throw new StudentModifyException("수강 정보 수정에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+			}
+			
+		} else {
+			throw new StudentModifyException("원생 정보 수정에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+		}
+		
+		rttr.addFlashAttribute("messageTitle", "원생 정보 수정");
+		rttr.addFlashAttribute("messageBody", student.getStudentName() + " 학생의 정보를 수정하였습니다.");
+		
+		
+		return "redirect:/student/" + student.getNo();
+	}
 	
 }

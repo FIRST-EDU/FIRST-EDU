@@ -60,4 +60,10 @@ public interface StudentService {
 	/* 원생 상세 페이지 조회용 */
 	StudentFullInfoDTO selectStudentFullInfo(int studentNo);
 
+	/* 원생 정보 수정 */
+	boolean modifyStudent(StudentDTO student);
+
+	/* 원생 수강정보 삭제 */
+	boolean removeClassInfo(int no);
+
 }

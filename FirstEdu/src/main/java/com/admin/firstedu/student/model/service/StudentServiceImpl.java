@@ -124,4 +124,14 @@ public class StudentServiceImpl implements StudentService {
 		return mapper.selectStudentFullInfo(studentNo);
 	}
 
+	@Override
+	public boolean modifyStudent(StudentDTO student) {
+		return mapper.updateStudent(student);
+	}
+
+	@Override
+	public boolean removeClassInfo(int studentNo) {
+		return mapper.deleteClassInfo(studentNo);
+	}
+
 }
