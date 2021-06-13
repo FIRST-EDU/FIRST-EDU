@@ -67,7 +67,7 @@
                     </div>
                 </form>
               </section>
-              <a href="consult-input.html" class="btn-fill-primary btn-basic consult-input-btn"
+              <a class="btn-fill-primary btn-basic consult-input-btn"
               onclick="location.href='${pageContext.servletContext.contextPath}/consult/insertView'">상담 입력</a>
               
           </section>
@@ -208,7 +208,7 @@
       </div>
     </main>
 
- <div class="modal detail-board-modal">
+ <div class="modal detail-board-modal" id="consultMadal">
     <div class="modal-content">
       <section class="form-left">
         <article class="form-align">
@@ -328,13 +328,30 @@
 		$("#consultList td").click(function(){
 			
 			const no = this.parentNode.children[0].innerText;
-			console.log(no);
+			$.ajax({
+				url:"detail",
+				type:"GET",
+				data:{no:no},
+				success:function(data){
+					
+					$("#consultNo").val(data.consultNo);
+					$("#consultDate").val(data.consultDate);
+					$("#studentName").val(data.student.studentName);
+					$("#teacherName").val(data.teacher.name);
+					$("#consultOption").val(data.category.consultOption);
+					$("#consultContent").val(data.consultContent);
+					overlay.classList.add('is-active')
+				    body.classList.add('modal-open')
+				    detailBoardModal.classList.add('is-active')
+					
+				}
+			})
 		})
 		
-		/* $("#consultUpdate").click(function(){
+		 $("#consultUpdateBtn").click(function(){
 			const no = $("#consultNo").val();
-			location.href = "${pageContext.servletContext.contextPath}/pay/update/" + no; 
-		}) */
+			location.href = "${pageContext.servletContext.contextPath}/consult/update/" + no; 
+		}) 
 
 	</script>
 

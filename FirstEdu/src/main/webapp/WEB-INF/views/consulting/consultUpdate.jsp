@@ -108,7 +108,8 @@
                   <strong>게시물 수정하기</strong>
                   <p>게시물을 수정하시겠습니까?</p>
                     <div class="popup-2btn">
-                      <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+                      <button type="button" class="btn-fill-seconary btn-popup back-btn"
+                     >취소</button>
                       <!-- <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button> -->
                       <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button>
                     </div>
@@ -130,8 +131,10 @@
         <strong>게시물 수정 취소</strong>
         <p>게시물 수정을 취소하시겠습니까?</p>
           <div class="popup-2btn">
-            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
-            <a href="consult-list.html" class="btn-fill-primary btn-popup complete-btn">확인</a>
+            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn"
+             >취소</button>
+            <a class="btn-fill-primary btn-popup complete-btn"
+            onclick="location.href='${pageContext.servletContext.contextPath}/consult/list'">확인</a>
           </div>
       </div>
     </div>
@@ -152,11 +155,11 @@
 			const no = $("#consultNo").val();
 			location.href="${pageContext.servletContext.contextPath}/consult/delete/" + no;
 		})
-		
+/* 		
 		$("#detailBtn").click(function(){
 			const no = $("#consultNo").val();
 			location.href="${pageContext.servletContext.contextPath}/consult/detail/" + no;
-		})
+		}) */
 	</script>
 
     <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>

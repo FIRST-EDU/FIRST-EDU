@@ -1,10 +1,13 @@
 package com.admin.firstedu.consult.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.firstedu.consult.model.dto.ConsultDTO;
 import com.admin.firstedu.consult.model.dto.ConsultListDTO;
@@ -22,6 +26,8 @@ import com.admin.firstedu.consult.model.dto.SearchCriteria;
 import com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.consult.model.service.ConsultService;
 import com.admin.firstedu.paging.Pagenation;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/consult/*")
@@ -76,14 +82,26 @@ public class ConsultController {
 		return "consulting/consultList";
 	}
 	
-	@GetMapping("detail/{no}")
-	public String selectConsultDetail(Model model, @PathVariable("no") int no) {
+	@GetMapping("detail")
+	public String selectConsultDetail(Model model, @RequestParam(value="no") int no, HttpServletResponse response) throws IOException {
 		
 		ConsultListDTO consultDetail = consultService.selectConsultDetail(no);
 		
-		model.addAttribute("consultDetail", consultDetail);
+		System.out.println(consultDetail);
 		
-		return "consulting/consultDetail";
+		response.setContentType("application/json; charset=UTF-8");
+
+		Gson gson = new GsonBuilder().create();
+
+		PrintWriter out = response.getWriter();
+		out.print(gson.toJson(consultDetail));
+
+		out.flush();
+		out.close();
+		
+//		model.addAttribute("consultDetail", consultDetail);
+		
+		return "consulting/consultList";
 	}
 	
 	@GetMapping("insertView")
@@ -130,13 +148,12 @@ public class ConsultController {
 		
 		int result = consultService.insertConsult(consult);
 		
-		if(result > 0) {
-			model.addAttribute("message", "상담입력에 성공하였습니다");
-		}else {
-			model.addAttribute("message", "상담입력에 실패하였습니다");
-		}
+		/*
+		 * if(result > 0) { model.addAttribute("message", "상담입력에 성공하였습니다"); }else {
+		 * model.addAttribute("message", "상담입력에 실패하였습니다"); }
+		 */
 		
-		return "main/result";
+		return "redirect:/consult/list";
 	}
 	
 	@GetMapping("update/{no}")
@@ -155,13 +172,12 @@ public class ConsultController {
 		int result = consultService.updateConsult(consult);
 		
 		
-		if(result > 0) {
-			model.addAttribute("message", "상담내용 수정에 성공하였습니다");
-		}else {
-			model.addAttribute("message", "상담내용 수정에 실패하였습니다");
-		}
+		/*
+		 * if(result > 0) { model.addAttribute("message", "상담내용 수정에 성공하였습니다"); }else {
+		 * model.addAttribute("message", "상담내용 수정에 실패하였습니다"); }
+		 */
 		
-		return "main/result";
+		return "redirect:/consult/list";
 	}
 	
 	@GetMapping("delete/{no}")
@@ -169,13 +185,12 @@ public class ConsultController {
 		
 		int result = consultService.deleteConsult(no);
 		
-		if(result > 0) {
-			model.addAttribute("message", "상담내용 삭제에 성공하였습니다");
-		}else {
-			model.addAttribute("message", "상담내용 삭제에 실패하였습니다");
-		}
+		/*
+		 * if(result > 0) { model.addAttribute("message", "상담내용 삭제에 성공하였습니다"); }else {
+		 * model.addAttribute("message", "상담내용 삭제에 실패하였습니다"); }
+		 */
 		
-		return "main/result";
+		return "redirect:/consult/list";
 	}
 	
 	/* 학생 홈 화면에 띄워줄거임 */
@@ -187,8 +202,4 @@ public class ConsultController {
 		return "";
 	}
 	
-	@GetMapping("reserve")
-	public String consultCalendar() {
-		return "consulting/consultCalendar";
-	}
 }
