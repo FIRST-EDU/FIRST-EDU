@@ -238,7 +238,7 @@
           </div>
           <div class="col-sm-4 col-md-6">
             <section class="common-card teacher-edit-img">
-              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/teacher-list.png" alt="">
+              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/student.png" alt="">
             </section>
           </div>
         </div>
@@ -251,7 +251,7 @@
         <p>원생 정보 수정을 취소하시겠습니까?</p>
           <div class="popup-2btn">
             <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
-            <a href="'${ pageContext.servletContext.contextPath }/student/' + '${ student.no }'" class="btn-fill-primary btn-popup complete-btn">확인</a>
+            <a href="${ pageContext.servletContext.contextPath }/student/${ student.no }" class="btn-fill-primary btn-popup complete-btn">확인</a>
           </div>
       </div>
     </div>

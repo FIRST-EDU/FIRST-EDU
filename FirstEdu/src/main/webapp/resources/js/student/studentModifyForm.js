@@ -1,7 +1,9 @@
-$(document).ready(function() {
-    
-    
-});
+/* breadcrumb 변경 */
+$(function(){
+	$('#parentMenu').text('원생 관리');
+	$('#parentMenu').attr('href', '/firstedu/student/regist/list');
+	$('#nowMenu').text('원생 정보 수정');
+})
 
 function searchAddress() {
     new daum.Postcode({

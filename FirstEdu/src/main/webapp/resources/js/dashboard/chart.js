@@ -1,3 +1,10 @@
+/* breadcrumb 변경 */
+$(function(){
+	$('#firstUnicode').remove();
+	$('#parentMenu').remove();
+	$('#nowMenu').text('대시보드');
+})
+
 /* 통계 자료 불러오기 */
 let className = $('input[name="className"]');
 let classCount = $('input[name="classCount"]');

@@ -169,15 +169,15 @@
             <div class="col-sm-4">
               <div class="breadcrumb-point">
                 <div class="breadcrumb">
-                  <a href="/">
+                  <a href="${ pageContext.servletContext.contextPath }">
                     <i class="fas fa-home" aria-label="메인으로 가기"></i>
                   </a>
-                  <p class="unicode" aria-hidden="true">&sol;</p>
-                  <a href="/">
+                  <p id="firstUnicode" class="unicode" aria-hidden="true">&sol;</p>
+                  <a id="parentMenu" href="/">
                     출결 관리
                   </a>
                   <p class="unicode" aria-hidden="true">&sol;</p>
-                  <p>출결 입력</p>
+                  <p id="nowMenu">출결 입력</p>
                 </div>
               </div>
             </div>

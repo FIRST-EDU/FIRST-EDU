@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +12,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 원생 관리 &gt; 원생 상세 | FIRST EDU</title>
+	<title> 원생 관리 &gt; 원생 수정 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -39,10 +37,10 @@
     <div class="row">
       <div class="col-sm-4">
         <article class="student-btn-align">
-          <a href="${ pageContext.servletContext.contextPath }/student/regist/list" class="btn-fill-select btn-basic">목록</a>
+          <a href="student-list.html" class="btn-fill-select btn-basic">목록</a>
           <div class="edit-delete-align">
-            <button type="button" class="btn-fill-select btn-basic delete-b-btn">퇴원</button>
-            <a href="${ pageContext.servletContext.contextPath }/student/modify/${ student.no }" class="btn-fill-strong btn-basic">수정</a>
+            <button type="button" class="btn-fill-select btn-basic delete-b-btn">삭제</button>
+            <a href="student-edit.html" class="btn-fill-strong btn-basic">수정</a>
           </div>
         </article>
         <section class="common-table-card">
@@ -50,46 +48,33 @@
             <tbody>
               <tr>
                 <th scope="row">번호</th>
-                    <td>${ student.no }</td>
+                    <td>1</td>
                     <th scope="row">보호자성함</th>
-                    <td>${ student.parentsName }</td>
+                    <td>홍시궁</td>
                   </tr>
                   <tr>
                     <th scope="row">학생명</th>
-                    <td>${ student.studentName }</td>
+                    <td>유고딩</td>
                     <th scope="row">보호자연락처</th>
-                    <td>${ student.parentsPhone }</td>
+                    <td>010-1234-5678</td>
                   </tr>
                   <tr>
                     <th scope="row">학교</th>
-                      <td>${ student.school }</td>
+                      <td>양재고등학교</td>
                     <th scope="row">생년월일</th>
-                    <td>${ student.birth }</td>
+                    <td>1995-12-24</td>
                   </tr>
                   <tr>
                     <th scope="row">연락처</th>
-                    <td>${ student.studentPhone }</td>
+                    <td>010-4320-5394</td>
                     <th scope="row">주소</th>
-                    <td>${ student.address }</td>
+                    <td>서울시 서초구</td>
                   </tr>
                   <tr>
                     <th scope="row">수강과목</th>
-                    <td>
-                      <c:forEach var="classInfo" items="${ student.classList }">
-	                  	<c:if test="${ classInfo.subjectNo eq '1' }">
-	                  		<span id="classSpan" class="tag-light-blue">
-	                  			${ classInfo.className }
-	                  		</span>
-	                  	</c:if>
-	                  	<c:if test="${ classInfo.subjectNo eq '2' }">
-	                  		<span id="classSpan" class="tag-violet">
-	                  			${ classInfo.className }
-	                  		</span>
-	                  	</c:if>
-                      </c:forEach>
-                    </td>
+                    <td>수학</td>
                     <th scope="row">등록일</th>
-                    <td>${ student.registrationDate }</td>
+                    <td>21-06-13</td>
                   </tr>
                 </tbody>
               </table>
@@ -109,12 +94,12 @@
 
    <div class="modal delete-board-modal">
     <div class="modal-content">
-      <strong>원생 퇴원 처리</strong>
-      <p>${ student.studentName } 학생을 퇴원 처리 하시겠습니까?</p>
-      <div class="popup-2btn">
-        <button type="button" class="btn-fill-seconary btn-popup delete-board-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/student/delete/' + '${ student.no }'">퇴원</button>
-        <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
-      </div>
+      <strong>원생 삭제하기</strong>
+      <p>원생을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
     </div>
   </div>
 

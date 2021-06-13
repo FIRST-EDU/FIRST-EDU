@@ -184,7 +184,7 @@
           </div>
           <div class="col-sm-4 col-md-6">
             <section class="common-card teacher-edit-img">
-              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/teacher-list.png" alt="">
+              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/student.png" alt="">
             </section>
           </div>
         </div>

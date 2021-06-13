@@ -1,3 +1,10 @@
+/* breadcrumb 변경 */
+$(function(){
+	$('#parentMenu').text('원생 관리');
+	$('#parentMenu').attr('href', '/firstedu/student/regist/list');
+	$('#nowMenu').text('재원생 목록');
+})
+
 /* select 값 변경 시 검색 목록 조회 */
 $('#searchValue').change(function() {
 	searchStudent(1);

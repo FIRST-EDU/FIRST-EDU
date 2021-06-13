@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col-sm-4">
           <section>
-            <button type="button" class="btn-fill-light-blue btn-long" disabled>재원생</button>
+            <span class="btn-fill-strong btn-long">재원생</span>
             <button type="button" class="btn-fill-seconary btn-long" onclick="location.href='${ pageContext.servletContext.contextPath }/student/quit/list'">퇴원생</button>
           </section>
         </div>
