@@ -496,7 +496,7 @@ ol {
   width: 36px;
   height: 36px; }
 
-.btn-outlined-gray, .btn-outlined-primary, .btn-outlined-blue, .btn-outlined-green, .btn-outlined-red, .btn-outlined-orange, .btn-outlined-violet, .btn-fill-primary, .btn-fill-light-blue, .btn-fill-active, .btn-fill-seconary, .btn-fill-select, .btn-fill-red, .btn-fill-orange, .btn-fill-violet, .btn-fill-green, .btn-fill-blue {
+.btn-outlined-gray, .btn-outlined-primary, .btn-outlined-blue, .btn-outlined-green, .btn-outlined-red, .btn-outlined-orange, .btn-outlined-violet, .btn-fill-primary, .btn-fill-strong, .btn-fill-light-blue, .btn-fill-active, .btn-fill-seconary, .btn-fill-select, .btn-fill-red, .btn-fill-orange, .btn-fill-violet, .btn-fill-green, .btn-fill-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -504,13 +504,13 @@ ol {
   font-weight: 500;
   border-radius: 4px;
   transition: all 200ms ease-in-out; }
-  .btn-outlined-gray:not(:disabled):hover, .btn-outlined-primary:not(:disabled):hover, .btn-outlined-blue:not(:disabled):hover, .btn-outlined-green:not(:disabled):hover, .btn-outlined-red:not(:disabled):hover, .btn-outlined-orange:not(:disabled):hover, .btn-outlined-violet:not(:disabled):hover, .btn-fill-primary:not(:disabled):hover, .btn-fill-light-blue:not(:disabled):hover, .btn-fill-active:not(:disabled):hover, .btn-fill-seconary:not(:disabled):hover, .btn-fill-select:not(:disabled):hover, .btn-fill-red:not(:disabled):hover, .btn-fill-orange:not(:disabled):hover, .btn-fill-violet:not(:disabled):hover, .btn-fill-green:not(:disabled):hover, .btn-fill-blue:not(:disabled):hover {
+  .btn-outlined-gray:not(:disabled):hover, .btn-outlined-primary:not(:disabled):hover, .btn-outlined-blue:not(:disabled):hover, .btn-outlined-green:not(:disabled):hover, .btn-outlined-red:not(:disabled):hover, .btn-outlined-orange:not(:disabled):hover, .btn-outlined-violet:not(:disabled):hover, .btn-fill-primary:not(:disabled):hover, .btn-fill-strong:not(:disabled):hover, .btn-fill-light-blue:not(:disabled):hover, .btn-fill-active:not(:disabled):hover, .btn-fill-seconary:not(:disabled):hover, .btn-fill-select:not(:disabled):hover, .btn-fill-red:not(:disabled):hover, .btn-fill-orange:not(:disabled):hover, .btn-fill-violet:not(:disabled):hover, .btn-fill-green:not(:disabled):hover, .btn-fill-blue:not(:disabled):hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18); }
-  .btn-outlined-gray:disabled, .btn-outlined-primary:disabled, .btn-outlined-blue:disabled, .btn-outlined-green:disabled, .btn-outlined-red:disabled, .btn-outlined-orange:disabled, .btn-outlined-violet:disabled, .btn-fill-primary:disabled, .btn-fill-light-blue:disabled, .btn-fill-active:disabled, .btn-fill-seconary:disabled, .btn-fill-select:disabled, .btn-fill-red:disabled, .btn-fill-orange:disabled, .btn-fill-violet:disabled, .btn-fill-green:disabled, .btn-fill-blue:disabled {
+  .btn-outlined-gray:disabled, .btn-outlined-primary:disabled, .btn-outlined-blue:disabled, .btn-outlined-green:disabled, .btn-outlined-red:disabled, .btn-outlined-orange:disabled, .btn-outlined-violet:disabled, .btn-fill-primary:disabled, .btn-fill-strong:disabled, .btn-fill-light-blue:disabled, .btn-fill-active:disabled, .btn-fill-seconary:disabled, .btn-fill-select:disabled, .btn-fill-red:disabled, .btn-fill-orange:disabled, .btn-fill-violet:disabled, .btn-fill-green:disabled, .btn-fill-blue:disabled {
     cursor: not-allowed;
     opacity: 0.4; }
-  .is-active.btn-outlined-gray:not(:disabled):hover, .is-active.btn-outlined-primary:not(:disabled):hover, .is-active.btn-outlined-blue:not(:disabled):hover, .is-active.btn-outlined-green:not(:disabled):hover, .is-active.btn-outlined-red:not(:disabled):hover, .is-active.btn-outlined-orange:not(:disabled):hover, .is-active.btn-outlined-violet:not(:disabled):hover, .is-active.btn-fill-primary:not(:disabled):hover, .is-active.btn-fill-light-blue:not(:disabled):hover, .is-active.btn-fill-active:not(:disabled):hover, .is-active.btn-fill-seconary:not(:disabled):hover, .is-active.btn-fill-select:not(:disabled):hover, .is-active.btn-fill-red:not(:disabled):hover, .is-active.btn-fill-orange:not(:disabled):hover, .is-active.btn-fill-violet:not(:disabled):hover, .is-active.btn-fill-green:not(:disabled):hover, .is-active.btn-fill-blue:not(:disabled):hover {
+  .is-active.btn-outlined-gray:not(:disabled):hover, .is-active.btn-outlined-primary:not(:disabled):hover, .is-active.btn-outlined-blue:not(:disabled):hover, .is-active.btn-outlined-green:not(:disabled):hover, .is-active.btn-outlined-red:not(:disabled):hover, .is-active.btn-outlined-orange:not(:disabled):hover, .is-active.btn-outlined-violet:not(:disabled):hover, .is-active.btn-fill-primary:not(:disabled):hover, .is-active.btn-fill-strong:not(:disabled):hover, .is-active.btn-fill-light-blue:not(:disabled):hover, .is-active.btn-fill-active:not(:disabled):hover, .is-active.btn-fill-seconary:not(:disabled):hover, .is-active.btn-fill-select:not(:disabled):hover, .is-active.btn-fill-red:not(:disabled):hover, .is-active.btn-fill-orange:not(:disabled):hover, .is-active.btn-fill-violet:not(:disabled):hover, .is-active.btn-fill-green:not(:disabled):hover, .is-active.btn-fill-blue:not(:disabled):hover {
     cursor: default;
     transform: translateY(0);
     box-shadow: none; }
@@ -570,6 +570,13 @@ ol {
   border: 1px solid #5e72e4; }
   .btn-fill-primary:not(:disabled):active {
     background-color: #1b47b1; }
+
+.btn-fill-strong {
+  color: #fff;
+  background-color: #32325d;
+  border: 1px solid #32325d; }
+  .btn-fill-strong:not(:disabled):active {
+    background-color: #172b4d; }
 
 .btn-fill-light-blue {
   color: #fff;
@@ -2589,6 +2596,123 @@ textarea {
       height: 520px;
       overflow: hidden; } }
 
+.myhome-teacher-table .profile-th {
+  width: 200px;
+  background-color: #fff;
+  border: 0; }
+  .myhome-teacher-table .profile-th img {
+    width: 150px;
+    height: auto; }
+
+.myhome-teacher-table th {
+  border: 1px solid #dee2e6; }
+
+.hagone-img-card {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .hagone-img-card img {
+    display: block;
+    width: auto;
+    height: 250px; }
+
+@media screen and (min-width: 768px) {
+  .hagone-img-card {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .hagone-img-card img {
+      display: block;
+      width: auto;
+      height: 520px;
+      overflow: hidden; } }
+
+.dashboard-s-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .dashboard-s-card h1 {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: #8898aa; }
+  .dashboard-s-card strong {
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: -0.01em;
+    color: #32325d;
+    font-weight: 500; }
+  .dashboard-s-card .icon-right i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 100%; }
+  .dashboard-s-card .fa-user-graduate {
+    background: linear-gradient(87deg, #fb6340 0, #fbb140 100%); }
+  .dashboard-s-card .fa-chalkboard-teacher {
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%); }
+  .dashboard-s-card .fa-won-sign {
+    background: linear-gradient(87deg, #11cdef 0, #1171ef 100%); }
+  .dashboard-s-card .fa-calendar {
+    background: linear-gradient(87deg, #f5365c 0, #f56036 100%); }
+  .dashboard-s-card p {
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    color: #525f7f; }
+  .dashboard-s-card .dasoboard-s-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 16px; }
+    .dashboard-s-card .dasoboard-s-item span {
+      font-size: 15px; }
+    .dashboard-s-card .dasoboard-s-item p:nth-child(1) {
+      margin-right: 12px; }
+    .dashboard-s-card .dasoboard-s-item span:nth-child(2) {
+      color: #2dce89; }
+    .dashboard-s-card .dasoboard-s-item p:nth-child(3) {
+      margin-right: 10px;
+      color: #2dce89; }
+    .dashboard-s-card .dasoboard-s-item span:nth-child(4) {
+      color: #ff7089; }
+    .dashboard-s-card .dasoboard-s-item p:nth-child(5) {
+      margin-right: 10px;
+      color: #ff7089; }
+
+.dashboard-m-card {
+  height: 340px;
+  overflow: hidden;
+  overflow-x: auto;
+  white-space: nowrap; }
+  .dashboard-m-card h3 {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+    color: #8898aa;
+    margin-bottom: 30px; }
+  .dashboard-m-card strong {
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.01em;
+    color: #32325d;
+    font-weight: 500; }
+
+.donuts {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly; }
+  .donuts .donut-charts {
+    width: 250px; }
+
 .consult-list-form-content {
   display: flex;
   align-items: center;
@@ -2959,123 +3083,6 @@ textarea {
       width: auto;
       height: 500px; } }
 
-.dashboard-s-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 120px;
-  overflow: hidden;
-  overflow-x: auto;
-  white-space: nowrap; }
-  .dashboard-s-card h1 {
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: -0.01em;
-    color: #8898aa; }
-  .dashboard-s-card strong {
-    font-size: 24px;
-    line-height: 34px;
-    letter-spacing: -0.01em;
-    color: #32325d;
-    font-weight: 500; }
-  .dashboard-s-card .icon-right i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    color: #fff;
-    border-radius: 100%; }
-  .dashboard-s-card .fa-user-graduate {
-    background: linear-gradient(87deg, #fb6340 0, #fbb140 100%); }
-  .dashboard-s-card .fa-chalkboard-teacher {
-    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%); }
-  .dashboard-s-card .fa-won-sign {
-    background: linear-gradient(87deg, #11cdef 0, #1171ef 100%); }
-  .dashboard-s-card .fa-calendar {
-    background: linear-gradient(87deg, #f5365c 0, #f56036 100%); }
-  .dashboard-s-card p {
-    font-size: 13px;
-    line-height: 20px;
-    letter-spacing: -0.01em;
-    color: #525f7f; }
-  .dashboard-s-card .dasoboard-s-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 16px; }
-    .dashboard-s-card .dasoboard-s-item span {
-      font-size: 15px; }
-    .dashboard-s-card .dasoboard-s-item p:nth-child(1) {
-      margin-right: 12px; }
-    .dashboard-s-card .dasoboard-s-item span:nth-child(2) {
-      color: #2dce89; }
-    .dashboard-s-card .dasoboard-s-item p:nth-child(3) {
-      margin-right: 10px;
-      color: #2dce89; }
-    .dashboard-s-card .dasoboard-s-item span:nth-child(4) {
-      color: #ff7089; }
-    .dashboard-s-card .dasoboard-s-item p:nth-child(5) {
-      margin-right: 10px;
-      color: #ff7089; }
-
-.dashboard-m-card {
-  height: 340px;
-  overflow: hidden;
-  overflow-x: auto;
-  white-space: nowrap; }
-  .dashboard-m-card h3 {
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: -0.01em;
-    color: #8898aa;
-    margin-bottom: 30px; }
-  .dashboard-m-card strong {
-    font-size: 13px;
-    line-height: 20px;
-    letter-spacing: -0.01em;
-    color: #32325d;
-    font-weight: 500; }
-
-.donuts {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly; }
-  .donuts .donut-charts {
-    width: 250px; }
-
-.myhome-teacher-table .profile-th {
-  width: 200px;
-  background-color: #fff;
-  border: 0; }
-  .myhome-teacher-table .profile-th img {
-    width: 150px;
-    height: auto; }
-
-.myhome-teacher-table th {
-  border: 1px solid #dee2e6; }
-
-.hagone-img-card {
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-  .hagone-img-card img {
-    display: block;
-    width: auto;
-    height: 250px; }
-
-@media screen and (min-width: 768px) {
-  .hagone-img-card {
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .hagone-img-card img {
-      display: block;
-      width: auto;
-      height: 520px;
-      overflow: hidden; } }
-
 .message-list-form-content {
   display: flex;
   align-items: center;
@@ -3243,5 +3250,55 @@ textarea {
           position: absolute;
           top: 479px;
           left: 40px; } }
+
+.exam-detail-table th {
+  border-bottom: 1px solid #dee2e6; }
+
+.exam-lock i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  font-size: 15px;
+  color: #fff;
+  background-color: #5e72e4;
+  border-radius: 50%; }
+  .exam-lock i:hover {
+    background-color: #1b47b1;
+    transition: all 250ms ease-in-out; }
+  .exam-lock i:active {
+    color: #ffd600;
+    background-color: #172b4d;
+    transition: all 250ms ease-in-out; }
+
+.exam-edit-table .input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .exam-edit-table .input-group .form-input {
+    width: 150px;
+    padding: 0 10px;
+    text-align: center;
+    border: 0; }
+    .exam-edit-table .input-group .form-input.is-active {
+      border: 1px solid #dee2e6; }
+      .exam-edit-table .input-group .form-input.is-active:focus {
+        border: 1px solid #5e72e4; }
+
+.student-detail-table th {
+  border-bottom: 1px solid #dee2e6; }
+
+.student-btn-align {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .student-btn-align .edit-delete-align button:first-child {
+    margin-right: 5px; }
+
+.student-img {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 /*# sourceMappingURL=style.css.map */
