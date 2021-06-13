@@ -41,7 +41,7 @@
             <h1 class="visually-hidden">날짜 선택 및 월별 출근 시간</h1>
             <form class="date-align" action="#" method="POST">
               <label for="check-date"></label>
-              <input class="attendanceTime" id="#" type="date" name="attendance-date" value="2021-06-15">
+              <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
             </form>
             <article class="attendance-monthly-date-time">
               <div class="tag-lb-dark btn-check monthly-sum-tag">
@@ -51,7 +51,7 @@
           </section>
         </div>
 
-    <div class="col-sm-4 col-md-6">
+        <div class="col-sm-4 col-md-6">
           <section class="common-card attendance-number-card teacher-attendance-number-card">
             <article class="attendance-number-content">
               <h1 class="visually-hidden">나의 출근 현황</h1>
@@ -77,28 +77,27 @@
             </article>
           </section>
         </div>
-      </div> 
+      </div>
 
       <div class="row">
         <div class="col-sm-4">
-          <form class="common-card teacher-attendance-check-card" name="myForm">
+          <form class="common-card teacher-attendance-check-card">
             <h1 class="teacher-attendance-title">근태 입력</h1>
             <article class="teacher-attendance-check-btn">
-              <input type="radio" id="workStart" name="attendance" value="attendanceTime" onclick='get1(event)'></input>
+              <input type="radio" id="workStart" name="attendance"></input>
               <label for="workStart" class="btn-circle btn-fill-seconary btn-circle-size">출근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 출근한 시간</p>
-                <div id='result1'></div>
+                <strong>08 &ratio; 00</strong>
               </div>
             </article>
             <hr class="borderline">
             <article class="teacher-attendance-check-btn">
-              <input type="button" id="workEnd" name="attendance" value="checkOutTime" onclick='get2()'></input>
-              <input type="hidden" id="workEnd2" name="attendance" value="checkOutTime" ></input>
+              <input type="radio" id="workEnd" name="attendance"></input>
               <label for="workEnd" class="btn-circle btn-fill-seconary btn-circle-size">퇴근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 퇴근한 시간</p>
-                <div id='result2'></div>
+                <strong>00 &ratio; 00</strong>
               </div>
             </article>
           </form>
@@ -114,25 +113,6 @@
       </div>
     </div>
   </main>
-
-
-<script>
-function get1(event) {
-	  document.getElementById('result1').value = 
-	    event.target.value;
-	}
-	
-var temp;	
-function get2() {
-	var workEnd = document.getElementById("workEnd").value;
-	temp = workEnd;
-	
-	document.getElementById("workEnd2").value = temp;
-	   
-	   
-	}
-</script>
-
 
   <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>

@@ -39,7 +39,7 @@
           <section class="common-card storage-list-form-content">
             <section class="storage-form-content">
               <div class="tag-lb-dark btn-check sum-storage-price">총 결제금액 : 1,420,000</div>
-              <article class="storage-search-form">
+              <form class="storage-search-form">
                 <div class="select-group">
                   <select class="form-select">
                     <option value="1">번호</option>
@@ -49,17 +49,16 @@
                   <i class="fas fa-caret-down" aria-hidden></i>
                   </div>
                   <div class="input-group">
-                  <span class="material-icons"> search </span>
-                  <input
-                    class="form-input"
-                    type="search"
-                    placeholder="검색어를 입력하세요."
-                  />
-              </div>
-            </article>
+                    <span class="material-icons"> search </span>
+                    <input
+                      class="form-input"
+                      type="search"
+                      placeholder="검색어를 입력하세요."
+                    />
+                  </div>
+              </form>
           </section>
-         <button type="button" class="btn-fill-primary btn-basic storage-input-btn">수납 입력</button>
-         </section>
+            <a href="storage-input.html" class="btn-fill-primary btn-basic storage-input-btn">수납 입력</a>
         </div>
       </div>
 
@@ -84,22 +83,31 @@
                     <th scope="col">결제일</th>
                     <th scope="col">할인</th>
                     <th scope="col">결제금액</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                      <td>1</td>
-                      <td>2021/04/07</td>
-                      <td>정유미</td>
-                      <td>1학년 초급 영어</td>
-                      <td>300,000</td>
-                      <td>
-                        <span class="tag-light-blue">납부</span>
-                      </td>
-                      <td>카드</td>
-                      <td>2021/05/08</td>
-                      <td>친구</td>
-                      <td>180,000</td>
+                    <td>1</td>
+                    <td>2021/04/07</td>
+                    <td>정유미</td>
+                    <td>1학년 초급 영어</td>
+                    <td>300,000</td>
+                    <td>
+                      <span class="tag-light-blue">납부</span>
+                    </td>
+                    <td>카드</td>
+                    <td>2021/05/08</td>
+                    <td>친구</td>
+                    <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                        <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -114,6 +122,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -128,6 +144,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -142,6 +166,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -156,6 +188,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -170,6 +210,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -184,6 +232,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -198,6 +254,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -212,6 +276,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -226,6 +298,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -240,6 +320,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -254,6 +342,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -268,6 +364,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <td>1</td>
@@ -282,6 +386,14 @@
                     <td>2021/05/08</td>
                     <td>친구</td>
                     <td>180,000</td>
+                    <td class="edit-remove-btn">
+                        <a href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </a>
+                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -311,15 +423,45 @@
                   <span class="material-icons"> chevron_right </span>
                 </button>
               </div>
-
-              
           </section>
         </div>
       </div>
-
     </div>
   </main>
 
+  <div class="modal delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제하기</strong>
+      <p>게시물을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제</strong>
+      <p>게시물이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-input-board-modal">
+    <div class="modal-content">
+      <strong>게시물 등록</strong>
+      <p>게시물이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

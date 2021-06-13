@@ -81,13 +81,24 @@
 	<association resultMap="classInfoResultSet" property="classInfo"/>
 	</resultMap>
 	
-<!-- <resultMap type="ClassInfoStudentDTO" id="classInfoStudentResultSet">
-		<id column="CLASS_NO" property="no"/>
-		<result column="BEGIN_DATE" property="beginDate"/>
-		<result column="END_DATE" property="endDate"/>
-		<association resultMap="studentResultSet" property="studentDTO"/>
-		<association resultMap="classInfoResultSet" property="classInfo"/>
-	</resultMap>  -->	
+	
+	<resultMap type="AttendanceTDTO" id="attendanceTResultSet">
+		<id column="ATTENDANCE_NO" property="no"/>
+		<result column="ATTENDANCE_TIME" property="attendanceTime"/>
+		<result column="CHECKOUT_TIME" property="checkOutTime"/>
+		<result column="MEMO" property="memo"/>
+		<result column="MONTH_TIME" property="monthTime"/>
+		<result column="chulsuck" property="chulsuck"/>
+		<result column="jigack" property="jigack"/>
+		<result column="kyulsuck" property="kyulsuck"/>
+		<result column="jotae" property="jotae"/>
+	<association resultMap="attendanceCategoryResultSet" property="category"/>
+	<association resultMap="studentResultSet" property="studentDTO"/>
+	<association resultMap="teacherResultSet" property="teacher"/>
+	<association resultMap="classResultSet" property="classDTO"/>
+	<association resultMap="classInfoResultSet" property="classInfo"/>
+	</resultMap>
+		
 	
 	<resultMap type="ClassInfoClassDTO" id="classInfoClassResultSet">
 		<id column="CLASS_NO" property="no"/>
@@ -109,6 +120,7 @@
 		
 	
 	<select id="selectStudentAttendance" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+   
    SELECT 
           A.ATTENDANCE_NO
         , B.CLASS_NAME
@@ -134,11 +146,16 @@
 	
 		  A.ATTENDANCE_TIME
 		  , A.ATTENDANCE_NO
+		  , A.TEACHER_NO
+		  , A.CHECKOUT_TIME
+		  
 		)
 		VALUES
 		(
 			SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
+		 , #{teacherNo}
+		 , SYSTIMESTAMP
 		)
 	
 	</insert>
@@ -149,11 +166,13 @@
 		  
 		  A.CHECKOUT_TIME
 		  , A.ATTENDANCE_NO
+		  ,  A.TEACHER_NO
 		)
 		VALUES
 		(
 		   	SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
+		 , #{teacherNo}
 		)
 	
 	</insert>
@@ -193,7 +212,7 @@
     </select>
     
 	
-	<select id="selectStudent" parameterType="StudentSetDTO" resultMap="classInfoStudentResultSet">
+	<select id="selectStudent" parameterType="string" resultMap="studentSetResultSet">
 	SELECT 
 	       A.STUDENT_NAME
 	     , B.CLASS_NO
@@ -204,8 +223,9 @@
 	  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
 	  JOIN TBL_ATTENDANCE D ON (A.STUDENT_NO = D.STUDENT_NO)
 	  JOIN TBL_ATTENDANCE_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
-	  WHERE C.CLASS_NAME LIKE '%{className}%';
-	</select>
+	  WHERE C.CLASS_NAME LIKE '%'||#{className1}||'%'	
+</select>
+
 
 	<delete id="deleteStudent" parameterType="AttendanceDTO" >
 		DELETE
@@ -214,4 +234,20 @@
 		AND ATTENDANCE_TIME = #{attendanceTime} 
 
 	</delete>
+	
+	<delete id="deleteTeacher" parameterType="AttendanceDTO" >
+		DELETE
+		FROM	TBL_ATTENDANCE
+		WHERE TEACHER_NO = 2
+		AND ATTENDANCE_TIME = #{attendanceTime} 
+		AND CHECKOUT_TIME = #{checkOutTime} 
+	</delete>
+	
+	<select id="selectTeacher" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
+	SELECT
+		       A.ATTENDANCE_TIME
+		 FROM TBL_ATTENDANCE A
+        WHERE TEACHER_NO = 2
+	
+	</select>
 </mapper>

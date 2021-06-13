@@ -6,31 +6,18 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+function submitForm() {
+    document.getElementById("envselection").submit();
+}
+</script>
 
 </head>
 <body>
-<form>
-
-	<table class="selectLsit" border="1">
-	 	<thead>
-	 		<tr>
-	 			<th>학생<th>
-	 		</tr>
-	 	</thead>
-	 	<tbody>
-		<c:forEach var="student" items="${studentList}">
-	 		<tr>
-	 			<td><c:out value="${ student.studentDTO.studentName }"></c:out></td>
-	 		</tr>
-	 		</c:forEach>
-	 	</tbody>
-	</table>
-	
+<form id="envselection" action="${pageContext.request.contextPath}/attendance/selectStudent" method="get">
 	<table class="cateogryList" border="1">
 		<thead>
 			<tr>
-
 				<th>출석</th>
 				<th>결석</th>
 				<th>지각</th>
@@ -47,15 +34,31 @@
 			</tr>
 			</c:forEach>
 		</tbody>
-	</table>
+		</table>
+		<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/attendance/insertStudnet'">수정</button>
+		
+		
 
-<script>
-
-
-</script>
-
-</form>
+	<input type="radio" name="className" id="radioSelection" value="1학년중고급영어" onclick="submitForm()" checked="checked">1학년 초급 수학
+	<table>
 	
+	<c:forEach var="student" items="${studentList}">
+		날짜:<input type="date" name="attendanceTime" id="attendanceTime" >
+		
+		<td><input type="hidden" name="no" id="no" value="1"></td>
+		<td><input type="hidden" name="studentNo" id="studentNo" value="1"></td>
+		<td><input type="hidden" name="classNo" id="classNo" value="1"></td>
+		
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="1">출석</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="2">결석</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="3" >지각</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="4">조퇴</td>
+		<td><input type="text" name="memo" id="memo" value="${student.attendanceList.memo}" readonly></td>
+		<td><input type="button" value="메모">
+
+	</c:forEach>
+	</table>
+</form>
 
 </body>
 </html>

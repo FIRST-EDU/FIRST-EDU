@@ -16,7 +16,7 @@ import com.admin.firstedu.attendance.common.exception.AttendanceInsertException;
 import com.admin.firstedu.attendance.common.exception.AttendanceUpdateException;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
-import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
+import com.admin.firstedu.attendance.model.dto.StudentSetDTO;
 import com.admin.firstedu.attendance.model.service.AttendanceService;
 
 @Controller
@@ -31,7 +31,7 @@ public class AttendanceController {
 	
 	}
 	
-	@GetMapping("/studentList")//파일 path
+	@GetMapping("/studentAttendanceList")//파일 path
 	public String selectStudnetAttendance(Model model) {
 		
 		List<AttendanceInfoDTO> studentList = attendanceService.selectStudentAttendance();
@@ -44,70 +44,61 @@ public class AttendanceController {
 		
 		}
 		
-		return "attendance/studentList";//뷰페이지 이름
+		return "attendance/studentAttendanceList";//뷰페이지 이름
 	
 	}
 	
-//	@GetMapping("/teacherList")
-//	public String selectTeacherAttendance(Model model) {
+	@GetMapping("/teacherAttendance")
+	public String insertTeacher() {
+		return  "attendance/teacherAttendance";
+		
+	}
+	
+//	@PostMapping(value = "/teacherList" , produces = "application/json; charset=UTF-8")
+//	@ResponseBody
+//	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
 //		
-//		List<AttendanceInfoDTO> teacherList = attendanceService.selectTeacherAttendance();
 //		
-//		model.addAttribute("teacherList", teacherList);
+//		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
+//		attendanceDTO.setAttendanceTime(currnetTime);
+//		attendanceDTO.setNo(4);
+//		attendanceDTO.setTeacherNo(1);
 //		
-//		for(AttendanceInfoDTO teacher : teacherList) {
-//			System.out.println(teacher);
+//		
+//		if(!attendanceService.insertTeacher(attendanceDTO)) {
+//			
+//			throw new AttendanceInsertException("실패");
 //		}
 //		
-//		return "attendance/teacherList";
-//	
+//		rttr.addFlashAttribute("message", "성공");
+//		
+//		System.out.println(currnetTime);
+//		
+//		
+//		return currnetTime.toGMTString();		
 //	}
-	@GetMapping("/teacherList")
-	public String insertTeacher() {
-		return  "attendance/teacherList";
-		
-	}
+//	
 	
-	@PostMapping(value = "/teacherList" , produces = "application/json; charset=UTF-8")
-	@ResponseBody
+	@PostMapping("/teacherAttendance")
 	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
 		
+		int delete = 0;
+		
+		attendanceDTO.setNo(attendanceDTO.getNo());
+		delete = attendanceService.deleteStudent(attendanceDTO);
+		
+		
+		int insert = 0;
 		
 		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
 		attendanceDTO.setAttendanceTime(currnetTime);
-		attendanceDTO.setNo(4);
-		
-		
-		if(!attendanceService.insertTeacher(attendanceDTO)) {
-			
-			throw new AttendanceInsertException("실패");
-		}
-		
-		rttr.addFlashAttribute("message", "성공");
-		
-		System.out.println(currnetTime);
-		
-		
-		return currnetTime.toGMTString();		
-	}
-//	currnetTime.toGMTString()
-	
-	@GetMapping("/doneTeacher")
-	public String doneTeahcer() {
-		return "attendance/doneTeacher";
-		
-	}
-
-	@PostMapping(value = "/doneTeacher" , produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public String doneTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
-		
-		
-		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
+		attendanceDTO.setNo(attendanceDTO.getNo());
+		attendanceDTO.setTeacherNo(2);
 		attendanceDTO.setCheckOutTime(currnetTime);
-		attendanceDTO.setNo(51);
 		
-		if(!attendanceService.insertTeacher(attendanceDTO)) {
+		insert = attendanceService.insertTeacher(attendanceDTO);
+		
+		if(!(delete == 0)&&(insert==0)) {
 			
 			throw new AttendanceInsertException("실패");
 		}
@@ -116,9 +107,25 @@ public class AttendanceController {
 		
 		System.out.println(currnetTime);
 		
-		
-		return currnetTime.toGMTString();		
+		return "attendance/teacherAttendance";		
 	}
+	
+
+	@GetMapping("/selectTeacher")
+	public String selectTeacher(Model model) {
+		
+		List<AttendanceInfoDTO>teacherList = attendanceService.selectTeacher();
+		model.addAttribute("teacherList", teacherList);
+		
+		for(AttendanceInfoDTO teacher : teacherList) {
+			
+			System.out.println(teacher);
+		}
+		
+		return "attendance/selectTeacher";		
+	}
+	
+	
 	
 	
 	@GetMapping("/insertStudent")
@@ -160,9 +167,9 @@ public class AttendanceController {
 
 	   }
 	@GetMapping("/selectStudent")
-	public String selectStudnet(Model model) {
-		List<AttendanceInfoDTO>cateogryList = attendanceService.selectStudent();
-		List<ClassInfoStudentDTO>studentList = attendanceService.selectCategory();
+	public String selectStudnet(Model model, String className) {
+		List<String>studentList = attendanceService.selectStudent(className);
+		List<AttendanceInfoDTO>cateogryList = attendanceService.selectCategory();
 		
 		model.addAttribute("cateogryList", cateogryList);
 		model.addAttribute("studentList", studentList);
@@ -172,13 +179,11 @@ public class AttendanceController {
 			
 			System.out.println(cateogry);
 		}
-		
-		for(ClassInfoStudentDTO student : studentList) {
+			
+		for(String student : studentList) {
 			
 			System.out.println(student);
-		}
-		
-		
+		}		
 		return "attendance/selectStudent";
 		
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,7 @@
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
-	
+
 	<main class="common-background">
     <div class="container">
       <div class="row">
@@ -59,55 +60,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 초급 영어</td>
-                    <td>정유미</td>
-                    <td>123435</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 초급 영어</td>
-                    <td>정유미</td>
-                    <td>123435</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 초급 영어</td>
-                    <td>정유미</td>
-                    <td>123435</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 초급 영어</td>
-                    <td>정유미</td>
-                    <td>123435</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 초급 영어</td>
-                    <td>정유미</td>
-                    <td>123435</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
+		<c:forEach var="student" items="${studentList}">
+			<tr>
+				<td><c:out value="${ student.no }"></c:out></td>
+				<td><c:out value="${ student.classDTO.className }"></c:out></td>
+				<td><c:out value="${ student.studentDTO.studentName }"></c:out></td>
+				<td><c:out value="${ student.chulsuck }"></c:out></td>
+				<td><c:out value="${ student.jigack }"></c:out></td>
+				<td><c:out value="${ student.kyulsuck }"></c:out></td>
+				<td><c:out value="${ student.jotae }"></c:out></td>
+			</tr>
+			</c:forEach>
+ 
                 </tbody>
               </table>
 
-              <div class="pagenation">
+  <!--             <div class="pagenation">
                 <button class="page-control page-prev" type="button">
                   <span class="material-icons"> chevron_left </span>
                 </button>
@@ -131,15 +99,16 @@
                 <button class="page-control page-next" type="button">
                   <span class="material-icons"> chevron_right </span>
                 </button>
-              </div>
+              </div> -->
           </section>
         </div>
       </div>
     </div>
   </main>
-	
+
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-attendance-list.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-studentAttendanceList.js"></script>
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
 </body>
 </html>

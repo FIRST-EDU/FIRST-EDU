@@ -4,29 +4,27 @@ import java.util.List;
 
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
-import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
+import com.admin.firstedu.attendance.model.dto.AttendanceTDTO;
+import com.admin.firstedu.attendance.model.dto.StudentSetDTO;
 
 public interface AttendanceService {
 	
-//	boolean insertStudent(AttendanceDTO attendance);
-	
 	int insertStudent(AttendanceDTO attendance);
 	
-	boolean insertTeacher(AttendanceDTO attendance);
+	int insertTeacher(AttendanceDTO attendance);
 	
 	List<AttendanceInfoDTO> selectStudentAttendance();
-	
-//	List<AttendanceInfoDTO> selectTeacherAttendance();
-	
 
 	boolean doneTeacher(AttendanceDTO attendance);
 	
-	List<AttendanceInfoDTO> selectStudent();
+	List<String> selectStudent(String className);
 
-	List<ClassInfoStudentDTO> selectCategory();
+	List<AttendanceInfoDTO> selectCategory();
 
 	int deleteStudent(AttendanceDTO attendance);
+	
+	List<AttendanceInfoDTO> selectTeacher();
 
-
+	int deleteTeacher(AttendanceDTO attendance);
 
 }

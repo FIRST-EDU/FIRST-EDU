@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.admin.firstedu.attendance.model.dao.AttendanceMapper;
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
-import com.admin.firstedu.attendance.model.dto.ClassInfoStudentDTO;
+import com.admin.firstedu.attendance.model.dto.StudentSetDTO;
 
 @Service("attendanceService")
 public class AtteandanceServiceImpl implements AttendanceService {
@@ -20,14 +20,9 @@ public class AtteandanceServiceImpl implements AttendanceService {
 		this.mapper = mapper;
 	}
 
-//	@Override
-//	public boolean insertStudent(AttendanceDTO attendance) {
-//		return mapper.insertStudent(attendance);
-//	}
-
 	@Override
-	public boolean insertTeacher(AttendanceDTO attendance) {
-		return mapper.insertTeacher(attendance) > 0 ? true : false;
+	public int insertTeacher(AttendanceDTO attendance) {
+		return mapper.insertTeacher(attendance);
 	}
 
 	@Override
@@ -43,13 +38,7 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public List<AttendanceInfoDTO> selectStudent() {
-		// TODO Auto-generated method stub
-		return mapper.selectStudent();
-	}
-
-	@Override
-	public List<ClassInfoStudentDTO> selectCategory() {
+	public List<AttendanceInfoDTO> selectCategory() {
 		// TODO Auto-generated method stub
 		return mapper.selectCategory();
 	}
@@ -65,6 +54,25 @@ public class AtteandanceServiceImpl implements AttendanceService {
 		// TODO Auto-generated method stub
 		return mapper.deleteStudent(attendance);
 	}
+
+	@Override
+	public List<AttendanceInfoDTO> selectTeacher() {
+		// TODO Auto-generated method stub
+		return mapper.selectTeacher();
+	}
+
+	@Override
+	public int deleteTeacher(AttendanceDTO attendance) {
+		// TODO Auto-generated method stub
+		return mapper.deleteTeacher(attendance);
+	}
+
+	@Override
+	public List<String> selectStudent(String className) {
+		String className1 = "1학년중고급영어";
+		return mapper.selectStudent(className1);
+	}
+
 
 
 
