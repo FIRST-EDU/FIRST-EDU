@@ -16,11 +16,6 @@ isGrade.addEventListener('click', () => {
   isGrade.classList.toggle('is-open')
 })
 
-isSms.addEventListener('click', () => {
-  isSms.classList.toggle('is-active')
-  isSms.classList.toggle('is-open')
-})
-
 isBoss.addEventListener('click', () => {
   isBoss.classList.toggle('is-active')
   isBoss.classList.toggle('is-open')

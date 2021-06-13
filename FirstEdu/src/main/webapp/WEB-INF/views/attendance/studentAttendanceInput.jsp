@@ -367,7 +367,7 @@
 
   <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-  <script src="${ pageContext.servletContext.contextPath }/resources/js/attendanceInput.js"></script>
+  <script src="${ pageContext.servletContext.contextPath }/resources/js/front-studentAttendanceInput.js"></script>
   </body>
 </html>
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.admin.firstedu.grade.model.dao.ExamMapper;
 import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
+import com.admin.firstedu.grade.model.dto.ColorDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
@@ -42,6 +43,12 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public List<ClassExamInfoDTO> selectClassList() {
 		return mapper.selectClassList();
+	}
+
+	/* 시험 종류 카테고리 색상 종류 조회용 */
+	@Override
+	public List<ColorDTO> selectColorList() {
+		return mapper.selectColorList();
 	}
 	
 	/* 시험 일정 검색용 */

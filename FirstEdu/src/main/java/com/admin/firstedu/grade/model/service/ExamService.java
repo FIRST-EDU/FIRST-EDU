@@ -3,6 +3,7 @@ package com.admin.firstedu.grade.model.service;
 import java.util.List;
 
 import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
+import com.admin.firstedu.grade.model.dto.ColorDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
@@ -39,5 +40,7 @@ public interface ExamService {
 	ExamListInfoDTO selectExam(int examNo);
 
 	List<ScoreFullInfoDTO> selectScoreList(int examNo);
+
+	List<ColorDTO> selectColorList();
 
 }

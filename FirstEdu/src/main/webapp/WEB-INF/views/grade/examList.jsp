@@ -117,7 +117,7 @@
                 </div>
               </article>
 
-              <button type="button" class="btn-fill-primary btn-basic exam-registration">
+              <button type="button" id="examRegistBtn" class="btn-fill-primary btn-basic exam-registration">
                 시험 등록
               </button>
 
@@ -176,7 +176,158 @@
       </div>
     </div>
   </main>
+  
+ <div id="examCategoryManagementModal" class="modal detail-board-modal">
+    <div class="modal-content">
+      <section>
+      	<article class="common-table">
+      	  <c:forEach var="color" items="${ requestScope.colorList }">
+      		<input type="hidden" name="color-no" value="${ color.no }"/>
+      		<input type="hidden" name="color-name" value="${ color.name }"/>
+      	  </c:forEach>
+             <table class="common-table storage-table ">
+                <thead>
+                  <tr>
+                    <th scope="col">카테고리</th>
+                    <th scope="col">시험 종류</th>
+                    <th scope="col">색상</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach var="category" items="${ requestScope.examCategoryList }" end="1">
+                	<tr>
+	                    <td><input type="hidden" name="categoryNo" value="${ category.no }"/>${ category.name }</td>
+	                    <td></td>
+	                    <td>
+	                    	<span class="${ category.color.tagClassName }">${ category.color.name }</span>
+	                    </td>
+	                    <td class="edit-remove-btn">
+	                        <button class="edit-btn" aria-label="수정 버튼" onclick="modifyCategory(this)">
+	                          <i class="fas fa-pen"></i>
+	                        </button>
+                        </td>
+	                 </tr>
+	              </c:forEach>
 
+                  <c:forEach var="category" items="${ requestScope.examCategoryList }" begin="3" varStatus="status">
+	                  <tr>
+	                    <c:if test="${ status.index eq 3 }">
+	                    	<td rowspan="5">학원 시험</td>
+	                    </c:if>
+	                    <td><input type="hidden" name="categoryNo" value="${ category.no }"/>${ category.name }</td>
+	                    <td>
+	                    	<span class="${ category.color.tagClassName }">${ category.color.name }</span>
+	                    </td>
+						<td class="edit-remove-btn">
+	                        <button class="edit-btn" aria-label="수정 버튼" onclick="modifyCategory(this)">
+	                          <i class="fas fa-pen"></i>
+	                        </button>
+                        </td>
+	                  </tr>
+                  </c:forEach>
+                 </tbody>
+               </table>
+             </article>
+      </section>
+
+        <div class="popup-1btn form-btn">
+          <button type="button" class="btn-fill-primary btn-basic back-btn">목록</button>
+        </div>
+    </div>
+  </div>
+  
+ <div id="examRegistModal" class="modal detail-board-modal">
+    <div class="modal-content">
+      <section class="form-left">
+      
+        <article class="teacher-input-form">
+          <label>카테고리</label>
+          <div class="checkbox-wrap">
+              <input
+              type="radio"
+              id="hagwon"
+              name="gender"
+              value="1"
+              />
+              <label for="hagwon" class="check-discount check-female">
+                <i class="fas fa-check"></i>
+              </label>
+              <label for="hagwon" class="discount check-female">학원 시험</label>
+
+              <input
+                type="radio"
+                id="school"
+                name="gender"
+                value="2"
+              />
+              <label for="school" class="check-discount check-male">
+                <i class="fas fa-check"></i>
+              </label>
+              <label for="school" class="discount chack-male">학교 내신</label>
+
+              <input
+                type="radio"
+                id="mock"
+                name="gender"
+                value="2"
+              />
+              <label for="mock" class="check-discount check-male">
+                <i class="fas fa-check"></i>
+              </label>
+              <label for="mock" class="discount chack-male">모의고사</label>
+              
+            </div>
+        </article>
+        
+        <article id="classInfoForm" class="teacher-input-form">
+          <label>시험 종류</label>
+          <div class="select-group">
+          <select id="classCode" class="form-select" required>
+            <option value="none">선택</option>
+            <c:forEach var="classOption" items="${ requestScope.classList }">
+             <option value="${ classOption.code }">${ classOption.name }</option>
+            </c:forEach>
+          </select>
+          <i class="fas fa-caret-down" aria-hidden></i>
+          </div>
+        </article>
+
+
+        <article class="form-align">
+          <label>학생명</label>
+          <div class="input-group">
+            <input class="form-input" type="text" value="김고딩" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담자</label>
+          <div class="input-group">
+            <input class="form-input" type="text" value="강용승" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담방법</label>
+          <div class="input-group">
+            <input class="form-input" type="text" value="대면" readonly />
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>상담내용</label>
+          <textarea name="" id="" readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, natus omnis corporis fuga officia totam excepturi assumenda repellendus magni, inventore hic laudantium. Nemo repudiandae nesciunt, illum minima vel pariatur quibusdam.</textarea>
+        </article>
+      </section>
+
+        <div class="popup-3btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">목록</button>
+        <button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
+        <button type="button" class="btn-fill-primary btn-basic">수정</button>
+      </div>
+    </div>
+  </div>
 
 <div class="overlay" aria-hidden="true"></div>
 
@@ -187,6 +338,9 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examCalendar.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examList.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examManagement.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examModal.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examCategory.js"></script>
 
 
 </body>

@@ -186,7 +186,6 @@
       </div> <!-- lnb end -->
     </header>
 
-
   <aside class="side-gnb">
     <header class="side-gnb-header">
       <h1 class="logo">
@@ -251,12 +250,6 @@
       </a>
 
       <strong class="drawer-menu-category">선생님</strong>
-      <div class="drawer-menu">
-        <a class="drawer-menu-link" href="/">
-          <i class="fas fa-file-alt" aria-hidden="true"></i>
-          업무 관리
-        </a>
-      </div>
 
       <div class="drawer-menu">
         <a class="drawer-menu-link" href="/">
@@ -272,35 +265,13 @@
         </a>
       </div>
 
-      <div class="drawer-menu is-sms">
-        <button class="drawer-menu-button" type="button">
-          <i class="fas fa-sms" aria-hidden="true"></i>
-          문자 관리
-          <span class="material-icons" aria-hidden="true">chevron_right</span>
-        </button>
-
-        <div class="drawer-menu-content">
-          <ul class="drawer-menu-list">
-            <li class="drawer-menu-item">
-              <a href="/">
-                문자 목록
-              </a>
-            </li>
-            <li class="drawer-menu-item">
-              <a href="/">
-                문자 전송
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <div class="drawer-menu">
         <a class="drawer-menu-link" href="/">
-          <i class="fas fa-clipboard" aria-hidden="true"></i>
-          자료실
+          <i class="fas fa-sms" aria-hidden="true"></i>
+          문자 관리
         </a>
-      </div>
+        </button>
+
 
       <!-- Note: Login boss  -->
       <div class="drawer-menu boss is-boss">
@@ -327,6 +298,7 @@
       </div>
     </nav>
   </aside>
+
 
   <aside class="search-modal sm-only">
     <div class="container">

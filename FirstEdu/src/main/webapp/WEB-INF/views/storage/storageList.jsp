@@ -58,8 +58,7 @@
                   </div>
               </form>
           </section>
-           <button type="button" class="btn-fill-primary btn-basic storage-input-btn">수납 입력</button>
-         </section>
+            <a href="storage-input.html" class="btn-fill-primary btn-basic storage-input-btn">수납 입력</a>
         </div>
       </div>
 
@@ -76,7 +75,7 @@
                     <th scope="col">수강료</th>
                     <th scope="col">
                       <button type="button" class="tag-sort">
-                        현황
+                        납입현황
                         <i class="fas fa-sort"></i>
                       </button>
                     </th>
@@ -102,12 +101,12 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button type="button" class="delete-btn" aria-label="삭제 버튼">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
+                        <button type="button" class="delete-btn" aria-label="삭제 버튼">
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
                     </td>
                   </tr>
                   <tr>
@@ -124,9 +123,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -146,9 +145,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -168,9 +167,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -190,9 +189,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -212,9 +211,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -234,9 +233,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -256,9 +255,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -278,9 +277,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -300,9 +299,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -322,9 +321,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -344,9 +343,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -366,9 +365,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button href="/" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -388,9 +387,9 @@
                     <td>친구</td>
                     <td>180,000</td>
                     <td class="edit-remove-btn">
-                      <button type="button" class="edit-btn" aria-label="수정 버튼">
-                        <i class="fas fa-pen"></i>
-                      </button>
+                        <button type="button" class="edit-btn" aria-label="수정 버튼">
+                          <i class="fas fa-pen"></i>
+                        </button>
                       <button type="button" class="delete-btn" aria-label="삭제 버튼">
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -430,7 +429,177 @@
     </div>
   </main>
 
+  <div class="modal delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제하기</strong>
+      <p>게시물을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-delete-board-modal">
+    <div class="modal-content">
+      <strong>게시물 삭제</strong>
+      <p>게시물이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-input-board-modal">
+    <div class="modal-content">
+      <strong>게시물 등록</strong>
+      <p>게시물이 등록되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal complete-modal complete-edit-board-modal">
+    <div class="modal-content">
+      <strong>게시물 수정</strong>
+      <p>게시물이 수정되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal edit-board-modal">
+    <form class="modal-content">
+      <section class="form-left">
+        <article class="form-align">
+        <label>학생번호</label>
+        <div class="input-group">
+          <input class="form-input" type="text" readonly value="1"/>
+        </div>
+        </article>
+
+        <article class="form-align">
+          <label>학생명</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly value="정유미"/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>강의명</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly value="1학년 초급 영어"/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>수강료</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly value="150,000"/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>납입현황</label>
+          <div class="select-group">
+            <select class="form-select">
+              <option value="1">선택</option>
+              <option value="2">납부</option>
+              <option value="3">미납</option>
+            </select>
+            <i class="fas fa-caret-down" aria-hidden></i>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>할인수단</label>
+          <div class="checkbox-wrap">
+            <input
+            type="radio"
+            id="checkFriend"
+            name="discountType"
+            value="checkFriend"
+            />
+            <label for="checkFriend" class="check-discount check-friend">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkFriend" class="discount">친구</label>
+
+            <input
+              type="radio"
+              id="checkMonth"
+              name="discountType"
+              value="checkMonth"
+            />
+            <label for="checkMonth" class="check-discount check-month">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkMonth" class="discount">기간</label>
+
+            <input
+              type="radio"
+              id="checkNull"
+              name="discountType"
+              value="checkNull"
+            />
+            <label for="checkNull" class="check-discount check-null">
+              <i class="fas fa-check"></i>
+            </label>
+            <label for="checkNull" class="discount">없음</label>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>결제금액</label>
+          <div class="input-group">
+            <input class="form-input" type="text" readonly value="130,000"/>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <label>결제수단</label>
+          <div class="select-group">
+            <select class="form-select">
+              <option value="1">선택</option>
+              <option value="2">카드</option>
+              <option value="3">현금</option>
+            </select>
+            <i class="fas fa-caret-down" aria-hidden></i>
+          </div>
+        </article>
+
+        <article class="form-align">
+          <div class="date-align">
+            <label>납입일</label>
+            <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
+            <label for="check-date"></label>
+          </div>
+        </article>
+      </section>
+
+      <div class="popup-2btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
+        <button type="button" class="btn-fill-primary btn-basic edit-board-btn">수정</button>
+      </div>
+
+      <div class="modal again-edit-board-modal second-modal">
+        <div class="modal-content">
+          <strong>게시물 수정하기</strong>
+          <p>게시물을 수정하시겠습니까?</p>
+            <div class="popup-2btn">
+              <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+              <button type="submit" class="btn-fill-primary btn-popup edit-complete-btn">수정</button>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/storageInput.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.admin.firstedu.common.exception.ExamException;
 import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
+import com.admin.firstedu.grade.model.dto.ColorDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryDTO;
 import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
@@ -46,20 +47,18 @@ public class ExamController {
 		
 		List<ExamListInfoDTO> examList = examService.selectExamScheduleList();
 		
-		for(ExamListInfoDTO exam : examList) {
-			System.out.println(exam);
-		}
-		
 		List<ExamCategoryFullInfoDTO> examCategoryList = examService.selectExamCategoryList();
 		for(ExamCategoryFullInfoDTO examCategory : examCategoryList) {
 			System.out.println(examCategory);
 		}
-		
 		List<ClassExamInfoDTO> classList = examService.selectClassList();
+
+		List<ColorDTO> colorList = examService.selectColorList();
 		
 		model.addAttribute("examList", examList);
 		model.addAttribute("examCategoryList", examCategoryList);
 		model.addAttribute("classList", classList);
+		model.addAttribute("colorList", colorList);
 		
 		return "grade/examList";
 	}

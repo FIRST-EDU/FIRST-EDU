@@ -255,6 +255,7 @@
 		     , B.EXAM_CATEGORY_NAME AS REF_EXAM_CATEGORY_NAME
 		     , C.COLOR_NO
 		     , C.COLOR_NAME
+		     , C.TAG_CLASS_NAME
 		     , C.COLOR_CODE_HEX
 		  FROM TBL_EXAM_CATEGORY A
 		  LEFT JOIN TBL_EXAM_CATEGORY B ON (A.REF_CATEGORY_NO = B.EXAM_CATEGORY_NO)
@@ -269,6 +270,16 @@
 		       A.CLASS_CODE
 		     , A.CLASS_NAME
 		  FROM TBL_CLASS A
+	</select>
+
+	<!-- 색상 목록 조회 -->
+	<select id="selectColorList" resultMap="colorResultMap">
+		SELECT
+		       A.COLOR_NO
+		     , A.COLOR_NAME
+		     , A.TAG_CLASS_NAME
+		     , A.COLOR_CODE_HEX
+		  FROM TBL_COLOR A
 	</select>
 	
 	<!-- 시험 일정 등록 -->
