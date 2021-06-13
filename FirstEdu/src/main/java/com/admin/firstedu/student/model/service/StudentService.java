@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
 import com.admin.firstedu.student.model.dto.ClassInfoDTO;
+import com.admin.firstedu.student.model.dto.ClassListDTO;
 import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
@@ -16,10 +17,7 @@ import com.admin.firstedu.student.model.dto.StudentSearchCriteria;
 public interface StudentService {
 
 	/* 원생 등록 */
-	boolean registStudent(StudentDTO student);
-
-	/* 원생 수강정보 등록 */
-	boolean registClassInfo(List<ClassInfoDTO> classInfoList);
+	boolean registStudent(StudentDTO student, ClassListDTO classList);
 
 	/* 총 재원생 수 */
 	int selectTotalCount();
@@ -61,9 +59,9 @@ public interface StudentService {
 	StudentFullInfoDTO selectStudentFullInfo(int studentNo);
 
 	/* 원생 정보 수정 */
-	boolean modifyStudent(StudentDTO student);
+	boolean modifyStudent(StudentDTO student, ClassListDTO classList);
 
-	/* 원생 수강정보 삭제 */
-	boolean removeClassInfo(int no);
+	/* 원생 퇴원 처리 */
+	boolean deleteStudent(int studentNo);
 
 }

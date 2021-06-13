@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.admin.firstedu.student.model.dao.StudentMapper;
 import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
 import com.admin.firstedu.student.model.dto.ClassInfoDTO;
+import com.admin.firstedu.student.model.dto.ClassListDTO;
 import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
@@ -28,17 +29,22 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public boolean registStudent(StudentDTO student) {
-		return mapper.insertStudent(student) > 0 ? true : false;
-	}
-
-	@Override
-	public boolean registClassInfo(List<ClassInfoDTO> classInfoList) {
-		int result = 0;
-		for(ClassInfoDTO classInfo : classInfoList) {
-			result += mapper.insertClassInfo(classInfo);
+	public boolean registStudent(StudentDTO student, ClassListDTO classList) {
+		
+		/* 원생 등록 */
+		int result1 = mapper.insertStudent(student);
+		
+		/* 수강정보 등록 */
+		int result2 = 0;
+		for(int i = 0 ; i < classList.getClassCode().size() ; i++) {
+			ClassInfoDTO classInfo = new ClassInfoDTO();
+			classInfo.setStudentNo(student.getNo());
+			classInfo.setClassCode(classList.getClassCode().get(i));
+			classInfo.setBeginDate(student.getRegistrationDate());
+			result2 += mapper.insertClassInfo(classInfo);
 		}
-		return result == classInfoList.size() ? true : false;
+		
+		return result1 > 0 && result2 == classList.getClassCode().size() ? true : false;
 	}
 
 	@Override
@@ -123,15 +129,27 @@ public class StudentServiceImpl implements StudentService {
 	public StudentFullInfoDTO selectStudentFullInfo(int studentNo) {
 		return mapper.selectStudentFullInfo(studentNo);
 	}
-
+	
 	@Override
-	public boolean modifyStudent(StudentDTO student) {
-		return mapper.updateStudent(student);
+	public boolean modifyStudent(StudentDTO student, ClassListDTO classList) {
+		int result1 = mapper.updateStudent(student);
+		int result2 = mapper.deleteClassInfo(student.getNo());
+		int result3 = 0;
+		for(int i = 0 ; i < classList.getClassCode().size() ; i++) {
+			ClassInfoDTO classInfo = new ClassInfoDTO();
+			classInfo.setStudentNo(student.getNo());
+			classInfo.setClassCode(classList.getClassCode().get(i));
+			result2 += mapper.insertClassInfo(classInfo);
+		}
+		return result1 > 0 && result2 > 0  && result3 == classList.getClassCode().size() ? true : false;
 	}
 
 	@Override
-	public boolean removeClassInfo(int studentNo) {
-		return mapper.deleteClassInfo(studentNo);
+	public boolean deleteStudent(int studentNo) {
+		int result1 = mapper.deleteStudent(studentNo);
+		int result2 = mapper.deleteClassInfo(studentNo);
+		
+		return result1 > 0 && result2 > 0 ? true : false;
 	}
 
 }

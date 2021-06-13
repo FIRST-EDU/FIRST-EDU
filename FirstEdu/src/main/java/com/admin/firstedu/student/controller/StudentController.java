@@ -2,7 +2,6 @@ package com.admin.firstedu.student.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.admin.firstedu.common.exception.StudentDeleteException;
 import com.admin.firstedu.common.exception.StudentModifyException;
 import com.admin.firstedu.common.exception.StudentRegistException;
 import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.student.model.dto.ClassBasicInfoDTO;
-import com.admin.firstedu.student.model.dto.ClassInfoDTO;
 import com.admin.firstedu.student.model.dto.ClassListDTO;
 import com.admin.firstedu.student.model.dto.GradeDTO;
 import com.admin.firstedu.student.model.dto.PageInfoDTO;
@@ -83,25 +82,8 @@ public class StudentController {
 			student.setGender("남");
 		}
 		
-		if(studentService.registStudent(student)) {
-			
-			List<ClassInfoDTO> classInfoList = new ArrayList<>();
-			for(int i = 0 ; i < classList.getClassCode().size() ; i++) {
-				ClassInfoDTO classInfo = new ClassInfoDTO();
-				classInfo.setStudentNo(student.getNo());
-				classInfo.setClassCode(classList.getClassCode().get(i));
-				classInfo.setBeginDate(student.getRegistrationDate());
-				System.out.println("classInfo : " + classInfo);
-				classInfoList.add(classInfo);
-			}
-			
-			if(!studentService.registClassInfo(classInfoList)) {
-				
-				throw new StudentRegistException("수강 정보 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
-			}
-			
-		} else {
-			throw new StudentRegistException("원생 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+		if(!studentService.registStudent(student, classList)) {
+				throw new StudentRegistException("원생 등록에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
 		}
 		
 		rttr.addFlashAttribute("messageTitle", "원생 등록");
@@ -280,31 +262,27 @@ public class StudentController {
 		System.out.println(classList);
 		System.out.println(student);
 		
-		if(studentService.modifyStudent(student)) {
-			
-			List<ClassInfoDTO> classInfoList = new ArrayList<>();
-			for(int i = 0 ; i < classList.getClassCode().size() ; i++) {
-				ClassInfoDTO classInfo = new ClassInfoDTO();
-				classInfo.setStudentNo(student.getNo());
-				classInfo.setClassCode(classList.getClassCode().get(i));
-				System.out.println("classInfo : " + classInfo);
-				classInfoList.add(classInfo);
-			}
-			
-			if(!studentService.removeClassInfo(student.getNo()) || !studentService.registClassInfo(classInfoList)) {
-				
-				throw new StudentModifyException("수강 정보 수정에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
-			}
-			
-		} else {
+		if(!studentService.modifyStudent(student, classList)) {
 			throw new StudentModifyException("원생 정보 수정에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
 		}
 		
 		rttr.addFlashAttribute("messageTitle", "원생 정보 수정");
 		rttr.addFlashAttribute("messageBody", student.getStudentName() + " 학생의 정보를 수정하였습니다.");
 		
-		
 		return "redirect:/student/" + student.getNo();
 	}
 	
+	/* 원생 정보 삭제 */
+	@GetMapping("/delete/{studentNo}")
+	public String deleteStudent(@PathVariable("studentNo") int studentNo, RedirectAttributes rttr) throws StudentDeleteException {
+		
+		if(!studentService.deleteStudent(studentNo)) {
+			throw new StudentDeleteException("원생 퇴원 처리에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+		}
+
+		rttr.addFlashAttribute("messageTitle", "원생 퇴원 처리");
+		rttr.addFlashAttribute("messageBody", "퇴원 처리하였습니다.");
+		
+		return "redirect:/student/quit/list";
+	}
 }

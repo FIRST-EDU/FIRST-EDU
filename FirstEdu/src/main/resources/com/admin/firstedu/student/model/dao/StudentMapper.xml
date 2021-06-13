@@ -467,4 +467,10 @@
 		 WHERE A.STUDENT_NO = #{ studentNo }
 	</update>
 	
+	<update id="deleteStudent" parameterType="_int">
+		UPDATE TBL_STUDENT A
+		   SET A.STATUS = 'N'
+		 WHERE A.STUDENT_NO = #{ studentNo }
+	</update>
+	
 </mapper>
