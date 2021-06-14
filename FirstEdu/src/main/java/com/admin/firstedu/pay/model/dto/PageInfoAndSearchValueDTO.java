@@ -1,5 +1,7 @@
 package com.admin.firstedu.pay.model.dto;
 
+import com.admin.firstedu.common.paging.PageInfoDTO;
+
 public class PageInfoAndSearchValueDTO {
 
 	private PageInfoDTO pageInfo;

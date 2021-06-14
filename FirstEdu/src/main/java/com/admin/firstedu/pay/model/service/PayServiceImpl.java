@@ -6,12 +6,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.pay.model.dao.PayMapper;
-import com.admin.firstedu.pay.model.dto.PageInfoDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
-import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO; 
 
 @Service("payService")

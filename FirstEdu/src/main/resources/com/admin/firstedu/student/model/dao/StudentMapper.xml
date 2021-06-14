@@ -7,7 +7,7 @@
 
 	<!-- resultMap -->
 	<!-- TBL_STUDENT DTO -->
-	<resultMap id="studentResultMap" type="StudentDTO">
+	<resultMap id="studentResultMap" type="com.admin.firstedu.student.model.dto.StudentDTO">
 		<id column="STUDENT_NO" property="no"/>
 		<result column="STUDENT_NAME" property="studentName"/>
 		<result column="STUDENT_PHONE" property="studentPhone"/>
@@ -24,13 +24,13 @@
 	</resultMap>
 	
 	<!-- 학년 테이블 DTO -->
-	<resultMap id="gradeResultMap" type="GradeDTO">
+	<resultMap id="gradeResultMap" type="com.admin.firstedu.student.model.dto.GradeDTO">
 		<id column="GRADE_CODE" property="code"/>
 		<result column="GRADE_NAME" property="name"/>
 	</resultMap>
 	
 	<!-- 재원생 목록 조회용 DTO -->
-	<resultMap id="studentRegistListResultMap" type="StudentRegistListDTO">
+	<resultMap id="studentRegistListResultMap" type="com.admin.firstedu.student.model.dto.StudentRegistListDTO">
 		<id column="STUDENT_NO" property="no"/>
 		<result column="STUDENT_NAME" property="name"/>
 		<result column="SCHOOL" property="school"/>
@@ -41,19 +41,19 @@
 	</resultMap>
 	
 	<!-- 강의 기본 정보 DTO -->	
-	<resultMap id="classBasicInfoResultMap" type="ClassBasicInfoDTO">
+	<resultMap id="classBasicInfoResultMap" type="com.admin.firstedu.student.model.dto.ClassBasicInfoDTO">
 		<id column="CLASS_CODE" property="code"/>
 		<result column="CLASS_NAME" property="name"/>
 		<result column="SUBJECT_NO" property="subjectNo"/>
 	</resultMap>
 	
 	<!-- 학교 정보 DTO -->	
-	<resultMap id="schoolResultMap" type="SchoolDTO">
+	<resultMap id="schoolResultMap" type="com.admin.firstedu.student.model.dto.SchoolDTO">
 		<result column="SCHOOL" property="school"/>
 	</resultMap>
 	
 	<!-- 퇴원생 목록 조회용 DTO -->
-	<resultMap id="studentQuitListResultMap" type="StudentQuitListDTO">
+	<resultMap id="studentQuitListResultMap" type="com.admin.firstedu.student.model.dto.StudentQuitListDTO">
 		<id column="STUDENT_NO" property="no"/>
 		<result column="STUDENT_NAME" property="name"/>
 		<result column="SCHOOL" property="school"/>
@@ -67,7 +67,7 @@
 	</resultMap>	
 	
 	<!-- 학생 모든 정보 StudentFullInfoDTO -->
-	<resultMap id="studentFullInfoResultMap" type="StudentFullInfoDTO">
+	<resultMap id="studentFullInfoResultMap" type="com.admin.firstedu.student.model.dto.StudentFullInfoDTO">
 		<id column="STUDENT_NO" property="no"/>
 		<result column="STUDENT_NAME" property="studentName"/>
 		<result column="STUDENT_PHONE" property="studentPhone"/>
@@ -85,7 +85,7 @@
 	</resultMap>
 	
 	<!-- 학생 수강 정보 조회용 -->
-	<resultMap id="studentClassInfoResultMap" type="StudentClassInfoDTO">
+	<resultMap id="studentClassInfoResultMap" type="com.admin.firstedu.student.model.dto.StudentClassInfoDTO">
 		<id column="CLASS_NO" property="classNo"/>
 		<result column="CLASS_CODE" property="classCode"/>
 		<result column="CLASS_NAME" property="className"/>
@@ -95,7 +95,7 @@
 	
 	<!-- 쿼리 -->
 	<!-- 학생 등록 -->
-	<insert id="insertStudent" parameterType="StudentDTO">
+	<insert id="insertStudent" parameterType="com.admin.firstedu.student.model.dto.StudentDTO">
 		INSERT
 		  INTO TBL_STUDENT A
 		(
@@ -133,7 +133,7 @@
 	</insert>
 	
 	<!-- 수강 정보 등록 -->
-	<insert id="insertClassInfo" parameterType="ClassInfoDTO">
+	<insert id="insertClassInfo" parameterType="com.admin.firstedu.student.model.dto.ClassInfoDTO">
 		INSERT
 		  INTO TBL_CLASS_INFO A
 		(
@@ -158,7 +158,7 @@
 		  FROM TBL_STUDENT A
 		 WHERE A.STATUS = 'Y'
 	</select>
-	<select id="selectStudentRegistList" parameterType="PageInfoDTO" resultMap="studentRegistListResultMap">
+	<select id="selectStudentRegistList" parameterType="com.admin.firstedu.common.paging.PageInfoDTO" resultMap="studentRegistListResultMap">
 		SELECT
 	           A.RNUM	
 		     , A.STUDENT_NO
@@ -219,7 +219,7 @@
 	
 	<!-- 재원생 목록 검색 및 페이징 처리 -->
 	<!-- 검색 결과 원생 수 조회 -->
-	<select id="searchTotalCount" parameterType="StudentSearchCriteria" resultType="_int">
+	<select id="searchTotalCount" parameterType="com.admin.firstedu.student.model.dto.StudentSearchCriteria" resultType="_int">
 		SELECT
 		       COUNT(V.STUDENT_NO)
 		  FROM V_STUDENT_Y_LIST V
@@ -253,7 +253,7 @@
 	    </where>
 	</select>	
 	<!-- 원생 목록 검색 (페이징 처리) -->
-	<select id="searchStudentRegistList" parameterType="StudentSearchCriteria" resultMap="studentRegistListResultMap">
+	<select id="searchStudentRegistList" parameterType="com.admin.firstedu.student.model.dto.StudentSearchCriteria" resultMap="studentRegistListResultMap">
 		SELECT
 	           A.RNUM	
 		     , A.STUDENT_NO
@@ -311,7 +311,7 @@
 		  FROM TBL_STUDENT A
 		 WHERE A.STATUS = 'N'
 	</select>
-	<select id="selectStudentQuitList" parameterType="PageInfoDTO" resultMap="studentQuitListResultMap">
+	<select id="selectStudentQuitList" parameterType="com.admin.firstedu.common.paging.PageInfoDTO" resultMap="studentQuitListResultMap">
 		SELECT
 	           A.RNUM	
 		     , A.STUDENT_NO
@@ -352,7 +352,7 @@
 
 	<!-- 퇴원생 목록 검색 및 페이징 처리 -->
 	<!-- 검색 결과 원생 수 조회 -->
-	<select id="searchQuitTotalCount" parameterType="StudentSearchCriteria" resultType="_int">
+	<select id="searchQuitTotalCount" parameterType="com.admin.firstedu.student.model.dto.StudentSearchCriteria" resultType="_int">
 		SELECT
 		       COUNT(V.STUDENT_NO)
 		  FROM V_STUDENT_N_LIST V
@@ -377,7 +377,7 @@
 	    </where>
 	</select>	
 	<!-- 원생 목록 검색 (페이징 처리) -->
-	<select id="searchStudentQuitList" parameterType="StudentSearchCriteria" resultMap="studentQuitListResultMap">
+	<select id="searchStudentQuitList" parameterType="com.admin.firstedu.student.model.dto.StudentSearchCriteria" resultMap="studentQuitListResultMap">
 		SELECT
 	           A.RNUM	
 		     , A.STUDENT_NO
@@ -453,7 +453,7 @@
 		   AND A.STUDENT_NO = #{ studentNo }
 	</select>
 	
-	<update id="updateStudent" parameterType="StudentDTO">
+	<update id="updateStudent" parameterType="com.admin.firstedu.student.model.dto.StudentDTO">
 		UPDATE TBL_STUDENT A
 		   SET A.STUDENT_NAME = #{ studentName, jdbcType=VARCHAR }
 		 	 , A.STUDENT_PHONE = #{ studentPhone, jdbcType=VARCHAR }

@@ -223,7 +223,7 @@
       <div class="drawer-menu-content">
         <ul class="drawer-menu-list">
           <li class="drawer-menu-item">
-            <a href="/">
+            <a href="${ pageContext.servletContext.contextPath }/grade/exam/list">
               시험 일정
             </a>
           </li>
@@ -237,14 +237,14 @@
     </div>
 
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/pay/list">
         <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
         수납 관리
       </a>
     </div>
 
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/consult/list">
         <i class="fas fa-comment-dots" aria-hidden="true"></i>
         상담 관리
       </a>
@@ -266,7 +266,7 @@
       </div>
 
       <div class="drawer-menu">
-        <a class="drawer-menu-link" href="/">
+        <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/sms/list">
           <i class="fas fa-sms" aria-hidden="true"></i>
           문자 관리
         </a>
