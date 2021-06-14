@@ -125,7 +125,7 @@
         <div class="col-sm-4">
           <!-- table -->
           <section class="common-table-card">
-            <table id="studentTable" class="common-table storage-table ">
+            <table id="studentRegistTable" class="common-table storage-table ">
               <thead>
                 <tr>
                   <th scope="col">번호</th>

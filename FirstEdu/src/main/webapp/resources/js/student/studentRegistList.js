@@ -43,7 +43,7 @@ function searchStudent(pageNo) {
 			$('.sum-storage-price').html("총 인원 : " + data.pageInfo.totalCount + "명");			
 		
 			/* 테이블 데이터 수정 */
-			const $table = $('#studentTable tbody');
+			const $table = $('#studentRegistTable tbody');
 			$table.html("");
 			
 			let no = (pageNo - 1) * data.pageInfo.limit + 1
@@ -85,9 +85,9 @@ function searchStudent(pageNo) {
 			}
 			
 			/* 상세 페이지 조회용 이벤트 추가 */
-			$("#studentTable td").click(function() {
+			$("#studentRegistTable td").click(function() {
 				const no = $(this).parent().children(':eq(0)').text();
-				location.href = "/firstedu/student/regist/search/" + no;
+				location.href = "/firstedu/student/" + no;
 			})
 			
 			/* 페이징 처리 */
@@ -148,7 +148,7 @@ function searchStudent(pageNo) {
 } // searchStudent(pageNo) end
 
 /* 상세 페이지 조회용 */
-$("#studentTable td").click(function() {
+$("#studentRegistTable td").click(function() {
 	const no = $(this).parent().children(":eq(0)").text();
 	location.href = "/firstedu/student/" + no;
 })

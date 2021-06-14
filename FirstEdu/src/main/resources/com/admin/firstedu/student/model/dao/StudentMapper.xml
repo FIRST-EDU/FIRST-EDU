@@ -223,7 +223,7 @@
 		SELECT
 		       COUNT(V.STUDENT_NO)
 		  FROM V_STUDENT_Y_LIST V
-		<if test="classCode != 'all' and classCode != ''">
+		<if test="classCode != null and classCode != 'all'">
 		  JOIN TBL_CLASS_INFO A ON (V.STUDENT_NO = A.STUDENT_NO)
 		</if>
 		<where>
@@ -238,13 +238,13 @@
 		       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 		      </if>
 		  </if>
-	      <if test="school != 'all' and school != ''">
+	      <if test="school != null and school != 'all'">
 	       AND V.SCHOOL = #{ school }
 	      </if>
-	      <if test="gradeCode != 'all' and gradeCode != ''">
+	      <if test="gradeCode != null and gradeCode != 'all'">
 	       AND V.GRADE_CODE = #{ gradeCode }
 	      </if>
-	      <if test="classCode != 'all' and classCode != ''">
+	      <if test="classCode != null and classCode != 'all'">
 	       AND A.CLASS_CODE = #{ classCode }
 	      </if>
           <if test="searchStudentName != null and searchStudentName != ''">
@@ -272,7 +272,7 @@
 				     , V.PARENTS_PHONE
 				     , V.REGISTRATION_DATE
 		          FROM V_STUDENT_Y_LIST V
-				<if test="classCode != 'all' and classCode != ''">
+				<if test="classCode != null and classCode != 'all'">
 				  JOIN TBL_CLASS_INFO A ON (V.STUDENT_NO = A.STUDENT_NO)
 				</if>
 				<where>
@@ -287,13 +287,13 @@
 				     AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 				    </if>
 				  </if>
-			      <if test="school != 'all' and school != ''">
+			      <if test="school != null and school != 'all'">
 			       AND V.SCHOOL = #{ school }
 			      </if>
-			      <if test="gradeCode != 'all' and gradeCode != ''">
+			      <if test="gradeCode != null and gradeCode != 'all'">
 			       AND V.GRADE_CODE = #{ gradeCode }
 			      </if>
-			      <if test="classCode != 'all' and classCode != ''">
+			      <if test="classCode != null and classCode != 'all'">
 			       AND A.CLASS_CODE = #{ classCode }
 			      </if>
 			      <if test="searchStudentName != null and searchStudentName != ''">
@@ -368,10 +368,10 @@
 		       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 		      </if>
 		  </if>
-	      <if test="school != 'all'">
+	      <if test="school != null and school != 'all'">
 	       AND V.SCHOOL = #{ school }
 	      </if>
-	      <if test="gradeCode != 'all'">
+	      <if test="gradeCode != null and gradeCode != 'all'">
 	       AND V.GRADE_CODE = #{ gradeCode }
 	      </if>
 	    </where>
@@ -414,10 +414,10 @@
 			       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 			      </if>
 			  </if>
-		      <if test="school != 'all'">
+		      <if test="school != null and school != 'all'">
 		       AND V.SCHOOL = #{ school }
 		      </if>
-		      <if test="gradeCode != 'all'">
+		      <if test="gradeCode != null and gradeCode != 'all'">
 		       AND V.GRADE_CODE = #{ gradeCode }
 		      </if>
 		    </where>

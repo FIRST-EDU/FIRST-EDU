@@ -139,7 +139,7 @@ public class StudentServiceImpl implements StudentService {
 			ClassInfoDTO classInfo = new ClassInfoDTO();
 			classInfo.setStudentNo(student.getNo());
 			classInfo.setClassCode(classList.getClassCode().get(i));
-			result2 += mapper.insertClassInfo(classInfo);
+			result3 += mapper.insertClassInfo(classInfo);
 		}
 		return result1 > 0 && result2 > 0  && result3 == classList.getClassCode().size() ? true : false;
 	}

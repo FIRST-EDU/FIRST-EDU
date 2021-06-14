@@ -216,7 +216,7 @@
     <div class="drawer-menu is-grade">
       <button class="drawer-menu-button" type="button">
         <i class="fas fa-edit" aria-hidden="true"></i>
-        성적 관리
+        시험 관리
         <span class="material-icons" aria-hidden="true">chevron_right</span>
       </button>
 
@@ -224,14 +224,14 @@
         <ul class="drawer-menu-list">
           <li class="drawer-menu-item">
             <a href="/">
-              시험 관리
+              시험 일정
             </a>
           </li>
-          <li class="drawer-menu-item">
+<!--           <li class="drawer-menu-item">
             <a href="/">
-              시험 점수
+              시험 목록
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
