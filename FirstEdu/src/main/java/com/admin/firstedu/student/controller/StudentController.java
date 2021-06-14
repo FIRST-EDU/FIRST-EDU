@@ -124,6 +124,36 @@ public class StudentController {
 		return "student/studentRegistList";
 	}
 	
+	/* 헤더 학생명 검색 (+페이징 처리) */
+	@PostMapping("/regist/header/search")
+	public String SearchStudentNameList(@ModelAttribute StudentSearchCriteria searchCriteria, Model model) {
+		
+		/* 페이지 번호 */
+		int pageNo = 1;
+		
+		int totalCount = studentService.searchTotalCount(searchCriteria);
+		int limit = 10;
+		int buttonAmount = 5;
+		
+		PageInfoDTO pageInfo = Pagenation.getPageInfo(pageNo, totalCount, limit, buttonAmount);
+		searchCriteria.setPageInfo(pageInfo);
+		/* 학생 목록 조회 */
+		List<StudentRegistListDTO> studentList = studentService.searchStudentRegistList(searchCriteria);
+		
+		/* 검색용 학교, 학년, 강의 목록 조회 */
+		List<SchoolDTO> schoolList = studentService.selectSchoolList();
+		List<GradeDTO> gradeList = studentService.selectGradeList();
+		List<ClassBasicInfoDTO> classList = studentService.selectClassList();
+		
+		model.addAttribute("studentList", studentList);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("gradeList", gradeList);
+		model.addAttribute("classList", classList);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		return "student/studentRegistList";
+	}
+	
 	/* 재원생 조회 및 검색 (+페이징 처리) */
 	@GetMapping(value="/regist/search/{pageNo}", produces="application/json; charset=UTF-8")
 	@ResponseBody
@@ -284,5 +314,19 @@ public class StudentController {
 		rttr.addFlashAttribute("messageBody", "퇴원 처리하였습니다.");
 		
 		return "redirect:/student/quit/list";
+	}
+	
+	/* 재원생으로 상태 변경 */
+	@GetMapping("/change/status/{selectedStudentNo}")
+	public String changeStudentStatus(@PathVariable("selectedStudentNo") int studentNo, RedirectAttributes rttr) throws StudentDeleteException {
+		
+		if(!studentService.updateStudentStatus(studentNo)) {
+			throw new StudentDeleteException("원생 상태 변경에 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+		}
+		
+		rttr.addFlashAttribute("messageTitle", "원생 상태 변경");
+		rttr.addFlashAttribute("messageBody", "재원생으로 변경되었습니다.");
+		
+		return "redirect:/student/regist/list";
 	}
 }

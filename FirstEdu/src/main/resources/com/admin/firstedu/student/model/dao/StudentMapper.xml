@@ -223,7 +223,7 @@
 		SELECT
 		       COUNT(V.STUDENT_NO)
 		  FROM V_STUDENT_Y_LIST V
-		<if test="classCode != 'all'">
+		<if test="classCode != 'all' and classCode != ''">
 		  JOIN TBL_CLASS_INFO A ON (V.STUDENT_NO = A.STUDENT_NO)
 		</if>
 		<where>
@@ -238,15 +238,18 @@
 		       AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 		      </if>
 		  </if>
-	      <if test="school != 'all'">
+	      <if test="school != 'all' and school != ''">
 	       AND V.SCHOOL = #{ school }
 	      </if>
-	      <if test="gradeCode != 'all'">
+	      <if test="gradeCode != 'all' and gradeCode != ''">
 	       AND V.GRADE_CODE = #{ gradeCode }
 	      </if>
-	      <if test="classCode != 'all'">
+	      <if test="classCode != 'all' and classCode != ''">
 	       AND A.CLASS_CODE = #{ classCode }
 	      </if>
+          <if test="searchStudentName != null and searchStudentName != ''">
+	       AND V.STUDENT_NAME LIKE '%' || #{ searchStudentName } || '%'
+	      </if> 
 	    </where>
 	</select>	
 	<!-- 원생 목록 검색 (페이징 처리) -->
@@ -269,7 +272,7 @@
 				     , V.PARENTS_PHONE
 				     , V.REGISTRATION_DATE
 		          FROM V_STUDENT_Y_LIST V
-				<if test="classCode != 'all'">
+				<if test="classCode != 'all' and classCode != ''">
 				  JOIN TBL_CLASS_INFO A ON (V.STUDENT_NO = A.STUDENT_NO)
 				</if>
 				<where>
@@ -284,15 +287,18 @@
 				     AND REPLACE(V.STUDENT_PHONE, '-', '') LIKE '%' || #{ searchValue } || '%'
 				    </if>
 				  </if>
-			      <if test="school != 'all'">
+			      <if test="school != 'all' and school != ''">
 			       AND V.SCHOOL = #{ school }
 			      </if>
-			      <if test="gradeCode != 'all'">
+			      <if test="gradeCode != 'all' and gradeCode != ''">
 			       AND V.GRADE_CODE = #{ gradeCode }
 			      </if>
-			      <if test="classCode != 'all'">
+			      <if test="classCode != 'all' and classCode != ''">
 			       AND A.CLASS_CODE = #{ classCode }
 			      </if>
+			      <if test="searchStudentName != null and searchStudentName != ''">
+			       AND V.STUDENT_NAME LIKE '%' || #{ searchStudentName } || '%'
+			      </if> 
 			    </where>
 		  	   ) A
 		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
@@ -470,6 +476,12 @@
 	<update id="deleteStudent" parameterType="_int">
 		UPDATE TBL_STUDENT A
 		   SET A.STATUS = 'N'
+		 WHERE A.STUDENT_NO = #{ studentNo }
+	</update>
+
+	<update id="updateStudentStatus" parameterType="_int">
+		UPDATE TBL_STUDENT A
+		   SET A.STATUS = 'Y'
 		 WHERE A.STUDENT_NO = #{ studentNo }
 	</update>
 	

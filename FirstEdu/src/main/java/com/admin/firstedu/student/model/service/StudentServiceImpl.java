@@ -147,9 +147,13 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public boolean deleteStudent(int studentNo) {
 		int result1 = mapper.deleteStudent(studentNo);
-		int result2 = mapper.deleteClassInfo(studentNo);
 		
-		return result1 > 0 && result2 > 0 ? true : false;
+		return result1 > 0 ? true : false;
+	}
+
+	@Override
+	public boolean updateStudentStatus(int studentNo) {
+		return mapper.updateStudentStatus(studentNo) > 0 ? true : false;
 	}
 
 }

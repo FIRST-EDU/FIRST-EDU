@@ -107,7 +107,8 @@ function searchStudent(pageNo) {
 			/* 왼쪽 버튼 */
 			if(pageNo == 1) {
 				$leftButton = $('<button class="page-control page-prev" type="button" disabled>').html('<span class="material-icons"> chevron_left </span>');
-			} else {
+			}
+			if(pageNo > 1)  {
 				$leftButton = $('<button class="page-control page-prev" type="button" onclick="searchStudent(' + (pageNo-1) + ')">').html('<span class="material-icons"> chevron_left </span>');
 			}
 
@@ -129,7 +130,8 @@ function searchStudent(pageNo) {
 			/* 오른쪽 버튼 */
 			if(pageNo == maxPage) {
 				$rightButton = $('<button class="page-control page-next" type="button" disabled>').html('<span class="material-icons"> chevron_right </span>');
-			} else {
+			}
+			if(pageNo < maxPage) {
 				$rightButton = $('<button class="page-control page-next" type="button" onclick="searchStudent(' + (pageNo+1) + ')">').html('<span class="material-icons"> chevron_right </span>');
 			}
 			

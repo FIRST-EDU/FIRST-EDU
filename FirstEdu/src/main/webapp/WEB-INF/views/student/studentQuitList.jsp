@@ -67,6 +67,7 @@
 	                      class="form-input"
 	                      type="text"
 	                      placeholder="검색어를 입력하세요."
+	                      autocomplete="new-password"
 	                    />
 	                  </div>
 	              </div>
@@ -120,6 +121,7 @@
                   <th scope="col">퇴원일</th>
                   <th scope="col">재원 기간</th>
                   <th scope="col">퇴원 사유</th>
+                  <th scope="col">상태 변경</th>
                 </tr>
               </thead>
               <tbody>
@@ -135,6 +137,7 @@
 	                  <td>${ fn:substring(student.quitDate, 0, 10) }</td>
 	                  <td>${ student.lengthOfStay } 개월</td>
 	                  <td>${ student.quitReason }</td>
+	                  <td><button type="button" class="btn-fill-light-blue btn-basic" onclick="changeStatus(this)">재원</button></td>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -188,8 +191,16 @@
       </div>
     </div>
   </main>
-
-
+   <div class="modal complete-input-board-modal">
+     <div class="modal-content">
+       <strong>원생 상태 변경</strong>
+       <p>재원생으로 변경하시겠습니까?</p>
+         <div class="popup-2btn">
+           <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+           <button type="button" class="btn-fill-primary btn-popup complete-btn" onclick="changeStatus()">확인</button>
+         </div>
+     </div>
+   </div>
 <div class="overlay" aria-hidden="true"></div>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
@@ -197,6 +208,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/scoreAnalysis.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/student/studentQuitList.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 
 
 </body>

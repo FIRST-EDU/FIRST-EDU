@@ -96,7 +96,8 @@ function searchStudent(pageNo) {
 			/* 왼쪽 버튼 */
 			if(pageNo == 1) {
 				$leftButton = $('<button class="page-control page-prev" type="button" disabled>').html('<span class="material-icons"> chevron_left </span>');
-			} else {
+			} 
+			if(pageNo > 1) {
 				$leftButton = $('<button class="page-control page-prev" type="button" onclick="searchStudent(' + (pageNo-1) + ')">').html('<span class="material-icons"> chevron_left </span>');
 			}
 
@@ -118,13 +119,14 @@ function searchStudent(pageNo) {
 			/* 오른쪽 버튼 */
 			if(pageNo == maxPage) {
 				$rightButton = $('<button class="page-control page-next" type="button" disabled>').html('<span class="material-icons"> chevron_right </span>');
-			} else {
+			}
+			if(pageNo < maxPage) {
 				$rightButton = $('<button class="page-control page-next" type="button" onclick="searchStudent(' + (pageNo+1) + ')">').html('<span class="material-icons"> chevron_right </span>');
 			}
 			
 			$pagenation.append($leftButton);
 			$pagenation.append($ol);
-			$pagenation.append($rightButton);			
+			$pagenation.append($rightButton);		
 
 		},
 		error: function(error) {
@@ -133,3 +135,18 @@ function searchStudent(pageNo) {
 	});
 	
 } // searchStudent(pageNo) end
+
+/* 상태 변경 */
+//let selectedStudentNo
+
+//function addNo(this) {
+	//selectedStudentNo = $(this).parent('tr').children(":eq(0)").val();
+	//console.log(selectedStudentNo);
+//}
+
+function changeStatus(test) {
+	let selectedStudentNo = $(test).parents('tr').children(":eq(0)").text();
+	if(confirm('재원생으로 변경하시겠습니까?')) {
+		location.href = "/firstedu/student/change/status/" + selectedStudentNo
+	}
+}

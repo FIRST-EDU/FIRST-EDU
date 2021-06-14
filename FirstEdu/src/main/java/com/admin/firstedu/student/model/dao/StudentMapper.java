@@ -51,5 +51,6 @@ public interface StudentMapper {
 
 	int deleteStudent(int studentNo);
 
+	int updateStudentStatus(int studentNo);
 
 }

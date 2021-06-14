@@ -20,6 +20,7 @@ public class StudentSearchCriteria implements java.io.Serializable {
 	private String school;
 	private String gradeCode;
 	private String classCode;
+	private String searchStudentName;
 	private PageInfoDTO pageInfo;
 	
 }

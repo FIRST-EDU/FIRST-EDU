@@ -189,7 +189,7 @@
   <aside class="side-gnb">
     <header class="side-gnb-header">
       <h1 class="logo">
-        <a href="/">
+        <a href="${ pageContext.servletContext.contextPath }">
           <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/Basic Logo.png" alt="FIRST EDU" />
         </a>
       </h1>
@@ -200,7 +200,7 @@
 
     <strong class="drawer-menu-category">학생</strong>
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/student/regist/list">
         <i class="fas fa-user-friends" aria-hidden="true"></i>
         원생 관리
       </a>

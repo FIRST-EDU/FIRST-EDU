@@ -64,4 +64,7 @@ public interface StudentService {
 	/* 원생 퇴원 처리 */
 	boolean deleteStudent(int studentNo);
 
+	/* 재원생으로 변경 처리 */
+	boolean updateStudentStatus(int studentNo);
+
 }
