@@ -1,11 +1,16 @@
 package com.admin.firstedu.grade.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +30,10 @@ import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
+import com.admin.firstedu.grade.model.dto.GradeDTO;
 import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
+import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,6 +47,11 @@ public class ExamController {
 	public ExamController(ExamService examService) {
 		this.examService = examService;
 	}
+
+	@InitBinder public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 	
 	/* 시험 관리 첫 화면 - 시험 일정 조회(달력) */
 	@GetMapping("/exam/list")
@@ -48,16 +60,18 @@ public class ExamController {
 		List<ExamListInfoDTO> examList = examService.selectExamScheduleList();
 		
 		List<ExamCategoryFullInfoDTO> examCategoryList = examService.selectExamCategoryList();
-		for(ExamCategoryFullInfoDTO examCategory : examCategoryList) {
-			System.out.println(examCategory);
-		}
+		
 		List<ClassExamInfoDTO> classList = examService.selectClassList();
+		List<SchoolDTO> schoolList = examService.selectSchoolList();
+		List<GradeDTO> gradeList = examService.selectGradeList();
 
 		List<ColorDTO> colorList = examService.selectColorList();
 		
 		model.addAttribute("examList", examList);
 		model.addAttribute("examCategoryList", examCategoryList);
 		model.addAttribute("classList", classList);
+		model.addAttribute("schoolList", schoolList);
+		model.addAttribute("gradeList", gradeList);
 		model.addAttribute("colorList", colorList);
 		
 		return "grade/examList";
@@ -108,18 +122,30 @@ public class ExamController {
 	public String registExamAndScoreBasicInfo(@ModelAttribute ExamDTO exam,
 							 RedirectAttributes rttr)
 									 throws ExamException {
-		exam.setCategoryNo(4);
-		exam.setName("test");
-		exam.setStartDate(new java.sql.Date(System.currentTimeMillis()));
-		exam.setClassCode("TTE1");
-//		exam.setSchool("더조은고등학교");
+		
+		int categoryNo = exam.getCategoryNo();
+		if(categoryNo == 1) {
+			exam.setGradeCode(null);
+			exam.setClassCode(null);
+			
+		} else if(categoryNo == 2) {
+			exam.setSchool(null);
+			exam.setClassCode(null);
+			
+		} else {
+			exam.setSchool(null);
+			exam.setGradeCode(null);
+			
+		}
+		
 		if(!examService.registExamAndScoreBasicInfo(exam)) {
 			throw new ExamException("시험 일정 등록에 실패하였습니다.");
 		}
 		
-		rttr.addFlashAttribute("message", "시험 일정이 등록되었습니다.");
+		rttr.addFlashAttribute("messageTitle", "시험 등록");
+		rttr.addFlashAttribute("messageBody", exam.getName() + " 시험을 등록하였습니다.");
 		
-		return "redirect:/grade/exam";
+		return "redirect:/grade/exam/list";
 	}
 	
 	/* 시험 일정 수정 */

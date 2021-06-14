@@ -48,6 +48,11 @@
 		<result column="GRADE_NAME" property="name"/>
 	</resultMap>
 	
+	<!-- 학교 정보 DTO -->	
+	<resultMap id="schoolResultMap" type="com.admin.firstedu.student.model.dto.SchoolDTO">
+		<result column="SCHOOL" property="school"/>
+	</resultMap>
+	
 	<!-- 시험 대상 강의 정보 DTO -->
 	<resultMap id="classExamInfoResultMap" type="com.admin.firstedu.grade.model.dto.ClassExamInfoDTO">
 		<id column="CLASS_CODE" property="classCode"/>
@@ -283,6 +288,23 @@
 		  FROM TBL_COLOR A
 	</select>
 	
+	<!-- 재원생 학교 목록 조회 -->
+	<select id="selectSchoolList" resultMap="schoolResultMap">
+		SELECT
+		       DISTINCT(A.SCHOOL)
+		  FROM TBL_STUDENT A
+		 WHERE A.STATUS = 'Y'
+		   AND A.SCHOOL IS NOT NULL
+	</select>
+	
+	<!-- 학년 목록 조회 -->
+	<select id="selectGradeList" resultMap="gradeResultMap">
+		SELECT
+		       A.GRADE_CODE
+		     , A.GRADE_NAME
+		  FROM TBL_GRADE A
+	</select>
+	
 	<!-- 시험 일정 등록 -->
 	<insert id="insertExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
 		INSERT
@@ -319,8 +341,8 @@
 		  FROM DUAL
 	</select>
 	
-	<!-- 학교 내신 시험 대상 학생 조회 
-	<select id="selectSchoolExamStudentList" resultMap=com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap>
+	<!-- 학교 내신 시험 대상 학생 조회 -->
+	<select id="selectSchoolExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
 		SELECT
 		       A.STUDENT_NO
 		     , A.STUDENT_NAME
@@ -329,10 +351,10 @@
 		 WHERE A.SCHOOL = (SELECT B.SCHOOL
 		                     FROM TBL_EXAM B
 		                    WHERE B.EXAM_NO = GET_EXAM_NO
-		);
+		)
 	</select>
 	
-	 모의고사 대상 학생 조회
+	<!-- 모의고사 대상 학생 조회 -->
 	<select id="selectMockExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
 		SELECT
 		       A.STUDENT_NO
@@ -340,8 +362,8 @@
 		 WHERE A.SCHOOL = (SELECT B.SCHOOL
 		                     FROM TBL_EXAM B
 		                    WHERE B.EXAM_NO = GET_EXAM_NO
-		);
-	</select> -->
+		)
+	</select>
 	
 	<!-- 학원 시험 대상 기본 정보 조회 -->
 	<select id="selectHagwonExamScoreBasicInfoList" parameterType="_int" resultMap="hagwonExamScoreBasicInfoResultMap">

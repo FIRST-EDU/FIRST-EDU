@@ -1,5 +1,5 @@
-const search = document.querySelector('.form-input-search')
-const searchHistory = document.querySelector(
+search = document.querySelector('.form-input-search')
+searchHistory = document.querySelector(
   '.global-header-search .search-history'
 )
 
