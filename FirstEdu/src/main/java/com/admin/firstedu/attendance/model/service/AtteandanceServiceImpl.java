@@ -1,6 +1,8 @@
 package com.admin.firstedu.attendance.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,9 +70,10 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public List<String> selectStudent(String className) {
-		String className1 = "1학년중고급영어";
-		return mapper.selectStudent(className1);
+	public List<StudentSetDTO> selectStudent(String className) {
+		Map map = new HashMap();
+		map.put("className", "1학년");
+		return mapper.selectStudent(map);
 	}
 
 

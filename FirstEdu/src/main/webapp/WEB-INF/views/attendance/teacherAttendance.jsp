@@ -117,7 +117,25 @@
 
 
 <script>
-function get1(event) {
+$('#btn1').click (function(){
+	
+	$.ajax({
+		url: "/firstedu/attendance/teacherAttendance/",
+		method: 'POST',
+		dataType: 'html',
+		success: function(data){
+			$("#result1").html(data);
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+});
+
+
+
+
+/* function get1(event) {
 	  document.getElementById('result1').value = 
 	    event.target.value;
 	}
@@ -128,9 +146,8 @@ function get2() {
 	temp = workEnd;
 	
 	document.getElementById("workEnd2").value = temp;
-	   
-	   
-	}
+	    
+	} */
 </script>
 
 

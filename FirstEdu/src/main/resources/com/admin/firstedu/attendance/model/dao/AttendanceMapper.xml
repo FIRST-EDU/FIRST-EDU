@@ -105,8 +105,8 @@
 		<result column="BEGIN_DATE" property="beginDate"/>
 		<result column="END_DATE" property="endDate"/>
 		<result column="STATUS" property="status"/>		
-		<association resultMap="STUDENT_NO" property="student"/>
-		<association resultMap="CLASS_CODE" property="classDTO"/>
+		<association resultMap="studentResultSet" property="student"/>
+		<association resultMap="classResultSet" property="classDTO"/>
 	</resultMap>
 
 	<resultMap type="StudentSetDTO" id="studentSetResultSet">
@@ -148,6 +148,7 @@
 		  , A.ATTENDANCE_NO
 		  , A.TEACHER_NO
 		  , A.CHECKOUT_TIME
+		  , A.CATEGORY_NO
 		  
 		)
 		VALUES
@@ -156,6 +157,7 @@
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 , #{teacherNo}
 		 , SYSTIMESTAMP
+		 , 1
 		)
 	
 	</insert>
@@ -212,18 +214,20 @@
     </select>
     
 	
-	<select id="selectStudent" parameterType="string" resultMap="studentSetResultSet">
+	<select id="selectStudent" parameterType="hashMap" resultMap="studentSetResultSet">
 	SELECT 
-	       A.STUDENT_NAME
+		   A.STUDENT_NO
+	     , A.STUDENT_NAME
 	     , B.CLASS_NO
 	     , C.CLASS_NAME
+	     , D.MEMO
 	     , E.CATEGORY_NO
 	  FROM TBL_STUDENT A
 	  JOIN TBL_CLASS_INFO B ON (A.STUDENT_NO = B.STUDENT_NO)
 	  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
 	  JOIN TBL_ATTENDANCE D ON (A.STUDENT_NO = D.STUDENT_NO)
 	  JOIN TBL_ATTENDANCE_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
-	  WHERE C.CLASS_NAME LIKE '%'||#{className1}||'%'	
+	  WHERE C.CLASS_NAME LIKE '%'||#{className}||'%'	
 </select>
 
 

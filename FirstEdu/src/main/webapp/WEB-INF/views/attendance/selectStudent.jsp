@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
 function submitForm() {
@@ -18,10 +18,10 @@ function submitForm() {
 	<table class="cateogryList" border="1">
 		<thead>
 			<tr>
-				<th>Ãâ¼®</th>
-				<th>°á¼®</th>
-				<th>Áö°¢</th>
-				<th>Á¶Åğ</th>
+				<th>ì¶œì„</th>
+				<th>ê²°ì„</th>
+				<th>ì§€ê°</th>
+				<th>ì¡°í‡´</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,26 +35,27 @@ function submitForm() {
 			</c:forEach>
 		</tbody>
 		</table>
-		<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/attendance/insertStudnet'">¼öÁ¤</button>
+		<button type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/attendance/insertStudnet'">ìˆ˜ì •</button>
 		
 		
 
-	<input type="radio" name="className" id="radioSelection" value="1ÇĞ³âÁß°í±Ş¿µ¾î" onclick="submitForm()" checked="checked">1ÇĞ³â ÃÊ±Ş ¼öÇĞ
+	<input type="radio" name="className" id="radioSelection" value="1í•™ë…„ì¤‘ê³ ê¸‰ì˜ì–´" onclick="submitForm()">1í•™ë…„ ì´ˆê¸‰ ìˆ˜í•™
 	<table>
 	
 	<c:forEach var="student" items="${studentList}">
-		³¯Â¥:<input type="date" name="attendanceTime" id="attendanceTime" >
+		ë‚ ì§œ:<input type="date" name="attendanceTime" id="attendanceTime" >
 		
 		<td><input type="hidden" name="no" id="no" value="1"></td>
 		<td><input type="hidden" name="studentNo" id="studentNo" value="1"></td>
 		<td><input type="hidden" name="classNo" id="classNo" value="1"></td>
 		
-		<td><input type="checkbox" name="categoryNo1" id="dis" value="1">Ãâ¼®</td>
-		<td><input type="checkbox" name="categoryNo1" id="dis" value="2">°á¼®</td>
-		<td><input type="checkbox" name="categoryNo1" id="dis" value="3" >Áö°¢</td>
-		<td><input type="checkbox" name="categoryNo1" id="dis" value="4">Á¶Åğ</td>
-		<td><input type="text" name="memo" id="memo" value="${student.attendanceList.memo}" readonly></td>
-		<td><input type="button" value="¸Ş¸ğ">
+		<td><c:out value="${ student.studentName }"></c:out></td>
+		
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="1">ì¶œì„</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="2">ê²°ì„</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="3" >ì§€ê°</td>
+		<td><input type="checkbox" name="categoryNo1" id="dis" value="4">ì¡°í‡´</td>
+		<td><input type="text" name="memo" id="memo" value="memo" readonly></td>
 
 	</c:forEach>
 	</table>

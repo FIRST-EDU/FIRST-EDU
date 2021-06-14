@@ -168,7 +168,7 @@ public class AttendanceController {
 	   }
 	@GetMapping("/selectStudent")
 	public String selectStudnet(Model model, String className) {
-		List<String>studentList = attendanceService.selectStudent(className);
+		List<StudentSetDTO>studentList = attendanceService.selectStudent(className);
 		List<AttendanceInfoDTO>cateogryList = attendanceService.selectCategory();
 		
 		model.addAttribute("cateogryList", cateogryList);
@@ -180,7 +180,7 @@ public class AttendanceController {
 			System.out.println(cateogry);
 		}
 			
-		for(String student : studentList) {
+		for(StudentSetDTO student : studentList) {
 			
 			System.out.println(student);
 		}		

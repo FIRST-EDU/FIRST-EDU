@@ -1,10 +1,10 @@
 package com.admin.firstedu.attendance.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.admin.firstedu.attendance.model.dto.AttendanceDTO;
 import com.admin.firstedu.attendance.model.dto.AttendanceInfoDTO;
-import com.admin.firstedu.attendance.model.dto.AttendanceTDTO;
 import com.admin.firstedu.attendance.model.dto.StudentSetDTO;
 
 public interface AttendanceMapper {
@@ -26,6 +26,6 @@ public interface AttendanceMapper {
 	
 	int deleteTeacher(AttendanceDTO attendance);
 
-	List<String> selectStudent(String className);
+	List<StudentSetDTO> selectStudent(Map map);
 
 }

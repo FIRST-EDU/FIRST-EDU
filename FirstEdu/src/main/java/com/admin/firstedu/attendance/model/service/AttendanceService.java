@@ -17,7 +17,7 @@ public interface AttendanceService {
 
 	boolean doneTeacher(AttendanceDTO attendance);
 	
-	List<String> selectStudent(String className);
+	List<StudentSetDTO> selectStudent(String className);
 
 	List<AttendanceInfoDTO> selectCategory();
 
