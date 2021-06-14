@@ -93,7 +93,11 @@
 
 
   <script>
-		
+  $(function(){
+		$('#parentMenu').text('문자 관리');
+		$('#parentMenu').attr('href', '/firstedu/sms/list');
+		$('#nowMenu').text('문자 상세');
+	})
 
 	</script>
 

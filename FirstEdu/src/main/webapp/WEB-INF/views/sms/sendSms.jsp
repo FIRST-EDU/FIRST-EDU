@@ -315,6 +315,12 @@
 					$('input[name=parentsPhone]').attr('value', parentsPhone);
 		});
 		
+		/* breadcrumb 변경 */
+		$(function(){
+			$('#parentMenu').text('문자 관리');
+			$('#parentMenu').attr('href', '/firstedu/sms/list');
+			$('#nowMenu').text('문자 전송');
+		})
 </script>
 
 

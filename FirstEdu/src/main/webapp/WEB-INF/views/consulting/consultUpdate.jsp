@@ -160,6 +160,12 @@
 			const no = $("#consultNo").val();
 			location.href="${pageContext.servletContext.contextPath}/consult/detail/" + no;
 		}) */
+		/* breadcrumb 변경 */
+		$(function(){
+			$('#parentMenu').text('상담 관리');
+			$('#parentMenu').attr('href', '/firstedu/consult/list');
+			$('#nowMenu').text('상담 상세');
+		})
 	</script>
 
     <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>

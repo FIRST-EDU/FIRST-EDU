@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.common.paging.Pagenation;
@@ -120,7 +121,7 @@ public class SmsController {
 	}
 
 	@PostMapping("insert")
-	public String sendSMS(Model model, @ModelAttribute SmsDTO sms) throws CoolsmsException {
+	public String sendSMS(RedirectAttributes rttr, @ModelAttribute SmsDTO sms) throws CoolsmsException {
 
 		String api_key = "NCSYMSYSQNQ8ANEH";
 		String api_secret = "P0VG3UNOBGDAS9RBJ4NWWG7IHMLZAS4N";
@@ -137,7 +138,7 @@ public class SmsController {
 		int result = smsService.sendMessage(sms);
 
 		 try {
-		    	//send() 는 메시지를 보내는 함수  
+ 
 		      JSONObject obj = (JSONObject) coolsms.send(params);
 		      System.out.println(obj.toString());
 		    } catch (CoolsmsException e) {
@@ -145,7 +146,15 @@ public class SmsController {
 		      System.out.println(e.getCode());
 		    }
 
-		return "redirect:/sms/list";
+		 if (result > 0) { 
+				rttr.addFlashAttribute("msgTitle","문자 전송");
+				rttr.addFlashAttribute("msgContent","문자 전송에 성공하였습니다.");
+			}else {
+				rttr.addFlashAttribute("msgTitle","문자 전송");
+				rttr.addFlashAttribute("msgContent","문자 전송에 실패하였습니다.");
+			}
+
+			return "redirect:/sms/list";
 	}
 	
 	@GetMapping("detail/{no}")

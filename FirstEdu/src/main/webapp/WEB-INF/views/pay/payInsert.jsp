@@ -519,6 +519,12 @@
 
 			}
 		}
+		/* breadcrumb 변경 */
+		$(function(){
+			$('#parentMenu').text('수납 관리');
+			$('#parentMenu').attr('href', '/firstedu/pay/list');
+			$('#nowMenu').text('수납 입력');
+		})
 	</script>
 
 
