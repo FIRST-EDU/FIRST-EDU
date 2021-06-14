@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.admin.firstedu">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
