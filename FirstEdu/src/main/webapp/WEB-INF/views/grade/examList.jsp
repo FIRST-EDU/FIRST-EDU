@@ -157,8 +157,8 @@
                   <th scope="col">시험 종류</th>
                   <th scope="col">시험명</th>
                   <th scope="col">시험 대상</th>
-                  <th scope="col">시작 일시</th>
-                  <th scope="col">종료 일시</th>
+                  <th scope="col">시작일</th>
+                  <th scope="col">종료일</th>
                   <th scope="col">비고</th>
                 </tr>
               </thead>
@@ -239,92 +239,67 @@
   
  <div id="examRegistModal" class="modal detail-board-modal">
     <div class="modal-content">
-      <section class="form-left">
-      
-        <article class="teacher-input-form">
-          <label>카테고리</label>
-          <div class="checkbox-wrap">
-              <input
-              type="radio"
-              id="hagwon"
-              name="gender"
-              value="1"
-              />
-              <label for="hagwon" class="check-discount check-female">
-                <i class="fas fa-check"></i>
-              </label>
-              <label for="hagwon" class="discount check-female">학원 시험</label>
+      <form class="form-left">
 
-              <input
-                type="radio"
-                id="school"
-                name="gender"
-                value="2"
-              />
-              <label for="school" class="check-discount check-male">
-                <i class="fas fa-check"></i>
-              </label>
-              <label for="school" class="discount chack-male">학교 내신</label>
-
-              <input
-                type="radio"
-                id="mock"
-                name="gender"
-                value="2"
-              />
-              <label for="mock" class="check-discount check-male">
-                <i class="fas fa-check"></i>
-              </label>
-              <label for="mock" class="discount chack-male">모의고사</label>
-              
-            </div>
-        </article>
-        
-        <article id="classInfoForm" class="teacher-input-form">
+        <article id="classInfoForm" class="teacher-input-form form-align">
           <label>시험 종류</label>
           <div class="select-group">
-          <select id="classCode" class="form-select" required>
+          <select id="categoryNo" name="categoryNo" class="form-select" required>
             <option value="none">선택</option>
-            <c:forEach var="classOption" items="${ requestScope.classList }">
-             <option value="${ classOption.code }">${ classOption.name }</option>
+            <c:forEach var="category" items="${ requestScope.examCategoryList }">
+             <option value="${ category.no }">${ category.name }</option>
             </c:forEach>
           </select>
           <i class="fas fa-caret-down" aria-hidden></i>
           </div>
         </article>
 
-
         <article class="form-align">
-          <label>학생명</label>
+          <label>시험명</label>
           <div class="input-group">
-            <input class="form-input" type="text" value="김고딩" readonly />
+            <input id="name" name="name" class="form-input" type="text"/>
+          </div>
+        </article>
+
+        <article id="classInfoForm" class="teacher-input-form form-align">
+          <label>시험 대상</label>
+          <div class="select-group">
+          <select id="classCode" class="form-select" required>
+            <option value="none">선택</option>
+            <c:forEach var="classOption" items="${ requestScope.classList }">
+             <option value="${ classOption.classCode }">${ classOption.className }</option>
+            </c:forEach>
+          </select>
+          <i class="fas fa-caret-down" aria-hidden></i>
           </div>
         </article>
 
         <article class="form-align">
-          <label>상담자</label>
+          <label>시작일</label>
           <div class="input-group">
-            <input class="form-input" type="text" value="강용승" readonly />
+            <input id="startDate" name="startDate" class="form-input" type="date"/>
           </div>
         </article>
 
         <article class="form-align">
-          <label>상담방법</label>
+          <label>종료일</label>
           <div class="input-group">
-            <input class="form-input" type="text" value="대면" readonly />
+            <input id="endDate" name="endDate" class="form-input" type="date"/>
           </div>
         </article>
 
         <article class="form-align">
-          <label>상담내용</label>
-          <textarea name="" id="" readonly>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, natus omnis corporis fuga officia totam excepturi assumenda repellendus magni, inventore hic laudantium. Nemo repudiandae nesciunt, illum minima vel pariatur quibusdam.</textarea>
+          <label>비고</label>
+          <div class="input-group">
+            <textarea rows="5" id="description" name="description" class="form-input"></textarea>
+          </div>
         </article>
-      </section>
+        
+      </form>
 
-        <div class="popup-3btn form-btn">
-        <button type="button" class="btn-fill-seconary btn-basic back-btn">목록</button>
-        <button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
-        <button type="button" class="btn-fill-primary btn-basic">수정</button>
+        <div class="popup-2btn form-btn">
+        <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
+        <button type="submit" class="btn-fill-primary btn-basic">등록</button>
       </div>
     </div>
   </div>
