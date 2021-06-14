@@ -7,20 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post">
+	<form action="${ pageContext.servletContext.contextPath }/classInfo/delete" method="post">
 		<div>
-			<label>* 아이디</label> <input type="text" name="id" value="${sessionScope.loginMember.id }" required>
+			<label>* 아이디</label> <input type="text" name="id" value="${updateMember.id}" required>
 		</div>
 		<div>
-			<label>* 비밀번호</label> <input type="password" name="pwd" value="${sessionScope.loginMember.pwd }" required>
+			<label>* 비밀번호</label> <input type="password" name="pwd" value="${updateMember.pwd}" required>
 		</div>
 		<div>
-			<label>* 비밀번호확인</label> <input type="password" name="pwd2" value="${sessionScope.loginMember.pwd }" required>
+			<label>* 비밀번호확인</label> <input type="password" name="pwd2" value="${updateMember.pwd}" required>
 		</div>
 	<div align="center">
 				<button onclick="location.href='${ pageContext.servletContext.contextPath}/member/teacherList'">취소</button>
 				<button type="submit" value="탈퇴하기">탈퇴</button>
-				
 		</div>
 	</form>
 		

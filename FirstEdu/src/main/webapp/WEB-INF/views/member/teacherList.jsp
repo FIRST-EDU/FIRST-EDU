@@ -16,9 +16,18 @@
 	<title> 조직 관리 &gt; 직원 목록 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/11694e3acf.js" crossorigin="anonymous" ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/11694e3acf.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -87,8 +96,6 @@
           </section>
         </div>
      </div>
-      
-	
 	
 	<div class="row">
 		<div class="col-sm-4">
@@ -121,8 +128,9 @@
 							<td><span class="tag-p-dark"><c:out value="${teacher.job.jobName}" /></span></td>
 							<td><c:out value="${teacher.status}" /></td>
 							<td class="edit-remove-btn">
-								<button id="updateBtn" type="button" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/member/update'"> <i class="fas fa-pen"></i>수정 </button>
-							    <button type="button" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/member/delete'"> <i class="fas fa-trash-alt"></i>삭제 </button>
+								<button id="updateBtn" type="button" class="edit-btn" aria-label="수정 버튼 "> <i class="fas fa-pen"></i>수정 </button>
+							    <button id="deleteBtn" class="delete-btn" aria-label="삭제 버튼"> <i class="fas fa-trash-alt"></i>삭제 </button>
+							    <%-- onclick="location.href='deleteMember?no=${data.no}'" --%>
 							</td>
 						</tr>
 					</c:forEach>
@@ -155,13 +163,24 @@
 			})
 		})	
 	
-	
 		$("#updateBtn").click(function(){
+			const no = $("#no").val();
 			location.href="${pageContext.servletContext.contextPath}/member/update/" + parseInt(no);
 		})
+		
+		$("#deleteBtn").click(function(){
+			alert($("#classNum").val())
+			const no = $("#classNum").val();
+			console.log(no);
+			location.href="${pageContext.servletContext.contextPath}/classInfo/delete/" + parseInt(no);
+		})
+		
 	</script>
 	
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/table.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
+
 </body>
 </html>

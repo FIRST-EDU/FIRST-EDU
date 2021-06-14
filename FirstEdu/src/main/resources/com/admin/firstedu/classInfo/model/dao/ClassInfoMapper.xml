@@ -23,7 +23,7 @@
 	</resultMap> 
 	
 	<!-- class 정보 -->
-	 <resultMap id="classResultSet" type="ClassDTO">
+	 <resultMap id="classResultSet" type="com.admin.firstedu.classInfo.model.dto.ClassDTO">
 		<id property="code" column="CLASS_CODE"/>
 		<result property="classNum" column="CLASS_NUM"/>
 		<result property="room" column="CLASS_ROOM"/>
@@ -83,7 +83,7 @@
 	</resultMap>
 	
 	<!-- 수강등록 -->
-	<insert id="insertClassInfo" parameterType="ClassDTO">
+	<insert id="insertClassInfo" parameterType="com.admin.firstedu.classInfo.model.dto.ClassDTO">
         INSERT 
 	          INTO TBL_CLASS A
 	        (
@@ -101,7 +101,7 @@
 	</insert>
 	
 	<!-- 과목 등록 -->
-	<select id="selectClsssAndInfo" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">
+	<select id="selectClsssAndInfo" resultMap="classAndInforResultMap" parameterType="com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO">
 			SELECT
 			   A.CLASS_NUM
 		 	 , A.CLASS_CODE
@@ -142,7 +142,6 @@
 		  JOIN TBL_GRADE C ON (A.GRADE_CODE = C.GRADE_CODE)
 		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
 	 	 WHERE A.CLASS_NUM = #{classNum}
-	 	   AND A.CLASS_STATUS='Y'
 	</select>
 	
 	<select id="selectUpdateClass" resultMap="classAndInforResultMap" parameterType="_int">
@@ -165,11 +164,11 @@
 		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
 		  WHERE A.CLASS_NUM = #{no}
 		    AND A.CLASS_STATUS='Y'
-		  ORDER BY A.CLASS_NUM ASC 
+		  ORDER BY A.CLASS_NUM
 	</select>
 	
 	<!-- 정보수정 -->
-	<update id="classUpdate" parameterType="ClassDTO">
+	<update id="classUpdate" parameterType="com.admin.firstedu.classInfo.model.dto.ClassDTO">
 		UPDATE 
 			TBL_CLASS A
 		   SET A.CLASS_CODE = #{code}
@@ -187,22 +186,16 @@
   		   AND A.CLASS_STATUS='Y' 
 	</update>
 	
-	<!-- DB에서 영구 삭제 처리 예정 -->
-	<delete id="deleteClass" parameterType="_int">
-  		DELETE 
-  		 FROM TBL_CLASS A
-        WHERE A.CLASS_NUM = #{no}
-  	</delete>
-  	
-  	<!-- <update id="deleteClass" parameterType="_int">
+  	<!-- 수강목록 삭제 -->
+  	<update id="deleteClass" parameterType="_int">
   		UPDATE
 		       TBL_CLASS A
 		   SET A.CLASS_STATUS = 'N'
 		 WHERE AND A.CLASS_NUM= #{classNum}
-  	</update> -->
+  	</update>
 
 	<!-- 시간표 목록 -->
-	<select id="selectTimeTable" resultMap="classAndInforResultMap" parameterType="ClassAndInfoDTO">
+	<select id="selectTimeTable" resultMap="classAndInforResultMap" parameterType="com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO">
 		SELECT
                C.GRADE_NAME
              , D.SUBJECT_NAME
@@ -221,7 +214,7 @@
 	
 	
 	<!-- 시간표 등록 -->
-	<select id="selectTimeInsert" parameterType="ClassDTO">
+	<select id="selectTimeInsert" parameterType="com.admin.firstedu.classInfo.model.dto.ClassDTO">
 		INSERT 
           INTO TBL_CLASS A
 	        (
@@ -238,7 +231,7 @@
 			)
 	</select>
   	
-  	<select id="searchClassCount" parameterType="SearchCriteriaDTO" resultType="_int">
+  	<select id="searchClassCount" parameterType="com.admin.firstedu.classInfo.model.dto.SearchCriteriaDTO" resultType="_int">
   	SELECT /* com.admin.firstedu.classInfo.model.dao.ClassInfoMapper#selectTotalCount() */
 		   COUNT(*)
 	   	FROM TBL_CLASS A
@@ -262,7 +255,7 @@
   	</select>
 	
 	<!-- 페이징처리 -->
-	<select id="selectTotalCount" parameterType="SearchCriteriaDTO" resultType="_int">
+	<select id="selectTotalCount" parameterType="com.admin.firstedu.classInfo.model.dto.SearchCriteriaDTO" resultType="_int">
 		SELECT /* com.admin.firstedu.classInfo.model.dao.ClassInfoMapper#selectTotalCount() */
 		   COUNT(*)
 	   	FROM TBL_CLASS A
@@ -286,7 +279,7 @@
 		  
 	</select>
 	
-	<select id="selectClassList" parameterType="SearchCriteriaDTO" resultMap="classAndInforResultMap">
+	<select id="selectClassList" parameterType="com.admin.firstedu.classInfo.model.dto.SearchCriteriaDTO" resultMap="classAndInforResultMap">
 	SELECT 
        A.CLASS_NUM
      , A.CLASS_CODE
@@ -332,6 +325,7 @@
               )B
         )A
  WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}   
+ ORDER BY A.CLASS_NUM
 	</select>
 	
 	<select id="searchClassList" parameterType="map" resultMap="classAndInforResultMap">

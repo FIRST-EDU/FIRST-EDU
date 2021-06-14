@@ -32,82 +32,140 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-	<h1 align="center">직원정보 수정하기</h1>
+	<jsp:include page="../common/commonMember.jsp"/>
 
 	<%-- 	<input type="hidden" name = "no" value="${updateMember.no}"> --%>
-	<form id="form"
-		action="${ pageContext.servletContext.contextPath }/member/update"
-		method="post">
+	<main class="common-background">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-md-6">
+            <form class="common-card teacher-detail-card" action="${ pageContext.servletContext.contextPath }/member/update" method="post">
+              <section class="teacher-input-box">
+                <article class="teacher-input-form">
+                  <div class="input-group">
+                    <input class="form-input" type="hidden" name="no" id="no"
+					value="${updateMember.no}"/>
+                  </div>
+                </article>
+                <article class="teacher-input-form">
+                  <label>직급코드</label>
+                    <div class="select-group">
+                      <select class="form-select" name="jobCode" id="jobCode">
+                        <option value="J1">원장</option>
+                        <option value="J2">부원장</option>
+                        <option value="J3">팀장</option>
+                        <option value="J4">선생님</option>
+                        <option value="J5">인턴</option>
+                      </select>
+                      <i class="fas fa-caret-down" aria-hidden></i>
+                    </div>
+                </article>
+                <article class="teacher-input-form">
+                  <label>아이디</label>
+                  <div class="input-group">
+                    <input class="form-input" type="text" name="id" id="id" value="${updateMember.id}"/>
+                  </div>
+                </article>
+                <article class="teacher-input-form">
+                  <label>이름</label>
+                  <div class="input-group"><input class="form-input" name="name" value="${updateMember.name}"/>
+                  </div>
+                </article>  
+                <article class="teacher-input-form">
+                  <label>이메일</label>
+                  <div class="input-group"><input class="form-input" type="email" name="email" value="${updateMember.email}"/></div>
+                </article>
+				<article class="teacher-input-form">
+                  <label>휴대전화</label>
+                  <div class="input-group"><input class="form-input" name="phone" value="${updateMember.phone}"/></div>
+                </article>
+				<article class="teacher-input-form">
+                  <label>우편번호</label>
+                  <div class="input-group">
+                    <input class="form-input" type="text" name="zipCode" id="zipCode"/>
+                  </div>
+                  <button type="button" class="btn-outlined-primary btn-basic" value="검색" id="searchZipCode">검색</button>
+                </article>
 
-		<table align="center" id="classListArea">
-			<tr>
-				<td><input type="hidden" name="no" id="no"
-					value="${updateMember.no}"></td>
-				<!-- <td><button onclick="return duplicationCheck()">중복확인</button></td> -->
-			</tr>
-			<tr>
-				<td>직급코드</td>
-				<td><select name="jobCode" id="jobCode">
-						<option value="J1">원장</option>
-						<option value="J2">부원장</option>
-						<option value="J3">팀장</option>
-						<option value="J4">선생님</option>
-						<option value="J5">인턴</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" id="id"
-					value="${updateMember.id}"></td>
-				<!-- <td><button onclick="return duplicationCheck()">중복확인</button></td> -->
-			</tr>
-			<tr>
-				<td>이름</td>
-				<td><input type="text" name="name"
-					value="${updateMember.name}"></td>
-			</tr>
-			<tr>
-				<td>이메일</td>
-				<td><input type="email" name="email"
-					value="${updateMember.email}"></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="phone" value="${updateMember.phone}"></td>
-			</tr>
-			<tr>
-					<td>우편번호</td>
-					<td><input type="text" name="zipCode" id="zipCode" readonly></td>
-					<td><input type="button" value="검색" class="btn btn-yg" id="searchZipCode" readonly></td>
-				</tr>
-				<tr>
-					<td>주소</td>
-					<td><input type="text" name="address1" id="address1"></td>
-					<td></td>
-				</tr>	
-				<tr>
-					<td>상세주소</td>
-					<td><input type="text" name="address2" id="address2"></td>
-					<td></td>
-				</tr>
-			<tr>
-				<td>권한</td>
-				<td><select name="role">
+                <article class="teacher-input-form">
+                  <label>주소</label>
+                  <div class="input-group">
+                    <input class="form-input" type="text" name="address1" id="address1"/>
+                  </div>
+                </article>
+
+                <article class="teacher-input-form">
+                  <label>상세주소</label>
+                  <div class="input-group">
+                    <input class="form-input" name="address2" id="address2"/>
+                  </div>
+                </article>
+                
+                <article class="teacher-input-form">
+                  <label>권한</label>
+                  <div class="select-group" >
+                    <select name="role">
 						<option value="ADMIN">ADMIN</option>
 						<option value="USER">USER</option>
-				</select></td>
-			</tr>
-		</table>
-		<br>
-		<div class="btns" align="center">
-			<input type="reset" value="메인으로" class="btn btn-yg" id="goMain"
-				onclick="location.href='${ pageContext.servletContext.contextPath }'">
-			<input type="submit" value="수정하기">
-			<button type="button"
-				onclick="location.href='${ pageContext.servletContext.contextPath }/member/delete'">탈퇴</button>
-		</div>
-	</form>
+					</select>
+                  </div>
+                </article>
 
+				<!-- <input type="button" value="검색" class="btn btn-yg" id="searchZipCode" readonly> -->
+				
+				<article class="teacher-input-btn">
+                  <button type="reset" class="btn-fill-seconary btn-basic cancel-board-btn" value="메인으로" id="goMain"
+				onclick="location.href='${ pageContext.servletContext.contextPath }'">취소</button>
+                  <div>
+                    <button type="submit" class="btn-fill-primary btn-basic confirm-btn" value="수정하기">수정</button>
+                    <button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
+                  </div>
+                </article>
+              </section>
+				<div class="modal complete-input-board-modal">
+                <div class="modal-content">
+                  <strong>직원 수정하기</strong>
+                  <p>직원을 수정하시겠습니까?</p>
+                    <div class="popup-2btn">
+                      <button type="button" class="btn-fill-seconary btn-popup back-btn">취소</button>
+                      <!-- <button type="submit" class="btn-fill-primary btn-popup complete-btn">확인</button> -->
+                      <button type="submit" class="btn-fill-primary btn-popup confirm-btn" value="수정하기">확인</button>
+                    </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-4 col-md-6">
+            <section class="common-card teacher-edit-img">
+              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/teacher-list.png" alt="">
+            </section>
+            </div>
+        </div>
+      </div>
+    </main>
+    
+    <div class="modal cancel-board-modal">
+      <div class="modal-content">
+        <strong>직원 수정 취소</strong>
+        <p>직원 수정을 취소하시겠습니까?</p>
+          <div class="popup-2btn">
+            <button type="button" class="btn-fill-seconary btn-popup back-btn back-btn">취소</button>
+            <a class="btn-fill-primary btn-popup complete-btn">확인</a>
+          </div>
+      </div>
+    </div>
+
+    <div class="modal delete-board-modal">
+    <div class="modal-content">
+      <strong>직원 삭제하기</strong>
+      <p>직원을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
+    
 	<!-- 다음 우편번호 api -->
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -125,8 +183,6 @@
 				}
 			}).open();
 		}
-
-
 		$goMain.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath}";
 		}

@@ -86,7 +86,7 @@ public class MemberController {
 			
 		model.addAttribute("loginMember", memberService.loginMember(member));
 				
-		return "redirect:/";
+		return "member/teacherList";
 	}
 	
 	
@@ -162,29 +162,18 @@ public class MemberController {
 	
 	/* 회원탙퇴 */
 	@GetMapping("/delete")
-	public void deleteForm() {
-	}
-	
-	
-	@PostMapping("/delete")
-	public String deleteMember(@ModelAttribute MemberDTO member, RedirectAttributes rttr, HttpServletRequest request) throws MemberUpdateExcption {
+	public String deleteMember(@ModelAttribute MemberDTO member, @PathVariable("no") int no, RedirectAttributes rttr) 
+			throws MemberUpdateExcption {
 		
 		System.out.println("입력된 정보를 받은 MemberDTO : " + member);
 		
-		
-		String id = request.getParameter("id");
-	
-		
-		member.setId(id);
-		member.setPwd(passwordEncoder.encode(member.getPwd()));
-		
-		if(!memberService.deleteMember(member)){
-			throw new MemberUpdateExcption(" 실패!");
+		if(!memberService.deleteMember(no)) {
+			throw new MemberUpdateExcption("수강 내역역에 실패하였습니다!");
 		}
 		
-		rttr.addFlashAttribute("message", " 탈퇴 되었습니다.");
+		rttr.addFlashAttribute("message", "수강 내역 삭제 성공하셨습니다.");
 		
-		return "member/main";
+		return "redirect:/classInfo/classList";
 	}
 	
 	

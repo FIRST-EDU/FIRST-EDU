@@ -42,12 +42,6 @@ public class ClassInfoServiceImpl implements ClassInfoService {
 		
 	}
 
-//	@Override
-//	public ClassAndInfoDTO selectUpdateMember(int no) {
-//		
-//		return classMapper.selectUpdateMember(no);
-//	}
-
 	
 	@Override
 	public List<ClassAndInfoDTO> selectTimeTable() {

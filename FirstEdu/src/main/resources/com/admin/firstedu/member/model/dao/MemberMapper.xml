@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.admin.firstedu.member.model.dao.MemberMapper">
 
-	<resultMap id="memberResultSet" type="MemberDTO">
+	<resultMap id="memberResultSet" type="com.admin.firstedu.member.model.dto.MemberDTO">
 		<id column="TEACHER_NO" property="no" />
 		<result column="JOB_CODE" property="jobCode" />
 		<result column="TEACHER_ID" property="id" />
@@ -42,7 +42,7 @@
 	 </resultMap>
 	 
 	<!-- 선생님 등록 -->
-	<insert id="insertMember" parameterType="MemberDTO">
+	<insert id="insertMember" parameterType="com.admin.firstedu.member.model.dto.MemberDTO">
 	<!-- MemberMapper에 있는 insertMember가 이 쿼리를 사용 -->
         INSERT <!-- com.admin.firstedu.member.model.dao.MemberMapper#insertMember -->
           INTO TBL_TEACHER A
@@ -60,7 +60,7 @@
 	</insert>
 	
 	<!-- 비빌번호 -->
-	<select id="selectEncPassword" resultType="java.lang.String" parameterType="MemberDTO">
+	<select id="selectEncPassword" resultType="java.lang.String" parameterType="com.admin.firstedu.member.model.dto.MemberDTO">
         SELECT 
                A.TEACHER_PWD 
           FROM TBL_TEACHER A 
@@ -69,7 +69,7 @@
 	</select>
 	
 	<!-- 회원등록 -->
-	<select id="selectMember" resultMap="memberResultSet" parameterType="MemberDTO">
+	<select id="selectMember" resultMap="memberResultSet" parameterType="com.admin.firstedu.member.model.dto.MemberDTO">
         SELECT 
                A.TEACHER_NO
              , A.JOB_CODE
@@ -96,15 +96,6 @@
          WHERE A.TEACHER_ID = #{userId} 
            AND A.TEACHER_STATUS='Y'
 	</select>
-		
-	<!-- 아이디찾기 -->	
-	<select id="findId" resultMap="memberResultSet" parameterType="MemberDTO">
-		SELECT
-			   A.TEACHER_ID
-		  FROM TBL_TEACHER A 
-         WHERE A.TEACHER_NAME = #{name} 
-           AND A.TEACHER_EMAIL= #{email}
-	</select>
 	
 	<!-- 회원탈퇴 -->
 	<update id="deleteMember" parameterType="_int">
@@ -113,16 +104,6 @@
 		   SET A.TEACHER_STATUS = 'N'
 		 WHERE A.TEACHER_NO = #{no}
 	</update>
-	
-	<!-- 비밀번호 찾기 -->
-	<select id="memberPwdFind" resultMap="memberResultSet" parameterType="MemberDTO">
-		SELECT
-			   A.TEACHER_ID
-		  FROM TBL_TEACHER A 
-		 WHERE A.TEACHER_ID = #{userId} 
-           AND A.TEACHER_NAME = #{name} 
-           AND A.TEACHER_EMAIL= #{email}
-	</select>
 	
 	<select id="selectUpdateMember" resultMap="teacherAndJobResultSet" parameterType="_int">
 		SELECT 
@@ -146,7 +127,7 @@
 	</select>
 	
 	<!-- 정보수정 -->
- 	<update id="updateMember" parameterType="MemberDTO">
+ 	<update id="updateMember" parameterType="com.admin.firstedu.member.model.dto.MemberDTO">
 		UPDATE 
 			TBL_TEACHER A
 		   SET A.TEACHER_NO = #{no}
@@ -162,7 +143,7 @@
 	</update>
 	
 	<!-- 선생님 리스트 -->
-	<select id="selectTeacherAndJob" resultMap="teacherAndJobResultSet" parameterType="TeacherAndJobDTO">
+	<select id="selectTeacherAndJob" resultMap="teacherAndJobResultSet" parameterType="com.admin.firstedu.member.model.dto.TeacherAndJobDTO">
 		SELECT /* com.admin.fristedu.member.model.dao.MemberMapper#selectTeacherAndJob() */
 	            A.TEACHER_NO
 	          , A.TEACHER_ID
@@ -202,7 +183,7 @@
   	</select>
 	
 	<!-- 검색기능 -->
-	<select id="searchMember" parameterType="TeacherAndJobDTO" resultMap="teacherAndJobResultSet">
+	<select id="searchMember" parameterType="com.admin.firstedu.member.model.dto.TeacherAndJobDTO" resultMap="teacherAndJobResultSet">
 		SELECT
                	A.TEACHER_NO
               , A.TEACHER_ID

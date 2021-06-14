@@ -25,7 +25,7 @@
 
 <body>
 	<jsp:include page="../common/commonMember.jsp" />
-	
+
 	<main class="common-background">
 	<div class="container">
 	<div class="row">
@@ -123,17 +123,14 @@
 							<td><c:out value="${list.book}" /></td>
 							<td><c:out value="${list.payment}" /></td>
 							<td class="edit-remove-btn">
-							<button type="button" id="updateBtn" class="edit-btn" aria-label="수정 버튼 " onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/classUpdate/'">상세보기</button>
-							<button type="button" id="deleteBtn" class="delete-btn" aria-label="삭제 버튼" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/delete/'">삭제</button>
+							<button type="button" id="updateBtn" class="edit-btn" >상세보기</button>
+							<button type="button" id="deleteBtn" class="delete-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/classInfo/delete/'">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-		</form>
-		<form action="${ pageContext.servletContext.contextPath }/classInfo/delete/'" method="post">
-		
-		</form>
+		</form>		
 		</div>
 	</div>
 	
@@ -258,13 +255,22 @@
 	</div>
 	<!--container -->
 	</main>
+	
 	<script>
+	$(function(){
+		$("#listArea tbody>tr>td:not(:last-child)").click(function(){
+			const no = $(this).parent().children(":eq(0)").text();
+			console.log(no);
+			location.href = "${ pageContext.servletContext.contextPath }/classInfo/detail/" + parseInt(no);
+		})
+	})	
+	
 	$("#updateBtn").click(function(){
-		alert($("#classNum").val())
-		const no = $("#classNum").val();
-		console.log(no);
-		location.href="${pageContext.servletContext.contextPath}/classInfo/classUpdate/" + parseInt(no);
-	})
+			alert($("#classNum").val())
+			const no = $("#classNum").val();
+			console.log(no);
+			location.href="${pageContext.servletContext.contextPath}/classInfo/classUpdate/" + parseInt(no);
+		})
 	
 	$("#deleteBtn").click(function(){
 			alert($("#classNum").val())
@@ -272,15 +278,6 @@
 			console.log(no);
 			location.href="${pageContext.servletContext.contextPath}/classInfo/classDelete/" + parseInt(no);
 	})
-	
-	$(function(){
-			$("#listArea tbody>tr>td:not(:last-child)").click(function(){
-				const no = $(this).parent().children(":eq(0)").text();
-				console.log(no);
-				location.href = "${ pageContext.servletContext.contextPath }/classInfo/detail/" + parseInt(no);
-			})
-		})	
-	
 	
 	</script>
 

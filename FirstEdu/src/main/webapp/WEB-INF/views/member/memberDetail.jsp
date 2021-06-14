@@ -36,50 +36,49 @@
 
 	<input type="hidden" id="no" value="${memberDetail.no}">
 	<jsp:include page="../common/commonMember.jsp" />
-
 	<main class="common-background">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-md-6">
 					<form class="common-card teacher-detail-card">
-						<section class="common-table-card consult-table-card">
+						<section class="teacher-input-box">
 							<article class="teacher-input-form">
-								<label>아이디</label>
+								<label>회원번호</label>
 								<div class="input-group">
-									<input class="form-input" value="${memberDetail.no}" readonly />
+									<input class="form-input" value="${memberDetail.no}"/>
 								</div>
 							</article>
 							<article class="teacher-input-form" id="classListArea">
 								<label>아이디</label>
 								<div class="input-group">
-									<input class="form-input" value="${memberDetail.id}" readonly />
+									<input class="form-input" value="${memberDetail.id}"  />
 								</div>
 							</article>
 							<article class="teacher-input-form">
 								<label>직급코드</label>
 								<div class="input-group">
-									<input class="form-input" value="${memberDetail.jobCode}" readonly />
+									<input class="form-input" value="${memberDetail.jobCode}"  />
 								</div>
 							</article>
 
 							<article class="teacher-input-form">
 								<label>이름</label>
 								<div class="input-group">
-									<input class="form-input" value="${memberDetail.name}" readonly/>
+									<input class="form-input" value="${memberDetail.name}" />
 								</div>
 							</article>
 
 							<article class="teacher-input-form">
 								<label>이메일</label>
 								<div class="input-group">
-									<input class="form-input" type="email" value="${memberDetail.email}" readonly/>
+									<input class="form-input" type="email" value="${memberDetail.email}" />
 								</div>
 							</article>
 
 							<article class="teacher-input-form">
 								<label>휴대전화</label>
 								<div class="input-group">
-									<input class="form-input" value="${memberDetail.phone}" readonly/>
+									<input class="form-input" value="${memberDetail.phone}" />
 								</div>
 							</article>
 
@@ -90,7 +89,6 @@
 										value="${memberDetail.address}" />
 								</div>
 							</article>
-
 							<article class="teacher-input-form">
 								<div class="date-align">
 									<label>입사일</label>
@@ -99,7 +97,6 @@
 									</div>
 								</div>
 							</article>
-
 							<article class="teacher-input-form">
 								<div class="date-align">
 									<label>근무여부</label>
@@ -109,10 +106,9 @@
 								</div>
 							</article>
 							<article class="teacher-input-btn">
-								<a href="teacher-list.html" class="btn-fill-seconary btn-basic">목록</a>
 								<div>
-									<button type="button" class="btn-fill-seconary btn-basic delete-b-btn">삭제</button>
-									<a id="updateBtn" class="btn-fill-primary btn-basic confirm-btn" onclick="location.href='${ pageContext.servletContext.contextPath}/member/update'">수정</a>
+									<a class="btn-fill-seconary btn-basic" onclick="location.href='${ pageContext.servletContext.contextPath}/member/teacherList'">목록</a>
+									<a id="updateBtn" class="btn-fill-primary btn-basic confirm-btn" onclick="location.href='${ pageContext.servletContext.contextPath}/member/update'">수정하러가기</a>
 								</div>
 							</article>
 						</section>
@@ -135,8 +131,7 @@
 			<strong>직원 삭제하기</strong>
 			<p>직원을 삭제하시겠습니까?</p>
 			<div class="popup-2btn">
-				<button type="button"
-					class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
+				<button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
 				<button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
 			</div>
 		</div>

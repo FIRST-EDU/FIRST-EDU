@@ -17,7 +17,7 @@ public interface MemberMapper {
 
 	String idDupCheck(String userId);
 	
-	boolean deleteMember(MemberDTO member);
+	boolean deleteMember(int no);
 
 	List<TeacherAndJobDTO> selectTeacherAndJob();
 

@@ -11,7 +11,7 @@ public class MainController {
 	@GetMapping(value={"/", "main"})
 	public String main() {
 
-		return "member/findPwd";
+		return "main/main";
 	}
 }
 

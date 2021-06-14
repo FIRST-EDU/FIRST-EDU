@@ -65,7 +65,7 @@ public class ClassInfoController {
 			throws MemberRegistException {
 
 		if(!classListService.classRegist(classDTO)){
-			throw new MemberRegistException(" 실패!");
+			throw new MemberRegistException("수강목록 등실패!");
 		}
 		
 		rttr.addFlashAttribute("message", "과목 수정에 성공하셨습니다.");
@@ -131,29 +131,13 @@ public class ClassInfoController {
 	@GetMapping("delete/{no}")
 	public String deleteClass(@ModelAttribute ClassDTO classDTO, @PathVariable("no") int no, RedirectAttributes rttr, HttpServletRequest request) 
 			throws MemberUpdateExcption {
-		System.out.println(classDTO);
-		
-//		String day = request.getParameter("day");
-//		int room = Integer.parseInt(request.getParameter("room"));
-//		String startTime = request.getParameter("startTime");
-//		String endTime = request.getParameter("endTime");
-//		String book = request.getParameter("book");
-//		int payment = Integer.parseInt(request.getParameter("payment"));
-//		int classNum =  Integer.parseInt(request.getParameter("classNum"));
-//		
-//		classDTO.setDay(day);
-//		classDTO.setRoom(room);
-//		classDTO.setStartTime(startTime);
-//		classDTO.setEndTime(endTime);
-//		classDTO.setBook(book);
-//		classDTO.setPayment(payment);
-//		classDTO.setClassNum(classNum);
+
 		
 		if(!classListService.deleteClass(no)) {
-			throw new MemberUpdateExcption("실패!");
+			throw new MemberUpdateExcption("수강 내역역에 실패하였습니다!");
 		}
 		
-		rttr.addFlashAttribute("message", "삭제 성공");
+		rttr.addFlashAttribute("message", "수강 내역 삭제 성공하셨습니다.");
 		
 		return "redirect:/classInfo/classList";
 	}

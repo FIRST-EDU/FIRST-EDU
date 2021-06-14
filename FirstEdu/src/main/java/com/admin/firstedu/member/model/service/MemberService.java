@@ -17,7 +17,7 @@ public interface MemberService {
 
 	String idDupCheck(String userId);
 	
-	boolean deleteMember(MemberDTO member);
+	boolean deleteMember(int no);
 
 	List<TeacherAndJobDTO> selectTeacherAndJob();
 

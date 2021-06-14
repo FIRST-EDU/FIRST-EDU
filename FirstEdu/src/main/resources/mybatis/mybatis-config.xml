@@ -5,10 +5,11 @@
   
 <configuration>
   	<typeAliases>
- 		<typeAlias alias="MemberDTO" type="com.admin.firstedu.member.model.dto.MemberDTO"/>
+ 		<!-- <typeAlias alias="MemberDTO" type="com.admin.firstedu.member.model.dto.MemberDTO"/>
  		<typeAlias alias="TeacherAndJobDTO" type="com.admin.firstedu.member.model.dto.TeacherAndJobDTO"/>
  		<typeAlias alias="ClassAndInfoDTO" type="com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO"/>
  		<typeAlias alias="ClassDTO" type="com.admin.firstedu.classInfo.model.dto.ClassDTO"/>
- 		<typeAlias alias="SearchCriteriaDTO" type="com.admin.firstedu.classInfo.model.dto.SearchCriteriaDTO"/>
+ 		<typeAlias alias="SearchCriteriaDTO" type="com.admin.firstedu.classInfo.model.dto.SearchCriteriaDTO"/> -->
  	</typeAliases>
 </configuration>
+

@@ -64,8 +64,8 @@ public class MemberServiceImpl implements MemberService {
 
 	/* 회원탈퇴 */
 	@Override
-	public boolean deleteMember(MemberDTO member) {
-		return mapper.deleteMember(member);
+	public boolean deleteMember(int no) {
+		return mapper.deleteMember(no);
 	}
 
 	/* 회원상세정보 */
