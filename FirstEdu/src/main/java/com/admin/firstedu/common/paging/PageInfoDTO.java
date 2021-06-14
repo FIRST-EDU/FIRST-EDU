@@ -1,4 +1,4 @@
-package com.admin.firstedu.grade.model.dto;
+package com.admin.firstedu.common.paging;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

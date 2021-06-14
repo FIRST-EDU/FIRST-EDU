@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.exception.ExamException;
+import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.grade.model.dto.ClassExamInfoDTO;
 import com.admin.firstedu.grade.model.dto.ColorDTO;
@@ -24,7 +25,6 @@ import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
-import com.admin.firstedu.grade.model.dto.PageInfoDTO;
 import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 import com.google.gson.Gson;

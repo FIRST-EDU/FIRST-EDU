@@ -5,6 +5,7 @@
   
 <configuration>
 	<typeAliases>
+	    <!-- 시험 관리 -->
  		<typeAlias alias="ClassExamInfoDTO" type="com.admin.firstedu.grade.model.dto.ClassExamInfoDTO"/>
  		<typeAlias alias="ColorDTO" type="com.admin.firstedu.grade.model.dto.ColorDTO"/>
  		<typeAlias alias="ExamCategoryDTO" type="com.admin.firstedu.grade.model.dto.ExamCategoryDTO"/>
@@ -24,5 +25,31 @@
  		<typeAlias alias="StudentDTO" type="com.admin.firstedu.grade.model.dto.StudentDTO"/>
  		<typeAlias alias="StudentAndGradeDTO" type="com.admin.firstedu.grade.model.dto.StudentAndGradeDTO"/>
  		<typeAlias alias="SubjectCategoryDTO" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO"/>
- 	</typeAliases>
+
+		<!-- 원생관리 -->
+		<typeAlias alias="ClassBasicInfoDTO" type="com.admin.firstedu.student.model.dto.ClassBasicInfoDTO"/>
+		<typeAlias alias="ClassDTO" type="com.admin.firstedu.student.model.dto.ClassDTO"/>
+		<typeAlias alias="ClassInfoAndClassDTO" type="com.admin.firstedu.student.model.dto.ClassInfoAndClassDTO"/>
+		<typeAlias alias="ClassInfoDTO" type="com.admin.firstedu.student.model.dto.ClassInfoDTO"/>
+		<typeAlias alias="GradeDTO" type="com.admin.firstedu.student.model.dto.GradeDTO"/>
+		<typeAlias alias="PageInfoDTO" type="com.admin.firstedu.student.model.dto.PageInfoDTO"/>
+		<typeAlias alias="SchoolDTO" type="com.admin.firstedu.student.model.dto.SchoolDTO"/>
+		<typeAlias alias="StudentAndGradeDTO" type="com.admin.firstedu.student.model.dto.StudentAndGradeDTO"/>
+		<typeAlias alias="StudentClassInfoDTO" type="com.admin.firstedu.student.model.dto.StudentClassInfoDTO"/>
+		<typeAlias alias="StudentDTO" type="com.admin.firstedu.student.model.dto.StudentDTO"/>
+		<typeAlias alias="StudentFullInfoDTO" type="com.admin.firstedu.student.model.dto.StudentFullInfoDTO"/>
+		<typeAlias alias="StudentQuitListDTO" type="com.admin.firstedu.student.model.dto.StudentQuitListDTO"/>
+		<typeAlias alias="StudentRegistListDTO" type="com.admin.firstedu.student.model.dto.StudentRegistListDTO"/>
+		<typeAlias alias="StudentSearchCriteria" type="com.admin.firstedu.student.model.dto.StudentSearchCriteria"/>
+		
+		<!-- 대시보드 -->
+		<typeAlias alias="SalesStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalesStatisticsDTO"/>
+		<typeAlias alias="SalaryStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.SalaryStatisticsDTO"/>
+		<typeAlias alias="StudentClassStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentClassStatisticsDTO"/>
+		<typeAlias alias="StudentGradeStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentGradeStatisticsDTO"/>
+		<typeAlias alias="StudentSchoolStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentSchoolStatisticsDTO"/>
+		<typeAlias alias="StudentStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.StudentStatisticsDTO"/>
+		<typeAlias alias="TeacherStatisticsDTO" type="com.admin.firstedu.dashboard.model.dto.TeacherStatisticsDTO"/>
+
+	</typeAliases>
 </configuration>

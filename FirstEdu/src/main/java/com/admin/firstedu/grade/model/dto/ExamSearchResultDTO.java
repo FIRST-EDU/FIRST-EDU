@@ -2,6 +2,8 @@ package com.admin.firstedu.grade.model.dto;
 
 import java.util.List;
 
+import com.admin.firstedu.common.paging.PageInfoDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

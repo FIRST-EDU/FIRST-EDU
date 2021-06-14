@@ -1,7 +1,5 @@
 package com.admin.firstedu.common.paging;
 
-import com.admin.firstedu.grade.model.dto.PageInfoDTO;
-
 public class Pagenation {
 
 	public static PageInfoDTO getPageInfo(int pageNo, int totalCount, int limit, int buttonAmount) {
