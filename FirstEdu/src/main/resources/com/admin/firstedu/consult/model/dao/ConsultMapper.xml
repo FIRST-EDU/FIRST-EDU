@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.admin.firstedu.consult.model.dao.ConsultMapper">
- 	<resultMap type="ConsultDTO" id="consultResultMap">
+ 	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultDTO" id="consultResultMap">
  		<id property="consultNo" column="CONSULT_NO"/>
  		<result property="consultDate" column="CONSULT_DATE"/>
  		<result property="consultContent" column="CONSULT_CONTENT"/>
@@ -50,12 +50,12 @@
       <result column="TEACHER_STATUS" property="status" />
    </resultMap>
   	
-  	<resultMap type="ConsultCategoryDTO" id="consultCategoryResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultCategoryDTO" id="consultCategoryResultMap">
   		<id property="categoryNo" column="TC_CATEGORY_NO"/>
   		<result property="consultOption" column="CONSULT_OPTION"/>
   	</resultMap>
   	
-  	<resultMap type="ConsultListDTO" id="consultListResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultListDTO" id="consultListResultMap">
   		<id property="consultNo" column="CONSULT_NO"/>
   		<result property="consultDate" column="CONSULT_DATE"/>
   		<result property="consultContent" column="CONSULT_CONTENT"/>
@@ -65,7 +65,7 @@
   		<collection property="category" resultMap="consultCategoryResultMap"/>
   	</resultMap>
   	
-  	<resultMap type="ConsultInfoDTO" id="consultInfoResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultInfoDTO" id="consultInfoResultMap">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="name" column="STUDENT_NAME"/>
   		<result property="school" column="SCHOOL"/>
@@ -282,7 +282,7 @@
 		  ]]>
   	</select>
   	
-  	<insert id="insertConsult" parameterType="ConsultDTO">
+  	<insert id="insertConsult" parameterType="com.admin.firstedu.consult.model.dto.ConsultDTO">
   		INSERT
   		  INTO TBL_CONSULT A
   		(
@@ -306,7 +306,7 @@
   		)
   	</insert>
   	
-  	<update id="updateConsult" parameterType="ConsultDTO">
+  	<update id="updateConsult" parameterType="com.admin.firstedu.consult.model.dto.ConsultDTO">
   		UPDATE 
   			   TBL_CONSULT A
   		   SET

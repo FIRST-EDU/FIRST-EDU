@@ -6,7 +6,7 @@
 <mapper namespace="com.admin.firstedu.grade.model.dao.ExamMapper">
 
 	<!-- TBL_EXAM DTO -->
-	<resultMap id="examResultMap" type="ExamDTO">
+	<resultMap id="examResultMap" type="com.admin.firstedu.grade.model.dto.ExamDTO">
 		<id column="EXAM_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NO" property="categoryNo"/>
 		<result column="EXAM_NAME" property="name"/>
@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<!-- TBL_EXAM_CATEGORY DTO -->
-	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
+	<resultMap id="examCategoryResultMap" type="com.admin.firstedu.grade.model.dto.ExamCategoryDTO">
 		<id column="EXAM_CATEGORY_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NAME" property="name"/>
 		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
@@ -27,7 +27,7 @@
 	</resultMap>
 	
 	<!-- TBL_COLOR DTO -->
-	<resultMap id="colorResultMap" type="ColorDTO">
+	<resultMap id="colorResultMap" type="com.admin.firstedu.grade.model.dto.ColorDTO">
 		<id column="COLOR_NO" property="no"/>
 		<result column="COLOR_NAME" property="name"/>
 		<result column="TAG_CLASS_NAME" property="tagClassName"/>
@@ -35,7 +35,7 @@
 	</resultMap>
 
 	<!-- 시험 카테고리 모든 정보 DTO -->
-	<resultMap id="examCategoryFullInfoResultMap" type="ExamCategoryFullInfoDTO">
+	<resultMap id="examCategoryFullInfoResultMap" type="com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO">
 		<id column="EXAM_CATEGORY_NO" property="no"/>
 		<result column="EXAM_CATEGORY_NAME" property="name"/>
 		<association resultMap="examCategoryResultMap" property="refCategory" columnPrefix="REF_"/>
@@ -43,13 +43,13 @@
 	</resultMap>
 	
 	<!-- TBL_GRADE DTO -->
-	<resultMap id="gradeResultMap" type="GradeDTO">
+	<resultMap id="gradeResultMap" type="com.admin.firstedu.grade.model.dto.GradeDTO">
 		<id column="GRADE_CODE" property="code"/>
 		<result column="GRADE_NAME" property="name"/>
 	</resultMap>
 	
 	<!-- 시험 대상 강의 정보 DTO -->
-	<resultMap id="classExamInfoResultMap" type="ClassExamInfoDTO">
+	<resultMap id="classExamInfoResultMap" type="com.admin.firstedu.grade.model.dto.ClassExamInfoDTO">
 		<id column="CLASS_CODE" property="classCode"/>
 		<result column="CLASS_NAME" property="className"/>
 		<result column="TEACHER_NO" property="teacherNo"/>
@@ -58,13 +58,13 @@
 	</resultMap>
 	
 	<!-- TBL_SUBJECT_CATEGORY DTO -->
-	<resultMap id="subjectCategoryResultMap" type="SubjectCategoryDTO">
+	<resultMap id="subjectCategoryResultMap" type="com.admin.firstedu.grade.model.dto.SubjectCategoryDTO">
 		<id column="SUBJECT_NO" property="no"/>
 		<result column="SUBJECT_NAME" property="name"/>
 	</resultMap>
 	
 	<!-- 시험 정보 조인용 -->
-	<resultMap id="examFullInfoResultMap" type="ExamFullInfoDTO">
+	<resultMap id="examFullInfoResultMap" type="com.admin.firstedu.grade.model.dto.ExamFullInfoDTO">
 		<result column="EXAM_NO" property="examNo"/>
 		<result column="EXAM_NAME" property="examName"/>
 		<result column="START_DATE" property="startDate"/>
@@ -76,7 +76,7 @@
  	</resultMap>
  	
  	<!-- 시험 목록 조회용 -->
-	<resultMap id="examListInfoResultMap" type="ExamListInfoDTO">
+	<resultMap id="examListInfoResultMap" type="com.admin.firstedu.grade.model.dto.ExamListInfoDTO">
 		<result column="EXAM_CATEGORY_NO" property="examCategoryNo"/>
 		<result column="EXAM_CATEGORY_NAME" property="examCategoryName"/>
 		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
@@ -92,7 +92,7 @@
  	</resultMap>
  	
  	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO -->
-	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="HagwonExamScoreBasicInfoDTO">
+	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO">
 		<result column="STUDENT_NO" property="studentNo"/>
 		<result column="EXAM_NO" property="examNo"/>
 		<result column="SUBJECT_NO" property="subjectNo"/>
@@ -115,7 +115,7 @@
 	</select>
 
 	<!-- 시험 일정 검색 -->
-	<select id="searchExamScheduleList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+	<select id="searchExamScheduleList" parameterType="com.admin.firstedu.grade.model.dto.ExamSearchCriteria" resultMap="examListInfoResultMap">
 		SELECT
 		       V.COLOR_CODE_HEX
 		     , V.EXAM_NO
@@ -148,7 +148,7 @@
 	</select>
 	
 	<!-- 검색 결과 시험 개수 조회 -->
-	<select id="selectTotalCount" parameterType="ExamSearchCriteria" resultType="_int">
+	<select id="selectTotalCount" parameterType="com.admin.firstedu.grade.model.dto.ExamSearchCriteria" resultType="_int">
 		SELECT
 		       COUNT(V.EXAM_NO)
 		  FROM V_EXAM_LIST V
@@ -175,7 +175,7 @@
 	</select>
 	
 	<!-- 시험 목록 검색(페이징 처리) -->
-	<select id="searchExamList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+	<select id="searchExamList" parameterType="com.admin.firstedu.grade.model.dto.ExamSearchCriteria" resultMap="examListInfoResultMap">
     	SELECT
     	       A.RNUM
     	     , A.EXAM_CATEGORY_NO
@@ -284,7 +284,7 @@
 	</select>
 	
 	<!-- 시험 일정 등록 -->
-	<insert id="insertExam" parameterType="ExamDTO">
+	<insert id="insertExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
 		INSERT
 		  INTO TBL_EXAM A
 		(
@@ -357,7 +357,7 @@
 	</select>
 	
 	<!-- 시험 등록 시 성적 기본 정보도 등록 -->
-	<insert id="insertHagwonExamScoreBasicInfo" parameterType="HagwonExamScoreBasicInfoListDTO">
+	<insert id="insertHagwonExamScoreBasicInfo" parameterType="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO">
 		INSERT
 		  INTO TBL_EXAM_SCORE A
 		(
@@ -379,7 +379,7 @@
 	</insert>
 	
 	<!-- 시험 일정 수정 -->
-	<update id="updateExam" parameterType="ExamDTO">
+	<update id="updateExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
 		UPDATE
 		       TBL_EXAM A
 		<set>
@@ -417,7 +417,7 @@
 	</update>
 	
 	<!-- 학원 시험 카테고리 등록 -->
-	<insert id="insertExamCategory" parameterType="ExamCategoryDTO">
+	<insert id="insertExamCategory" parameterType="com.admin.firstedu.grade.model.dto.ExamCategoryDTO">
 		INSERT
 		  INTO TBL_EXAM_CATEGORY A
 		(
@@ -440,7 +440,7 @@
 	</insert>
 	
 	<!-- 시험 카테고리 수정 -->
-	<update id="updateExamCategory" parameterType="ExamCategoryDTO">
+	<update id="updateExamCategory" parameterType="com.admin.firstedu.grade.model.dto.ExamCategoryDTO">
 		UPDATE
 		       TBL_EXAM_CATEGORY A
 	    <set>

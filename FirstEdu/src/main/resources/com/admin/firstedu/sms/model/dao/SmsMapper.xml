@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
  <mapper namespace="com.admin.firstedu.sms.model.dao.SmsMapper">
- 	<resultMap type="SmsDTO" id="smsResultMap">
+ 	<resultMap type="com.admin.firstedu.sms.model.dto.SmsDTO" id="smsResultMap">
  		<id property="smsNo" column="SMS_NO"/>
  		<result property="parentsPhone" column="PARENTS_PHONE"/>
  		<result property="smsContent" column="SMS_CONTENT"/>
@@ -55,7 +55,7 @@
   	</resultMap>
   	
  	
- 	<resultMap type="SmsAndStudentDTO" id="smsAndStudentDTOResultMap">
+ 	<resultMap type="com.admin.firstedu.sms.model.dto.SmsAndStudentDTO" id="smsAndStudentDTOResultMap">
  		<id property="smsNo" column="SMS_NO"/>
  		<result property="smsContent" column="SMS_CONTENT"/>
  		<result property="sendTime" column="SEND_TIME"/>
@@ -176,7 +176,7 @@
   		  </if>
   	</select>
  	
- 	<insert id="sendMessage" parameterType="SmsDTO">
+ 	<insert id="sendMessage" parameterType="com.admin.firstedu.sms.model.dto.SmsDTO">
  		INSERT INTO 
  		    TBL_SMS
  		(

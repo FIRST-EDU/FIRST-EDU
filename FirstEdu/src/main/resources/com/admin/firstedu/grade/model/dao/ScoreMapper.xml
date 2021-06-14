@@ -6,7 +6,7 @@
 <mapper namespace="com.admin.firstedu.grade.model.dao.ScoreMapper">
 
 	<!-- 성적 테이블 DTO -->
-	<resultMap id="scoreResultMap" type="ScoreDTO">
+	<resultMap id="scoreResultMap" type="com.admin.firstedu.grade.model.dto.ScoreDTO">
 		<id column="SCORE_NO" property="no"/>
 		<result column="STUDENT_NO" property="studentNo"/>
 		<result column="EXAM_NO" property="examNo"/>
@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<!-- 학생 테이블 DTO -->
-     <resultMap type="StudentDTO" id="studentResultMap">
+     <resultMap type="com.admin.firstedu.grade.model.dto.StudentDTO" id="studentResultMap">
         <id property="no" column="STUDENT_NO"/>
         <result property="gradeCode" column="GRADE_CODE"/>
         <result property="studentName" column="STUDENT_NAME"/>
@@ -39,7 +39,7 @@
      </resultMap>
 
 	<!-- 학생, 학년 join DTO -->
-	<resultMap type="StudentAndGradeDTO" id="studentAndGradeResultMap">
+	<resultMap type="com.admin.firstedu.grade.model.dto.StudentAndGradeDTO" id="studentAndGradeResultMap">
         <id property="no" column="STUDENT_NO"/>
         <result property="studentName" column="STUDENT_NAME"/>
         <result property="parentsName" column="PARENTS_NAME"/>
@@ -55,7 +55,7 @@
     </resultMap>
 
 	<!-- 성적 모든 정보 조회용 DTO -->
-	<resultMap id="scoreFullInfoResultMap" type="ScoreFullInfoDTO">
+	<resultMap id="scoreFullInfoResultMap" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO">
 		<id column="SCORE_NO" property="no"/>
 		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
 		<result column="TARGET_SCORE" property="targetScore"/>
@@ -73,7 +73,7 @@
 
 
 	<!-- 성적 조회 (검색 포함) -->
-	<select id="selectScoreList" parameterType="ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
+	<select id="selectScoreList" parameterType="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
 		SELECT
 		       A.SCORE_NO
 		     , A.SUBJECT_DETAIL
@@ -117,7 +117,7 @@
 	</select>
 	
 	<!-- 성적 등록 -->
-	<insert id="insertScore" parameterType="ScoreListDTO">
+	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreListDTO">
 		INSERT
 		  INTO TBL_EXAM_SCORE A
 		(
@@ -154,7 +154,7 @@
 	</insert>
 	
 	<!-- 성적 수정 -->
-	<update id="updateScore" parameterType="ModifiedScoreDTO">
+	<update id="updateScore" parameterType="com.admin.firstedu.grade.model.dto.ModifiedScoreDTO">
 		UPDATE
 		       TBL_EXAM_SCORE A
 		   SET A.${ modifiedColumn } = #{ modifiedValue }

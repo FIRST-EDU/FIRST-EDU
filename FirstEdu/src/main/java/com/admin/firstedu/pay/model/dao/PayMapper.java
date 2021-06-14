@@ -3,11 +3,10 @@ package com.admin.firstedu.pay.model.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.admin.firstedu.pay.model.dto.PageInfoDTO;
+import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
-import com.admin.firstedu.pay.model.dto.StudentAndClassDTO;
 import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 
 public interface PayMapper {

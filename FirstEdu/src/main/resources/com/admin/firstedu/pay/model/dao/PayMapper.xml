@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.admin.firstedu.pay.model.dao.PayMapper">
-  	<resultMap type="PayDTO" id="payResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.PayDTO" id="payResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="classNo" column="CLASS_NO"/>
   		<result property="studentNo" column="STUDENT_NO"/>
@@ -25,7 +25,7 @@
   		<result property="subjectCode" column="CLASS_CODE"/>
   	</resultMap>
   	
-  	<resultMap type="DiscountDTO" id="discountResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.DiscountDTO" id="discountResultMap">
   		<id property="discountNo" column="DISCOUNT_NO"/>
   		<result property="discountRate" column="DISCOUNT_RATE"/>
   		<result property="discountReason" column="DISCOUNT_REASON"/>
@@ -77,7 +77,7 @@
   		<collection property="grade" resultMap="gradeResultMap"/>  		
   	</resultMap>
   	
-  	<resultMap type="PayListDTO" id="payListResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.PayListDTO" id="payListResultMap">
   		<id property="payNo" column="PAY_NO"/>
   		<result property="payYn" column="PAY_YN"/>
   		<result property="payOption" column="PAY_OPTION"/>
@@ -242,7 +242,7 @@
   	
   	<!-- <select id="selectClassInfo" resultMap=""></select> -->
   	
-  	<insert id="insertPay" parameterType="PayDTO">
+  	<insert id="insertPay" parameterType="com.admin.firstedu.pay.model.dto.PayDTO">
   		INSERT /* com.admin.firstEdu.pay.controller.insertPay*/
   		  INTO TBL_PAY A
   		(
@@ -272,7 +272,7 @@
   		)
   	</insert>
   	
-  	<update id="updatePay" parameterType="PayDTO">
+  	<update id="updatePay" parameterType="com.admin.firstedu.pay.model.dto.PayDTO">
   		UPDATE /* com.admin.firstEdu.pay.controller.updatePay*/
   			   TBL_PAY A
   		   SET A.PAY_YN = #{payYn}
@@ -386,7 +386,7 @@
 		WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
   	</select>
   	
-  	<select id="searchStudentNamePayList" parameterType="PayListDTO" resultMap="payListResultMap">
+  	<select id="searchStudentNamePayList" parameterType="com.admin.firstedu.pay.model.dto.PayListDTO" resultMap="payListResultMap">
   		SELECT /* com.admin.firstEdu.pay.controller.searchStudentNamePayList*/
 		       A.RNUM
 		     , A.PAY_NO
@@ -434,7 +434,7 @@
 		WHERE A.RNUM BETWEEN #{startRow} AND #{endRow}
   	</select>
   	
-  	<select id="searchClassNamePayList" parameterType="PayListDTO" resultMap="payListResultMap">
+  	<select id="searchClassNamePayList" parameterType="com.admin.firstedu.pay.model.dto.PayListDTO" resultMap="payListResultMap">
   		SELECT /* com.admin.firstEdu.pay.controller.searchClassNamePayList*/
 		       A.RNUM
 		     , A.PAY_NO

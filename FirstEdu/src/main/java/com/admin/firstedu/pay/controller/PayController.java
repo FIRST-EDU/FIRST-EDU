@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.admin.firstedu.paging.Pagenation;
-import com.admin.firstedu.pay.model.dto.PageInfoDTO;
+import com.admin.firstedu.common.paging.PageInfoDTO;
+import com.admin.firstedu.common.paging.Pagenation;
 import com.admin.firstedu.pay.model.dto.PayDTO;
 import com.admin.firstedu.pay.model.dto.PayListDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
