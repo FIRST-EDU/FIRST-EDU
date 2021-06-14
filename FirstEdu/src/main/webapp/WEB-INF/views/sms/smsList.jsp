@@ -267,6 +267,12 @@
 						+ "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
 			}
 		}
+		
+		$("#smsList td").click(function(){
+			
+			const no = this.parentNode.children[0].innerText;
+			location.href="${pageContext.servletContext.contextPath}/sms/detail/" + no;
+		})
 </script>
 
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>

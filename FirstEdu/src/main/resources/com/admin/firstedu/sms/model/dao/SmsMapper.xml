@@ -195,4 +195,16 @@
  		, 'Y'
  		)
  	</insert>
+ 	
+ 	<select id="selectSmsDetail" parameterType="_int" resultMap="smsAndStudentDTOResultMap">
+ 		SELECT
+ 			   A.SMS_NO
+ 			 , A.PARENTS_PHONE
+ 			 , A.SMS_CONTENT
+ 			 , A.SEND_TIME
+ 			 , B.STUDENT_NAME
+ 		  FROM TBL_SMS A
+ 		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+ 		  WHERE A.SMS_NO = #{no}
+ 	</select>
  </mapper>

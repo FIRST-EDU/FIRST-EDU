@@ -53,4 +53,10 @@ public class SmsServiceImpl implements SmsService{
 		return smsMapper.selectStudentList(map);
 	}
 
+	@Override
+	public SmsAndStudentDTO selectSmsDetail(int no) {
+		// TODO Auto-generated method stub
+		return smsMapper.selectSmsDetail(no);
+	}
+
 }

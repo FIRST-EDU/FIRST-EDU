@@ -358,5 +358,6 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
+
 </body>
 </html>
