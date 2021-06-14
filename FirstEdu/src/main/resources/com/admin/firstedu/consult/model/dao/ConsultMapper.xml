@@ -14,7 +14,7 @@
  		<result property="consultYn" column="CONSULT_YN"/>
  	</resultMap>
  	
- 	<resultMap type="StudentDTO" id="studentResultMap">
+ 	<resultMap type="com.admin.firstedu.consult.model.dto.StudentDTO" id="studentResultMap">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="grade" column="GRADE_CODE"/>
   		<result property="studentName" column="STUDENT_NAME"/>
@@ -29,12 +29,12 @@
   		<result property="status" column="STATUS"/>
   	</resultMap>
   	
-  	<resultMap type="GradeDTO" id="gradeResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.GradeDTO" id="gradeResultMap">
   		<id property="gradeCode" column="GRADE_CODE"/>
   		<result property="gradeName" column="GRADE_NAME"/>
   	</resultMap>
   	
-  	<resultMap type="TeacherDTO" id="teacherResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.TeacherDTO" id="teacherResultMap">
       <id column="TEACHER_NO" property="no" />
       <result column="JOB_CODE" property="jobCode" />
       <result column="TEACHER_ID" property="id" />
@@ -74,7 +74,7 @@
   		<collection property="grade" resultMap="gradeResultMap"/>
   	</resultMap>
   	
-  	<resultMap type="ClassDTO" id="classResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ClassDTO" id="classResultMap">
   		<id property="classCode" column="CLASS_CODE"/>
   		<result property="classRoom" column="CLASS_ROOM"/>
   		<result property="className" column="CLASS_NAME"/>
@@ -87,7 +87,7 @@
   		<result property="teacherNo" column="TEACHER_NO"/>
   	</resultMap>
   	
-  	<resultMap type="ClassInfoDTO" id="classInfoResultMap">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ClassInfoDTO" id="classInfoResultMap">
   		<id property="no" column="CLASS_NO"/>
   		<result property="beginDate" column="BEGIN_DATE"/>
   		<result property="endDate" column="END_DATE"/>
@@ -95,7 +95,7 @@
   		<result property="subjectCode" column="CLASS_CODE"/>
   	</resultMap>
   	
-  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  	<resultMap type="com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO" id="studentResultMap2">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="studentName" column="STUDENT_NAME"/>
   		<result property="studentPhone" column="STUDENT_PHONE"/>
@@ -106,7 +106,7 @@
   		<collection property="grade" resultMap="gradeResultMap"/>  		
   	</resultMap>
   	
-  	<select id="searchTotalCount" parameterType="SearchCriteria" resultType="_int">
+  	<select id="searchTotalCount" parameterType="com.admin.firstedu.consult.model.dto.SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_CONSULT A
 		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
@@ -133,7 +133,7 @@
 	   AND A.CONSULT_YN = 'Y'
   	</select>
   	
-  	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
+  	<select id="selectStudentTotal" parameterType="com.admin.firstedu.consult.model.dto.SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_STUDENT A
   		  WHERE A.STATUS = 'Y'

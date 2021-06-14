@@ -17,7 +17,7 @@
   		<result property="payStatus" column="PAY_STATUS"/>
   	</resultMap>
   	
-  	<resultMap type="ClassInfoDTO" id="classInfoResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.ClassInfoDTO" id="classInfoResultMap">
   		<id property="no" column="CLASS_NO"/>
   		<result property="beginDate" column="BEGIN_DATE"/>
   		<result property="endDate" column="END_DATE"/>
@@ -31,12 +31,12 @@
   		<result property="discountReason" column="DISCOUNT_REASON"/>
   	</resultMap>
   	
-  	<resultMap type="GradeDTO" id="gradeResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.GradeDTO" id="gradeResultMap">
   		<id property="gradeCode" column="GRADE_CODE"/>
   		<result property="gradeName" column="GRADE_NAME"/>
   	</resultMap>
   	
-  	<resultMap type="StudentDTO" id="studentResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.StudentDTO" id="studentResultMap">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="grade" column="GRADE_CODE"/>
   		<result property="studentName" column="STUDENT_NAME"/>
@@ -52,7 +52,7 @@
   	</resultMap>
   	
   	
-  	<resultMap type="ClassDTO" id="classResultMap">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.ClassDTO" id="classResultMap">
   		<id property="classCode" column="CLASS_CODE"/>
   		<result property="classRoom" column="CLASS_ROOM"/>
   		<result property="className" column="CLASS_NAME"/>
@@ -65,7 +65,7 @@
   		<result property="teacherNo" column="TEACHER_NO"/>
   	</resultMap>
   	
-  	<resultMap type="StudentAndClassInfoDTO" id="studentResultMap2">
+  	<resultMap type="com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO" id="studentResultMap2">
   		<id property="no" column="STUDENT_NO"/>
   		<result property="studentName" column="STUDENT_NAME"/>
   		<result property="studentPhone" column="STUDENT_PHONE"/>
@@ -98,7 +98,7 @@
   		 WHERE A.PAY_STATUS = 'Y'
   	</select>
   	
-  	<select id="searchTotalCount" parameterType="SearchCriteria" resultType="_int">
+  	<select id="searchTotalCount" parameterType="com.admin.firstedu.pay.model.dto.SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_PAY A
   		  JOIN TBL_CLASS_INFO B ON (A.CLASS_NO = B.CLASS_NO)
@@ -120,7 +120,7 @@
   	</select>
 
   	
-  	<select id="selectStudentTotal" parameterType="SearchCriteria" resultType="_int">
+  	<select id="selectStudentTotal" parameterType="com.admin.firstedu.pay.model.dto.SearchCriteria" resultType="_int">
   		SELECT COUNT(*)
   		  FROM TBL_STUDENT A
   		  WHERE A.STATUS = 'Y'
@@ -134,7 +134,7 @@
 
   	</select>
   	
-  	<select id="selectPayList" parameterType="PageInfoDTO" resultMap="payListResultMap">
+  	<select id="selectPayList" parameterType="com.admin.firstedu.common.paging.PageInfoDTO" resultMap="payListResultMap">
 		SELECT /* com.admin.firstEdu.pay.controller.selectPayList*/
 		       A.RNUM
 		     , A.PAY_NO
@@ -317,7 +317,7 @@
          
   	</select>
   	
-  	<select id="searchPaySum" parameterType="SearchCriteria" resultType="_int">
+  	<select id="searchPaySum" parameterType="com.admin.firstedu.pay.model.dto.SearchCriteria" resultType="_int">
   		SELECT SUM(A.PAYMENT)
   		  FROM TBL_PAY A
   		 <if test="searchOption == 'studentName'">

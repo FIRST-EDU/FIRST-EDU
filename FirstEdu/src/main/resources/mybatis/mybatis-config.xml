@@ -7,31 +7,16 @@
  <typeAliases>
  		 <!-- 수납, 문자 -->
 		 <typeAlias type="com.admin.firstedu.pay.model.dto.PayDTO" alias="PayDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.ClassInfoDTO" alias="ClassInfoDTO"/>
 		 <typeAlias type="com.admin.firstedu.pay.model.dto.DiscountDTO" alias="DiscountDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentDTO" alias="StudentDTO"/>
 		 <typeAlias type="com.admin.firstedu.pay.model.dto.PayListDTO" alias="PayListDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.ClassDTO" alias="ClassDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO" alias="StudentAndClassInfoDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.StudentAndClassDTO" alias="StudentAndClassDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.GradeDTO" alias="GradeDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.PageInfoDTO" alias="PageInfoDTO"/>
-		 <typeAlias type="com.admin.firstedu.pay.model.dto.SearchCriteria" alias="SearchCriteria"/>
 		 <typeAlias type="com.admin.firstedu.sms.model.dto.SmsDTO" alias="SmsDTO"/>
 		 <typeAlias type="com.admin.firstedu.sms.model.dto.SmsAndStudentDTO" alias="SmsAndStudentDTO"/>
  
  		<!-- 상담 관리 -->
-		<typeAlias type="com.admin.firstedu.consult.model.dto.StudentDTO" alias="StudentDTO"/>
 		<typeAlias type="com.admin.firstedu.consult.model.dto.ConsultListDTO" alias="ConsultListDTO"/>
 		<typeAlias type="com.admin.firstedu.consult.model.dto.ConsultDTO" alias="ConsultDTO"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.TeacherDTO" alias="TeacherDTO"/>
 		<typeAlias type="com.admin.firstedu.consult.model.dto.ConsultCategoryDTO" alias="ConsultCategoryDTO"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.GradeDTO" alias="GradeDTO"/>
 		<typeAlias type="com.admin.firstedu.consult.model.dto.ConsultInfoDTO" alias="ConsultInfoDTO"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.SearchCriteria" alias="SearchCriteria"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.ClassInfoDTO" alias="ClassInfoDTO"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.ClassDTO" alias="ClassDTO"/>
-		<typeAlias type="com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO" alias="StudentAndClassInfoDTO"/>
 	    
 	    <!-- 시험 관리 -->
  		<typeAlias alias="ClassExamInfoDTO" type="com.admin.firstedu.grade.model.dto.ClassExamInfoDTO"/>
