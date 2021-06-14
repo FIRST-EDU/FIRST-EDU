@@ -8,6 +8,7 @@ calendarBtn.addEventListener('click', () => {
   listBtn.classList.remove('is-active')
   calendarCard.style.display = 'block'
   scoreTableCard.style.display = 'none'
+  searchExamSchedule();
 })
 
 listBtn.addEventListener('click', () => {
@@ -15,4 +16,5 @@ listBtn.addEventListener('click', () => {
   calendarBtn.classList.remove('is-active')
   scoreTableCard.style.display = 'block'
   calendarCard.style.display = 'none'
+  searchExam(1);
 })

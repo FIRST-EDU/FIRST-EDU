@@ -12,7 +12,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
 	<context:property-placeholder location="classpath:config/connection-info.properties"/>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -51,7 +50,10 @@
 			advice-ref="txAdvice" />
 	</aop:config>
 	
-	<mybatis-spring:scan base-package="com.admin.firstedu.pay.model.dao"/>
-	<mybatis-spring:scan base-package="com.admin.firstedu.sms.model.dao"/>
-	
+	<mybatis-spring:scan base-package="com.admin.firstedu.dashboard.model.dao,
+									   com.admin.firstedu.student.model.dao,
+									   com.admin.firstedu.grade.model.dao,
+									   com.admin.firstedu.consult.model.dao,
+									   com.admin.firstedu.pay.model.dao,
+									   com.admin.firstedu.sms.model.dao"/>
 </beans>

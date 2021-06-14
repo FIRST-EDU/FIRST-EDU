@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.grade.model.dao.ExamMapper">
+
+	<!-- TBL_EXAM DTO -->
+	<resultMap id="examResultMap" type="ExamDTO">
+		<id column="EXAM_NO" property="no"/>
+		<result column="EXAM_CATEGORY_NO" property="categoryNo"/>
+		<result column="EXAM_NAME" property="name"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="GRADE_CODE" property="gradeCode"/>
+		<result column="CLASS_CODE" property="classCode"/>
+		<result column="DESCRIPTION" property="description"/>
+	</resultMap>
+	
+	<!-- TBL_EXAM_CATEGORY DTO -->
+	<resultMap id="examCategoryResultMap" type="ExamCategoryDTO">
+		<id column="EXAM_CATEGORY_NO" property="no"/>
+		<result column="EXAM_CATEGORY_NAME" property="name"/>
+		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
+		<result column="COLOR_NO" property="colorNo"/>
+	</resultMap>
+	
+	<!-- TBL_COLOR DTO -->
+	<resultMap id="colorResultMap" type="ColorDTO">
+		<id column="COLOR_NO" property="no"/>
+		<result column="COLOR_NAME" property="name"/>
+		<result column="TAG_CLASS_NAME" property="tagClassName"/>
+		<result column="COLOR_CODE_HEX" property="codeHex"/>
+	</resultMap>
+
+	<!-- 시험 카테고리 모든 정보 DTO -->
+	<resultMap id="examCategoryFullInfoResultMap" type="ExamCategoryFullInfoDTO">
+		<id column="EXAM_CATEGORY_NO" property="no"/>
+		<result column="EXAM_CATEGORY_NAME" property="name"/>
+		<association resultMap="examCategoryResultMap" property="refCategory" columnPrefix="REF_"/>
+		<association resultMap="colorResultMap" property="color"/>
+	</resultMap>
+	
+	<!-- TBL_GRADE DTO -->
+	<resultMap id="gradeResultMap" type="GradeDTO">
+		<id column="GRADE_CODE" property="code"/>
+		<result column="GRADE_NAME" property="name"/>
+	</resultMap>
+	
+	<!-- 시험 대상 강의 정보 DTO -->
+	<resultMap id="classExamInfoResultMap" type="ClassExamInfoDTO">
+		<id column="CLASS_CODE" property="classCode"/>
+		<result column="CLASS_NAME" property="className"/>
+		<result column="TEACHER_NO" property="teacherNo"/>
+		<association resultMap="subjectCategoryResultMap" property="subject"/>
+		<association resultMap="gradeResultMap" property="hagwonExamGrade" columnPrefix="HAGWON_EXAM_"/>
+	</resultMap>
+	
+	<!-- TBL_SUBJECT_CATEGORY DTO -->
+	<resultMap id="subjectCategoryResultMap" type="SubjectCategoryDTO">
+		<id column="SUBJECT_NO" property="no"/>
+		<result column="SUBJECT_NAME" property="name"/>
+	</resultMap>
+	
+	<!-- 시험 정보 조인용 -->
+	<resultMap id="examFullInfoResultMap" type="ExamFullInfoDTO">
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="EXAM_NAME" property="examName"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="DESCRIPTION" property="description"/>
+		<association resultMap="gradeResultMap" property="mockExamGrade" columnPrefix="MOCK_EXAM_"/>
+		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
+ 	</resultMap>
+ 	
+ 	<!-- 시험 목록 조회용 -->
+	<resultMap id="examListInfoResultMap" type="ExamListInfoDTO">
+		<result column="EXAM_CATEGORY_NO" property="examCategoryNo"/>
+		<result column="EXAM_CATEGORY_NAME" property="examCategoryName"/>
+		<result column="REF_CATEGORY_NO" property="refCategoryNo"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="EXAM_NAME" property="examName"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="SCHOOL" property="school"/>
+		<result column="DESCRIPTION" property="description"/>
+		<association resultMap="colorResultMap" property="color"/>
+		<association resultMap="gradeResultMap" property="mockExamGrade" columnPrefix="MOCK_EXAM_"/>
+		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
+ 	</resultMap>
+ 	
+ 	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO -->
+	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="HagwonExamScoreBasicInfoDTO">
+		<result column="STUDENT_NO" property="studentNo"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="SUBJECT_NO" property="subjectNo"/>
+		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+	</resultMap>
+
+	<!-- 첫 화면 시험 일정 조회 -->
+	<select id="selectExamScheduleList" resultMap="examListInfoResultMap">
+		SELECT
+		       V.COLOR_CODE_HEX
+		     , V.EXAM_NO
+		     , V.EXAM_NAME
+		     , V.START_DATE
+		     , V.END_DATE
+		  FROM V_EXAM_LIST V
+		<![CDATA[
+		 WHERE TRUNC(SYSDATE, 'MM') - 7 < V.START_DATE
+		   AND V.START_DATE < TRUNC(LAST_DAY(SYSDATE)) + 14
+		]]>
+	</select>
+
+	<!-- 시험 일정 검색 -->
+	<select id="searchExamScheduleList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+		SELECT
+		       V.COLOR_CODE_HEX
+		     , V.EXAM_NO
+		     , V.EXAM_NAME
+		     , V.START_DATE
+		     , V.END_DATE
+		  FROM V_EXAM_LIST V
+		<![CDATA[
+		 WHERE TO_DATE(#{ startDate }, 'RRRR-MM-DD') < V.START_DATE
+		   AND V.START_DATE <= TO_DATE(#{ endDate }, 'RRRR-MM-DD')
+		]]>
+		<if test="schoolExam == 0">
+	       AND V.EXAM_CATEGORY_NO != 1
+	    </if>
+	    <if test="mockExam == 0">
+	       AND V.EXAM_CATEGORY_NO != 2
+	    </if>
+	    <if test="hagwonExam == 0">
+	       AND V.REF_CATEGORY_NO IS NULL
+	    </if>
+	    <if test="categoryNo != 0">
+	       AND V.EXAM_CATEGORY_NO = #{ categoryNo }
+	    </if>
+	    <if test="classCode != null and classCode != 'null' and classCode != ''">
+	       AND V.CLASS_CODE = #{ classCode }
+	    </if>
+	    <if test="examName != null and examName != 'null' and examName != ''">
+	       AND V.EXAM_NAME LIKE '%' || #{ examName } || '%'
+	    </if>
+	</select>
+	
+	<!-- 검색 결과 시험 개수 조회 -->
+	<select id="selectTotalCount" parameterType="ExamSearchCriteria" resultType="_int">
+		SELECT
+		       COUNT(V.EXAM_NO)
+		  FROM V_EXAM_LIST V
+		<where>
+	      <if test="schoolExam == 0">
+	           V.EXAM_CATEGORY_NO != 1
+	      </if>
+	      <if test="mockExam == 0">
+	       AND V.EXAM_CATEGORY_NO != 2
+	      </if>
+	      <if test="hagwonExam == 0">
+	       AND V.REF_CATEGORY_NO IS NULL
+	      </if>
+	      <if test="categoryNo != 0">
+	       AND V.EXAM_CATEGORY_NO = #{ categoryNo }
+	      </if>
+	      <if test="classCode != null and classCode != 'null' and classCode != ''">
+	       AND V.CLASS_CODE = #{ classCode }
+	      </if>
+	      <if test="examName != null and examName != 'null' and examName != ''">
+	       AND V.EXAM_NAME LIKE '%' || #{ examName } || '%'
+	      </if>
+	    </where>
+	</select>
+	
+	<!-- 시험 목록 검색(페이징 처리) -->
+	<select id="searchExamList" parameterType="ExamSearchCriteria" resultMap="examListInfoResultMap">
+    	SELECT
+    	       A.RNUM
+    	     , A.EXAM_CATEGORY_NO
+		     , A.EXAM_CATEGORY_NAME
+		     , A.REF_CATEGORY_NO
+		     , A.COLOR_NO
+		     , A.COLOR_NAME
+		     , A.TAG_CLASS_NAME
+		     , A.COLOR_CODE_HEX
+		     , A.EXAM_NO
+		     , A.EXAM_NAME
+		     , A.START_DATE
+		     , A.END_DATE
+		     , A.SCHOOL
+		     , A.DESCRIPTION
+		     , A.CLASS_CODE
+		     , A.MOCK_EXAM_GRADE_NAME
+		     , A.CLASS_NAME
+		     , A.SUBJECT_NO
+		     , A.GRADE_CODE
+		     , A.TEACHER_NO
+		     , A.SUBJECT_NAME
+		     , A.HAGWON_EXAM_GRADE_NAME
+		  FROM (SELECT ROWNUM RNUM
+		    	     , V.EXAM_CATEGORY_NO
+				     , V.EXAM_CATEGORY_NAME
+				     , V.REF_CATEGORY_NO
+				     , V.COLOR_NO
+				     , V.COLOR_NAME
+				     , V.TAG_CLASS_NAME
+				     , V.COLOR_CODE_HEX
+				     , V.EXAM_NO
+				     , V.EXAM_NAME
+				     , V.START_DATE
+				     , V.END_DATE
+				     , V.SCHOOL
+				     , V.DESCRIPTION
+				     , V.CLASS_CODE
+				     , V.MOCK_EXAM_GRADE_NAME
+				     , V.CLASS_NAME
+				     , V.SUBJECT_NO
+				     , V.GRADE_CODE
+				     , V.TEACHER_NO
+				     , V.SUBJECT_NAME
+				     , V.HAGWON_EXAM_GRADE_NAME
+		          FROM V_EXAM_LIST V
+				<where>
+			      <if test="schoolExam == 0">
+			           V.EXAM_CATEGORY_NO != 1
+			      </if>
+			      <if test="mockExam == 0">
+			       AND V.EXAM_CATEGORY_NO != 2
+			      </if>
+			      <if test="hagwonExam == 0">
+			       AND V.REF_CATEGORY_NO IS NULL
+			      </if>
+			      <if test="categoryNo != 0">
+			       AND V.EXAM_CATEGORY_NO = #{ categoryNo }
+			      </if>
+			      <if test="classCode != null and classCode != 'null' and classCode != ''">
+			       AND V.CLASS_CODE = #{ classCode }
+			      </if>
+			      <if test="examName != null and examName != 'null' and examName != ''">
+			       AND V.EXAM_NAME LIKE '%' || #{ examName } || '%'
+			      </if>
+			    </where>
+		  	   ) A
+		 WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+	</select>
+	
+	<!-- 시험 종류 카테고리 목록 조회 -->
+	<select id="selectExamCategoryList" resultMap="examCategoryFullInfoResultMap">
+		SELECT
+		       A.EXAM_CATEGORY_NO
+		     , A.EXAM_CATEGORY_NAME
+		     , B.EXAM_CATEGORY_NO AS REF_EXAM_CATEGORY_NO
+		     , B.EXAM_CATEGORY_NAME AS REF_EXAM_CATEGORY_NAME
+		     , C.COLOR_NO
+		     , C.COLOR_NAME
+		     , C.TAG_CLASS_NAME
+		     , C.COLOR_CODE_HEX
+		  FROM TBL_EXAM_CATEGORY A
+		  LEFT JOIN TBL_EXAM_CATEGORY B ON (A.REF_CATEGORY_NO = B.EXAM_CATEGORY_NO)
+		  LEFT JOIN TBL_COLOR C ON (A.COLOR_NO = C.COLOR_NO)
+		 WHERE A.EXAM_CATEGORY_STATUS = 'Y'
+		   AND A.EXAM_CATEGORY_NO != 3
+		 ORDER BY A.EXAM_CATEGORY_NO
+	</select>
+	
+	<!-- 강의 목록 조회 -->
+	<select id="selectClassList" resultMap="classExamInfoResultMap">
+		SELECT
+		       A.CLASS_CODE
+		     , A.CLASS_NAME
+		  FROM TBL_CLASS A
+	</select>
+
+	<!-- 색상 목록 조회 -->
+	<select id="selectColorList" resultMap="colorResultMap">
+		SELECT
+		       A.COLOR_NO
+		     , A.COLOR_NAME
+		     , A.TAG_CLASS_NAME
+		     , A.COLOR_CODE_HEX
+		  FROM TBL_COLOR A
+	</select>
+	
+	<!-- 시험 일정 등록 -->
+	<insert id="insertExam" parameterType="ExamDTO">
+		INSERT
+		  INTO TBL_EXAM A
+		(
+		  A.EXAM_NO
+		, A.EXAM_CATEGORY_NO
+		, A.EXAM_NAME
+		, A.START_DATE
+		, A.END_DATE
+		, A.SCHOOL
+		, A.GRADE_CODE
+		, A.CLASS_CODE
+		, A.DESCRIPTION
+		)
+		VALUES
+		(
+		  SEQ_EXAM_NO.NEXTVAL
+		, #{ categoryNo }
+		, #{ name }
+		, #{ startDate, jdbcType=DATE }
+		, #{ endDate, jdbcType=DATE }
+		, #{ school, jdbcType=VARCHAR }
+		, #{ gradeCode, jdbcType=VARCHAR }
+		, #{ classCode, jdbcType=VARCHAR }
+		, #{ description, jdbcType=VARCHAR }
+		)
+	</insert>
+	
+	<!-- 등록한 시험 번호 조회 -->
+	<select id="selectRegisteredExamNo" resultType="_int">
+		SELECT
+		       SEQ_EXAM_NO.CURRVAL
+		  FROM DUAL
+	</select>
+	
+	<!-- 학교 내신 시험 대상 학생 조회 
+	<select id="selectSchoolExamStudentList" resultMap=com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap>
+		SELECT
+		       A.STUDENT_NO
+		     , A.STUDENT_NAME
+		     
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select>
+	
+	 모의고사 대상 학생 조회
+	<select id="selectMockExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
+		SELECT
+		       A.STUDENT_NO
+		  FROM TBL_STUDENT A
+		 WHERE A.SCHOOL = (SELECT B.SCHOOL
+		                     FROM TBL_EXAM B
+		                    WHERE B.EXAM_NO = GET_EXAM_NO
+		);
+	</select> -->
+	
+	<!-- 학원 시험 대상 기본 정보 조회 -->
+	<select id="selectHagwonExamScoreBasicInfoList" parameterType="_int" resultMap="hagwonExamScoreBasicInfoResultMap">
+		SELECT
+		       A.EXAM_NO
+		     , B.SUBJECT_NO
+		     , GET_CLASS_PERSONNEL(#{ examNo }) AS CLASS_PERSONNEL
+		     , C.STUDENT_NO
+		  FROM TBL_EXAM A
+		  JOIN TBL_CLASS B ON (A.CLASS_CODE = B.CLASS_CODE)
+		  JOIN TBL_CLASS_INFO C ON (B.CLASS_CODE = C.CLASS_CODE)
+		 WHERE A.EXAM_NO = #{ examNo }
+	</select>
+	
+	<!-- 시험 등록 시 성적 기본 정보도 등록 -->
+	<insert id="insertHagwonExamScoreBasicInfo" parameterType="HagwonExamScoreBasicInfoListDTO">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.STUDENT_NO
+		, A.EXAM_NO
+		, A.SUBJECT_NO
+		, A.CLASS_PERSONNEL
+		)
+		<foreach collection="hagwonExamScoreBasicInfoList" item="hagwonExamScoreBasicInfo" separator="UNION ALL">
+		  SELECT GET_SCORE_NO
+		       , #{ hagwonExamScoreBasicInfo.studentNo }
+		       , #{ hagwonExamScoreBasicInfo.examNo }
+		       , #{ hagwonExamScoreBasicInfo.subjectNo }
+		       , #{ hagwonExamScoreBasicInfo.classPersonnel }
+		    FROM DUAL
+		</foreach>
+	
+	</insert>
+	
+	<!-- 시험 일정 수정 -->
+	<update id="updateExam" parameterType="ExamDTO">
+		UPDATE
+		       TBL_EXAM A
+		<set>
+			<if test="name != null and name != ''">
+			   A.EXAM_NAME = #{ name },
+			</if>
+			<if test="startDate != null">
+			   A.START_DATE = #{ startDate },
+			</if>
+			<if test="endDate != null">
+			   A.END_DATE = #{ endDate },
+			</if>
+			<if test="school != null and school != ''">
+	 		   A.SCHOOL = #{ school },
+			</if>
+			<if test="gradeCode != null and gradeCode != ''">
+			   A.GRADE_CODE = #{ gradeCode },
+			</if>
+			<if test="classCode != null and classCode != ''">
+			   A.CLASS_CODE = #{ classCode },
+			</if>
+			<if test="description != null and description != ''">
+			   A.DESCRIPTION = #{ description }
+			</if>
+		</set>
+		 WHERE A.EXAM_NO = #{ no }
+	</update>
+	
+	<!-- 시험 일정 삭제 -->
+	<update id="deleteExam" parameterType="_int">
+		UPDATE
+		       TBL_EXAM A
+		   SET A.EXAM_STATUS = 'N'
+		 WHERE A.EXAM_NO = #{ examNo }
+	</update>
+	
+	<!-- 학원 시험 카테고리 등록 -->
+	<insert id="insertExamCategory" parameterType="ExamCategoryDTO">
+		INSERT
+		  INTO TBL_EXAM_CATEGORY A
+		(
+		  A.EXAM_CATEGORY_NO
+		, A.EXAM_CATEGORY_NAME
+		, A.REF_CATEGORY_NO
+		<if test="colorNo != 0">
+		, A.COLOR_NO
+		</if>
+		)
+		VALUES
+		(
+		  SEQ_EXAM_CATEGORY_NO.NEXTVAL
+		, #{ name }
+		, 3
+		<if test="colorNo != 0">
+		, #{ colorNo }
+		</if>
+		)
+	</insert>
+	
+	<!-- 시험 카테고리 수정 -->
+	<update id="updateExamCategory" parameterType="ExamCategoryDTO">
+		UPDATE
+		       TBL_EXAM_CATEGORY A
+	    <set>
+			<if test="name != null and name != '' and no > 3">
+			   A.EXAM_CATEGORY_NAME = #{ name },
+			</if>
+			<if test="colorNo != 0 and no != 3">
+			   A.COLOR_NO = #{ colorNo }
+			</if> 
+		</set>     
+		 WHERE A.EXAM_CATEGORY_NO = #{ no }
+	</update>
+	
+	<!-- 학원 시험 카테고리 삭제 -->
+	<update id="deleteExamCategory" parameterType="_int">
+		UPDATE
+		       TBL_EXAM_CATEGORY A
+		   SET A.EXAM_CATEGORY_STATUS = 'N'
+		 WHERE A.EXAM_CATEGORY_NO = #{ examCategoryNo }
+	</update>
+
+	<!-- 시험 상세 페이지 조회 -->
+	<select id="selectExam" parameterType="_int" resultMap="examListInfoResultMap">
+		SELECT
+    	       V.EXAM_CATEGORY_NO
+		     , V.EXAM_CATEGORY_NAME
+		     , V.REF_CATEGORY_NO
+		     , V.COLOR_NO
+		     , V.COLOR_NAME
+		     , V.TAG_CLASS_NAME
+		     , V.COLOR_CODE_HEX
+		     , V.EXAM_NO
+		     , V.EXAM_NAME
+		     , V.START_DATE
+		     , V.END_DATE
+		     , V.SCHOOL
+		     , V.DESCRIPTION
+		     , V.CLASS_CODE
+		     , V.MOCK_EXAM_GRADE_NAME
+		     , V.CLASS_NAME
+		     , V.SUBJECT_NO
+		     , V.GRADE_CODE
+		     , V.TEACHER_NO
+		     , V.SUBJECT_NAME
+		     , V.HAGWON_EXAM_GRADE_NAME
+		  FROM V_EXAM_LIST V
+		 WHERE V.EXAM_NO = #{ examNo }
+	</select>
+	
+	<select id="selectScoreList" parameterType="_int" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.scoreFullInfoResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.STUDENT_NO
+		     , B.STUDENT_NAME
+		     , C.GRADE_NAME
+		     , A.SUBJECT_NO
+		     , D.SUBJECT_NAME
+		     , A.SUBJECT_DETAIL
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.SCORE_GRADE
+		     , A.CLASS_RANK
+		     , A.CLASS_PERSONNEL
+		     , A.OVERALL_RANK
+		     , A.TOTAL_PERSONNEL
+		     , A.TEACHER_COMMENT
+		     , A.SCORE_STATUS
+		  FROM TBL_EXAM_SCORE A
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_GRADE C ON (B.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
+		 WHERE A.SCORE_STATUS = 'Y'
+		   AND EXAM_NO = #{ examNo }
+	</select>
+	
+</mapper>
