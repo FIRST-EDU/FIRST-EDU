@@ -20,4 +20,6 @@ public interface SmsMapper {
 
 	List<SmsAndStudentDTO> selectStudentList(Map<String, Object> map);
 
+	SmsAndStudentDTO selectSmsDetail(int no);
+
 }

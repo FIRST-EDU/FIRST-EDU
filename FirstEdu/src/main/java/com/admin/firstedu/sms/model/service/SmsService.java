@@ -21,4 +21,6 @@ public interface SmsService {
 
 	List<SmsAndStudentDTO> selectStudentList(Map<String, Object> map);
 
+	SmsAndStudentDTO selectSmsDetail(int no);
+
 }

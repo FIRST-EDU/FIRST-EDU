@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.admin.firstedu.paging.Pagenation;
 import com.admin.firstedu.pay.model.dto.PageInfoDTO;
 import com.admin.firstedu.pay.model.dto.SearchCriteria;
-import com.admin.firstedu.pay.model.dto.StudentAndClassInfoDTO;
 import com.admin.firstedu.sms.model.dto.SmsAndStudentDTO;
 import com.admin.firstedu.sms.model.dto.SmsDTO;
 import com.admin.firstedu.sms.model.service.SmsService;
@@ -146,5 +146,15 @@ public class SmsController {
 		    }
 
 		return "redirect:/sms/list";
+	}
+	
+	@GetMapping("detail/{no}")
+	public String smsDetail(Model model, @PathVariable("no") int no) {
+		
+		SmsAndStudentDTO smsDetail = smsService.selectSmsDetail(no);
+		
+		model.addAttribute("smsDetail", smsDetail);
+		
+		return "sms/smsDetail";
 	}
 }
