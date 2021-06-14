@@ -60,17 +60,31 @@
                       <th scope="row">등록번호</th>
                       <td>1</td>
                       <th scope="row">시작일</th>
-                      <td>2021/06/13</td>
+                      <td>
+                        <div class="date-align">
+                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15" readonly>
+                          <label for="check-date"></label>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">시험종류</th>
                       <td>모의고사</td>
                       <th scope="row">종료일</th>
-                      <td>2021/06/15</td>
+                      <td>
+                        <div class="date-align">
+                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15" readonly>
+                          <label for="check-date"></label>
+                        </div>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">시험명</th>
-                        <td>모의고사</td>
+                      <td>
+                        <div class="input-group">
+                          <input class="form-input" type="text" value="모의고사" readonly/>
+                        </div>
+                      </td>
                       <th scope="row" rowspan="2">비고</th>
                       <td rowspan="2"></td>
                     </tr>
@@ -146,255 +160,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
+                    <td colspan="8">
+                      <button type="button">
+                        <i class="fas fa-plus-circle"></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
