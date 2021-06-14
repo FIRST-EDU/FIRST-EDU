@@ -85,7 +85,7 @@
         <div class="row">
           <div class="col-sm-4">
             <section class="common-card student-img">
-              <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/student.png" alt="">
+              <img src="./assets/png/student.png" alt="">
             </section>
           </div>
         </div>
