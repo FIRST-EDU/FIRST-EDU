@@ -54,8 +54,9 @@ function searchStudent(pageNo) {
 				$registrationDateTd = $('<td>').text(registrationDate);
 				let quitDate = data.studentList[index].quitDate.substring(0, 10);
 				$quitDateTd = $('<td>').text(quitDate);
-				$lengthTd = $('<td>').text(data.studentList[index].lengthOfStay);
-				$quitReasonTd = $('<td>').text(data.studentList[index].quitReason);
+				$lengthTd = $('<td>').text(data.studentList[index].lengthOfStay + ' 개월');
+//				$quitReasonTd = $('<td>').text(data.studentList[index].quitReason);
+				$changeStatusBtn = $('<td>').html('<button type="button" class="btn-fill-light-blue btn-basic" onclick="changeStatus(this)">재원</button>');
 				
 				$tr = $('<tr>');
 				$tr.append($noTd);
@@ -67,7 +68,8 @@ function searchStudent(pageNo) {
 				$tr.append($registrationDateTd);
 				$tr.append($quitDateTd);
 				$tr.append($lengthTd);
-				$tr.append($quitReasonTd);
+//				$tr.append($quitReasonTd);
+				$tr.append($changeStatusBtn);
 				
 				$table.append($tr);
 				
@@ -146,7 +148,5 @@ function searchStudent(pageNo) {
 
 function changeStatus(test) {
 	let selectedStudentNo = $(test).parents('tr').children(":eq(0)").text();
-	if(confirm('재원생으로 변경하시겠습니까?')) {
-		location.href = "/firstedu/student/change/status/" + selectedStudentNo
-	}
+	location.href = "/firstedu/student/change/status/" + selectedStudentNo
 }

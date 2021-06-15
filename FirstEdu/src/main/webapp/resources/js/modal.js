@@ -178,8 +178,8 @@ overlay.addEventListener('click', () => {
 //   overlay.classList.toggle('is-active')
 // })
 
-// if (completeModal) {
-//   overlay.classList.add('is-active')
-//   completeModal.classList.add('is-active')
-//   body.classList.add('modal-open')
-// }
+ if (completeModal) {
+   overlay.classList.add('is-active')
+   completeModal.classList.add('is-active')
+   body.classList.add('modal-open')
+ }

@@ -476,6 +476,7 @@
 	<update id="deleteStudent" parameterType="_int">
 		UPDATE TBL_STUDENT A
 		   SET A.STATUS = 'N'
+		     , A.QUIT_DATE = SYSDATE
 		 WHERE A.STUDENT_NO = #{ studentNo }
 	</update>
 

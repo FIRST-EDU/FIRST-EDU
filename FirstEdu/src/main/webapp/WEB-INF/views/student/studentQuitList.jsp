@@ -120,7 +120,7 @@
                   <th scope="col">등록일</th>
                   <th scope="col">퇴원일</th>
                   <th scope="col">재원 기간</th>
-                  <th scope="col">퇴원 사유</th>
+                  <!-- <th scope="col">퇴원 사유</th> -->
                   <th scope="col">상태 변경</th>
                 </tr>
               </thead>
@@ -136,7 +136,7 @@
 	                  <td>${ fn:substring(student.registrationDate, 0, 10) }</td>
 	                  <td>${ fn:substring(student.quitDate, 0, 10) }</td>
 	                  <td>${ student.lengthOfStay } 개월</td>
-	                  <td>${ student.quitReason }</td>
+	                  <%-- <td>${ student.quitReason }</td> --%>
 	                  <td><button type="button" class="btn-fill-light-blue btn-basic" onclick="changeStatus(this)">재원</button></td>
 	                </tr>
                 </c:forEach>
