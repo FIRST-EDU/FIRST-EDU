@@ -164,18 +164,13 @@ public class ExamController {
 	}
 
 	/* 시험 일정 삭제 */
-	@PostMapping("/exam/remove")
-	public String removeExam(@RequestParam(required=false, defaultValue="0") int examNo,
-							 RedirectAttributes rttr)
-									 throws ExamException {
-//		int examNo = 1;
-		if(!examService.removeExam(examNo)) {
-			throw new ExamException("시험 일정 삭제에 실패하였습니다.");
-		}
+	@GetMapping("/exam/remove")
+	public void removeExam(@RequestParam(required=false, defaultValue="0") int examNo,
+			 				 HttpServletResponse response)
+									 throws IOException {
+		String result = examService.removeExam(examNo);
 		
-		rttr.addFlashAttribute("message", "시험 일정이 삭제되었습니다.");
-		
-		return "redirect:/grade/exam";
+		response.getWriter().write(result);
 	}
 	
 	/* 학원 시험 카테고리 등록 */

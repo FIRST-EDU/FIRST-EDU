@@ -44,11 +44,16 @@
               <div class="tag-lb-dark btn-check sum-storage-price">총 성적 수 : ${ fn:length( requestScope.scoreList ) }</div>
             </article>
 
-            <article class="exam-lock">
-              <button type="button" class="lock-event">
-                <i class="fas fa-lock"></i>
-                <i class="fas fa-unlock"></i>
+            <article class="btn-icon-align">
+              <button type="button" class="delete-b-btn">
+                <i class="fas fa-times-circle "></i>
               </button>
+              <div class="exam-lock">
+                <button type="button" class="lock-event">
+                  <i class="fas fa-lock"></i>
+                  <i class="fas fa-unlock"></i>
+                </button>
+              </div>
             </article>
           </section>
         </div>
@@ -76,7 +81,7 @@
                       <th scope="row">종료일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="end_date" value="${ exam.endDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
+                          <input class="attendance-date" id="endDate" type="date" name="end_date" value="${ exam.endDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
@@ -154,9 +159,9 @@
 	                    </td>
 	                  </tr>
                   </c:forEach>
-				  <tr>
+				  <tr id="addTr">
                     <td colspan="5">
-                      <button type="button" onclick="addScore()">
+                      <button type="button" onclick="addScore(${ exam.examNo })">
                         <i class="fas fa-plus-circle"></i>
                       </button>
                     </td>
@@ -169,11 +174,24 @@
       </div>
     </main>
 
+<div class="overlay" aria-hidden="true"></div>
+
+<div class="modal delete-board-modal">
+    <div class="modal-content">
+      <strong>시험 삭제하기</strong>
+      <p>'${ exam.examName }' 시험을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn" onclick="removeExam(${ exam.examNo })">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examDetail.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examAndScoreModify.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examDetail.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 </body>
 </html>

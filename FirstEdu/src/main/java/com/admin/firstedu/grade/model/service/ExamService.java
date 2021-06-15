@@ -32,7 +32,7 @@ public interface ExamService {
 	
 //	boolean modifyExam(ExamDTO exam);
 	
-	boolean removeExam(int examNo);
+	String removeExam(int examNo);
 
 	boolean registExamCategory(ExamCategoryDTO examCategory);
 	

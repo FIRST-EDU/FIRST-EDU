@@ -12,7 +12,7 @@ public interface ScoreService {
 
 	List<ScoreFullInfoDTO> selectScoreList(ScoreSearchCriteria searchCriteria);
 	
-	String registScore(ScoreListDTO scoreList);
+	int registScore(int examNo);
 	
 	String modifyScore(ModifiedScoreDTO modifiedScore);
 	

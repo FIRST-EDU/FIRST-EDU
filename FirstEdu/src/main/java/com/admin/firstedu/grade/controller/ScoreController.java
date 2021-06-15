@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.firstedu.grade.model.dto.ModifiedScoreDTO;
@@ -82,6 +83,17 @@ public class ScoreController {
 //		response.getWriter().write(result);
 //	}
 	
+	
+	/* 성적 등록 */
+	@PostMapping("/score/regist")
+	public void registScore(@RequestParam(required=false, defaultValue="0") int examNo,
+			HttpServletResponse response)
+					throws IOException {
+		System.out.println(examNo);
+		int scoreNo = scoreService.registScore(examNo);
+		
+		response.getWriter().write(scoreNo);
+	}
 	
 	/* 성적 수정 */
 	@PostMapping("/score/modify")

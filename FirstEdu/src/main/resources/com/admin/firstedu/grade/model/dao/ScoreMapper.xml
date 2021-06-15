@@ -123,6 +123,25 @@
 		   AND A.EXAM_NO = #{ examNo }
 	</select>
 	
+	<insert id="insertScore" parameterType="_int">
+		<selectKey keyProperty="scoreNo" order="AFTER" resultType="_int">
+			SELECT
+			       SEQ_SCORE_NO.CURRVAL
+			  FROM DUAL			
+		</selectKey>
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.EXAM_NO 
+		)
+		VALUES
+		(
+		  SEQ_SCORE_NO.NEXTVAL
+		, #{ examNo }
+		)
+	</insert>
+	
 <!-- 	성적 등록
 	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreListDTO">
 		INSERT
@@ -158,21 +177,7 @@
 		       , #{ score.teacherComment, jdbcType=VARCHAR }
 		    FROM DUAL
 		</foreach>
-	</insert> -->
-	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreDTO">
-		INSERT
-		  INTO TBL_EXAM_SCORE A
-		(
-		  A.SCORE_NO
-		, A.EXAM_NO
-		)
-		VALUES
-		(
-		  SEQ_SCORE_NO.NEXTVAL
-		, #{ examNo }
-		)
-	</insert>
-	
+	-->
 	<!-- 성적 수정 -->
 	<update id="updateScore" parameterType="com.admin.firstedu.grade.model.dto.ModifiedScoreDTO">
 		UPDATE
