@@ -10,7 +10,7 @@ import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
-import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 
 public interface ExamService {
@@ -41,7 +41,7 @@ public interface ExamService {
 
 	ExamListInfoDTO selectExam(int examNo);
 
-	List<ScoreFullInfoDTO> selectScoreList(int examNo);
+	List<ScoreDTO> selectScoreList(int examNo);
 
 	List<ColorDTO> selectColorList();
 

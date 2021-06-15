@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="msapplication-TileColor" content="#da532c" />
@@ -38,7 +41,7 @@
         <div class="col-sm-4">
           <section class="common-card storage-list-form-content">
             <article class="storage-form-content">
-              <div class="tag-lb-dark btn-check sum-storage-price">총 성적 수 : 10</div>
+              <div class="tag-lb-dark btn-check sum-storage-price">총 성적 수 : ${ fn:length( requestScope.scoreList ) }</div>
             </article>
 
             <article class="exam-lock">
@@ -50,7 +53,7 @@
           </section>
         </div>
       </div>
-
+      
         <div class="row">
           <div class="col-sm-4">
             <section class="common-table-card">
@@ -58,22 +61,22 @@
                   <tbody>
                     <tr>
                       <th scope="row">등록번호</th>
-                      <td>1</td>
+                      <td>${ exam.examNo }</td>
                       <th scope="row">시작일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15" readonly>
+                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="${ exam.startDate }" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
                     </tr>
                     <tr>
                       <th scope="row">시험종류</th>
-                      <td>모의고사</td>
+                      <td>${ exam.examCategoryName }</td>
                       <th scope="row">종료일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15" readonly>
+                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="${ exam.endDate }" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
@@ -82,17 +85,23 @@
                       <th scope="row">시험명</th>
                       <td>
                         <div class="input-group">
-                          <input class="form-input" type="text" value="모의고사" readonly/>
+                          <input class="form-input" type="text" value="${ exam.examName }" readonly/>
                         </div>
                       </td>
                       <th scope="row" rowspan="2">비고</th>
-                      <td rowspan="2"></td>
+                      <td rowspan="2">${ exam.description }</td>
                     </tr>
                     <tr>
                       <th scope="row">시험대상</th>
-                      <td>
-                          고1
-                      </td>
+                      <c:if test="${ exam.examCategoryNo eq '1' }">
+	                      <td>${ exam.school }</td>
+                      </c:if>
+                      <c:if test="${ exam.examCategoryNo eq '2' }">
+	                      <td>${ exam.mockExamGrade.name }</td>
+                      </c:if>
+                      <c:if test="${ exam.refCategoryNo eq '3' }">
+	                      <td>${ exam.classExamInfo.className }</td>
+                      </c:if>
                     </tr>
                   </tbody>
                 </table>
@@ -106,66 +115,50 @@
               <table class="common-table exam-edit-table">
                 <thead>
                   <tr>
-                    <th scope="col">학생번호</th>
                     <th scope="col">학생명</th>
-                    <th scope="col">학년</th>
-                    <th scope="col">과목구분</th>
-                    <th scope="col">세부과목</th>
+                    <th scope="col">과목
                     <th scope="col">목표점수</th>
                     <th scope="col">점수</th>
                     <th scope="col">석차</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="input-group">
-                        <input class="form-input" type="text" value="정유미" readonly/>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="8">
-                      <button type="button">
+                  <c:forEach var="score" items="${ requestScope.scoreList }">
+	                  <tr>
+	                    <td>
+	                      <div class="input-group">
+	                        <input class="form-input" name="student_name" type="text" value="${ score.studentName }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
+	                      </div>
+	                    </td>
+	                    <td>
+	                      <div class="input-group">
+	                        <input class="form-input" name="subject" type="text" value="${ score.subject }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
+	                      </div>
+	                    </td>
+	                    <td>
+	                      <div class="input-group">
+	                        <input class="form-input" name="target_score" type="text" value="${ score.targetScore }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
+	                      </div>
+	                    </td>
+	                    <td>
+	                      <div class="input-group">
+	                        <input class="form-input" name="score" type="text" value="${ score.score }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
+	                      </div>
+	                    </td>
+	                    <td>
+	                      <div class="input-group">
+	                        <input class="form-input" name="rank" type="text" value="${ score.rank }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
+	                      </div>
+	                    </td>
+	                  </tr>
+                  </c:forEach>
+				  <tr>
+                    <td colspan="5">
+                      <button type="button" onclick="addScore()">
                         <i class="fas fa-plus-circle"></i>
                       </button>
                     </td>
-                  </tr>
+				  </tr>
                 </tbody>
               </table>
             </section>
@@ -177,7 +170,8 @@
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
-<script src="${ pageContext.servletContext.contextPath }/resources/js/examDetail.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examDetail.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examAndScoreModify.js"></script>
 </body>
 </html>

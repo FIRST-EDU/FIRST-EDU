@@ -31,7 +31,7 @@ import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
-import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 import com.google.gson.Gson;
@@ -234,9 +234,13 @@ public class ExamController {
 		
 		ExamListInfoDTO exam = examService.selectExam(examNo);
 		System.out.println(exam);
-		List<ScoreFullInfoDTO> scoreList = examService.selectScoreList(examNo);
+		List<ScoreDTO> scoreList = examService.selectScoreList(examNo);
 		System.out.println(scoreList);
-		return "grade/examDetail";
+		
+		model.addAttribute("exam", exam);
+		model.addAttribute("scoreList", scoreList);
+		
+		return "grade/examAndScore";
 	}
 	
 }

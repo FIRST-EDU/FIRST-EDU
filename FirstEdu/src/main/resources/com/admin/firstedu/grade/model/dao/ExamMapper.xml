@@ -96,12 +96,23 @@
 		<association resultMap="classExamInfoResultMap" property="classExamInfo"/>
  	</resultMap>
  	
- 	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO -->
+ 	<!-- 시험 등록 시 등록할 성적 기본 정보 목록용 DTO
 	<resultMap id="hagwonExamScoreBasicInfoResultMap" type="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO">
 		<result column="STUDENT_NO" property="studentNo"/>
 		<result column="EXAM_NO" property="examNo"/>
 		<result column="SUBJECT_NO" property="subjectNo"/>
 		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+	</resultMap>-->
+	
+	<!-- 성적 테이블 DTO -->
+	<resultMap id="scoreResultMap" type="com.admin.firstedu.grade.model.dto.ScoreDTO">
+		<id column="SCORE_NO" property="scoreNo"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="TARGET_SCORE" property="targetScore"/>
+		<result column="SCORE" property="score"/>
+		<result column="RANK" property="rank"/>
 	</resultMap>
 
 	<!-- 첫 화면 시험 일정 조회 -->
@@ -334,14 +345,14 @@
 		)
 	</insert>
 	
-	<!-- 등록한 시험 번호 조회 -->
+ 	<!-- 등록한 시험 번호 조회 
 	<select id="selectRegisteredExamNo" resultType="_int">
 		SELECT
 		       SEQ_EXAM_NO.CURRVAL
 		  FROM DUAL
 	</select>
 	
-	<!-- 학교 내신 시험 대상 학생 조회 -->
+	학교 내신 시험 대상 학생 조회
 	<select id="selectSchoolExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
 		SELECT
 		       A.STUDENT_NO
@@ -354,7 +365,7 @@
 		)
 	</select>
 	
-	<!-- 모의고사 대상 학생 조회 -->
+	모의고사 대상 학생 조회
 	<select id="selectMockExamStudentList" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.studentResultMap">
 		SELECT
 		       A.STUDENT_NO
@@ -365,7 +376,7 @@
 		)
 	</select>
 	
-	<!-- 학원 시험 대상 기본 정보 조회 -->
+	학원 시험 대상 기본 정보 조회
 	<select id="selectHagwonExamScoreBasicInfoList" parameterType="_int" resultMap="hagwonExamScoreBasicInfoResultMap">
 		SELECT
 		       A.EXAM_NO
@@ -377,8 +388,8 @@
 		  JOIN TBL_CLASS_INFO C ON (B.CLASS_CODE = C.CLASS_CODE)
 		 WHERE A.EXAM_NO = #{ examNo }
 	</select>
-	
-	<!-- 시험 등록 시 성적 기본 정보도 등록 -->
+	 -->
+<!-- 	 시험 등록 시 성적 기본 정보도 등록 
 	<insert id="insertHagwonExamScoreBasicInfo" parameterType="com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO">
 		INSERT
 		  INTO TBL_EXAM_SCORE A
@@ -398,7 +409,7 @@
 		    FROM DUAL
 		</foreach>
 	
-	</insert>
+	</insert> -->
 	
 	<!-- 시험 일정 수정 -->
 	<update id="updateExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
@@ -512,7 +523,7 @@
 		 WHERE V.EXAM_NO = #{ examNo }
 	</select>
 	
-	<select id="selectScoreList" parameterType="_int" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.scoreFullInfoResultMap">
+<!-- 	<select id="selectScoreList" parameterType="_int" resultMap="com.admin.firstedu.grade.model.dao.ScoreMapper.scoreFullInfoResultMap">
 		SELECT
 		       A.SCORE_NO
 		     , A.STUDENT_NO
@@ -536,6 +547,19 @@
 		  JOIN TBL_SUBJECT_CATEGORY D ON (A.SUBJECT_NO = D.SUBJECT_NO)
 		 WHERE A.SCORE_STATUS = 'Y'
 		   AND EXAM_NO = #{ examNo }
+	</select> -->
+	<select id="selectScoreList" parameterType="_int" resultMap="scoreResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.STUDENT_NAME
+		     , A.EXAM_NO
+		     , A.SUBJECT
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.RANK
+		  FROM TBL_EXAM_SCORE A
+		 WHERE A.SCORE_STATUS = 'Y'
+		   AND A.EXAM_NO = #{ examNo }
 	</select>
 	
 </mapper>

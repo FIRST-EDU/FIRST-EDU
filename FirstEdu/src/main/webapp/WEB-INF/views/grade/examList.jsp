@@ -39,6 +39,13 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
+          <article class="student-btn-align">
+            <div></div>
+            <div class="edit-delete-align">
+              <button type="button" class="btn-fill-light-blue btn-basic">시험 종류 관리</button>
+              <button type="button" id="examRegistBtn" class="btn-fill-light-blue btn-basic exam-registration">시험 등록</button>
+            </div>
+        </article>
           <section class="common-card score-analysis-card">
             <section class="form-wrap">
               <form class="checkbox-wrap">
@@ -88,7 +95,7 @@
                   </select>
                   <i class="fas fa-caret-down" aria-hidden></i>
                 </form>
-                <button id="categoryManagementBtn" type="button" class="btn-fill-primary btn-basic select-btn">관리</button>
+              <!--   <button id="categoryManagementBtn" type="button" class="btn-fill-primary btn-basic select-btn">관리</button> -->
               </article>
 
               <article class="select-class-wrap">
@@ -118,9 +125,9 @@
                 </div>
               </article>
 
-              <button type="button" id="examRegistBtn" class="btn-fill-primary btn-basic exam-registration">
+<!--               <button type="button" id="examRegistBtn" class="btn-fill-primary btn-basic exam-registration">
                 시험 등록
-              </button>
+              </button> -->
 
               <article class="calendar-list-select-btn">
                 <button type="button" class="btn-fill-seconary btn-basic calendar-btn is-active">
@@ -305,7 +312,7 @@
           </div>
         </article>
         
-	    <div class="popup-2btn form-btn">
+	    <div class="popup-2btn">
 	      <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
 	      <button type="submit" class="btn-fill-primary btn-basic">등록</button>
 	    </div>

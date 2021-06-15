@@ -16,7 +16,7 @@ import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
-import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 
 @Service("examService")
@@ -143,7 +143,7 @@ public class ExamServiceImpl implements ExamService {
 
 	/* 시험 상세 페이지 내에서 성적 정보 조회용 */
 	@Override
-	public List<ScoreFullInfoDTO> selectScoreList(int examNo) {
+	public List<ScoreDTO> selectScoreList(int examNo) {
 		return mapper.selectScoreList(examNo);
 	}
 
