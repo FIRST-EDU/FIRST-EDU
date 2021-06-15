@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.common.paging.Pagenation;
@@ -49,7 +50,7 @@ public class PayController {
 
 	/* list라는 매핑명 & Get으로 요청 된 작업 수행. 수납의 목록을 select하는 기능. */
 	@GetMapping("list")
-	public String selectPayList(Model model, HttpServletRequest request) {
+	public String selectPayList(RedirectAttributes rttr, Model model, HttpServletRequest request) {
 
 		String currentPage = request.getParameter("currentPage");
 
@@ -99,8 +100,6 @@ public class PayController {
 		}
 
 		int totalCount = payService.searchTotalCount(searchCriteria);
-
-		System.out.println("search List : ");
 
 		int limit = 10;
 
@@ -164,20 +163,62 @@ public class PayController {
 	}
 	/* insert라는 매핑명 & post방식으로 넘어온 작업 수행. 수납 입력 기능 */
 	@PostMapping("insert")
-	public String insertPay(Model model, @ModelAttribute PayDTO pay) {
+	public String insertPay(RedirectAttributes rttr, @ModelAttribute PayDTO pay) {
 
 		System.out.println(pay);
 		
 		int result = payService.insertPay(pay);
 
-		/*
-		 * if (result > 0) { model.addAttribute("message", "수납입력에 성공하였습니다."); } else {
-		 * model.addAttribute("message", "수납입력에 실패하였습니다."); }
-		 */
+		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","수납 입력");
+			rttr.addFlashAttribute("msgContent","수납 입력에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","수납 입력");
+			rttr.addFlashAttribute("msgContent","수납 입력에 실패하였습니다.");
+		}
 
 		return "redirect:/pay/list";
 	}
 
+	/* update라는 매핑명 & post 방식으로 전달 받은 데이터를 DB에 전달. 수납정보수정 기능 */
+	@PostMapping("update")
+	public String updatePay(RedirectAttributes rttr, @ModelAttribute PayDTO pay) {
+		
+		int result = payService.updatePay(pay);
+		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","수납 수정");
+			rttr.addFlashAttribute("msgContent","수납 수정에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","수납 수정");
+			rttr.addFlashAttribute("msgContent","수납 수정에 실패하였습니다.");
+		}
+		
+		return "redirect:/pay/list";
+		
+	}
+	
+	/*
+	 * delete라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 전달받은 데이터를 DB에 전달. 수납정보 삭제 기능
+	 * (DELETE로 삭제해버리지 않고 UPDATE로 상태만 변경해 화면에 출력되지 않도록 한다.)
+	 */
+	@GetMapping("delete")
+	public String deletePay(RedirectAttributes rttr, @RequestParam(value = "no") int no) {
+		
+		int result = payService.deletePay(no);
+		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","수납 삭제");
+			rttr.addFlashAttribute("msgContent","수납 삭제에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","수납 삭제");
+			rttr.addFlashAttribute("msgContent","수납 삭제에 실패하였습니다.");
+		}
+		
+		return "redirect:/pay/list";
+	}
+	
 	/* insertView라는 매핑명 & Get으로 요청된 작업 수행. insert 시 학생목록을 출력해 주기 위한 학생목록조회 기능 */
 	@GetMapping("insertView")
 	public String selectStudentList(Model model, HttpServletRequest request,
@@ -253,39 +294,6 @@ public class PayController {
 		return "pay/payList";
 	}
 
-	/* update라는 매핑명 & post 방식으로 전달 받은 데이터를 DB에 전달. 수납정보수정 기능 */
-	@PostMapping("update")
-	public String updatePay(Model model, @ModelAttribute PayDTO pay) {
-
-		int result = payService.updatePay(pay);
-
-		if (result > 0) {
-			model.addAttribute("message", "수납수정에 성공하였습니다.");
-		} else {
-			model.addAttribute("message", "수납수정에 실패하였습니다.");
-		}
-
-		return "redirect:/pay/list";
-
-	}
-
-	/*
-	 * delete라는 매핑명 & Get으로 요청된 작업 수행. requestParam으로 전달받은 데이터를 DB에 전달. 수납정보 삭제 기능
-	 * (DELETE로 삭제해버리지 않고 UPDATE로 상태만 변경해 화면에 출력되지 않도록 한다.)
-	 */
-	@GetMapping("delete")
-	public String deletePay(Model model, @RequestParam(value = "no") int no) {
-
-		int result = payService.deletePay(no);
-
-//		if (result > 0) {
-//			model.addAttribute("message", "수납목록 삭제에 성공하였습니다.");
-//		} else {
-//			model.addAttribute("message", "수납목록 삭제에 실패하였습니다.");
-//		}
-
-		return "redirect:/pay/list";
-	}
 
 	@GetMapping("classList")
 	public String selectClassList(Model model, HttpServletResponse response, @RequestParam(value = "stuNo") int stuNo)

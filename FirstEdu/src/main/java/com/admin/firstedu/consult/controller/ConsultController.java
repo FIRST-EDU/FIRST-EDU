@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.admin.firstedu.common.paging.PageInfoDTO;
 import com.admin.firstedu.common.paging.Pagenation;
@@ -144,15 +145,18 @@ public class ConsultController {
 	}
 	
 	@PostMapping("insert")
-	public String insertConsult(Model model, @ModelAttribute ConsultDTO consult) {
+	public String insertConsult(RedirectAttributes rttr, @ModelAttribute ConsultDTO consult) {
 		
 		int result = consultService.insertConsult(consult);
 		
-		/*
-		 * if(result > 0) { model.addAttribute("message", "상담입력에 성공하였습니다"); }else {
-		 * model.addAttribute("message", "상담입력에 실패하였습니다"); }
-		 */
-		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","상담 입력");
+			rttr.addFlashAttribute("msgContent","상담 입력에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","상담 입력");
+			rttr.addFlashAttribute("msgContent","상담 입력에 실패하였습니다.");
+		}
+
 		return "redirect:/consult/list";
 	}
 	
@@ -167,29 +171,35 @@ public class ConsultController {
 	}
 	
 	@PostMapping("update")
-	public String UpdateConsult(Model model, @ModelAttribute ConsultDTO consult) {
+	public String UpdateConsult(RedirectAttributes rttr, @ModelAttribute ConsultDTO consult) {
 		
 		int result = consultService.updateConsult(consult);
 		
 		
-		/*
-		 * if(result > 0) { model.addAttribute("message", "상담내용 수정에 성공하였습니다"); }else {
-		 * model.addAttribute("message", "상담내용 수정에 실패하였습니다"); }
-		 */
-		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","상담 수정");
+			rttr.addFlashAttribute("msgContent","상담 수정에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","상담 수정");
+			rttr.addFlashAttribute("msgContent","상담 수정에 실패하였습니다.");
+		}
+
 		return "redirect:/consult/list";
 	}
 	
 	@GetMapping("delete/{no}")
-	public String deleteConsult(Model model, @PathVariable("no") int no) {
+	public String deleteConsult(RedirectAttributes rttr, @PathVariable("no") int no) {
 		
 		int result = consultService.deleteConsult(no);
 		
-		/*
-		 * if(result > 0) { model.addAttribute("message", "상담내용 삭제에 성공하였습니다"); }else {
-		 * model.addAttribute("message", "상담내용 삭제에 실패하였습니다"); }
-		 */
-		
+		if (result > 0) { 
+			rttr.addFlashAttribute("msgTitle","상담 삭제");
+			rttr.addFlashAttribute("msgContent","상담 삭제에 성공하였습니다.");
+		}else {
+			rttr.addFlashAttribute("msgTitle","상담 삭제");
+			rttr.addFlashAttribute("msgContent","상담 삭제에 실패하였습니다.");
+		}
+
 		return "redirect:/consult/list";
 	}
 	

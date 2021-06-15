@@ -258,27 +258,21 @@
       </div>
     </div>
   </div>
+  
+  
 
+  <c:if test="${!empty requestScope.msgTitle }">
   <div class="modal complete-modal complete-input-board-modal">
     <div class="modal-content">
-      <strong>게시물 등록</strong>
-      <p>게시물이 등록되었습니다.</p>
+      <strong>${requestScope.msgTitle }</strong>
+      <p>${requestScope.msgContent }</p>
       <div class="popup-1btn">
         <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
       </div>
     </div>
   </div>
+  </c:if>
 
-  <div class="modal complete-modal complete-delete-board-modal">
-    <div class="modal-content">
-      <strong>게시물 삭제</strong>
-      <p>게시물이 삭제되었습니다.</p>
-      <div class="popup-1btn">
-        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
-      </div>
-    </div>
-  </div>
-  
   <script>
 	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
 		$(document).ready(function() {
@@ -353,6 +347,12 @@
 			location.href = "${pageContext.servletContext.contextPath}/consult/update/" + no; 
 		}) 
 
+		/* breadcrumb 변경 */
+	$(function(){
+		$('#parentMenu').text('상담 관리');
+		$('#parentMenu').attr('href', '/firstedu/consult/list');
+		$('#nowMenu').text('상담 목록');
+	})
 	</script>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>

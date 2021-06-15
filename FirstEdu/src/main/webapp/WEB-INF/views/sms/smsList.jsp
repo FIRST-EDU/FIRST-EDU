@@ -13,7 +13,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="${pageContext.servletContext.contextPath}/favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="${pageContext.servletContext.contextPath}/favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 문자 관리 &gt; 문자 목록 | FIRST EDU</title>
+	<title> 문자 관리 &gt; 문자 내역 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -184,36 +184,17 @@
       </div>
     </main>
 
-    <div class="modal complete-modal complete-input-board-modal">
+    <c:if test="${!empty requestScope.msgTitle }">
+  <div class="modal complete-modal complete-input-board-modal">
     <div class="modal-content">
-      <strong>게시물 등록</strong>
-      <p>게시물이 등록되었습니다.</p>
+      <strong>${requestScope.msgTitle }</strong>
+      <p>${requestScope.msgContent }</p>
       <div class="popup-1btn">
         <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
       </div>
     </div>
   </div>
-
-  <div class="modal delete-board-modal second-modal">
-    <div class="modal-content">
-      <strong>게시물 삭제하기</strong>
-      <p>게시물을 삭제하시겠습니까?</p>
-        <div class="popup-2btn">
-          <button type="button" class="btn-fill-seconary btn-popup delete-board-btn">삭제</button>
-          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
-        </div>
-    </div>
-  </div>
-
-  <div class="modal complete-modal complete-delete-board-modal">
-    <div class="modal-content">
-      <strong>게시물 삭제</strong>
-      <p>게시물이 삭제되었습니다.</p>
-      <div class="popup-1btn">
-        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
-      </div>
-    </div>
-  </div>
+  </c:if>
 
 <script>
 	/* 헤더 클릭 시 정렬되게 하는 라이브러리 */
@@ -272,6 +253,11 @@
 			
 			const no = this.parentNode.children[0].innerText;
 			location.href="${pageContext.servletContext.contextPath}/sms/detail/" + no;
+		})
+		$(function(){
+			$('#parentMenu').text('문자 관리');
+			$('#parentMenu').attr('href', '/firstedu/sms/list');
+			$('#nowMenu').text('문자 내역');
 		})
 </script>
 
