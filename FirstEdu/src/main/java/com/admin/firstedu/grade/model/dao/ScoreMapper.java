@@ -15,4 +15,6 @@ public interface ScoreMapper {
 
 	public int updateScore(ModifiedScoreDTO modifiedScore);
 
+	public int selectScoreNo();
+
 }

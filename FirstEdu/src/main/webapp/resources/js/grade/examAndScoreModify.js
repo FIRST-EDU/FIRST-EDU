@@ -78,10 +78,10 @@ function addScore(examNo) {
 
 	$.ajax({
 		url: "/firstedu/grade/score/regist",
-		type: "get",		
+		type: "post",		
 		data: { examNo : examNo },
 		success: function(data) {
-			
+			console.log(data);
 			$tr = $('<tr>');
 			
 			$inputGroupDiv = $('<div class="input-group">');
@@ -92,17 +92,30 @@ function addScore(examNo) {
 			$scoreTd = $('<td>');
 			$rankTd = $('<td>');
 
-			$studentNameInput = '<input class="form-input" name="student_name" type="text" value="" onchange="modifyScore(this, ' + data + ')" readonly/>';
-			$subjectInput = '<input class="form-input" name="subject" type="text" value="" onchange="modifyScore(this, ' + data + ')" readonly/>';
-			$targetScoreInput = '<input class="form-input" name="target_score" value="" type="text" onchange="modifyScore(this, ' + data + ')" readonly/>';
-			$scoreInput = '<input class="form-input" name="score" type="text" value="" onchange="modifyScore(this, ' + data + ')" readonly/>';
-			$rankInput = '<input class="form-input" name="rank" type="text" value="" onchange="modifyScore(this, ' + data + ')" readonly/>';
+			$studentNameInput = '<input class="form-input" name="student_name" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$subjectInput = '<input class="form-input" name="subject" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$targetScoreInput = '<input class="form-input" name="target_score" value="" type="text" onchange="modifyScore(this, ' + data + ')"/>';
+			$scoreInput = '<input class="form-input" name="score" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$rankInput = '<input class="form-input" name="rank" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+
+			$studentNameInputDiv = $('<div class="input-group">').html($studentNameInput)
+			$subjectInputDiv = $('<div class="input-group">').html($subjectInput)
+			$targetScoreInputDiv = $('<div class="input-group">').html($targetScoreInput)
+			$scoreInputDiv = $('<div class="input-group">').html($scoreInput)
+			$rankInputDiv = $('<div class="input-group">').html($rankInput)
 			
-			$tr.append($studentNameTd.append($inputGroupDiv.append($studentNameInput)));
-			$tr.append($subjectTd.append($inputGroupDiv.append($subjectInput)));
-			$tr.append($targetScoreTd.append($inputGroupDiv.append($targetScoreInput)));
-			$tr.append($scoreTd.append($inputGroupDiv.append($scoreInput)));
-			$tr.append($rankTd.append($inputGroupDiv.append($rankInput)));
+			$studentNameTd.append($studentNameInputDiv);
+			$subjectTd.append($subjectInputDiv);
+			$targetScoreTd.append($targetScoreInputDiv);
+			$scoreTd.append($scoreInputDiv);
+			$rankTd.append($rankInputDiv);
+			
+			
+			$tr.append($studentNameTd);
+			$tr.append($subjectTd);
+			$tr.append($targetScoreTd);
+			$tr.append($scoreTd);
+			$tr.append($rankTd);
 			
 			$('#addTr').before($tr);
 			

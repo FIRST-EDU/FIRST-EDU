@@ -28,7 +28,7 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public int registScore(int examNo) {
-		return mapper.insertScore(examNo);
+		return mapper.insertScore(examNo) > 0 ? mapper.selectScoreNo() : 0;
 	}
 	
 	@Override

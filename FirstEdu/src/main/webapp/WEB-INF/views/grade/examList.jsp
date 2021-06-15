@@ -42,7 +42,7 @@
           <article class="student-btn-align">
             <div></div>
             <div class="edit-delete-align">
-              <button type="button" class="btn-fill-light-blue btn-basic">시험 종류 관리</button>
+              <!-- <button type="button" class="btn-fill-light-blue btn-basic">시험 종류 관리</button> -->
               <button type="button" id="examRegistBtn" class="btn-fill-light-blue btn-basic exam-registration">시험 등록</button>
             </div>
         </article>

@@ -91,8 +91,8 @@ public class ScoreController {
 					throws IOException {
 		System.out.println(examNo);
 		int scoreNo = scoreService.registScore(examNo);
-		
-		response.getWriter().write(scoreNo);
+		System.out.println(scoreNo);
+		response.getWriter().write(Integer.toString(scoreNo));
 	}
 	
 	/* 성적 수정 */

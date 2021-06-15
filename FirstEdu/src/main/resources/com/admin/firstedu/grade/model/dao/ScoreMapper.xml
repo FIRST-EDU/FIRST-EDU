@@ -124,11 +124,6 @@
 	</select>
 	
 	<insert id="insertScore" parameterType="_int">
-		<selectKey keyProperty="scoreNo" order="AFTER" resultType="_int">
-			SELECT
-			       SEQ_SCORE_NO.CURRVAL
-			  FROM DUAL			
-		</selectKey>
 		INSERT
 		  INTO TBL_EXAM_SCORE A
 		(
@@ -141,6 +136,12 @@
 		, #{ examNo }
 		)
 	</insert>
+	
+	<select id="selectScoreNo" resultType="_int">
+		SELECT
+		       SEQ_SCORE_NO.CURRVAL
+		  FROM DUAL		
+	</select>
 	
 <!-- 	성적 등록
 	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreListDTO">

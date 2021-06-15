@@ -3,11 +3,28 @@ $(function(){
 	$('#parentMenu').text('성적 관리');
 	$('#parentMenu').attr('href', '/firstedu/grade/exam/list');
 	$('#nowMenu').text('시험 목록');
+	
+	$('.nav-grade').addClass('is-active')
+	
 })
+
+let navDrawerMenus = document.querySelectorAll('.drawer-menu');
+for (let drawerMenu of navDrawerMenus) {
+	let isGrade = false
+    for (let className of drawerMenu.classList) {
+        if (className == 'nav-grade') {
+          isGrade = true
+        }
+    }
+    if(!isGrade) {
+    	drawerMenu.classList.remove('is-active');
+    }
+}
 
 /* 검색 대상에서 학원 시험 제외 시 시험 종류 및 강의명 선택 옵션 제거 */
 $('#checkHagwonExam').click(function() {
-	$('select[name=category]').closest('form').toggle();
+//	$('select[name=category]').closest('form').toggle();
+	$('.select-exam-wrap').toggle();
 	$('.select-class-wrap').toggle();
 //	if($(this).prop('checked')) {
 //		$('select[name=category] > option:first-child').text('선택');

@@ -213,10 +213,10 @@
       </a>
     </div>
 
-    <div class="drawer-menu">
+    <div class="drawer-menu nav-grade">
       <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/grade/exam/list">
         <i class="fas fa-edit" aria-hidden="true"></i>
-        시험 관리
+        성적 관리
       </a>
     </div>
 
@@ -255,6 +255,7 @@
         <i class="fas fa-comment-dots" aria-hidden="true"></i>
         상담 관리
       </a>
+    </div>
 
       <strong class="drawer-menu-category">선생님</strong>
 
@@ -277,7 +278,7 @@
           <i class="fas fa-sms" aria-hidden="true"></i>
           문자 관리
         </a>
-        </button>
+        </div>
 
 
       <!-- Note: Login boss  -->

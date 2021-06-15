@@ -84,26 +84,26 @@ public class ExamServiceImpl implements ExamService {
 		/* 시험 등록 */
 		int result1 = mapper.insertExam(exam);
 		
-		/* 등록한 시험 번호 조회 */
-		int examNo = mapper.selectRegisteredExamNo();
+//		/* 등록한 시험 번호 조회 */
+//		int examNo = mapper.selectRegisteredExamNo();
+//		
+//		int result2 = 0;
+//		if(exam.getCategoryNo() == 1) {
+//			mapper.selectSchoolExamStudentList(examNo);
+//			result2 = 1;
+//			
+//		} else if(exam.getCategoryNo() == 2) {
+//			mapper.selectMockExamStudentList(examNo);
+//			result2 = 1;
+//		
+//		/* 학원 시험 기본 정보 등록 */
+//		} else {
+//			List<HagwonExamScoreBasicInfoDTO> hagwonExamScoreBasicInfoList = mapper.selectHagwonExamScoreBasicInfoList(examNo);
+//			System.out.println(hagwonExamScoreBasicInfoList);
+//			result2 = mapper.insertHagwonExamScoreBasicInfo(new HagwonExamScoreBasicInfoListDTO(hagwonExamScoreBasicInfoList));
+//		}
 		
-		int result2 = 0;
-		if(exam.getCategoryNo() == 1) {
-			mapper.selectSchoolExamStudentList(examNo);
-			result2 = 1;
-			
-		} else if(exam.getCategoryNo() == 2) {
-			mapper.selectMockExamStudentList(examNo);
-			result2 = 1;
-		
-		/* 학원 시험 기본 정보 등록 */
-		} else {
-			List<HagwonExamScoreBasicInfoDTO> hagwonExamScoreBasicInfoList = mapper.selectHagwonExamScoreBasicInfoList(examNo);
-			System.out.println(hagwonExamScoreBasicInfoList);
-			result2 = mapper.insertHagwonExamScoreBasicInfo(new HagwonExamScoreBasicInfoListDTO(hagwonExamScoreBasicInfoList));
-		}
-		
-		return result1 > 0 && result2 > 0 ? true : false;
+		return result1 > 0 /* && result2 > 0*/ ? true : false;
 	}
 
 	/* 시험 정보 수정용 */

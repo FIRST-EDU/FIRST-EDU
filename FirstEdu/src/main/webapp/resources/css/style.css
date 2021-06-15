@@ -1001,6 +1001,8 @@ textarea {
   .drawer-menu-all .drawer-menu {
     transition: all 300ms ease-in-out; }
     .drawer-menu-all .drawer-menu.is-active {
+      font-weight: 500;
+      color: #000;
       background-color: #f6f9fc;
       border-radius: 4px; }
       .drawer-menu-all .drawer-menu.is-active .drawer-menu-button {
