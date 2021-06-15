@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO;
 import com.admin.firstedu.common.exception.LoginFailedException;
 import com.admin.firstedu.member.model.dao.MemberMapper;
 import com.admin.firstedu.member.model.dto.MemberDTO;

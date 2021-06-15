@@ -2,7 +2,6 @@ package com.admin.firstedu.member.model.service;
 
 import java.util.List;
 
-import com.admin.firstedu.classInfo.model.dto.ClassAndInfoDTO;
 import com.admin.firstedu.common.exception.LoginFailedException;
 import com.admin.firstedu.member.model.dto.MemberDTO;
 import com.admin.firstedu.member.model.dto.SearchCriteriaDTO;
