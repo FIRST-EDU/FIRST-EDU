@@ -7,19 +7,13 @@
 
 	<!-- 성적 테이블 DTO -->
 	<resultMap id="scoreResultMap" type="com.admin.firstedu.grade.model.dto.ScoreDTO">
-		<id column="SCORE_NO" property="no"/>
-		<result column="STUDENT_NO" property="studentNo"/>
+		<id column="SCORE_NO" property="scoreNo"/>
+		<result column="STUDENT_NAME" property="studentName"/>
 		<result column="EXAM_NO" property="examNo"/>
-		<result column="SUBJECT_NO" property="subjectNo"/>
-		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
+		<result column="SUBJECT" property="subject"/>
 		<result column="TARGET_SCORE" property="targetScore"/>
 		<result column="SCORE" property="score"/>
-		<result column="SCORE_GRADE" property="scoreGrade"/>
-		<result column="CLASS_RANK" property="classRank"/>
-		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
-		<result column="OVERALL_RANK" property="overallRank"/>
-		<result column="TOTAL_PERSONNEL" property="totalPersonnel"/>
-		<result column="TEACHER_COMMENT" property="teacherComment"/>
+		<result column="RANK" property="rank"/>
 	</resultMap>
 	
 	<!-- 학생 테이블 DTO -->
@@ -54,7 +48,7 @@
         <association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.gradeResultMap" property="grade"/>
     </resultMap>
 
-	<!-- 성적 모든 정보 조회용 DTO -->
+	<!-- 성적 모든 정보 조회용 DTO 
 	<resultMap id="scoreFullInfoResultMap" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO">
 		<id column="SCORE_NO" property="no"/>
 		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
@@ -69,11 +63,11 @@
 		<association resultMap="studentAndGradeResultMap" property="student"/>
 		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.examResultMap" property="exam"/>
 		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.subjectCategoryResultMap" property="subject"/>
-	</resultMap>
+	</resultMap>-->
 
 
 	<!-- 성적 조회 (검색 포함) -->
-	<select id="selectScoreList" parameterType="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
+<!-- 	<select id="selectScoreList" parameterType="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
 		SELECT
 		       A.SCORE_NO
 		     , A.SUBJECT_DETAIL
@@ -114,9 +108,41 @@
 		   	   #{ subjectNo }
 		   </foreach>
 		 </if>
+	</select> -->
+	<select id="selectScoreList" parameterType="_int" resultMap="scoreResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.STUDENT_NAME
+		     , A.EXAM_NO
+		     , A.SUBJECT
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.RANK
+		  FROM TBL_EXAM_SCORE A
+		 WHERE A.SCORE_STATUS = 'N'
+		   AND A.EXAM_NO = #{ examNo }
 	</select>
 	
-	<!-- 성적 등록 -->
+	<insert id="insertScore" parameterType="_int">
+		<selectKey keyProperty="scoreNo" order="AFTER" resultType="_int">
+			SELECT
+			       SEQ_SCORE_NO.CURRVAL
+			  FROM DUAL			
+		</selectKey>
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.EXAM_NO 
+		)
+		VALUES
+		(
+		  SEQ_SCORE_NO.NEXTVAL
+		, #{ examNo }
+		)
+	</insert>
+	
+<!-- 	성적 등록
 	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreListDTO">
 		INSERT
 		  INTO TBL_EXAM_SCORE A
@@ -151,8 +177,7 @@
 		       , #{ score.teacherComment, jdbcType=VARCHAR }
 		    FROM DUAL
 		</foreach>
-	</insert>
-	
+	-->
 	<!-- 성적 수정 -->
 	<update id="updateScore" parameterType="com.admin.firstedu.grade.model.dto.ModifiedScoreDTO">
 		UPDATE
@@ -163,7 +188,10 @@
 	
 	<!-- 성적 삭제 -->
 	<update id="deleteScore" parameterType="_int">
-
+		UPDATE
+		       TBL_EXAM_SCORE A
+		   SET A.SCORE_STATUS = 'Y'
+		 WHERE SCORE_NO = #{ scoreNo }
 	</update>
 	
 </mapper>

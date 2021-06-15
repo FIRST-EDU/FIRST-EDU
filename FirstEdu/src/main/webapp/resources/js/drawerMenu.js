@@ -11,10 +11,12 @@ const isBoss = document.querySelector('.is-boss')
 //   })
 // })
 
-isGrade.addEventListener('click', () => {
-  isGrade.classList.toggle('is-active')
-  isGrade.classList.toggle('is-open')
-})
+if(isGrade) {
+  isGrade.addEventListener('click', () => {
+  	isGrade.classList.toggle('is-active')
+    isGrade.classList.toggle('is-open')
+  })
+}
 
 isBoss.addEventListener('click', () => {
   isBoss.classList.toggle('is-active')

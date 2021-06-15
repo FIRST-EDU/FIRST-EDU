@@ -776,10 +776,14 @@ textarea {
 
 .select-group {
   position: relative; }
-  .select-group:hover .form-select {
-    border-color: #5e72e4; }
-  .select-group:hover .fa-caret-down {
-    color: #5e72e4; }
+  .select-group:hover .form-select,
+  .select-group :focus .form-select {
+    border-color: #5e72e4;
+    transition: all 250ms ease-in-out; }
+  .select-group:hover .fa-caret-down,
+  .select-group :focus .fa-caret-down {
+    color: #5e72e4;
+    transition: all 250ms ease-in-out; }
   .select-group .form-select {
     padding-right: 40px;
     text-overflow: ellipsis; }
@@ -2607,25 +2611,41 @@ textarea {
 .myhome-teacher-table th {
   border: 1px solid #dee2e6; }
 
-.hagone-img-card {
+.hagone-img-card,
+.myhome-img-card {
   display: flex;
   align-items: center;
   justify-content: center; }
-  .hagone-img-card img {
+  .hagone-img-card img,
+  .myhome-img-card img {
     display: block;
     width: auto;
-    height: 250px; }
+    height: 250px;
+    overflow: hidden; }
+
+.fa-plus-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  color: #b7babd;
+  transition: all 250ms ease-in-out; }
+  .fa-plus-circle:hover {
+    color: #8898aa; }
+  .fa-plus-circle:active {
+    color: #525f7f; }
 
 @media screen and (min-width: 768px) {
-  .hagone-img-card {
+  .hagone-img-card,
+  .myhome-img-card {
     display: flex;
     align-items: center;
     justify-content: center; }
-    .hagone-img-card img {
+    .hagone-img-card img,
+    .myhome-img-card img {
       display: block;
       width: auto;
-      height: 520px;
-      overflow: hidden; } }
+      height: 520px; } }
 
 .dashboard-s-card {
   display: flex;
@@ -3254,7 +3274,56 @@ textarea {
 .exam-detail-table th {
   border-bottom: 1px solid #dee2e6; }
 
-.exam-lock i {
+.exam-detail-table td {
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #525f7f; }
+
+.exam-detail-table .date-align input {
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #525f7f;
+  transition: all 250ms ease-in-out; }
+
+.exam-detail-table .date-align input:read-only {
+  border: 0; }
+
+.exam-detail-table .date-align input:not(:read-only):hover,
+.exam-detail-table .date-align :not(:read-only):focus {
+  border: 1px solid #5e72e4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18); }
+
+.exam-detail-table textarea {
+  height: 100px;
+  padding: 10px; }
+
+.exam-detail-table textarea:read-only {
+  border: 0; }
+
+.btn-icon-align {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .btn-icon-align button:nth-child(1) {
+    margin-right: 10px; }
+
+.fa-times-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  color: #ff7089;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 250ms ease-in-out; }
+  .fa-times-circle:hover {
+    color: #f5365c; }
+  .fa-times-circle:active {
+    color: #b03; }
+
+.exam-lock button i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3263,27 +3332,29 @@ textarea {
   font-size: 15px;
   color: #fff;
   background-color: #5e72e4;
-  border-radius: 50%; }
-  .exam-lock i:hover {
-    background-color: #1b47b1;
-    transition: all 250ms ease-in-out; }
-  .exam-lock i:active {
-    color: #ffd600;
-    background-color: #172b4d;
-    transition: all 250ms ease-in-out; }
+  border-radius: 50%;
+  transition: background-color 250ms ease-in-out; }
+  .exam-lock button i:hover {
+    background-color: #1b47b1; }
+  .exam-lock button i:active {
+    background-color: #172b4d; }
 
-.exam-edit-table .input-group {
+.exam-edit-table .input-group,
+.exam-detail-table .input-group {
   display: flex;
   align-items: center;
   justify-content: center; }
-  .exam-edit-table .input-group .form-input {
+  .exam-edit-table .input-group .form-input,
+  .exam-detail-table .input-group .form-input {
     width: 150px;
     padding: 0 10px;
     text-align: center;
     border: 0; }
-    .exam-edit-table .input-group .form-input.is-active {
+    .exam-edit-table .input-group .form-input.is-active,
+    .exam-detail-table .input-group .form-input.is-active {
       border: 1px solid #dee2e6; }
-      .exam-edit-table .input-group .form-input.is-active:focus {
+      .exam-edit-table .input-group .form-input.is-active:focus,
+      .exam-detail-table .input-group .form-input.is-active:focus {
         border: 1px solid #5e72e4; }
 
 .student-detail-table th {

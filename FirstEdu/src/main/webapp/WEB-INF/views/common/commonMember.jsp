@@ -213,7 +213,14 @@
       </a>
     </div>
 
-    <div class="drawer-menu is-grade">
+    <div class="drawer-menu">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/grade/exam/list">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+        시험 관리
+      </a>
+    </div>
+
+ <%--    <div class="drawer-menu is-grade">
       <button class="drawer-menu-button" type="button">
         <i class="fas fa-edit" aria-hidden="true"></i>
         시험 관리
@@ -227,15 +234,15 @@
               시험 일정
             </a>
           </li>
-<!--           <li class="drawer-menu-item">
+           <li class="drawer-menu-item">
             <a href="/">
               시험 목록
             </a>
-          </li> -->
+          </li>
         </ul>
       </div>
     </div>
-
+ --%>
     <div class="drawer-menu">
       <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/pay/list">
         <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>

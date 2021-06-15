@@ -1,3 +1,10 @@
+/* breadcrumb 변경 */
+$(function(){
+	$('#parentMenu').text('성적 관리');
+	$('#parentMenu').attr('href', '/firstedu/grade/exam/list');
+	$('#nowMenu').text('시험 목록');
+})
+
 /* 검색 대상에서 학원 시험 제외 시 시험 종류 및 강의명 선택 옵션 제거 */
 $('#checkHagwonExam').click(function() {
 	$('select[name=category]').closest('form').toggle();
@@ -11,7 +18,14 @@ $('#checkHagwonExam').click(function() {
 
 /* 필터 검색 */
 /* input 박스 값 변경 시 검색 목록 조회 */
-$('input').change(function(){
+$('input[type=checkbox]').change(function(){
+	if(scoreTableCard.style.display == 'block') {
+		searchExam(1);
+	} else {
+		searchExamSchedule();
+	}
+});
+$('.input-group > #examName').change(function(){
 	if(scoreTableCard.style.display == 'block') {
 		searchExam(1);
 	} else {
@@ -20,7 +34,14 @@ $('input').change(function(){
 });
 
 /* select 값 변경 시 검색 목록 조회 */
-$('select').change(function(){
+$('#category').change(function(){
+	if(scoreTableCard.style.display == 'block') {
+		searchExam(1);
+	} else {
+		searchExamSchedule();
+	}
+});
+$('#class').change(function(){
 	if(scoreTableCard.style.display == 'block') {
 		searchExam(1);
 	} else {

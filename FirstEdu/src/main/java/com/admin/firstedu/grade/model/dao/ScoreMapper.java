@@ -11,7 +11,7 @@ public interface ScoreMapper {
 
 	public List<ScoreFullInfoDTO> selectScoreList(ScoreSearchCriteria searchCriteria);
 
-	public int insertScore(ScoreListDTO scoreList);
+	public int insertScore(int examNo);
 
 	public int updateScore(ModifiedScoreDTO modifiedScore);
 

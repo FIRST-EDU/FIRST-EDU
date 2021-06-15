@@ -27,8 +27,8 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public String registScore(ScoreListDTO scoreList) {
-		return mapper.insertScore(scoreList) > 0 ? "true" : "false";
+	public int registScore(int examNo) {
+		return mapper.insertScore(examNo);
 	}
 	
 	@Override

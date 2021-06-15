@@ -13,9 +13,12 @@ import com.admin.firstedu.grade.model.dto.ExamCategoryFullInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
+import com.admin.firstedu.grade.model.dto.GradeDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
-import com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO;
+import com.admin.firstedu.grade.model.dto.ModifiedExamDTO;
+import com.admin.firstedu.grade.model.dto.ScoreDTO;
+import com.admin.firstedu.student.model.dto.SchoolDTO;
 
 @Service("examService")
 public class ExamServiceImpl implements ExamService {
@@ -87,9 +90,11 @@ public class ExamServiceImpl implements ExamService {
 		int result2 = 0;
 		if(exam.getCategoryNo() == 1) {
 			mapper.selectSchoolExamStudentList(examNo);
+			result2 = 1;
 			
 		} else if(exam.getCategoryNo() == 2) {
 			mapper.selectMockExamStudentList(examNo);
+			result2 = 1;
 		
 		/* 학원 시험 기본 정보 등록 */
 		} else {
@@ -103,14 +108,14 @@ public class ExamServiceImpl implements ExamService {
 
 	/* 시험 정보 수정용 */
 	@Override
-	public boolean modifyExam(ExamDTO exam) {
-		return mapper.updateExam(exam) > 0 ? true : false;
+	public String modifyExam(ModifiedExamDTO modifiedExam) {
+		return mapper.updateExam(modifiedExam) > 0 ? "true" : "false";
 	}
 
 	/* 시험 삭제용 */
 	@Override
-	public boolean removeExam(int examNo) {
-		return mapper.deleteExam(examNo) > 0 ? true : false;
+	public String removeExam(int examNo) {
+		return mapper.deleteExam(examNo) > 0 ? "true" : "false";
 	}
 
 	/* 시험 종류 등록용 */
@@ -139,8 +144,20 @@ public class ExamServiceImpl implements ExamService {
 
 	/* 시험 상세 페이지 내에서 성적 정보 조회용 */
 	@Override
-	public List<ScoreFullInfoDTO> selectScoreList(int examNo) {
+	public List<ScoreDTO> selectScoreList(int examNo) {
 		return mapper.selectScoreList(examNo);
+	}
+
+	/* 시험 등록 시 학교 목록 조회용 */
+	@Override
+	public List<SchoolDTO> selectSchoolList() {
+		return mapper.selectSchoolList();
+	}
+	
+	/* 시험 등록 시 학년 목록 조회용 */
+	@Override
+	public List<GradeDTO> selectGradeList() {
+		return mapper.selectGradeList();
 	}
 
 }

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/png" sizes="32x32" href="${ pageContext.servletContext.contextPath }/favicon-32x32.png" />
     <link rel="shortcut icon" type="image/png" sizes="16x16" href="${ pageContext.servletContext.contextPath }/favicon-16x16.png" />
     <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5e72e4" />
-	<title> 성적 관리 &gt; 시험 관리 | FIRST EDU</title>
+	<title> 성적 관리 &gt; 시험 목록 | FIRST EDU</title>
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css" />
     <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/fullCalendar.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -39,6 +39,13 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-4">
+          <article class="student-btn-align">
+            <div></div>
+            <div class="edit-delete-align">
+              <button type="button" class="btn-fill-light-blue btn-basic">시험 종류 관리</button>
+              <button type="button" id="examRegistBtn" class="btn-fill-light-blue btn-basic exam-registration">시험 등록</button>
+            </div>
+        </article>
           <section class="common-card score-analysis-card">
             <section class="form-wrap">
               <form class="checkbox-wrap">
@@ -88,7 +95,7 @@
                   </select>
                   <i class="fas fa-caret-down" aria-hidden></i>
                 </form>
-                <button id="categoryManagementBtn" type="button" class="btn-fill-primary btn-basic select-btn">관리</button>
+              <!--   <button id="categoryManagementBtn" type="button" class="btn-fill-primary btn-basic select-btn">관리</button> -->
               </article>
 
               <article class="select-class-wrap">
@@ -113,13 +120,14 @@
                     class="form-input"
                     type="text"
                     placeholder="검색어를 입력하세요."
+                    autocomplete="new-password" 
                   />
                 </div>
               </article>
 
-              <button type="button" id="examRegistBtn" class="btn-fill-primary btn-basic exam-registration">
+<!--               <button type="button" id="examRegistBtn" class="btn-fill-primary btn-basic exam-registration">
                 시험 등록
-              </button>
+              </button> -->
 
               <article class="calendar-list-select-btn">
                 <button type="button" class="btn-fill-seconary btn-basic calendar-btn is-active">
@@ -177,7 +185,7 @@
     </div>
   </main>
   
- <div id="examCategoryManagementModal" class="modal detail-board-modal">
+<%--  <div id="examCategoryManagementModal" class="modal detail-board-modal">
     <div class="modal-content">
       <section>
       	<article class="common-table">
@@ -235,19 +243,19 @@
           <button type="button" class="btn-fill-primary btn-basic back-btn">목록</button>
         </div>
     </div>
-  </div>
-  
+  </div> --%>
+ 
+ <!-- 시험 등록용 모달 --> 
  <div id="examRegistModal" class="modal detail-board-modal">
     <div class="modal-content">
-      <form class="form-left">
+      <form class="form-left" action="${ pageContext.servletContext.contextPath }/grade/exam/regist" method="post">
 
         <article id="classInfoForm" class="teacher-input-form form-align">
           <label>시험 종류</label>
           <div class="select-group">
           <select id="categoryNo" name="categoryNo" class="form-select" required>
-            <option value="none">선택</option>
             <c:forEach var="category" items="${ requestScope.examCategoryList }">
-             <option value="${ category.no }">${ category.name }</option>
+              <option value="${ category.no }">${ category.name }</option>
             </c:forEach>
           </select>
           <i class="fas fa-caret-down" aria-hidden></i>
@@ -257,20 +265,29 @@
         <article class="form-align">
           <label>시험명</label>
           <div class="input-group">
-            <input id="name" name="name" class="form-input" type="text"/>
+            <input id="name" name="name" class="form-input" type="text" autocomplete="new-password"/>
           </div>
         </article>
 
         <article id="classInfoForm" class="teacher-input-form form-align">
           <label>시험 대상</label>
           <div class="select-group">
-          <select id="classCode" class="form-select" required>
-            <option value="none">선택</option>
-            <c:forEach var="classOption" items="${ requestScope.classList }">
-             <option value="${ classOption.classCode }">${ classOption.className }</option>
-            </c:forEach>
-          </select>
-          <i class="fas fa-caret-down" aria-hidden></i>
+	          <select id="school" name="school" class="form-select">
+	            <c:forEach var="school" items="${ requestScope.schoolList }">
+	             <option>${ school.school }</option>
+	            </c:forEach>
+	          </select>
+	          <select id="gradeCode" name="gradeCode" class="form-select" style="display: none;">
+	            <c:forEach var="grade" items="${ requestScope.gradeList }">
+	             <option value="${ grade.code }">${ grade.name }</option>
+	            </c:forEach>
+	          </select>
+	          <select id="classCode" name="classCode" class="form-select" style="display: none;">
+	            <c:forEach var="classOption" items="${ requestScope.classList }">
+	             <option value="${ classOption.classCode }">${ classOption.className }</option>
+	            </c:forEach>
+	          </select>
+	          <i class="fas fa-caret-down" aria-hidden></i>
           </div>
         </article>
 
@@ -295,15 +312,27 @@
           </div>
         </article>
         
+	    <div class="popup-2btn">
+	      <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
+	      <button type="submit" class="btn-fill-primary btn-basic">등록</button>
+	    </div>
       </form>
 
-        <div class="popup-2btn form-btn">
-        <button type="button" class="btn-fill-seconary btn-basic back-btn">취소</button>
-        <button type="submit" class="btn-fill-primary btn-basic">등록</button>
-      </div>
     </div>
   </div>
 
+  <c:if test="${ not empty requestScope.messageTitle }">
+	  <div class="modal complete-modal complete-input-board-modal">
+	    <div class="modal-content">
+	      <strong>${ requestScope.messageTitle }</strong>
+	      <p>${ requestScope.messageBody }</p>
+	      <div class="popup-1btn">
+	        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+	      </div>
+	    </div>
+	  </div>
+  </c:if>
+  
 <div class="overlay" aria-hidden="true"></div>
 
 <script src="${ pageContext.servletContext.contextPath }/resources/js/sideGnb.js"></script>
@@ -316,6 +345,7 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examModal.js"></script>
 <script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examCategory.js"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/js/grade/examRegist.js"></script>
 
 
 </body>
