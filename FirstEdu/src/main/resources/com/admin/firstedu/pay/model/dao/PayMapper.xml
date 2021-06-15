@@ -279,7 +279,7 @@
   		     , A.DISCOUNT_NO = #{discountNo}
   		     , A.PAYMENT = #{payment}
   		     , A.PAY_OPTION = #{payOption}
-  		     , A.PAY_DATE = TO_CHAR(#{payDate},'YYYY/MM/DD')
+  		     , A.PAY_DATE = #{payDate, jdbcType=DATE}
   		 WHERE A.PAY_NO = #{payNo}
   	</update>
   	
