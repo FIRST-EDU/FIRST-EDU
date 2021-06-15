@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const drawerMenus = document.querySelectorAll('.drawer-menu')
 const drawerMenuItems = document.querySelectorAll('.drawer-menu-item')
 const isGrade = document.querySelector('.is-grade')
@@ -12,36 +11,14 @@ const isBoss = document.querySelector('.is-boss')
 //   })
 // })
 
-isGrade.addEventListener('click', () => {
-  isGrade.classList.toggle('is-active')
-  isGrade.classList.toggle('is-open')
-})
+if(isGrade) {
+  isGrade.addEventListener('click', () => {
+  	isGrade.classList.toggle('is-active')
+    isGrade.classList.toggle('is-open')
+  })
+}
 
 isBoss.addEventListener('click', () => {
   isBoss.classList.toggle('is-active')
   isBoss.classList.toggle('is-open')
 })
-=======
-const drawerMenus = document.querySelectorAll('.drawer-menu')
-const drawerMenuItems = document.querySelectorAll('.drawer-menu-item')
-const isGrade = document.querySelector('.is-grade')
-const isClass = document.querySelector('.is-class')
-const isSms = document.querySelector('.is-sms')
-const isBoss = document.querySelector('.is-boss')
-
-// drawerMenuItems.forEach((item) => {
-//   item.addEventListener('click', () => {
-//     item.classList.add('is-active')
-//   })
-// })
-
-isGrade.addEventListener('click', () => {
-  isGrade.classList.toggle('is-active')
-  isGrade.classList.toggle('is-open')
-})
-
-isBoss.addEventListener('click', () => {
-  isBoss.classList.toggle('is-active')
-  isBoss.classList.toggle('is-open')
-})
->>>>>>> refs/remotes/feature/member/feature/3/front-1

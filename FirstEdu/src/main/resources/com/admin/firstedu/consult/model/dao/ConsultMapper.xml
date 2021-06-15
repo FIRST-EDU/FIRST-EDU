@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.admin.firstedu.consult.model.dao.ConsultMapper">
+ 	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultDTO" id="consultResultMap">
+ 		<id property="consultNo" column="CONSULT_NO"/>
+ 		<result property="consultDate" column="CONSULT_DATE"/>
+ 		<result property="consultContent" column="CONSULT_CONTENT"/>
+ 		<result property="teacherNo" column="TEACHER_NO"/>
+ 		<result property="studentNo" column="STUDENT_NO"/>
+ 		<result property="categoryNo" column="TC_CATEGORY_NO"/>
+ 		<result property="consultYn" column="CONSULT_YN"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="com.admin.firstedu.consult.model.dto.StudentDTO" id="studentResultMap">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="grade" column="GRADE_CODE"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="parentsName" column="PARENTS_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="parentsPhone" column="PARENTS_PHONE"/>
+  		<result property="gender" column="GENDER"/>
+  		<result property="birth" column="BIRTH"/>
+  		<result property="school" column="SCHOOL"/>
+  		<result property="address" column="ADDRESS"/>
+  		<result property="registrationDate" column="REGISTRATION_DATE"/>
+  		<result property="status" column="STATUS"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.GradeDTO" id="gradeResultMap">
+  		<id property="gradeCode" column="GRADE_CODE"/>
+  		<result property="gradeName" column="GRADE_NAME"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.TeacherDTO" id="teacherResultMap">
+      <id column="TEACHER_NO" property="no" />
+      <result column="JOB_CODE" property="jobCode" />
+      <result column="TEACHER_ID" property="id" />
+      <result column="TEACHER_PWD" property="pwd" />
+      <result column="TEACHER_NAME" property="name" />
+      <result column="TEACHER_EMAIL" property="email" />
+      <result column="TEACHER_GENDER" property="gender" />
+      <result column="TEACHER_PHONE" property="phone" />
+      <result column="TEACHER_ADDRESS" property="address" />
+      <result column="TEACHER_ROLE" property="role" />
+      <result column="HIRE_DATE" property="hireDate" />
+      <result column="ENT_DATE" property="endDate" />
+      <result column="TEACHER_STATUS" property="status" />
+   </resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultCategoryDTO" id="consultCategoryResultMap">
+  		<id property="categoryNo" column="TC_CATEGORY_NO"/>
+  		<result property="consultOption" column="CONSULT_OPTION"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultListDTO" id="consultListResultMap">
+  		<id property="consultNo" column="CONSULT_NO"/>
+  		<result property="consultDate" column="CONSULT_DATE"/>
+  		<result property="consultContent" column="CONSULT_CONTENT"/>
+  		<result property="consultyn" column="CONSULT_YN"/>
+  		<collection property="teacher" resultMap="teacherResultMap"/>
+  		<collection property="student" resultMap="studentResultMap"/>
+  		<collection property="category" resultMap="consultCategoryResultMap"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ConsultInfoDTO" id="consultInfoResultMap">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="name" column="STUDENT_NAME"/>
+  		<result property="school" column="SCHOOL"/>
+  		<result property="phone" column="STUDENT_PHONE"/>
+  		<result property="status" column="STATUS"/>
+  		<collection property="grade" resultMap="gradeResultMap"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ClassDTO" id="classResultMap">
+  		<id property="classCode" column="CLASS_CODE"/>
+  		<result property="classRoom" column="CLASS_ROOM"/>
+  		<result property="className" column="CLASS_NAME"/>
+  		<result property="classDay" column="CLASS_DAY"/>
+  		<result property="classTime" column="CLASS_TIME"/>
+  		<result property="classBook" column="CLASS_BOOK"/>
+  		<result property="classPariticipants" column="CLASS_PARTICIPANTS"/>
+  		<result property="classPayment" column="CLASS_PAYMENT"/>
+  		<result property="subjectNo" column="SUBJECT_NO"/>
+  		<result property="teacherNo" column="TEACHER_NO"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.ClassInfoDTO" id="classInfoResultMap">
+  		<id property="no" column="CLASS_NO"/>
+  		<result property="beginDate" column="BEGIN_DATE"/>
+  		<result property="endDate" column="END_DATE"/>
+  		<result property="studentNo" column="STUDENT_NO"/>
+  		<result property="subjectCode" column="CLASS_CODE"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.admin.firstedu.consult.model.dto.StudentAndClassInfoDTO" id="studentResultMap2">
+  		<id property="no" column="STUDENT_NO"/>
+  		<result property="studentName" column="STUDENT_NAME"/>
+  		<result property="studentPhone" column="STUDENT_PHONE"/>
+  		<result property="status" column="STATUS"/>
+  		<result property="school" column="SCHOOL"/>
+  		<collection property="classInfo" resultMap="classInfoResultMap"/>
+  		<collection property="classDTO" resultMap="classResultMap"/>  		
+  		<collection property="grade" resultMap="gradeResultMap"/>  		
+  	</resultMap>
+  	
+  	<select id="searchTotalCount" parameterType="com.admin.firstedu.consult.model.dto.SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_CONSULT A
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_TC_CATEGORY C ON (A.TC_CATEGORY_NO = C.TC_CATEGORY_NO)
+		  <where>
+		  <if test="searchOption == null">
+  		  	A.CONSULT_YN = 'Y'
+  		 </if>
+  		 <if test="searchOption == 'studentName'">
+  		   AND B.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'consultOption'">
+  		   AND C.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'consultContent'">
+  		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'
+  		 </if>
+		  </where>
+  	</select>
+  	
+  	<select id="selectTodayTotal" resultType="_int">
+  	SELECT COUNT(*)
+	  FROM TBL_CONSULT A
+	 WHERE TO_CHAR(A.CONSULT_DATE, 'YYYY/MM/DD') = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+	   AND A.CONSULT_YN = 'Y'
+  	</select>
+  	
+  	<select id="selectStudentTotal" parameterType="com.admin.firstedu.consult.model.dto.SearchCriteria" resultType="_int">
+  		SELECT COUNT(*)
+  		  FROM TBL_STUDENT A
+  		  WHERE A.STATUS = 'Y'
+  		 <if test="searchOption == 'school'">
+  		 	AND A.SCHOOL LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  		 <if test="searchOption == 'studentName'">
+  		 	AND A.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		  </if>
+  	</select>
+  	
+  	<select id="selectConsultList" parameterType="hashmap" resultMap="consultListResultMap">
+  		SELECT A.RNUM
+             , A.CONSULT_NO
+             , A.CONSULT_DATE
+             , A.STUDENT_NAME
+             , A.TEACHER_NAME
+             , A.CONSULT_OPTION
+             , A.CONSULT_CONTENT
+          FROM(SELECT ROWNUM RNUM
+	                , B.CONSULT_NO
+	                , B.CONSULT_DATE
+	                , B.STUDENT_NAME
+	                , B.TEACHER_NAME
+	                , B.CONSULT_OPTION
+	                , B.CONSULT_CONTENT
+	            FROM (SELECT C.CONSULT_NO
+		                   , C.CONSULT_DATE
+		                   , E.STUDENT_NAME
+		                   , F.TEACHER_NAME
+		                   , D.CONSULT_OPTION
+		                   , C.CONSULT_CONTENT
+		                FROM TBL_CONSULT C
+			  		    JOIN TBL_TC_CATEGORY D ON (C.TC_CATEGORY_NO = D.TC_CATEGORY_NO)
+			  		    JOIN TBL_STUDENT E ON (C.STUDENT_NO = E.STUDENT_NO)
+			  		    JOIN TBL_TEACHER F ON (C.TEACHER_NO = F.TEACHER_NO)
+			  		   WHERE C.CONSULT_YN = 'Y'
+			  		   ORDER BY C.CONSULT_NO DESC
+		             ) B
+             ) A
+			WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+			<if test="searchCriteria.searchOption == 'studentName'">
+			AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
+			<if test="searchCriteria.searchOption == 'consultContent'">
+			AND A.CONSULT_CONTENT LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
+			<if test="searchCriteria.searchOption == 'consultOption'">
+			AND A.CONSULT_OPTION LIKE '%' || #{searchCriteria.searchValue} || '%'
+			</if>
+  	</select>
+  	
+  	<select id="selectStudentList" parameterType="map" resultMap="studentResultMap2">
+  	SELECT  A.RNUM
+  		  , A.STUDENT_NO
+		  , A.STUDENT_NAME
+		  , A.GRADE_NAME
+		  , A.STUDENT_PHONE
+		  , A.SCHOOL
+		 FROM(SELECT ROWNUM RNUM
+		            , B.STUDENT_NO
+			  		, B.STUDENT_NAME
+			  		, B.GRADE_NAME
+			  		, B.STUDENT_PHONE
+			  	    , B.SCHOOL
+		       FROM (SELECT 
+		                   C.STUDENT_NO
+			  			 , C.STUDENT_NAME
+			  			 , D.GRADE_NAME
+			  			 , C.STUDENT_PHONE
+			  			 , C.SCHOOL
+		              FROM TBL_STUDENT C
+			  		  JOIN TBL_GRADE D ON (C.GRADE_CODE = D.GRADE_CODE)
+			  		 WHERE C.STATUS = 'Y'
+		             ORDER BY C.STUDENT_NO DESC
+		             ) B
+		      ) A
+  		  WHERE A.RNUM BETWEEN #{pageInfo.startRow} AND #{pageInfo.endRow}
+  		 <if test="searchCriteria.searchOption == 'school'">
+  		 AND A.SCHOOL LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  		 <if test="searchCriteria.searchOption == 'studentName'">
+  		 AND A.STUDENT_NAME LIKE '%' || #{searchCriteria.searchValue} || '%'
+  		  </if>
+  	</select>
+  	
+  	<!-- <select id="searchConsultList" parameterType="searchCriteria" resultMap="consultListResultMap">
+  		SELECT
+               A.CONSULT_NO
+             , A.CONSULT_DATE
+             , C.STUDENT_NAME
+             , D.TEACHER_NAME
+             , B.CONSULT_OPTION
+             , A.CONSULT_CONTENT
+  		  FROM TBL_CONSULT A
+  		  JOIN TBL_TC_CATEGORY B ON (A.TC_CATEGORY_NO = B.TC_CATEGORY_NO)
+  		  JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+  		  JOIN TBL_TEACHER D ON (A.TEACHER_NO = D.TEACHER_NO)
+  		 WHERE A.CONSULT_YN = 'Y'
+  		 <if test="searchOption == 'consultOption'">
+  		   AND A.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'studentName'">
+  		   AND C.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 <if test="searchOption == 'consultContent'">
+  		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'
+  		 </if>
+  		 ORDER BY A.CONSULT_NO DESC
+  	</select> -->
+
+  	
+  	<select id="selectConsultDetail" parameterType="_int" resultMap="consultListResultMap">
+  		SELECT
+               A.CONSULT_NO
+             , A.CONSULT_DATE
+             , C.STUDENT_NAME
+             , D.TEACHER_NAME
+             , B.TC_CATEGORY_NO
+             , B.CONSULT_OPTION
+             , A.CONSULT_CONTENT
+  		  FROM TBL_CONSULT A
+  		  JOIN TBL_TC_CATEGORY B ON (A.TC_CATEGORY_NO = B.TC_CATEGORY_NO)
+  		  JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+  		  JOIN TBL_TEACHER D ON (A.TEACHER_NO = D.TEACHER_NO)
+  		 WHERE A.CONSULT_YN = 'Y'
+  		   AND A.CONSULT_NO = #{no}
+  		 ORDER BY A.CONSULT_NO DESC
+  	</select>
+  	
+  	<select id="selectStudentConsult" parameterType="_int" resultMap="consultListResultMap">
+  		SELECT
+		       D.CONSULT_DATE
+		     , D.CONSULT_OPTION
+		     , D.CONSULT_CONTENT
+		  FROM (SELECT A.CONSULT_DATE
+		             , B.CONSULT_OPTION
+		             , A.CONSULT_CONTENT
+		           FROM TBL_CONSULT A
+		           JOIN TBL_TC_CATEGORY B ON (A.TC_CATEGORY_NO = B.TC_CATEGORY_NO)
+		           JOIN TBL_STUDENT C ON (A.STUDENT_NO = C.STUDENT_NO)
+		          WHERE C.STUDENT_NO  = #{no}
+		          ORDER BY A.CONSULT_DATE DESC) D
+		  <![CDATA[
+		  WHERE ROWNUM <= 5
+		  ]]>
+  	</select>
+  	
+  	<insert id="insertConsult" parameterType="com.admin.firstedu.consult.model.dto.ConsultDTO">
+  		INSERT
+  		  INTO TBL_CONSULT A
+  		(
+  		  A.CONSULT_NO
+  		, A.CONSULT_DATE
+  		, A.CONSULT_CONTENT
+  		, A.TEACHER_NO
+  		, A.STUDENT_NO
+  		, A.TC_CATEGORY_NO
+  		, A.CONSULT_YN
+  		)
+  		VALUES
+  		(
+  		  SEQ_CONSULT_NO.NEXTVAL
+  		, #{consultDate}
+  		, #{consultContent}
+  		, 1
+  		, #{studentNo}
+  		, #{categoryNo}
+  		, 'Y'
+  		)
+  	</insert>
+  	
+  	<update id="updateConsult" parameterType="com.admin.firstedu.consult.model.dto.ConsultDTO">
+  		UPDATE 
+  			   TBL_CONSULT A
+  		   SET
+  		       A.CONSULT_DATE = #{consultDate}
+  		     , A.CONSULT_CONTENT = #{consultContent}
+  		     , A.TC_CATEGORY_NO = #{categoryNo}
+  		 WHERE A.CONSULT_NO = #{consultNo}
+  	</update>
+  	
+  	<update id="deleteConsult" parameterType="_int">
+  		UPDATE
+  			   TBL_CONSULT A
+  		   SET A.CONSULT_YN = 'N'
+  		 WHERE A.CONSULT_NO = #{no}
+  	</update>
+  	
+ </mapper>

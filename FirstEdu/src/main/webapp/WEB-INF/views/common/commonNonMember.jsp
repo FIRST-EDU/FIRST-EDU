@@ -38,7 +38,7 @@
               <section class="non-member-header-left">
                 <h1 class="white-logo">
                   <a href="/">
-                    <img src="./resources/assets/png/WhiteLogo.png" alt="FIRST EDU"
+                    <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/WhiteLogo.png" alt="FIRST EDU"
                   /></a>
                 </h1>
               </section>

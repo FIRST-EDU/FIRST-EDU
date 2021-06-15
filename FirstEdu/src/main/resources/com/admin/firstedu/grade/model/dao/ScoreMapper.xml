@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.admin.firstedu.grade.model.dao.ScoreMapper">
+
+	<!-- 성적 테이블 DTO -->
+	<resultMap id="scoreResultMap" type="com.admin.firstedu.grade.model.dto.ScoreDTO">
+		<id column="SCORE_NO" property="scoreNo"/>
+		<result column="STUDENT_NAME" property="studentName"/>
+		<result column="EXAM_NO" property="examNo"/>
+		<result column="SUBJECT" property="subject"/>
+		<result column="TARGET_SCORE" property="targetScore"/>
+		<result column="SCORE" property="score"/>
+		<result column="RANK" property="rank"/>
+	</resultMap>
+	
+	<!-- 학생 테이블 DTO -->
+     <resultMap type="com.admin.firstedu.grade.model.dto.StudentDTO" id="studentResultMap">
+        <id property="no" column="STUDENT_NO"/>
+        <result property="gradeCode" column="GRADE_CODE"/>
+        <result property="studentName" column="STUDENT_NAME"/>
+        <result property="parentsName" column="PARENTS_NAME"/>
+        <result property="studentPhone" column="STUDENT_PHONE"/>
+        <result property="parentsPhone" column="PARENTS_PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="birth" column="BIRTH"/>
+        <result property="school" column="SCHOOL"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="registrationDate" column="REGISTRATION_DATE"/>
+        <result property="status" column="STATUS"/>
+     </resultMap>
+
+	<!-- 학생, 학년 join DTO -->
+	<resultMap type="com.admin.firstedu.grade.model.dto.StudentAndGradeDTO" id="studentAndGradeResultMap">
+        <id property="no" column="STUDENT_NO"/>
+        <result property="studentName" column="STUDENT_NAME"/>
+        <result property="parentsName" column="PARENTS_NAME"/>
+        <result property="studentPhone" column="STUDENT_PHONE"/>
+        <result property="parentsPhone" column="PARENTS_PHONE"/>
+        <result property="gender" column="GENDER"/>
+        <result property="birth" column="BIRTH"/>
+        <result property="school" column="SCHOOL"/>
+        <result property="address" column="ADDRESS"/>
+        <result property="registrationDate" column="REGISTRATION_DATE"/>
+        <result property="status" column="STATUS"/>
+        <association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.gradeResultMap" property="grade"/>
+    </resultMap>
+
+	<!-- 성적 모든 정보 조회용 DTO 
+	<resultMap id="scoreFullInfoResultMap" type="com.admin.firstedu.grade.model.dto.ScoreFullInfoDTO">
+		<id column="SCORE_NO" property="no"/>
+		<result column="SUBJECT_DETAIL" property="subjectDetail"/>
+		<result column="TARGET_SCORE" property="targetScore"/>
+		<result column="SCORE" property="score"/>
+		<result column="SCORE_GRADE" property="scoreGrade"/>
+		<result column="CLASS_RANK" property="classRank"/>
+		<result column="CLASS_PERSONNEL" property="classPersonnel"/>
+		<result column="OVERALL_RANK" property="overallRank"/>
+		<result column="TOTAL_PERSONNEL" property="totalPersonnel"/>
+		<result column="TEACHER_COMMENT" property="teacherComment"/>
+		<association resultMap="studentAndGradeResultMap" property="student"/>
+		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.examResultMap" property="exam"/>
+		<association resultMap="com.admin.firstedu.grade.model.dao.ExamMapper.subjectCategoryResultMap" property="subject"/>
+	</resultMap>-->
+
+
+	<!-- 성적 조회 (검색 포함) -->
+<!-- 	<select id="selectScoreList" parameterType="com.admin.firstedu.grade.model.dto.ScoreSearchCriteria" resultMap="scoreFullInfoResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.SUBJECT_DETAIL
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.CLASS_RANK
+		     , A.CLASS_PERSONNEL
+		     , A.OVERALL_RANK
+		     , A.TOTAL_PERSONNEL
+		     , A.TEACHER_COMMENT
+		     , B.STUDENT_NO
+		     , B.STUDENT_NAME
+		     , C.GRADE_NAME
+		     , D.EXAM_NO
+		     , D.EXAM_NAME
+		     , E.SUBJECT_NO
+		     , E.SUBJECT_NAME
+		  FROM TBL_EXAM_SCORE A
+		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_GRADE C ON (B.GRADE_CODE = C.GRADE_CODE)
+		  JOIN TBL_EXAM D ON (A.EXAM_NO = D.EXAM_NO)
+		  JOIN TBL_SUBJECT_CATEGORY E ON (A.SUBJECT_NO = E.SUBJECT_NO)
+		 WHERE A.SCORE_STATUS = 'Y'
+		   AND D.EXAM_STATUS = 'Y'
+		 <if test="studentNo != 0">
+		   AND A.STUDENT_NO = #{ studentNo }
+		 </if>
+		 <if test="classCode != null and classCode != ''">
+		   AND B.CLASS_CODE = #{ classCode }
+		 </if>
+		   AND A.EXAM_NO IN
+		   <foreach collection="examNoList" item="examNo" open="(" separator="," close=")">
+		   	   #{ examNo }
+		   </foreach>
+		 <if test="subjectNoList.size() > 0">
+		   AND A.SUBJECT_NO IN
+		   <foreach collection="subjectNoList" item="subjectNo" open="(" separator="," close=")">
+		   	   #{ subjectNo }
+		   </foreach>
+		 </if>
+	</select> -->
+	<select id="selectScoreList" parameterType="_int" resultMap="scoreResultMap">
+		SELECT
+		       A.SCORE_NO
+		     , A.STUDENT_NAME
+		     , A.EXAM_NO
+		     , A.SUBJECT
+		     , A.TARGET_SCORE
+		     , A.SCORE
+		     , A.RANK
+		  FROM TBL_EXAM_SCORE A
+		 WHERE A.SCORE_STATUS = 'N'
+		   AND A.EXAM_NO = #{ examNo }
+	</select>
+	
+	<insert id="insertScore" parameterType="_int">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.EXAM_NO 
+		)
+		VALUES
+		(
+		  SEQ_SCORE_NO.NEXTVAL
+		, #{ examNo }
+		)
+	</insert>
+	
+	<select id="selectScoreNo" resultType="_int">
+		SELECT
+		       SEQ_SCORE_NO.CURRVAL
+		  FROM DUAL		
+	</select>
+	
+<!-- 	성적 등록
+	<insert id="insertScore" parameterType="com.admin.firstedu.grade.model.dto.ScoreListDTO">
+		INSERT
+		  INTO TBL_EXAM_SCORE A
+		(
+		  A.SCORE_NO
+		, A.STUDENT_NO
+		, A.EXAM_NO
+		, A.SUBJECT_NO
+		, A.SUBJECT_DETAIL
+		, A.TARGET_SCORE
+		, A.SCORE
+		, A.SCORE_GRADE
+		, A.CLASS_RANK
+		, A.CLASS_PERSONNEL
+		, A.OVERALL_RANK
+		, A.TOTAL_PERSONNEL
+		, A.TEACHER_COMMENT
+		)
+		<foreach collection="scoreList" item="score" separator="UNION ALL">
+		  SELECT GET_SCORE_NO
+		       , #{ score.studentNo, jdbcType=INTEGER }
+		       , #{ score.examNo, jdbcType=INTEGER }
+		       , #{ score.subjectNo, jdbcType=INTEGER }
+		       , #{ score.subjectDetail, jdbcType=VARCHAR }
+		       , #{ score.targetScore, jdbcType=DOUBLE }
+		       , #{ score.score, jdbcType=DOUBLE }
+		       , #{ score.scoreGrade, jdbcType=INTEGER }
+		       , #{ score.classRank, jdbcType=INTEGER }
+		       , #{ score.classPersonnel, jdbcType=INTEGER }
+		       , #{ score.overallRank, jdbcType=INTEGER }
+		       , #{ score.totalPersonnel, jdbcType=INTEGER }
+		       , #{ score.teacherComment, jdbcType=VARCHAR }
+		    FROM DUAL
+		</foreach>
+	-->
+	<!-- 성적 수정 -->
+	<update id="updateScore" parameterType="com.admin.firstedu.grade.model.dto.ModifiedScoreDTO">
+		UPDATE
+		       TBL_EXAM_SCORE A
+		   SET A.${ modifiedColumn } = #{ modifiedValue }
+		 WHERE A.SCORE_NO = #{ scoreNo }
+	</update>
+	
+	<!-- 성적 삭제 -->
+	<update id="deleteScore" parameterType="_int">
+		UPDATE
+		       TBL_EXAM_SCORE A
+		   SET A.SCORE_STATUS = 'Y'
+		 WHERE SCORE_NO = #{ scoreNo }
+	</update>
+	
+</mapper>

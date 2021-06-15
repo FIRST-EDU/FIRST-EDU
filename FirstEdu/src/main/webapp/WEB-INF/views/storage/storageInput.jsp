@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../common/commonMember.jsp"/>
@@ -39,14 +42,34 @@
           <div class="col-sm-4 col-md-6">
             <section class="common-card">
               <article class="storage-form-content">
-                <form class="storage-search-form">
-                  <div class="tag-lb-dark btn-check sum-student-number">총 학생 수 : 50</div>
+                <form class="storage-search-form" 
+                action="${pageContext.servletContext.contextPath }/pay/insertView" method="get">
+                  <div class="tag-lb-dark btn-check sum-student-number">총 학생 수 : ${studentTotal }명</div>
                   <article class="form-flex-row">
+                  <c:choose>
+					<c:when test="${ !empty requestScope.searchValue }">
+					<div class="select-group">
+	                      <select class="form-select" id="searchOption" name="searchOption">
+	                        <option value="studentName" <c:if test="${requestScope.searchCondition eq 'studentName' }">selected</c:if>>학생명</option>
+							<option value="className" <c:if test="${requestScope.searchCondition eq 'className' }">selected</c:if>>강의명</option>
+	                      </select>
+	                      <i class="fas fa-caret-down" aria-hidden></i>
+	                    </div>
+	                    <div class="input-group">
+	                      <span class="material-icons"> search </span>
+	                      <input
+	                        class="form-input"
+	                        type="search"
+	                        placeholder="검색어를 입력하세요."
+	                        id="searchValue" name="searchValue"
+	                      />
+	                      </div>
+                  </c:when>
+              <c:otherwise> 
                     <div class="select-group">
-                      <select class="form-select">
-                        <option value="1">전체</option>
-                        <option value="2">학생명</option>
-                        <option value="3">강의명</option>
+                      <select class="form-select" id="searchOption" name="searchOption">
+                        <option value="studentName">학생명</option>
+						<option value="className">강의명</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -56,158 +79,144 @@
                         class="form-input"
                         type="search"
                         placeholder="검색어를 입력하세요."
+                        id="searchValue" name="searchValue"
                       />
                     </div>
+                    </c:otherwise>
+              		</c:choose>
                   </article>
                 </form>
               </article>
             </section>
 
             <section class="common-table-card consult-input-table">
-              <table class="common-table">
+              <table class="common-table" id="studentList">
                 <thead>
                   <tr>
                     <th scope="col">번호</th>
-                    <th scope="col">강의명</th>
                     <th scope="col">학생명</th>
+                    <th scope="col">학교</th>
                     <th scope="col">학년</th>
                     <th scope="col">전화번호</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>1학년 고급 영어1</td>
-                    <td>정유미</td>
-                    <td>고1</td>
-                    <td>010-1234-5678</td>
-                  </tr>
+                  <c:forEach var="student" items="${studentList}">
+				<tr>
+					<td><c:out value="${ student.no }" /></td>
+					<td><c:out value="${ student.studentName }" /></td>
+					<td><c:out value="${ student.school }" /></td>
+					<td><c:out value="${ student.grade.gradeName }" /></td>
+					<td><c:out value="${ student.studentPhone }" /></td>
+
+				</tr>
+			</c:forEach>
                 </tbody>
               </table>
+              
               <div class="pagenation">
-                <button class="page-control page-prev" type="button">
-                  <span class="material-icons"> chevron_left </span>
-                </button>
-                <ol class="page-list">
-                  <li class="page-item">
-                    <a href="/">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a href="/">2</a>
-                  </li>
-                  <li class="page-item is-active">
-                    <a href="/">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a href="/">4</a>
-                  </li>
-                  <li class="page-item">
-                    <a href="/">5</a>
-                  </li>
-                </ol>
-                <button class="page-control page-next" type="button">
-                  <span class="material-icons"> chevron_right </span>
-                </button>
+              <c:choose>
+				<c:when test="${ !empty requestScope.searchValue }">
+                
+                <c:if test="${ requestScope.pageInfo.pageNo == 1 }">
+					<button class="page-control page-prev" type="button" disabled>
+	                  <span class="material-icons"> chevron_left </span>
+	                </button>
+				</c:if>
+				<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+					<button class="page-control page-prev" id="searchPrevPage" type="button">
+	                  <span class="material-icons"> chevron_left </span>
+	                </button>
+				</c:if>
+				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+		                <ol class="page-list">
+		                  <li class="page-item">
+		                    <a><c:out value="${ p }" /></a>
+		                  </li>
+		                </ol>
+	                </c:if>
+	                <c:if test="${ requestScope.pageInfo.pageNo ne p }">
+		                <ol class="page-list">
+		                  <li class="page-item">
+		                    <a onclick="searchPageButtonAction(this.innerText);"><c:out value="${ p }" /></a>
+		                  </li>
+		                </ol>
+	                </c:if>
+                </c:forEach>
+                <c:if test="${ requestScope.pageInfo.pageNo == requestScope.pageInfo.maxPage }">
+	                <button class="page-control page-next" type="button" disabled>
+	                  <span class="material-icons"> chevron_right </span>
+	                </button>
+                </c:if>
+	                <c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+	                <button class="page-control page-next" type="button" id="searchNextPage">
+	                  <span class="material-icons"> chevron_right </span>
+	                </button>
+                </c:if>
+               </c:when>
+              <c:otherwise>
+              <c:if test="${ requestScope.pageInfo.pageNo == 1 }">
+					<button class="page-control page-prev" type="button" disabled>
+	                  <span class="material-icons"> chevron_left </span>
+	                </button>
+				</c:if>
+				<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+					<button class="page-control page-prev" id="prevPage" type="button">
+	                  <span class="material-icons"> chevron_left </span>
+	                </button>
+				</c:if>
+				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+		                <ol class="page-list">
+		                  <li class="page-item">
+		                    <a><c:out value="${ p }" /></a>
+		                  </li>
+		                </ol>
+	                </c:if>
+	                <c:if test="${ requestScope.pageInfo.pageNo ne p }">
+		                <ol class="page-list">
+		                  <li class="page-item">
+		                    <a onclick="pageButtonAction(this.innerText);"><c:out value="${ p }" /></a>
+		                  </li>
+		                </ol>
+	                </c:if>
+                </c:forEach>
+                <c:if test="${ requestScope.pageInfo.pageNo == requestScope.pageInfo.maxPage }">
+	                <button class="page-control page-next" type="button" disabled>
+	                  <span class="material-icons"> chevron_right </span>
+	                </button>
+                </c:if>
+	                <c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+	                <button class="page-control page-next" type="button" id="nextPage">
+	                  <span class="material-icons"> chevron_right </span>
+	                </button>
+                </c:if>
+              </c:otherwise>
+              </c:choose>
               </div>
             </section>
           </div>
 
             <div class="col-sm-4 col-md-6">
-              <form class="common-card consult-input-card storage-input-card">
+              <form class="common-card consult-input-card storage-input-card"
+              action="${pageContext.servletContext.contextPath}/pay/insert" method="post">
                 <section class="consult-input-box">
                   <article class="consult-input-form">
                     <label>학생번호</label>
                     <div class="input-group">
-                      <input class="form-input" type="text" value="1" readonly />
+
+                      <input class="form-input" type="text" readonly 
+                      name="studentNo" id="studentNo" value=""/>
+
                     </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>강의명</label>
                     <div class="select-group">
-                      <select class="form-select">
-                        <option value="1">선택</option>
-                        <option value="2">1학년 고급 영어1</option>
-                        <option value="3">1학년 고급 영어1</option>
-                        <option value="4">1학년 고급 영어1</option>
-                        <option value="5">1학년 고급 영어1</option>
-                        <option value="6">1학년 고급 영어1</option>
-                        <option value="7">1학년 고급 영어1</option>
-                        <option value="8">1학년 고급 영어1</option>
-                        <option value="9">1학년 고급 영어1</option>
-                        <option value="10">1학년 고급 영어1</option>
-                        <option value="11">1학년 고급 영어1</option>
-                        <option value="12">1학년 고급 영어1</option>
+                      <select class="form-select"
+                      name="classNo" id="classNo">
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -216,24 +225,29 @@
                   <article class="consult-input-form">
                     <label>학생명</label>
                     <div class="input-group">
-                      <input class="form-input" type="text" value="정유미" readonly />
+
+                      <input class="form-input" type="text" readonly 
+                      name="studentName" id="studentName" value=""/>
+
                     </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>수강료</label>
                       <div class="input-group">
-                        <input class="form-input" type="text" value="150,000" readonly/>
+                        <input class="form-input" type="text"
+                        name="tution" id="tution" value="" />
+
                       </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>납입현황</label>
                     <div class="select-group">
-                      <select class="form-select">
-                        <option value="1">선택</option>
-                        <option value="2">납부</option>
-                        <option value="3">미납</option>
+                      <select class="form-select"
+                      name="payYn">
+                        <option value="납부">납부</option>
+						<option value="미납">미납</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -245,8 +259,8 @@
                       <input
                       type="radio"
                       id="checkFriend"
-                      name="discountType"
-                      value="checkFriend"
+                      name="discountNo"
+                      value="1"
                       />
                       <label for="checkFriend" class="check-discount check-friend">
                         <i class="fas fa-check"></i>
@@ -256,8 +270,8 @@
                       <input
                         type="radio"
                         id="checkMonth"
-                        name="discountType"
-                        value="checkMonth"
+                        name="discountNo"
+                        value="2"
                       />
                       <label for="checkMonth" class="check-discount check-month">
                         <i class="fas fa-check"></i>
@@ -265,10 +279,10 @@
                       <label for="checkMonth" class="discount">기간</label>
 
                       <input
-                        type="radio"
+                       type="radio"
                         id="checkNull"
-                        name="discountType"
-                        value="checkNull"
+                        name="discountNo"
+                        value="3"
                       />
                       <label for="checkNull" class="check-discount check-null">
                         <i class="fas fa-check"></i>
@@ -280,17 +294,21 @@
                   <article class="consult-input-form">
                     <label>결제금액</label>
                     <div class="input-group">
-                      <input class="form-input" type="text" value="130,000" readonly/>
+
+                      <input class="form-input" type="text"
+                      name="payment"/>
+
                     </div>
                   </article>
 
                   <article class="consult-input-form">
                     <label>결제수단</label>
                     <div class="select-group">
-                      <select class="form-select">
-                        <option value="1">선택</option>
-                        <option value="2">카드</option>
-                        <option value="3">현금</option>
+                      <select class="form-select"
+                      name="payOption">
+                        <option value="--">선택</option>
+                        <option value="카드">카드</option>
+                        <option value="현금">현금</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -299,7 +317,7 @@
                   <article class="consult-input-form">
                     <div class="date-align">
                       <label>납입일</label>
-                      <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
+                      <input class="attendance-date" id="#" type="date" name="payDate">
                       <label for="check-date"></label>
                     </div>
                   </article>

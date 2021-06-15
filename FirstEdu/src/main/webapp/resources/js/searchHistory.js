@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-const search = document.querySelector('.form-input-search')
-const searchHistory = document.querySelector(
+search = document.querySelector('.form-input-search')
+searchHistory = document.querySelector(
   '.global-header-search .search-history'
 )
 
@@ -11,17 +10,3 @@ search.addEventListener('focus', () => {
 search.addEventListener('blur', () => {
   searchHistory.classList.remove('is-active')
 })
-=======
-const search = document.querySelector('.form-input-search')
-const searchHistory = document.querySelector(
-  '.global-header-search .search-history'
-)
-
-search.addEventListener('focus', () => {
-  searchHistory.classList.add('is-active')
-})
-
-search.addEventListener('blur', () => {
-  searchHistory.classList.remove('is-active')
-})
->>>>>>> refs/remotes/feature/member/feature/3/front-1

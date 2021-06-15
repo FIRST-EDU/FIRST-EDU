@@ -169,15 +169,15 @@
             <div class="col-sm-4">
               <div class="breadcrumb-point">
                 <div class="breadcrumb">
-                  <a href="/">
+                  <a href="${ pageContext.servletContext.contextPath }">
                     <i class="fas fa-home" aria-label="메인으로 가기"></i>
                   </a>
-                  <p class="unicode" aria-hidden="true">&sol;</p>
-                  <a href="/">
+                  <p id="firstUnicode" class="unicode" aria-hidden="true">&sol;</p>
+                  <a id="parentMenu" href="/">
                     출결 관리
                   </a>
                   <p class="unicode" aria-hidden="true">&sol;</p>
-                  <p>출결 입력</p>
+                  <p id="nowMenu">출결 입력</p>
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@
   <aside class="side-gnb">
     <header class="side-gnb-header">
       <h1 class="logo">
-        <a href="/">
+        <a href="${ pageContext.servletContext.contextPath }">
           <img src="${ pageContext.servletContext.contextPath }/resources/assets/png/Basic Logo.png" alt="FIRST EDU" />
         </a>
       </h1>
@@ -200,7 +200,7 @@
 
     <strong class="drawer-menu-category">학생</strong>
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/student/regist/list">
         <i class="fas fa-user-friends" aria-hidden="true"></i>
         원생 관리
       </a>
@@ -213,41 +213,49 @@
       </a>
     </div>
 
-    <div class="drawer-menu is-grade">
-      <button class="drawer-menu-button" type="button">
+    <div class="drawer-menu nav-grade">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/grade/exam/list">
         <i class="fas fa-edit" aria-hidden="true"></i>
         성적 관리
+      </a>
+    </div>
+
+ <%--    <div class="drawer-menu is-grade">
+      <button class="drawer-menu-button" type="button">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+        시험 관리
         <span class="material-icons" aria-hidden="true">chevron_right</span>
       </button>
 
       <div class="drawer-menu-content">
         <ul class="drawer-menu-list">
           <li class="drawer-menu-item">
-            <a href="/">
-              시험 관리
+            <a href="${ pageContext.servletContext.contextPath }/grade/exam/list">
+              시험 일정
             </a>
           </li>
-          <li class="drawer-menu-item">
+           <li class="drawer-menu-item">
             <a href="/">
-              시험 점수
+              시험 목록
             </a>
           </li>
         </ul>
       </div>
     </div>
-
+ --%>
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/pay/list">
         <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
         수납 관리
       </a>
     </div>
 
     <div class="drawer-menu">
-      <a class="drawer-menu-link" href="/">
+      <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/consult/list">
         <i class="fas fa-comment-dots" aria-hidden="true"></i>
         상담 관리
       </a>
+    </div>
 
       <strong class="drawer-menu-category">선생님</strong>
 
@@ -266,11 +274,11 @@
       </div>
 
       <div class="drawer-menu">
-        <a class="drawer-menu-link" href="/">
+        <a class="drawer-menu-link" href="${ pageContext.servletContext.contextPath }/sms/list">
           <i class="fas fa-sms" aria-hidden="true"></i>
           문자 관리
         </a>
-        </button>
+        </div>
 
 
       <!-- Note: Login boss  -->

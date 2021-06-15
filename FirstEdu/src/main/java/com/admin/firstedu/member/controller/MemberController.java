@@ -77,7 +77,8 @@ public class MemberController {
    
     /*로그인*/
 	@GetMapping("/login")
-	public void loginForm() {
+	public String loginForm() {
+		return "member/login";
 	}
 
 	
@@ -86,7 +87,8 @@ public class MemberController {
 			
 		model.addAttribute("loginMember", memberService.loginMember(member));
 				
-		return "member/teacherList";
+//		return "member/teacherList";
+		return "redirect:/dashboard";
 	}
 	
 	

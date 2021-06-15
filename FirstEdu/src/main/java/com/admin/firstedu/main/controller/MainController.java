@@ -11,7 +11,8 @@ public class MainController {
 	@GetMapping(value={"/", "main"})
 	public String main() {
 
-		return "main/main";
+		return "redirect:/member/login";
+//		return "redirect:/dashboard";
 	}
 }
 

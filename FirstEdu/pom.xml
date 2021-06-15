@@ -116,7 +116,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>   
+		</dependency>
+		
+		<!-- Spring Test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency> 
 		
 		<!-- https://mvnrepository.com/artifact/com.jslsolucoes/ojdbc6 -->
 		<!-- DB와 연동하기 위해서 필요 -->
@@ -205,12 +212,19 @@
 		</dependency>
 		
 		<!-- 메일 api -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.2</version>
-		</dependency>
+		</dependency> -->
   
+
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>javaSDK</artifactId>
+		    <version>2.2</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

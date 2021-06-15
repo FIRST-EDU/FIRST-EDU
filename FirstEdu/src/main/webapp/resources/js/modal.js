@@ -101,7 +101,6 @@ for (const tr of modalTr) {
 
 for (const backBtn of backBtns) {
   backBtn.addEventListener('click', () => {
-    /*  */
     let isActive = false
     if (secondModal) {
       for (const className of secondModal.classList) {
@@ -136,7 +135,10 @@ if (deleteBoardBtn) {
     if (completeDeleteBoardModal) {
       completeDeleteBoardModal.classList.add('is-active')
     }
-    completeInputBoardModal.classList.remove('is-active')
+
+    if (completeInputBoardModal) {
+      completeInputBoardModal.classList.remove('is-active')
+    }
 
     // completeModal.classList.add('is-active')
   })
@@ -176,8 +178,8 @@ overlay.addEventListener('click', () => {
 //   overlay.classList.toggle('is-active')
 // })
 
-// if (completeModal) {
-//   overlay.classList.add('is-active')
-//   completeModal.classList.add('is-active')
-//   body.classList.add('modal-open')
-// }
+ if (completeModal) {
+   overlay.classList.add('is-active')
+   completeModal.classList.add('is-active')
+   body.classList.add('modal-open')
+ }
