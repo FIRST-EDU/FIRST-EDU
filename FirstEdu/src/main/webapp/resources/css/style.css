@@ -3302,7 +3302,28 @@ textarea {
 .exam-detail-table textarea:read-only {
   border: 0; }
 
-.exam-lock i {
+.btn-icon-align {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .btn-icon-align button:nth-child(1) {
+    margin-right: 10px; }
+
+.fa-times-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  color: #ff7089;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 250ms ease-in-out; }
+  .fa-times-circle:hover {
+    color: #f5365c; }
+  .fa-times-circle:active {
+    color: #b03; }
+
+.exam-lock button i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3311,14 +3332,12 @@ textarea {
   font-size: 15px;
   color: #fff;
   background-color: #5e72e4;
-  border-radius: 50%; }
-  .exam-lock i:hover {
-    background-color: #1b47b1;
-    transition: all 250ms ease-in-out; }
-  .exam-lock i:active {
-    color: #ffd600;
-    background-color: #172b4d;
-    transition: all 250ms ease-in-out; }
+  border-radius: 50%;
+  transition: background-color 250ms ease-in-out; }
+  .exam-lock button i:hover {
+    background-color: #1b47b1; }
+  .exam-lock button i:active {
+    background-color: #172b4d; }
 
 .exam-edit-table .input-group,
 .exam-detail-table .input-group {
