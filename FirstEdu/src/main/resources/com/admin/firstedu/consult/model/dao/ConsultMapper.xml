@@ -110,6 +110,7 @@
   		SELECT COUNT(*)
   		  FROM TBL_CONSULT A
 		  JOIN TBL_STUDENT B ON (A.STUDENT_NO = B.STUDENT_NO)
+		  JOIN TBL_TC_CATEGORY C ON (A.TC_CATEGORY_NO = C.TC_CATEGORY_NO)
 		  <where>
 		  <if test="searchOption == null">
   		  	A.CONSULT_YN = 'Y'
@@ -118,7 +119,7 @@
   		   AND B.STUDENT_NAME LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 <if test="searchOption == 'consultOption'">
-  		   AND A.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
+  		   AND C.CONSULT_OPTION LIKE '%' || #{searchValue} || '%'
   		 </if>
   		 <if test="searchOption == 'consultContent'">
   		   AND A.CONSULT_CONTENT LIKE '%' || #{searchValue} || '%'

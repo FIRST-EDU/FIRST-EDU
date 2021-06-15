@@ -110,7 +110,7 @@
 							</c:when>
 							<c:when test="${consult.category.consultOption eq '학부모동참' }">
 							<span class="tag-r-light">
-                         		 보호자 동참
+                         		 학부모 동참
                         	</span>
 							</c:when>
 						</c:choose>
@@ -138,7 +138,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>
@@ -176,7 +176,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>
