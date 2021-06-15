@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,8 @@
         <div class="col-sm-4">
           <section class="common-card storage-list-form-content">
             <section class="storage-form-content">
-              <div class="tag-lb-dark btn-check sum-storage-price totalPay">총 결제금액 : <c:out value="${paySum }원"/></div>
+            
+              <div class="tag-lb-dark btn-check sum-storage-price totalPay">총 결제금액 : <fmt:formatNumber value="${ requestScope.paySum}" pattern="#,###원"/></div>
               <article class="storage-search-form">
               <!-- 검색 폼 -->
                <form class="storage-search-form" action="${pageContext.servletContext.contextPath }/pay/search" method="get">
@@ -213,7 +215,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>
@@ -251,7 +253,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>

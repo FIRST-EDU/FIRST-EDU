@@ -131,7 +131,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>
@@ -169,7 +169,7 @@
 				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
 					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 		                <ol class="page-list">
-		                  <li class="page-item">
+		                  <li class="page-item is-active">
 		                    <a><c:out value="${ p }" /></a>
 		                  </li>
 		                </ol>
@@ -215,7 +215,7 @@
                     <div class="select-group">
                       <select class="form-select" 
                       name="classNo" id="classNo">
-                      <option value="">선택</option>
+                      <option value="" selected>선택</option>
                       </select>
                       <i class="fas fa-caret-down" aria-hidden></i>
                     </div>
@@ -233,7 +233,7 @@
                     <label>수강료</label>
                       <div class="input-group">
                         <input class="form-input" type="text"
-                        name="tution" id="tution" value="" />
+                        name="tution" id="tution" value=""  readonly/>
                       </div>
                   </article>
 
@@ -409,6 +409,8 @@
 		/* 테이블 클릭 시 값이 자동으로 input태그에 입력되게 하는 JS Start */
 		$("#studentList tr").click(
 				function() {
+					 $('#classNo option:eq(0)').prop("selected", true);
+					
 					var tdArr = new Array();
 
 					var tr = $(this);
