@@ -3,9 +3,11 @@ const unlock = document.querySelector('.fa-unlock')
 const lockEvent = document.querySelector('.lock-event')
 const formInputs = document.querySelectorAll('.form-input')
 const dates = document.querySelectorAll('.attendance-date')
+const textarea = document.querySelector('textarea')
 
 if (lock) {
   unlock.classList.add('visually-hidden')
+  textarea.readOnly = 'readOnly'
 
   for (const form of formInputs) {
     form.readOnly = 'readOnly'
@@ -16,6 +18,7 @@ if (lock) {
   }
 } else {
   lock.classList.add('visually-hidden')
+  textarea.readOnly = false
 
   for (const form of formInputs) {
     form.readOnly = false
@@ -60,5 +63,18 @@ lockEvent.addEventListener('click', () => {
     } else {
       date.readOnly = false
     }
+  }
+
+  let isLock = true
+  for (const className of lock.classList) {
+    if (className == 'visually-hidden') {
+      isLock = false
+    }
+  }
+
+  if (isLock) {
+    textarea.readOnly = 'readOnly'
+  } else {
+    textarea.readOnly = false
   }
 })

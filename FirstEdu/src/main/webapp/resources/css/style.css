@@ -3291,9 +3291,16 @@ textarea {
   border: 0; }
 
 .exam-detail-table .date-align input:not(:read-only):hover,
-.exam-detail-table .date-align :focus {
+.exam-detail-table .date-align :not(:read-only):focus {
   border: 1px solid #5e72e4;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18); }
+
+.exam-detail-table textarea {
+  height: 100px;
+  padding: 10px; }
+
+.exam-detail-table textarea:read-only {
+  border: 0; }
 
 .exam-lock i {
   display: flex;

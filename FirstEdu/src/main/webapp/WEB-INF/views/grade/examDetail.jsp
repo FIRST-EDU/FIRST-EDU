@@ -86,7 +86,9 @@
                         </div>
                       </td>
                       <th scope="row" rowspan="2">비고</th>
-                      <td rowspan="2"></td>
+                      <td rowspan="2">
+                        <textarea name="" id=""  readonly></textarea>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">시험대상</th>
