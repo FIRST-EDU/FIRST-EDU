@@ -10,6 +10,7 @@ import com.admin.firstedu.grade.model.dto.ExamDTO;
 import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
+import com.admin.firstedu.grade.model.dto.ModifiedExamDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 
@@ -29,7 +30,7 @@ public interface ExamService {
 
 	boolean registExamAndScoreBasicInfo(ExamDTO exam);
 	
-	boolean modifyExam(ExamDTO exam);
+//	boolean modifyExam(ExamDTO exam);
 	
 	boolean removeExam(int examNo);
 
@@ -48,5 +49,7 @@ public interface ExamService {
 	List<SchoolDTO> selectSchoolList();
 
 	List<GradeDTO> selectGradeList();
+
+	String modifyExam(ModifiedExamDTO modifiedExam);
 
 }

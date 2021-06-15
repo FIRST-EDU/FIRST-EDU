@@ -1,8 +1,11 @@
 package com.admin.firstedu.grade.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -31,6 +34,7 @@ import com.admin.firstedu.grade.model.dto.ExamListInfoDTO;
 import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.ExamSearchResultDTO;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
+import com.admin.firstedu.grade.model.dto.ModifiedExamDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.grade.model.service.ExamService;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
@@ -150,21 +154,13 @@ public class ExamController {
 	
 	/* 시험 일정 수정 */
 	@PostMapping("/exam/modify")
-	public String updateExam(@ModelAttribute ExamDTO exam,
-							 RedirectAttributes rttr)
-									 throws ExamException {
-		exam.setNo(42);
-//		exam.setName("modify test");
-		exam.setStartDate(new java.sql.Date(new java.util.Date().getTime()));
-		exam.setSchool("완전조은고등학교");
+	public void modifyExam(@ModelAttribute ModifiedExamDTO modifiedExam,
+							 HttpServletResponse response)
+									 throws IOException {
+		System.out.println(modifiedExam);
+		String result = examService.modifyExam(modifiedExam);
 		
-		if(!examService.modifyExam(exam)) {
-			throw new ExamException("시험 일정 수정에 실패하였습니다.");
-		}
-		
-		rttr.addFlashAttribute("message", "시험 일정이 수정되었습니다.");
-		
-		return "redirect:/grade/exam";
+		response.getWriter().write(result);
 	}
 
 	/* 시험 일정 삭제 */

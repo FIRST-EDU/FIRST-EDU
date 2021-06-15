@@ -16,6 +16,7 @@ import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
+import com.admin.firstedu.grade.model.dto.ModifiedExamDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
 
@@ -107,8 +108,8 @@ public class ExamServiceImpl implements ExamService {
 
 	/* 시험 정보 수정용 */
 	@Override
-	public boolean modifyExam(ExamDTO exam) {
-		return mapper.updateExam(exam) > 0 ? true : false;
+	public String modifyExam(ModifiedExamDTO modifiedExam) {
+		return mapper.updateExam(modifiedExam) > 0 ? "true" : "false";
 	}
 
 	/* 시험 삭제용 */

@@ -412,7 +412,7 @@
 	</insert> -->
 	
 	<!-- 시험 일정 수정 -->
-	<update id="updateExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
+<!-- 	<update id="updateExam" parameterType="com.admin.firstedu.grade.model.dto.ExamDTO">
 		UPDATE
 		       TBL_EXAM A
 		<set>
@@ -439,6 +439,14 @@
 			</if>
 		</set>
 		 WHERE A.EXAM_NO = #{ no }
+	</update> -->
+
+	<!-- 시험 일정 수정 -->
+	<update id="updateExam" parameterType="com.admin.firstedu.grade.model.dto.ModifiedExamDTO">
+		UPDATE
+		       TBL_EXAM A
+		   SET A.${ modifiedColumn } = #{ modifiedValue }
+		 WHERE A.EXAM_NO = #{ examNo }
 	</update>
 	
 	<!-- 시험 일정 삭제 -->

@@ -12,6 +12,7 @@ import com.admin.firstedu.grade.model.dto.ExamSearchCriteria;
 import com.admin.firstedu.grade.model.dto.GradeDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoDTO;
 import com.admin.firstedu.grade.model.dto.HagwonExamScoreBasicInfoListDTO;
+import com.admin.firstedu.grade.model.dto.ModifiedExamDTO;
 import com.admin.firstedu.grade.model.dto.ScoreDTO;
 import com.admin.firstedu.grade.model.dto.StudentDTO;
 import com.admin.firstedu.student.model.dto.SchoolDTO;
@@ -43,7 +44,7 @@ public interface ExamMapper {
 	List<HagwonExamScoreBasicInfoDTO> selectHagwonExamScoreBasicInfoList(int examNo);
 	int insertHagwonExamScoreBasicInfo(HagwonExamScoreBasicInfoListDTO hagwonExamScoreBasicInfoList);
 
-	int updateExam(ExamDTO exam);
+//	int updateExam(ExamDTO exam);
 
 	int deleteExam(int examNo);
 
@@ -60,5 +61,7 @@ public interface ExamMapper {
 	List<SchoolDTO> selectSchoolList();
 
 	List<GradeDTO> selectGradeList();
+
+	int updateExam(ModifiedExamDTO modifiedExam);
 
 }

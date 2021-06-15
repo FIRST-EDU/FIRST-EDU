@@ -65,7 +65,7 @@
                       <th scope="row">시작일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="${ exam.startDate }" readonly>
+                          <input class="attendance-date" id="#" type="date" name="start_date" value="${ exam.startDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
@@ -76,7 +76,7 @@
                       <th scope="row">종료일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="attendance-date" value="${ exam.endDate }" readonly>
+                          <input class="attendance-date" id="#" type="date" name="end_date" value="${ exam.endDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
@@ -85,11 +85,13 @@
                       <th scope="row">시험명</th>
                       <td>
                         <div class="input-group">
-                          <input class="form-input" type="text" value="${ exam.examName }" readonly/>
+                          <input class="form-input" type="text" name="exam_name" value="${ exam.examName }" onchange="modifyExam(this, ${ exam.examNo })" readonly/>
                         </div>
                       </td>
                       <th scope="row" rowspan="2">비고</th>
-                      <td rowspan="2">${ exam.description }</td>
+                      <td rowspan="2">
+                      	<textarea name="description" onchange="modifyExam(this, ${ exam.examNo })" readonly>${ exam.description }</textarea>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">시험대상</th>
