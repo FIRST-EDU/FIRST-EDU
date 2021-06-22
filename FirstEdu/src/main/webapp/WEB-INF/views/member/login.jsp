@@ -34,6 +34,7 @@
 	<jsp:include page="../common/commonNonMember.jsp"/>
 
 	<main class="non-member-box">
+		      <div class="container">
 		<div class="row">
 			<div class="col-sm-4">
 				<article class="non-member-content">
@@ -49,6 +50,19 @@
 				</article>
 			</div>
 		</div>
+        <div class="row">
+          <div class="col-sm-4">
+            <article class="non-member-content">
+              <div class="project-text">
+                <h2 class="welcome">환영합니다!</h2>
+                <p class="introduce-project">
+                  학원 관리 프로그램 FIRST EDU 입니다.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+		
 		<div class="row">
 			<div class="col-sm-4">
 				<article class="non-member-card loginArea">

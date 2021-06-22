@@ -164,13 +164,29 @@ public class ExamController {
 	}
 
 	/* 시험 일정 삭제 */
-	@GetMapping("/exam/remove")
-	public void removeExam(@RequestParam(required=false, defaultValue="0") int examNo,
-			 				 HttpServletResponse response)
-									 throws IOException {
-		String result = examService.removeExam(examNo);
+//	@GetMapping("/exam/remove")
+//	public void removeExam(@RequestParam(required=false, defaultValue="0") int examNo,
+//			 				 HttpServletResponse response)
+//									 throws IOException {
+//		String result = examService.removeExam(examNo);
+//		
+//		response.getWriter().write(result);
+//	}
+	@GetMapping("/exam/remove/{examNo}")
+	public String removeExam(@PathVariable int examNo,
+			RedirectAttributes rttr,
+			HttpServletResponse response)
+					throws ExamException  {
 		
-		response.getWriter().write(result);
+		System.out.println("test");
+		if(!examService.removeExam(examNo)) {
+			throw new ExamException("시험 삭제에 실패하였습니다.");
+		}
+		
+		rttr.addFlashAttribute("messageTitle", "시험 삭제");
+		rttr.addFlashAttribute("messageBody", "시험이 삭제되었습니다.");
+		
+		return "redirect:/grade/exam/list";
 	}
 	
 	/* 학원 시험 카테고리 등록 */

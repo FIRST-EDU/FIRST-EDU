@@ -191,7 +191,7 @@
 	<update id="deleteScore" parameterType="_int">
 		UPDATE
 		       TBL_EXAM_SCORE A
-		   SET A.SCORE_STATUS = 'Y'
+		   SET A.SCORE_STATUS = 'N'
 		 WHERE SCORE_NO = #{ scoreNo }
 	</update>
 	

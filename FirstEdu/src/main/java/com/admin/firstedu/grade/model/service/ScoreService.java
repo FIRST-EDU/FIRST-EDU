@@ -16,7 +16,7 @@ public interface ScoreService {
 	
 	String modifyScore(ModifiedScoreDTO modifiedScore);
 	
-	boolean removeScore(int scoreNo);
+	String removeScore(int scoreNo);
 
 
 }

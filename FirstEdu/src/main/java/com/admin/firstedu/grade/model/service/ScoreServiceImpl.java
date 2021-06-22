@@ -37,7 +37,7 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public boolean removeScore(int scoreNo) {
-		return false;
+	public String removeScore(int scoreNo) {
+		return mapper.deleteScore(scoreNo) > 0 ? "true" : "false";
 	}
 }

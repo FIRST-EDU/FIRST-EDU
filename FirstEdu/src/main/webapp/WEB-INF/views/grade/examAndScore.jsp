@@ -127,6 +127,7 @@
                     <th scope="col">목표점수</th>
                     <th scope="col">점수</th>
                     <th scope="col">석차</th>
+                    <th scope="col">삭제</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -157,10 +158,16 @@
 	                        <input class="form-input" name="rank" type="text" value="${ score.rank }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
 	                      </div>
 	                    </td>
+	                    <td>
+	                      <button type="button" aria-label="삭제 버튼" 
+		                     onclick="removeScore(${ score.scoreNo }, ${ exam.examNo })">
+		                     <i class="fas fa-trash-alt"></i>
+		                  </button>
+		                </td>
 	                  </tr>
                   </c:forEach>
 				  <tr id="addTr">
-                    <td colspan="5">
+                    <td colspan="6">
                       <button type="button" onclick="addScore(${ exam.examNo })">
                         <i class="fas fa-plus-circle"></i>
                       </button>

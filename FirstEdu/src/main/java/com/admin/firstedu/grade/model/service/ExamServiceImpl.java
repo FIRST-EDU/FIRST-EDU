@@ -114,8 +114,8 @@ public class ExamServiceImpl implements ExamService {
 
 	/* 시험 삭제용 */
 	@Override
-	public String removeExam(int examNo) {
-		return mapper.deleteExam(examNo) > 0 ? "true" : "false";
+	public boolean removeExam(int examNo) {
+		return mapper.deleteExam(examNo) > 0 ? true : false;
 	}
 
 	/* 시험 종류 등록용 */

@@ -3,7 +3,22 @@ $(function(){
 	$('#parentMenu').text('성적 관리');
 	$('#parentMenu').attr('href', '/firstedu/grade/exam/list');
 	$('#nowMenu').text('시험 성적');
+	
+	$('.nav-grade').addClass('is-active')
 })
+
+let navDrawerMenus = document.querySelectorAll('.drawer-menu');
+for (let drawerMenu of navDrawerMenus) {
+	let isGrade = false
+    for (let className of drawerMenu.classList) {
+        if (className == 'nav-grade') {
+          isGrade = true
+        }
+    }
+    if(!isGrade) {
+    	drawerMenu.classList.remove('is-active');
+    }
+}
 
 /* ajax를 통한 시험 수정 기능 */
 function modifyExam(modifiedInput, examNo) {
@@ -57,21 +72,42 @@ function modifyScore(modifiedInput, scoreNo) {
 	});	
 }
 
-/* 시험 삭제 */
-function removeExam(examNo) {
+/* ajax를 통한 성적 삭제 기능 */
+function removeScore(scoreNo, examNo) {
+	
+	console.log("scoreNo : " + scoreNo);
 	
 	$.ajax({
-		url: "/firstedu/grade/exam/remove",
+		url: "/firstedu/grade/score/remove/" + scoreNo,
 		type: "get",		
-		data: { examNo : examNo },
 		success: function(data) {
-			alert('시험이 삭제되었습니다.');
-			location.href = '/firstedu/grade/exam/list';
+			console.log(data);
+			location.href = '/firstedu/grade/exam/' + examNo
 		},
 		error: function(error) {
 			console.log(error);
 		}
 	});	
+}
+
+/* 시험 삭제 */
+function removeExam(examNo) {
+	
+//	$.ajax({
+//		url: "/firstedu/grade/exam/remove",
+//		type: "get",		
+//		data: { examNo : examNo },
+//		success: function(data) {
+//			alert('시험이 삭제되었습니다.');
+//			location.href = '/firstedu/grade/exam/list';
+//		},
+//		error: function(error) {
+//			console.log(error);
+//		}
+//	});	
+
+			location.href = '/firstedu/grade/exam/remove/' + examNo;
+
 }
 
 function addScore(examNo) {

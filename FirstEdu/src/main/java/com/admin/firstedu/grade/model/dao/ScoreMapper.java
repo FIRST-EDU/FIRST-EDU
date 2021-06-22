@@ -17,4 +17,6 @@ public interface ScoreMapper {
 
 	public int selectScoreNo();
 
+	public int deleteScore(int scoreNo);
+
 }
