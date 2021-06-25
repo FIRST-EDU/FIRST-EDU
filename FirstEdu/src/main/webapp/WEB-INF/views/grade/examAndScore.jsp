@@ -127,7 +127,7 @@
                     <th scope="col">목표점수</th>
                     <th scope="col">점수</th>
                     <th scope="col">석차</th>
-                    <th scope="col">삭제</th>
+                    <th scope="col" class="delete-score-btn">삭제</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -158,7 +158,7 @@
 	                        <input class="form-input" name="rank" type="text" value="${ score.rank }" onchange="modifyScore(this, ${ score.scoreNo })" readonly/>
 	                      </div>
 	                    </td>
-	                    <td>
+	                    <td class="delete-score-btn">
 	                      <button type="button" aria-label="삭제 버튼" 
 		                     onclick="removeScore(${ score.scoreNo }, ${ exam.examNo })">
 		                     <i class="fas fa-trash-alt"></i>

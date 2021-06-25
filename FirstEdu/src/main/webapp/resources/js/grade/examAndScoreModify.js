@@ -110,6 +110,7 @@ function removeExam(examNo) {
 
 }
 
+/* 성적 추가 */
 function addScore(examNo) {
 
 	$.ajax({
@@ -127,24 +128,28 @@ function addScore(examNo) {
 			$targetScoreTd = $('<td>');
 			$scoreTd = $('<td>');
 			$rankTd = $('<td>');
+			$deleteScoreTd = $('<td class="delete-score-btn">');
 
-			$studentNameInput = '<input class="form-input" name="student_name" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
-			$subjectInput = '<input class="form-input" name="subject" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
-			$targetScoreInput = '<input class="form-input" name="target_score" value="" type="text" onchange="modifyScore(this, ' + data + ')"/>';
-			$scoreInput = '<input class="form-input" name="score" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
-			$rankInput = '<input class="form-input" name="rank" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$studentNameInput = '<input class="form-input is-active" name="student_name" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$subjectInput = '<input class="form-input is-active" name="subject" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$targetScoreInput = '<input class="form-input is-active" name="target_score" value="" type="text" onchange="modifyScore(this, ' + data + ')"/>';
+			$scoreInput = '<input class="form-input is-active" name="score" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$rankInput = '<input class="form-input is-active" name="rank" type="text" value="" onchange="modifyScore(this, ' + data + ')"/>';
+			$deleteIcon = $('<i class="fas fa-trash-alt">');
 
 			$studentNameInputDiv = $('<div class="input-group">').html($studentNameInput)
 			$subjectInputDiv = $('<div class="input-group">').html($subjectInput)
 			$targetScoreInputDiv = $('<div class="input-group">').html($targetScoreInput)
 			$scoreInputDiv = $('<div class="input-group">').html($scoreInput)
 			$rankInputDiv = $('<div class="input-group">').html($rankInput)
+			$deleteScoreBtn = $(`<button type="button" aria-label="삭제 버튼" onclick="removeScore( ${data}, ${examNo} )">`).html($deleteIcon)
 			
 			$studentNameTd.append($studentNameInputDiv);
 			$subjectTd.append($subjectInputDiv);
 			$targetScoreTd.append($targetScoreInputDiv);
 			$scoreTd.append($scoreInputDiv);
 			$rankTd.append($rankInputDiv);
+			$deleteScoreTd.append($deleteScoreBtn);
 			
 			
 			$tr.append($studentNameTd);
@@ -152,9 +157,12 @@ function addScore(examNo) {
 			$tr.append($targetScoreTd);
 			$tr.append($scoreTd);
 			$tr.append($rankTd);
+			$tr.append($deleteScoreTd);
 			
 			$('#addTr').before($tr);
 			
+			formInputs = document.querySelectorAll('.form-input')
+			deleteScoreBtns = document.querySelectorAll('.delete-score-btn')
 		},
 		error: function(error) {
 			console.log(error);
