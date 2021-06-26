@@ -73,21 +73,46 @@ function modifyScore(modifiedInput, scoreNo) {
 }
 
 /* ajax를 통한 성적 삭제 기능 */
-function removeScore(scoreNo, examNo) {
+function removeScore(removedScoreBtn, scoreNo, examNo) {
+	
+	const deleteScoreModal = $('.delete-score-modal');
+	const deleteScoreConfirmBtn = $('.delete-score-confirm-btn');
+	
+	deleteScoreModal.addClass('is-active');
+	overlay.classList.add('is-active');
+    body.classList.add('modal-open');
 	
 	console.log("scoreNo : " + scoreNo);
+
+	/* 삭제 확인 버튼 클릭 시 */	
+	deleteScoreConfirmBtn.click(function() {
+		deleteScoreModal.removeClass('is-active');
+	    
+		$.ajax({
+			url: "/firstedu/grade/score/remove/" + scoreNo,
+			type: "get",		
+			success: function(data) {
+				if(data == 'true') {
+					const removedScoreTr = $(removedScoreBtn).parents('tr');
+					const completeDeleteScoreModal = $('.complete-delete-score-modal');				
+					
+					removedScoreTr.remove();
+					
+					completeDeleteScoreModal.addClass('is-active');
+
+					setTimeout(function() {
+						completeDeleteScoreModal.removeClass('is-active');
+						overlay.classList.remove('is-active');
+					    body.classList.remove('modal-open');
+					}, 1000);				
+				}
+			},
+			error: function(error) {
+				console.log(error);
+			}
+		});	
+	});
 	
-	$.ajax({
-		url: "/firstedu/grade/score/remove/" + scoreNo,
-		type: "get",		
-		success: function(data) {
-			console.log(data);
-			location.href = '/firstedu/grade/exam/' + examNo
-		},
-		error: function(error) {
-			console.log(error);
-		}
-	});	
 }
 
 /* 시험 삭제 */
@@ -142,7 +167,7 @@ function addScore(examNo) {
 			$targetScoreInputDiv = $('<div class="input-group">').html($targetScoreInput)
 			$scoreInputDiv = $('<div class="input-group">').html($scoreInput)
 			$rankInputDiv = $('<div class="input-group">').html($rankInput)
-			$deleteScoreBtn = $(`<button type="button" aria-label="삭제 버튼" onclick="removeScore( ${data}, ${examNo} )">`).html($deleteIcon)
+			$deleteScoreBtn = $(`<button type="button" aria-label="삭제 버튼" onclick="removeScore(this, ${data}, ${examNo})">`).html($deleteIcon)
 			
 			$studentNameTd.append($studentNameInputDiv);
 			$subjectTd.append($subjectInputDiv);

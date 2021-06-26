@@ -70,7 +70,7 @@
                       <th scope="row">시작일</th>
                       <td>
                         <div class="date-align">
-                          <input class="attendance-date" id="#" type="date" name="start_date" value="${ exam.startDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
+                          <input class="attendance-date" type="date" name="start_date" value="${ exam.startDate }" onchange="modifyExam(this, ${ exam.examNo })" readonly>
                           <label for="check-date"></label>
                         </div>
                       </td>
@@ -160,7 +160,7 @@
 	                    </td>
 	                    <td class="delete-score-btn">
 	                      <button type="button" aria-label="삭제 버튼" 
-		                     onclick="removeScore(${ score.scoreNo }, ${ exam.examNo })">
+		                     onclick="removeScore(this, ${ score.scoreNo }, ${ exam.examNo })">
 		                     <i class="fas fa-trash-alt"></i>
 		                  </button>
 		                </td>
@@ -181,9 +181,10 @@
       </div>
     </main>
 
-<div class="overlay" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
 
-<div class="modal delete-board-modal">
+  <!-- 시험 삭제 확인 모달 -->
+  <div class="modal delete-board-modal">
     <div class="modal-content">
       <strong>시험 삭제하기</strong>
       <p>'${ exam.examName }' 시험을 삭제하시겠습니까?</p>
@@ -191,6 +192,29 @@
           <button type="button" class="btn-fill-seconary btn-popup delete-board-btn" onclick="removeExam(${ exam.examNo })">삭제</button>
           <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
         </div>
+    </div>
+  </div>
+  
+  <!-- 성적 삭제 확인 모달 -->
+  <div class="modal delete-score-modal">
+    <div class="modal-content">
+      <strong>성적 삭제하기</strong>
+      <p>성적을 삭제하시겠습니까?</p>
+        <div class="popup-2btn">
+          <button type="button" class="btn-fill-seconary btn-popup delete-score-confirm-btn">삭제</button>
+          <button type="button" class="btn-fill-primary btn-popup back-btn">취소</button>
+        </div>
+    </div>
+  </div>
+  
+  <!-- 성적 삭제 완료 알림 모달 -->
+  <div class="modal complete-delete-score-modal">
+    <div class="modal-content">
+      <strong>성적 삭제 완료</strong>
+      <p>성적이 삭제되었습니다.</p>
+      <div class="popup-1btn">
+        <button type="button" class="btn-fill-primary btn-popup complete-btn">확인</button>
+      </div>
     </div>
   </div>
 
