@@ -32,6 +32,7 @@
 </head>
 <body>
   <jsp:include page="../common/commonMember.jsp"/>
+<form action="${pageContext.servletContext.contextPath }/attendance/teacherAttendanceinput" method="post" }>
 
   <main class="common-background attendance attendance-list">
     <div class="container">
@@ -41,7 +42,7 @@
             <h1 class="visually-hidden">날짜 선택 및 월별 출근 시간</h1>
             <form class="date-align" action="#" method="POST">
               <label for="check-date"></label>
-              <input class="attendance-date" id="#" type="date" name="attendance-date" value="2021-06-15">
+              <input class="attendance-date" id="#" type="date" name="attendance-date" >
             </form>
             <article class="attendance-monthly-date-time">
               <div class="tag-lb-dark btn-check monthly-sum-tag">
@@ -84,7 +85,7 @@
           <form class="common-card teacher-attendance-check-card">
             <h1 class="teacher-attendance-title">근태 입력</h1>
             <article class="teacher-attendance-check-btn">
-              <input type="radio" id="workStart" name="attendance"></input>
+              <input type="submit" id="workStart" name="attendanceTime"></input>
               <label for="workStart" class="btn-circle btn-fill-seconary btn-circle-size">출근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 출근한 시간</p>
@@ -93,7 +94,7 @@
             </article>
             <hr class="borderline">
             <article class="teacher-attendance-check-btn">
-              <input type="radio" id="workEnd" name="attendance"></input>
+              <input type="submit" id="workEnd" name="checkOutTime"></input>
               <label for="workEnd" class="btn-circle btn-fill-seconary btn-circle-size">퇴근</label>
               <div class="teacher-attendance-time-info">
                 <p>오늘 퇴근한 시간</p>
@@ -118,5 +119,6 @@
   <script src="${ pageContext.servletContext.contextPath }/resources/js/drawerMenu.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar.js"></script>
   <script src="${ pageContext.servletContext.contextPath }/resources/js/fullCalendar-teacherAttendance.js"></script>
+  </form>
 </body>
 </html>

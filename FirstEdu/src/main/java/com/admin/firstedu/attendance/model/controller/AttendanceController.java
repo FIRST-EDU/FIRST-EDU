@@ -48,9 +48,9 @@ public class AttendanceController {
 	
 	}
 	
-	@GetMapping("/teacherAttendance")
+	@GetMapping("/insertTeacher")
 	public String insertTeacher() {
-		return  "attendance/teacherAttendance";
+		return  "attendance/insertTeacher";
 		
 	}
 	
@@ -79,26 +79,18 @@ public class AttendanceController {
 //	}
 //	
 	
-	@PostMapping("/teacherAttendance")
+	@PostMapping("/insertTeacher")
 	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
 		
-		int delete = 0;
-		
-		attendanceDTO.setNo(attendanceDTO.getNo());
-		delete = attendanceService.deleteStudent(attendanceDTO);
-		
-		
-		int insert = 0;
 		
 		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
 		attendanceDTO.setAttendanceTime(currnetTime);
-		attendanceDTO.setNo(attendanceDTO.getNo());
+		attendanceDTO.setNo(5);
 		attendanceDTO.setTeacherNo(2);
-		attendanceDTO.setCheckOutTime(currnetTime);
 		
-		insert = attendanceService.insertTeacher(attendanceDTO);
+		attendanceService.insertTeacher(attendanceDTO);
 		
-		if(!(delete == 0)&&(insert==0)) {
+		if(!attendanceService.insertTeacher(attendanceDTO)) {
 			
 			throw new AttendanceInsertException("실패");
 		}
@@ -107,7 +99,7 @@ public class AttendanceController {
 		
 		System.out.println(currnetTime);
 		
-		return "attendance/teacherAttendance";		
+		return "attendance/insertTeacher";		
 	}
 	
 
@@ -166,7 +158,7 @@ public class AttendanceController {
 	      return "attendance/insertStudent";
 
 	   }
-	@GetMapping("/selectStudent")
+	@GetMapping("/studentAttendanceSelect")
 	public String selectStudnet(Model model, String className) {
 		List<StudentSetDTO>studentList = attendanceService.selectStudent(className);
 		List<AttendanceInfoDTO>cateogryList = attendanceService.selectCategory();
@@ -184,7 +176,7 @@ public class AttendanceController {
 			
 			System.out.println(student);
 		}		
-		return "attendance/selectStudent";
+		return "attendance/studentAttendanceSelect";
 		
 	}
 	

@@ -33,7 +33,7 @@
 	<jsp:include page="../common/commonMember.jsp"/>
 
 	<main class="common-background attendance">
-    <form class="attendance-form" action="${pageContext.servletContext.contextPath }/attendance/insertStudent" method="post">
+    <form class="attendance-form">
       <div class="container">
         <div class="row">
           <div class="col-sm-4">
@@ -124,17 +124,17 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1<input type="hidden" name="no" id="no" value="1"></td>
+                      <td>1</td>
                       <td>1학년 초급 수학</td>
                       <td>이지은</td>
                       <td>
-                        <input type="checkbox" name="categoryNo1" id="dis" value="1">
+                        <input type="checkbox">
                         <label class="btn-outlined-gray btn-check btn-size">출석</label>
-                        <input type="checkbox" name="categoryNo1" id="dis" value="4">
+                        <input type="checkbox">
                         <label class="btn-outlined-gray btn-check btn-size">조퇴</label>
-                        <input type="checkbox" name="categoryNo1" id="dis" value="2">
+                        <input type="checkbox">
                         <label class="btn-outlined-gray btn-check btn-size">결석</label>
-                        <input type="checkbox" name="categoryNo1" id="dis" value="3">
+                        <input type="checkbox">
                         <label class="btn-outlined-gray btn-check btn-size">지각</label>
                       </td>
                       <td>

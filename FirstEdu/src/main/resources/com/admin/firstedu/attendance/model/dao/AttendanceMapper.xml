@@ -147,7 +147,6 @@
 		  A.ATTENDANCE_TIME
 		  , A.ATTENDANCE_NO
 		  , A.TEACHER_NO
-		  , A.CHECKOUT_TIME
 		  , A.CATEGORY_NO
 		  
 		)
@@ -156,7 +155,6 @@
 			SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 , #{teacherNo}
-		 , SYSTIMESTAMP
 		 , 1
 		)
 	
@@ -203,14 +201,13 @@
 	</insert>
 	
 	<select id="selectCategory" parameterType="AttendanceInfoDTO" resultMap="attendanceInfoResultSet">
-     SELECT 
-          SUM(CASE WHEN D.CATEGORY_NO = 1 THEN 1 ELSE 0 END) AS chulsuck
-        , SUM(CASE WHEN D.CATEGORY_NO = 2 THEN 1 ELSE 0 END) AS jigack
-        , SUM(CASE WHEN D.CATEGORY_NO = 3 THEN 1 ELSE 0 END) AS kyulsuck
-        , SUM(CASE WHEN D.CATEGORY_NO = 4 THEN 1 ELSE 0 END) AS jotae
-          FROM TBL_ATTENDANCE A
-          INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)
-          GROUP BY D.CATEGORY_NO    
+         SELECT 
+           SUM(DECODE( D.CATEGORY_NO , '1' , 1, 0))AS chulsuck
+         , SUM(DECODE( D.CATEGORY_NO , '2' , 1, 0))AS jigack
+         , SUM(DECODE( D.CATEGORY_NO , '3' , 1, 0))AS kyulsuck
+         , SUM(DECODE( D.CATEGORY_NO , '4' , 1, 0))AS jotae
+         FROM TBL_ATTENDANCE A
+         INNER JOIN TBL_ATTENDANCE_CATEGORY D ON (A.CATEGORY_NO = D.CATEGORY_NO)  
     </select>
     
 	
@@ -227,7 +224,8 @@
 	  JOIN TBL_CLASS C ON (B.CLASS_CODE = C.CLASS_CODE)
 	  JOIN TBL_ATTENDANCE D ON (A.STUDENT_NO = D.STUDENT_NO)
 	  JOIN TBL_ATTENDANCE_CATEGORY E ON (D.CATEGORY_NO = E.CATEGORY_NO)
-	  WHERE C.CLASS_NAME LIKE '%'||#{className}||'%'	
+	  WHERE C.CLASS_NAME LIKE '%'||#{className, jdbcType=VARCHAR }||'%'	
+	<!--   AND ATTENDANCE_TIME = #{attendanceTime, jdbcType=VARCHAR }  -->
 </select>
 
 
@@ -252,6 +250,11 @@
 		       A.ATTENDANCE_TIME
 		 FROM TBL_ATTENDANCE A
         WHERE TEACHER_NO = 2
+	
+	</select>
+	
+	<select id="">
+	
 	
 	</select>
 </mapper>

@@ -11,7 +11,7 @@ public interface AttendanceService {
 	
 	int insertStudent(AttendanceDTO attendance);
 	
-	int insertTeacher(AttendanceDTO attendance);
+	boolean insertTeacher(AttendanceDTO attendance);
 	
 	List<AttendanceInfoDTO> selectStudentAttendance();
 

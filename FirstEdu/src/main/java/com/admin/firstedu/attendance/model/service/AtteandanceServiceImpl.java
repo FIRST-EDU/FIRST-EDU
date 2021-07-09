@@ -23,8 +23,8 @@ public class AtteandanceServiceImpl implements AttendanceService {
 	}
 
 	@Override
-	public int insertTeacher(AttendanceDTO attendance) {
-		return mapper.insertTeacher(attendance);
+	public boolean insertTeacher(AttendanceDTO attendance) {
+		return mapper.insertTeacher(attendance) > 0 ? true : false;
 	}
 
 	@Override
@@ -71,8 +71,23 @@ public class AtteandanceServiceImpl implements AttendanceService {
 
 	@Override
 	public List<StudentSetDTO> selectStudent(String className) {
-		Map map = new HashMap();
-		map.put("className", "1학년");
+		Map<String, Object> map = new HashMap<>();
+		map.put("className", className);
+		
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("className", "1학년초급영어");
+//		map.put("className", "2학년초급영어");
+//		map.put("className", "3학년초급영어");
+//		map.put("className", "1학년중고급영어");
+//		map.put("className", "2학년중고급영어");
+//		map.put("className", "3학년중고급영어");
+//		map.put("className", "수학 상,하");
+//		map.put("className", "수학1");
+//		map.put("className", "수학2");
+//		map.put("className", "미적분");
+//		map.put("className", "기하");
+//		map.put("className", "학률과통계");
+		
 		return mapper.selectStudent(map);
 	}
 

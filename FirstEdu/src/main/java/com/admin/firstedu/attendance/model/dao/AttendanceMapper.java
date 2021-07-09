@@ -27,5 +27,6 @@ public interface AttendanceMapper {
 	int deleteTeacher(AttendanceDTO attendance);
 
 	List<StudentSetDTO> selectStudent(Map map);
+//	List<StudentSetDTO> selectStudent(Map<String, String> map);
 
 }

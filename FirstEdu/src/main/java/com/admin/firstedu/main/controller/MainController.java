@@ -12,6 +12,7 @@ public class MainController {
 	public String main() {
 		
 		return "attendance/teacherAttendance";
+//		return "attendance/studentAttendanceInput";
 
 	}
 }
