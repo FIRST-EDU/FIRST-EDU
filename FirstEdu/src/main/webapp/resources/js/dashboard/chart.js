@@ -65,12 +65,16 @@ for(var i = 12 ; i > 0 ; i--) {
 google.charts.load('current', {'packages':['corechart']});
 
 /* 차트 그리기 */
-google.charts.setOnLoadCallback(drawSalesChart);
-google.charts.setOnLoadCallback(drawSalaryRatioChart);
-google.charts.setOnLoadCallback(drawStudentClassChart);
-google.charts.setOnLoadCallback(drawStudentGenderChart);
-google.charts.setOnLoadCallback(drawStudentSchoolChart);
-google.charts.setOnLoadCallback(drawStudentGradeChart);
+$(function() {
+	setTimeout(function(){
+		google.charts.setOnLoadCallback(drawSalesChart);
+		google.charts.setOnLoadCallback(drawSalaryRatioChart);
+		google.charts.setOnLoadCallback(drawStudentClassChart);
+		google.charts.setOnLoadCallback(drawStudentGenderChart);
+		google.charts.setOnLoadCallback(drawStudentSchoolChart);
+		google.charts.setOnLoadCallback(drawStudentGradeChart);
+	}, 200);
+});
 
 /* 매출 현황 차트 */
 function drawSalesChart() {
