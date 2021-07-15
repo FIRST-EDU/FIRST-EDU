@@ -43,8 +43,9 @@ $('#classCode').change(function() {
 	if(classCode != 'none') {
 		for(var i = 0 ; i < classCodeList.length ; i++) {
 			if(classCodeList.eq(i).val() == classCode) {
-				className = classNameList.eq(i).val()
-				subjectNo = subjectNoList.eq(i).val()
+				className = classNameList.eq(i).val();
+				subjectNo = subjectNoList.eq(i).val();
+				break;
 			}
 		}
 		
