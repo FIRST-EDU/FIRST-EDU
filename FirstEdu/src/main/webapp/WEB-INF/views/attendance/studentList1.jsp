@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<h1 align="center">출결 현황</h1>
+	<h1>출결 현황</h1>
 
 	<table class="studentList" border="1">
 		<thead>

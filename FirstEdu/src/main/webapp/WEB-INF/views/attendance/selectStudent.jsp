@@ -14,8 +14,11 @@ function submitForm() {
 
 </head>
 <body>
+
 <form id="envselection" action="${pageContext.request.contextPath}/attendance/selectStudent" method="get">
- <input class="attendance-date" id="#" type="date" name="attendanceTime" value="attendanceTime">
+
+<h1>학생 출결 조회</h1>
+<!--  <input class="attendance-date" id="#" type="date" name="attendanceTime" value="attendanceTime"> -->
 	<table class="cateogryList" border="1">
 		<thead>
 			<tr>
@@ -36,10 +39,9 @@ function submitForm() {
 			</c:forEach>
 		</tbody>
 		</table>
-            <input type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/attendance/insertStudnet'" class="btn-fill-light-blue btn-long btn-margin" value="수정">
 		
 		
-
+<input type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/attendance/insertStudnet'" class="btn-fill-light-blue btn-long btn-margin" value="수정">
 	<input type="radio" name="className" id="radioSelection" value="1학년초급영어" onclick="submitForm()" >1학년초급영어
 	<input type="radio" name="className" id="radioSelection" value="2학년초급영어" onclick="submitForm()" >2학년초급영어
 	<input type="radio" name="className" id="radioSelection" value="3학년초급영어" onclick="submitForm()" >3학년초급영어
@@ -52,19 +54,16 @@ function submitForm() {
 	<input type="radio" name="className" id="radioSelection" value="미적분" onclick="submitForm()" >미적분
 	<input type="radio" name="className" id="radioSelection" value="기하" onclick="submitForm()" >기하
 	<input type="radio" name="className" id="radioSelection" value="학률과통계" onclick="submitForm()" >학률과통계
- 	
-	
-	
-	                <table>
-                  <thead>
-                    <tr>
-                      <th >NO</th>
-                      <th>학생명</th>
-                      <th >출결사항</th>
-                      <th >비고</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+<table border="1">
+<thead>
+<tr>
+    <th >NO</th>
+   <th>학생명</th>
+   <th >출결사항</th>
+    <th >비고</th>
+</tr>
+</thead>
+<tbody>
 	
 	<c:forEach var="student" items="${studentList}">
 		<tr>

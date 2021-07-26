@@ -31,7 +31,7 @@ public class AttendanceController {
 	
 	}
 	
-	@GetMapping("/studentAttendanceList")//파일 path
+	@GetMapping("/studentList1")//파일 path
 	public String selectStudnetAttendance(Model model) {
 		
 		List<AttendanceInfoDTO> studentList = attendanceService.selectStudentAttendance();
@@ -44,7 +44,7 @@ public class AttendanceController {
 		
 		}
 		
-		return "attendance/studentAttendanceList";//뷰페이지 이름
+		return "attendance/studentList1";//뷰페이지 이름
 	
 	}
 	
@@ -53,40 +53,15 @@ public class AttendanceController {
 		return  "attendance/insertTeacher";
 		
 	}
-	
-//	@PostMapping(value = "/teacherList" , produces = "application/json; charset=UTF-8")
-//	@ResponseBody
-//	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
-//		
-//		
-//		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
-//		attendanceDTO.setAttendanceTime(currnetTime);
-//		attendanceDTO.setNo(4);
-//		attendanceDTO.setTeacherNo(1);
-//		
-//		
-//		if(!attendanceService.insertTeacher(attendanceDTO)) {
-//			
-//			throw new AttendanceInsertException("실패");
-//		}
-//		
-//		rttr.addFlashAttribute("message", "성공");
-//		
-//		System.out.println(currnetTime);
-//		
-//		
-//		return currnetTime.toGMTString();		
-//	}
-//	
-	
 	@PostMapping("/insertTeacher")
 	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
 		
 		
 		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
 		attendanceDTO.setAttendanceTime(currnetTime);
-		attendanceDTO.setNo(5);
+		attendanceDTO.setNo(70);
 		attendanceDTO.setTeacherNo(2);
+		attendanceDTO.setCategoryNo(5);
 		
 		attendanceService.insertTeacher(attendanceDTO);
 		
@@ -131,6 +106,7 @@ public class AttendanceController {
 		  int delete = 0;
 
 		  attendance.setNo(attendance.getNo());
+		  attendance.setStudentNo(attendance.getStudentNo());
 
 		  delete = attendanceService.deleteStudent(attendance);
 		  
@@ -158,7 +134,9 @@ public class AttendanceController {
 	      return "attendance/insertStudent";
 
 	   }
-	@GetMapping("/studentAttendanceSelect")
+	   
+	   
+	@GetMapping("/selectStudent")
 	public String selectStudnet(Model model, String className) {
 		List<StudentSetDTO>studentList = attendanceService.selectStudent(className);
 		List<AttendanceInfoDTO>cateogryList = attendanceService.selectCategory();
@@ -176,7 +154,7 @@ public class AttendanceController {
 			
 			System.out.println(student);
 		}		
-		return "attendance/studentAttendanceSelect";
+		return "attendance/selectStudent";
 		
 	}
 	
@@ -186,7 +164,33 @@ public class AttendanceController {
 
 	
 	
+	
+//	@PostMapping(value = "/teacherList" , produces = "application/json; charset=UTF-8")
+//	@ResponseBody
+//	public String insertTeacher(@ModelAttribute AttendanceDTO attendanceDTO, RedirectAttributes rttr) throws AttendanceInsertException {
+//		
+//		
+//		java.sql.Date currnetTime = new java.sql.Date(System.currentTimeMillis());
+//		attendanceDTO.setAttendanceTime(currnetTime);
+//		attendanceDTO.setNo(4);
+//		attendanceDTO.setTeacherNo(1);
+//		
+//		
+//		if(!attendanceService.insertTeacher(attendanceDTO)) {
+//			
+//			throw new AttendanceInsertException("실패");
+//		}
+//		
+//		rttr.addFlashAttribute("message", "성공");
+//		
+//		System.out.println(currnetTime);
+//		
+//		
+//		return currnetTime.toGMTString();		
+//	}
+//	
 
 	
 
 }
+

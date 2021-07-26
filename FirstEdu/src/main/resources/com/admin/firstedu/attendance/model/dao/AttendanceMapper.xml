@@ -155,7 +155,7 @@
 			SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 , #{teacherNo}
-		 , 1
+		 , #{ categoryNo }
 		)
 	
 	</insert>
@@ -173,6 +173,7 @@
 		   	SYSTIMESTAMP
 		 , 	SEQ_ATTENDANCE_NO.NEXTVAL
 		 , #{teacherNo}
+		 
 		)
 	
 	</insert>

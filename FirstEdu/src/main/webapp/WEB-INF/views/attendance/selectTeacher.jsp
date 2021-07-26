@@ -5,17 +5,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <form >
 <table>
+<h1>근태 조회</h1>
 	<c:forEach items="${teacherList}" var="teacher">
-	<td><input type="button" value="${teacher.attendanceTime }" ></td>
+	<td><input type="button" value="${teacher.attendanceTime }" pattern="yyyy-MM-ddHH:mm:ss"/></td>
 	</c:forEach>
 	
 		<%-- <fmt:formatDate var="attendanceTime" value="${teacher.attendanceTime }" pattern="YYYY/MM/DD HH24:MI:SS"/> --%>
+		<%-- <fmt:formatDate var="attendanceTime" value="${teacher.attendanceTime }" pattern="yyyy-MM-ddHH:mm:ss"/>  --%>
 </table>
 </form>
 </body>

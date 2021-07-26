@@ -20,7 +20,8 @@
 <br>
 
 날짜:<input type="date" name="attendanceTime" id="attendanceTime" >
-
+<br>
+이름 : 김서연
 <input type="hidden" name="no" id="no" value="1">
 <input type="hidden" name="studentNo" id="studentNo" value="1">
 <input type="hidden" name="classNo" id="classNo" value="1">
@@ -32,6 +33,21 @@
 <input type="checkbox" name="categoryNo1" id="dis" value="4">조퇴
 <input type="text" name="memo" id="memo" >
 <input type="button" value="메모">
+
+<br>
+이름 : 박민서
+<input type="hidden" name="no" id="no" value="2">
+<input type="hidden" name="studentNo" id="studentNo" value="2">
+<input type="hidden" name="classNo" id="classNo" value="1">
+<br>
+
+<input type="checkbox" name="categoryNo1" id="dis" value="1" >출석
+<input type="checkbox" name="categoryNo1" id="dis" value="2">결석
+<input type="checkbox" name="categoryNo1" id="dis" value="3">지각
+<input type="checkbox" name="categoryNo1" id="dis" value="4">조퇴
+<input type="text" name="memo" id="memo" >
+<input type="button" value="메모">
+
 
 </form>
 

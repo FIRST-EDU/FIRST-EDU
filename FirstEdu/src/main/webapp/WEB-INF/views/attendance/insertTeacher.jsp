@@ -11,7 +11,7 @@
 <form action="${pageContext.servletContext.contextPath }/attendance/insertTeacher" method="post" }>
 
 
-<h1 align="center">근태 출결</h1>
+<h1>근태 출결</h1>
 날짜:<input type="date" name="attendanceTime" id="attendanceTime" >
 
 
